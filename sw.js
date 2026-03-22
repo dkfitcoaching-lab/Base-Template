@@ -1,4 +1,4 @@
-var CACHE_NAME = 'bigmike-v11';
+var CACHE_NAME = 'coachinglab-v1';
 var APP_SHELL = [
   './',
   './index.html',
