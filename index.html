@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0,user-scalable=yes"/>
-<title>Big Mike Ely Coaching Lab</title>
+<title>Coaching Lab</title>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Big Mike Ely Coaching Lab"/>
+<meta name="apple-mobile-web-app-title" content="Coaching Lab"/>
 <meta name="theme-color" content="#020202"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -286,8 +286,8 @@ body.theme-crimson{
 <div id="app" style="display:none">
   <div class="hdr">
     <div style="display:flex;align-items:center;gap:10px">
-      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:20px;font-weight:900;animation:breathe 4s ease-in-out infinite;box-shadow:0 0 16px var(--accS)"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px var(--accM))">M</span></div>
-      <div><div style="font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--ice)">Big Mike Ely</div><div style="font-size:7px;color:var(--dm);font-family:var(--mono);letter-spacing:.14em;margin-top:1px">IFBB PRO · COACHING LAB</div></div>
+      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:20px;font-weight:900;animation:breathe 4s ease-in-out infinite;box-shadow:0 0 16px var(--accS)"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px var(--accM))">C</span></div>
+      <div><div style="font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--ice)">Coaching Lab</div><div style="font-size:7px;color:var(--dm);font-family:var(--mono);letter-spacing:.14em;margin-top:1px">CLIENT MANAGEMENT</div></div>
     </div>
     <div style="display:flex;gap:6px;align-items:center">
         <div id="syncBadge" class="sync-badge sync-badge-hidden"></div>
@@ -505,7 +505,7 @@ function getPIN(){return localStorage.getItem(PIN_KEY)||"1234";}
 function setPIN(p){localStorage.setItem(PIN_KEY,p);}
 function isUnlocked(){return sessionStorage.getItem("fm_unlocked")==="true";}
 function unlock(){sessionStorage.setItem("fm_unlocked","true");}
-function showLockScreen(){if(_smsCheckInterval){clearInterval(_smsCheckInterval);_smsCheckInterval=null;}el("app").style.display="none";el("qnoteFab").style.display="none";var ld=el("lockScreen");if(!ld){ld=document.createElement("div");ld.id="lockScreen";document.body.appendChild(ld);}ld.style.cssText="position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);padding:24px";var cs=getComputedStyle(document.body);var accVal=cs.getPropertyValue("--acc").trim();var accGlowVal=cs.getPropertyValue("--accGlow").trim();var accSVal=cs.getPropertyValue("--accS").trim();var accBVal=cs.getPropertyValue("--accB").trim();var accMVal=cs.getPropertyValue("--accM").trim();var gradVal=cs.getPropertyValue("--goldGrad").trim();ld.innerHTML='<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><div style="position:absolute;top:20%;left:50%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,'+accGlowVal+','+accSVal+' 45%,transparent 65%);transform:translate(-50%,-50%);animation:lockOrbFloat 8s ease-in-out infinite;filter:blur(60px)"></div><div style="position:absolute;top:40%;left:35%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,'+accSVal+',transparent 55%);transform:translate(-50%,-50%);animation:lockOrb2 6s ease-in-out infinite 1s;filter:blur(45px)"></div></div><div style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px;animation:lockFadeIn .8s ease-out"><div style="width:112px;height:112px;border-radius:28px;background:linear-gradient(145deg,#0c0c0c,#060606);border:1.5px solid '+accBVal+';display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:54px;font-weight:900;position:relative;box-shadow:0 0 12px '+accMVal+',0 0 30px '+accGlowVal+',0 0 60px '+accSVal+',0 0 100px '+accSVal+',inset 0 0 20px '+accSVal+';animation:lockGlowRise .9s cubic-bezier(.34,1.56,.64,1) both,neonBreathe 4s ease-in-out 1s infinite;margin-bottom:44px"><span style="background:'+gradVal+';background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px '+accMVal+')">M</span></div><div style="display:flex;align-items:center;gap:14px;animation:lockBadgeFade .6s ease-out .35s both;margin-bottom:20px"><div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,'+accBVal+')"></div><span style="font-size:11px;font-weight:700;letter-spacing:.35em;background:'+gradVal+';background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);font-size:13px;letter-spacing:.45em;animation:goldShimmer 4s ease-in-out infinite .5s;filter:drop-shadow(0 0 12px '+accMVal+')">IFBB PRO</span><div style="width:40px;height:1px;background:linear-gradient(90deg,'+accBVal+',transparent)"></div></div><div style="font-family:var(--display);font-size:34px;font-weight:600;letter-spacing:.14em;margin-bottom:52px;animation:lockTextReveal .8s ease-out .5s both"><span style="background:linear-gradient(160deg,var(--ice),var(--wh),var(--ow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,245,225,.08))">BIG MIKE</span></div><div style="width:100%;max-width:280px;animation:lockPinRise .6s ease-out .75s both"><input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="\u00b7 \u00b7 \u00b7 \u00b7" style="text-align:center;font-size:22px;letter-spacing:.6em;font-family:var(--mono);padding:18px;margin-bottom:16px;border-radius:12px;background:rgba(255,255,255,.015);border:1.5px solid var(--borderH);color:var(--ice);width:100%;box-sizing:border-box;outline:none;transition:border-color .2s"><button class="btn" onclick="tryUnlock()" style="margin-bottom:12px;border-radius:12px;padding:16px 18px">UNLOCK</button><div id="pinError" style="text-align:center;font-size:10px;color:var(--danger);font-family:var(--mono);min-height:18px"></div></div><div style="position:absolute;bottom:-60px;animation:lockBadgeFade .6s ease-out 1s both"><span style="font-size:7px;color:rgba(180,170,150,.25);font-family:var(--mono);letter-spacing:.35em">IFBB PRO BIG MIKE ELY\'S COACHING LAB</span></div></div>';setTimeout(function(){var inp=el("pinInput");if(inp){inp.focus();inp.addEventListener("keydown",function(e){if(e.key==="Enter")tryUnlock();});}},100);}
+function showLockScreen(){if(_smsCheckInterval){clearInterval(_smsCheckInterval);_smsCheckInterval=null;}el("app").style.display="none";el("qnoteFab").style.display="none";var ld=el("lockScreen");if(!ld){ld=document.createElement("div");ld.id="lockScreen";document.body.appendChild(ld);}ld.style.cssText="position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);padding:24px";var cs=getComputedStyle(document.body);var accVal=cs.getPropertyValue("--acc").trim();var accGlowVal=cs.getPropertyValue("--accGlow").trim();var accSVal=cs.getPropertyValue("--accS").trim();var accBVal=cs.getPropertyValue("--accB").trim();var accMVal=cs.getPropertyValue("--accM").trim();var gradVal=cs.getPropertyValue("--goldGrad").trim();ld.innerHTML='<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><div style="position:absolute;top:20%;left:50%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,'+accGlowVal+','+accSVal+' 45%,transparent 65%);transform:translate(-50%,-50%);animation:lockOrbFloat 8s ease-in-out infinite;filter:blur(60px)"></div><div style="position:absolute;top:40%;left:35%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,'+accSVal+',transparent 55%);transform:translate(-50%,-50%);animation:lockOrb2 6s ease-in-out infinite 1s;filter:blur(45px)"></div></div><div style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px;animation:lockFadeIn .8s ease-out"><div style="width:112px;height:112px;border-radius:28px;background:linear-gradient(145deg,#0c0c0c,#060606);border:1.5px solid '+accBVal+';display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:54px;font-weight:900;position:relative;box-shadow:0 0 12px '+accMVal+',0 0 30px '+accGlowVal+',0 0 60px '+accSVal+',0 0 100px '+accSVal+',inset 0 0 20px '+accSVal+';animation:lockGlowRise .9s cubic-bezier(.34,1.56,.64,1) both,neonBreathe 4s ease-in-out 1s infinite;margin-bottom:44px"><span style="background:'+gradVal+';background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px '+accMVal+')">C</span></div><div style="display:flex;align-items:center;gap:14px;animation:lockBadgeFade .6s ease-out .35s both;margin-bottom:20px"><div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,'+accBVal+')"></div><span style="font-size:11px;font-weight:700;letter-spacing:.35em;background:'+gradVal+';background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);font-size:13px;letter-spacing:.45em;animation:goldShimmer 4s ease-in-out infinite .5s;filter:drop-shadow(0 0 12px '+accMVal+')">COACHING</span><div style="width:40px;height:1px;background:linear-gradient(90deg,'+accBVal+',transparent)"></div></div><div style="font-family:var(--display);font-size:34px;font-weight:600;letter-spacing:.14em;margin-bottom:52px;animation:lockTextReveal .8s ease-out .5s both"><span style="background:linear-gradient(160deg,var(--ice),var(--wh),var(--ow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,245,225,.08))">COACHING LAB</span></div><div style="width:100%;max-width:280px;animation:lockPinRise .6s ease-out .75s both"><input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="\u00b7 \u00b7 \u00b7 \u00b7" style="text-align:center;font-size:22px;letter-spacing:.6em;font-family:var(--mono);padding:18px;margin-bottom:16px;border-radius:12px;background:rgba(255,255,255,.015);border:1.5px solid var(--borderH);color:var(--ice);width:100%;box-sizing:border-box;outline:none;transition:border-color .2s"><button class="btn" onclick="tryUnlock()" style="margin-bottom:12px;border-radius:12px;padding:16px 18px">UNLOCK</button><div id="pinError" style="text-align:center;font-size:10px;color:var(--danger);font-family:var(--mono);min-height:18px"></div></div><div style="position:absolute;bottom:-60px;animation:lockBadgeFade .6s ease-out 1s both"><span style="font-size:7px;color:rgba(180,170,150,.25);font-family:var(--mono);letter-spacing:.35em">COACHING LAB</span></div></div>';setTimeout(function(){var inp=el("pinInput");if(inp){inp.focus();inp.addEventListener("keydown",function(e){if(e.key==="Enter")tryUnlock();});}},100);}
 function tryUnlock(){var inp=el("pinInput"),entered=inp?inp.value.trim():"";if(entered===getPIN()){haptic("success");unlock();var lk=el("lockScreen");if(lk)lk.remove();el("app").style.display="";el("qnoteFab").style.display="";render();showTutorial();startSMSChecker();requestNotifPermission();}else{haptic("error");var err=el("pinError");if(err)err.textContent="Incorrect PIN";if(inp){inp.value="";inp.focus();}}}
 function changePIN(){showPrompt("Change PIN","Enter your current PIN:","","Current PIN").then(function(cur){if(cur===null)return;if(cur!==getPIN()){toast("Incorrect");return;}showPrompt("New PIN","Enter new PIN (4-8 digits):","","New PIN").then(function(np){if(!np||np.length<4||!/^\d+$/.test(np)){toast("Must be 4-8 digits");return;}showPrompt("Confirm PIN","Re-enter new PIN to confirm:","","Confirm PIN").then(function(c2){if(c2!==np){toast("Mismatch");return;}setPIN(np);toast("\u2713 PIN updated");});});});}
 function openQNote(){var m=el("qnoteModal");m.style.display="flex";var sel=el("qnoteClient");sel.innerHTML='<option value="">Select client...</option>';for(var i=0;i<clients.length;i++)sel.innerHTML+='<option value="'+clients[i].id+'">'+esc(clients[i].name)+'</option>';setTimeout(function(){var t=el("qnoteText");if(t)t.focus();},100);}
@@ -523,7 +523,7 @@ var TABS=[
 ];
 function render(){
   var tabsEl=el("tabs");
-  var deskLogo='<div class="desk-logo"><div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#0c0c0c,#060606);border:1.5px solid var(--borderH);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;font-weight:900;box-shadow:0 0 8px var(--accGlow),0 0 20px var(--accS)"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px var(--accM))">M</span></div><div><div style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--ice)">Big Mike Ely</div><div style="font-size:7px;color:var(--dm);font-family:var(--mono);letter-spacing:.14em;margin-top:2px">IFBB PRO · COACHING LAB</div></div></div>';
+  var deskLogo='<div class="desk-logo"><div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#0c0c0c,#060606);border:1.5px solid var(--borderH);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;font-weight:900;box-shadow:0 0 8px var(--accGlow),0 0 20px var(--accS)"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px var(--accM))">C</span></div><div><div style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--ice)">Coaching Lab</div><div style="font-size:7px;color:var(--dm);font-family:var(--mono);letter-spacing:.14em;margin-top:2px">CLIENT MANAGEMENT</div></div></div>';
   var th="";for(var i=0;i<TABS.length;i++){var t=TABS[i];th+='<div class="ti'+(currentView.tab===t.k?" on":"")+'" onclick="go(\''+t.k+'\')">'+t.svg+'<span>'+t.l+'</span></div>';}
   tabsEl.innerHTML=deskLogo+th;
   var ct=el("ct");ct.style.animation="none";ct.offsetHeight;ct.style.animation="fadeIn .3s ease";
@@ -635,7 +635,7 @@ function renderHome(){
       +'<div class="metric-row"><span class="metric-label">Lifetime Sessions</span><span class="metric-value">'+sessions.filter(function(s){return s.status!=="cancelled";}).length+'</span></div>'
       +'</div>';}
   html+='<div class="section-divider"></div>';
-  html+='<div style="text-align:center;padding:12px 0 16px"><div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-size:16px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">M</span></div><div style="font-size:8px;color:var(--dmL);font-family:var(--mono);letter-spacing:.3em">IFBB PRO BIG MIKE ELY\'S COACHING LAB</div><div style="font-size:7px;color:var(--dmL);font-family:var(--mono);margin-top:4px;letter-spacing:.15em">VERSION '+VERSION+' \u00b7 COACHING PLATFORM</div></div>';
+  html+='<div style="text-align:center;padding:12px 0 16px"><div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-size:16px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">C</span></div><div style="font-size:8px;color:var(--dmL);font-family:var(--mono);letter-spacing:.3em">COACHING LAB</div><div style="font-size:7px;color:var(--dmL);font-family:var(--mono);margin-top:4px;letter-spacing:.15em">VERSION '+VERSION+' \u00b7 COACHING PLATFORM</div></div>';
   return html;
 }
 function renderEarningsChart(){
@@ -1296,7 +1296,7 @@ function renderSettings(){
   var totalClients=clients.length,totalSess=sessions.filter(function(s){return s.status!=="cancelled";}).length;
   var memberSince=sessions.length?sessions.reduce(function(a,s){return s.date<a?s.date:a;},sessions[0].date):"";
   return '<button class="btn2" onclick="go(\'home\')" style="margin-bottom:12px">\u2039 BACK</button><div class="pt">Settings</div><div style="height:1px;background:linear-gradient(90deg,transparent,var(--accDeep),var(--acc),var(--accDeep),transparent);margin-bottom:18px"></div>'
-    +'<div class="sl">PROFILE</div><div class="cd" style="padding:20px"><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><div style="width:56px;height:56px;border-radius:16px;background:var(--goldGrad);background-size:200% 100%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;font-weight:900;color:var(--bg);animation:shimmer 3s ease-in-out infinite;box-shadow:0 4px 20px var(--accM)">M</div><div><div style="font-size:17px;font-weight:700;color:var(--wh);font-family:var(--display)">Big Mike Ely</div><div style="display:flex;gap:6px;align-items:center;margin-top:3px"><span class="premium-badge">IFBB PRO</span></div></div></div>'
+    +'<div class="sl">PROFILE</div><div class="cd" style="padding:20px"><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><div style="width:56px;height:56px;border-radius:16px;background:var(--goldGrad);background-size:200% 100%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;font-weight:900;color:var(--bg);animation:shimmer 3s ease-in-out infinite;box-shadow:0 4px 20px var(--accM)">C</div><div><div style="font-size:17px;font-weight:700;color:var(--wh);font-family:var(--display)">Coaching Lab</div><div style="display:flex;gap:6px;align-items:center;margin-top:3px"><span class="premium-badge">PRO</span></div></div></div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><div style="text-align:center;padding:10px 6px;background:var(--glass);border-radius:8px;border:1px solid var(--borderS)"><div style="font-size:18px;font-weight:700;color:var(--acc);font-family:var(--mono)">'+totalClients+'</div><div style="font-size:8px;color:var(--dm);font-family:var(--mono);letter-spacing:.08em">CLIENTS</div></div><div style="text-align:center;padding:10px 6px;background:var(--glass);border-radius:8px;border:1px solid var(--borderS)"><div style="font-size:18px;font-weight:700;color:var(--wh);font-family:var(--mono)">'+totalSess+'</div><div style="font-size:8px;color:var(--dm);font-family:var(--mono);letter-spacing:.08em">SESSIONS</div></div><div style="text-align:center;padding:10px 6px;background:var(--glass);border-radius:8px;border:1px solid var(--borderS)"><div style="font-size:18px;font-weight:700;color:var(--accVib);font-family:var(--mono)">$'+tr+'</div><div style="font-size:8px;color:var(--dm);font-family:var(--mono);letter-spacing:.08em">REVENUE</div></div></div>'
     +(memberSince?'<div style="margin-top:10px;font-size:9px;color:var(--dm);font-family:var(--mono);text-align:center">Tracking since '+fmtDate(memberSince)+'</div>':'')+'</div>'
     +'<div class="sl" style="margin-top:18px">GYM SETTINGS</div><div class="cd" style="padding:16px"><div class="field"><span class="lb">GYM CUT (%)</span><div style="display:flex;gap:4px;flex-wrap:wrap">'+ph+'</div></div><div class="field"><span class="lb">DEFAULT SESSION RATE ($)</span><input id="defRate" type="number" min="0" value="'+LS.get("defaultRate","")+'" onchange="LS.set(\'defaultRate\',this.value)"></div></div>'
@@ -1323,7 +1323,7 @@ function renderSettings(){
     +'<input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)"></div>'
     +'<div class="sl" style="margin-top:18px">DANGER ZONE</div><div class="cd" style="padding:16px;border:1px solid rgba(216,120,120,.25)"><div style="font-size:11px;color:var(--danger);margin-bottom:12px">Cannot be undone. Export first.</div><div class="g2"><button class="btn-danger" onclick="clearAllSessions()">CLEAR ALL SESSIONS</button><button class="btn-danger" onclick="factoryReset()">FACTORY RESET</button></div></div>'
     +'<div class="cd" style="padding:16px;text-align:center;margin-top:10px;margin-bottom:16px"><div class="g2"><button class="btn2" onclick="sessionStorage.removeItem(\'fm_unlocked\');showLockScreen()" style="width:100%;padding:14px">LOCK APP</button><button class="btn2" onclick="signOut()" style="width:100%;color:var(--danger);border-color:rgba(216,120,120,.15)">SIGN OUT</button></div></div>'
-    +'<div style="text-align:center;padding:24px 0 16px"><div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">M</span></div><div style="font-size:8px;color:var(--dmL);font-family:var(--mono);letter-spacing:.25em;margin-bottom:4px">BIG MIKE ELY\'S COACHING LAB</div><div style="font-size:7px;color:var(--dmL);font-family:var(--mono);letter-spacing:.15em">v'+VERSION+' \u00b7 IFBB PRO COACHING PLATFORM</div></div>';
+    +'<div style="text-align:center;padding:24px 0 16px"><div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#080808,#0e0e10);border:1px solid var(--borderH);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-size:18px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">C</span></div><div style="font-size:8px;color:var(--dmL);font-family:var(--mono);letter-spacing:.25em;margin-bottom:4px">COACHING LAB</div><div style="font-size:7px;color:var(--dmL);font-family:var(--mono);letter-spacing:.15em">v'+VERSION+' \u00b7 COACHING PLATFORM</div></div>';
 }
 function toggleNotif(key,el_){var def=key.indexOf("sms")>=0?false:true;var cur=LS.get(key,def);LS.set(key,!cur);el_.textContent=!cur?"ON":"OFF";if(!cur)el_.classList.add("on");else el_.classList.remove("on");}
 function setGymCut(p){LS.set("gymCut",p);toast("\u2713 Gym cut "+p+"%");render();}
@@ -3080,7 +3080,7 @@ function saveSMSConfig(){
 function testSMS(){
   var phone=LS.get("coach_phone","");
   if(!phone){toast("Set coach phone first");return;}
-  sendSMS(phone,"Big Mike Coaching Lab \u2014 SMS system active. Reminders will be sent to this number.");
+  sendSMS(phone,"Coaching Lab \u2014 SMS system active. Reminders will be sent to this number.");
 }
 function sendSMS(to,message){
   var sb=getSupabase();if(!sb){toast("Configure Supabase first");return Promise.resolve(false);}
@@ -3125,7 +3125,7 @@ function checkAndSendReminders(){
       if(ok){sent[s.id]=true;LS.set("sms_sent_"+today,sent);}
     });
     if(cl&&cl.phone&&LS.get("sms_client_reminders",false)){
-      var clientMsg="Hey "+clientName.split(" ")[0]+", reminder: "+(s.type||"training")+" session at "+fmtTimeStr(s.time)+" today. \u2014 Coach Mike";
+      var clientMsg="Hey "+clientName.split(" ")[0]+", reminder: "+(s.type||"training")+" session at "+fmtTimeStr(s.time)+" today.";
       sendClientSMS(s.clientId,clientMsg);
     }
   });
@@ -3236,7 +3236,7 @@ function _updateManifestIcons(){
       }
     }
     if(icons.length){
-      var manifest={name:"Big Mike Ely Coaching Lab",short_name:"Coaching Lab",description:"IFBB Pro Big Mike Ely's coaching management platform",id:"/",start_url:"/",display:"standalone",orientation:"portrait",background_color:"#020202",theme_color:"#020202",categories:["fitness","health","productivity"],icons:icons};
+      var manifest={name:"Coaching Lab",short_name:"Coaching Lab",description:"Professional coaching management platform",id:"/",start_url:"/",display:"standalone",orientation:"portrait",background_color:"#020202",theme_color:"#020202",categories:["fitness","health","productivity"],icons:icons};
       var blob=new Blob([JSON.stringify(manifest)],{type:"application/json"});
       var url=URL.createObjectURL(blob);
       var link=document.querySelector('link[rel="manifest"]');
@@ -3257,9 +3257,9 @@ function _pdfCoverPage(accent,rgb,docType,clientName,subtitle){
     +'<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:3px;background:linear-gradient(90deg,transparent,'+accent+',transparent)"></div>'
     +'<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba('+rgb+',.12),transparent 55%);pointer-events:none"></div>'
     +'<div style="text-align:center;padding:0 40px;position:relative">'
-    +'<div style="font-family:Cinzel,serif;font-size:110px;font-weight:900;letter-spacing:.08em;margin-bottom:12px;line-height:1;text-shadow:0 0 60px rgba('+rgb+',.4)"><span style="color:'+accent+'">M</span></div>'
-    +'<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;letter-spacing:.4em;color:#f0e8d0;margin-bottom:6px;text-shadow:0 0 20px rgba(255,245,225,.1)">BIG MIKE ELY</div>'
-    +'<div style="font-size:11px;font-weight:700;letter-spacing:.55em;color:'+accent+';font-family:IBM Plex Mono,monospace;margin-bottom:50px">IFBB PRO &middot; COACHING LAB</div>'
+    +'<div style="font-family:Cinzel,serif;font-size:110px;font-weight:900;letter-spacing:.08em;margin-bottom:12px;line-height:1;text-shadow:0 0 60px rgba('+rgb+',.4)"><span style="color:'+accent+'">C</span></div>'
+    +'<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;letter-spacing:.4em;color:#f0e8d0;margin-bottom:6px;text-shadow:0 0 20px rgba(255,245,225,.1)">COACHING LAB</div>'
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.55em;color:'+accent+';font-family:IBM Plex Mono,monospace;margin-bottom:50px">CLIENT MANAGEMENT</div>'
     +'<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:50px"><div style="width:80px;height:2px;background:linear-gradient(90deg,transparent,'+accent+')"></div><div style="width:8px;height:8px;border:2px solid '+accent+';transform:rotate(45deg)"></div><div style="width:80px;height:2px;background:linear-gradient(90deg,'+accent+',transparent)"></div></div>'
     +'<div style="font-family:Cinzel,serif;font-size:38px;font-weight:700;color:'+accent+';letter-spacing:.1em;margin-bottom:20px;line-height:1.3;text-shadow:0 0 30px rgba('+rgb+',.3)">'+docType+'</div>'
     +'<div style="width:100px;height:2px;background:linear-gradient(90deg,transparent,'+accent+',transparent);margin:0 auto 28px"></div>'
@@ -3267,7 +3267,7 @@ function _pdfCoverPage(accent,rgb,docType,clientName,subtitle){
     +(subtitle?'<div style="font-size:14px;color:#999;font-family:IBM Plex Mono,monospace;margin-bottom:6px;letter-spacing:.06em">'+subtitle+'</div>':'')
     +'<div style="font-size:13px;color:#666;font-family:IBM Plex Mono,monospace;margin-top:28px;letter-spacing:.05em">'+new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})+'</div>'
     +'</div>'
-    +'<div style="position:absolute;bottom:28px;left:0;right:0;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:12px"><div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,'+accent+'50)"></div><div style="font-size:8px;color:#444;font-family:IBM Plex Mono,monospace;letter-spacing:.4em">BIG MIKE ELY\'S COACHING LAB</div><div style="width:40px;height:1px;background:linear-gradient(90deg,'+accent+'50,transparent)"></div></div></div>'
+    +'<div style="position:absolute;bottom:28px;left:0;right:0;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:12px"><div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,'+accent+'50)"></div><div style="font-size:8px;color:#444;font-family:IBM Plex Mono,monospace;letter-spacing:.4em">COACHING LAB</div><div style="width:40px;height:1px;background:linear-gradient(90deg,'+accent+'50,transparent)"></div></div></div>'
     +'</div>';
 }
 function _pdfContentPage(accent,rgb,sections,docType,pageLabel){
@@ -3820,7 +3820,7 @@ var _tutStep=0;
 function showTutorial(){
   if(LS.get("tutorialDone",false))return;
   var steps=[
-    {title:"Big Mike Ely's Coaching Lab",body:"Your coaching platform. Here's how it works.",icon:'<div style="font-family:var(--display);font-size:52px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite">M</span></div>',action:null},
+    {title:"Coaching Lab",body:"Your coaching platform. Here's how it works.",icon:'<div style="font-family:var(--display);font-size:52px;font-weight:900;margin-bottom:8px"><span style="background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite">M</span></div>',action:null},
     {title:"Home Dashboard",body:"Revenue, today\'s schedule, weekly stats, earnings charts. Everything at a glance.",icon:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>',action:"home",highlight:"home"},
     {title:"Clients",body:"Add clients with rates, goals, measurements, contest prep. Full profiles with session history and progress tracking.",icon:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',action:"clients",highlight:"clients"},
     {title:"Session Log",body:"Log sessions with exercises, sets, reps, weights. Earnings auto-calculate with gym cut. PRs flagged automatically.",icon:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>',action:"sessions",highlight:"sessions"},
@@ -3869,105 +3869,9 @@ function showTutorial(){
   renderTutStep();
 }
 function finishTutorial(){LS.set("tutorialDone",true);var ov=el("tutOverlay");if(ov)ov.remove();document.querySelectorAll(".ti").forEach(function(t){t.style.outline="";t.style.outlineOffset="";t.style.zIndex="";});_doGoTab("home");}
-// ── BIRTHDAY GIFT UNWRAP ──
-var _bdayLaunch=1773705600000;
-var _bdayExpiry=1773936000000;
-function showBirthdayPopup(){
-  var now=Date.now();
-  if(now>_bdayExpiry)return;
-  if(LS.get("bdayDismissed",false))return;
-  // Hide the app while unwrapping
-  el("app").style.display="none";
-  var wrap=document.createElement("div");wrap.id="giftWrap";
-  wrap.style.cssText="position:fixed;inset:0;z-index:950;touch-action:none;overflow:hidden;cursor:grab";
-  // Gold wrapping paper with pattern
-  wrap.innerHTML='<canvas id="giftCanvas" style="position:absolute;inset:0;width:100%;height:100%"></canvas>'
-    +'<div id="giftMsg" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center;padding:24px">'
-    +'<div style="font-family:var(--display);font-size:13px;font-weight:700;color:rgba(20,12,0,.7);letter-spacing:.5em;margin-bottom:20px">HAPPY BIRTHDAY</div>'
-    +'<div style="width:100px;height:100px;border-radius:24px;background:rgba(20,12,0,.12);border:2px solid rgba(20,12,0,.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><span style="font-family:var(--display);font-size:52px;font-weight:900;color:rgba(20,12,0,.5)">M</span></div>'
-    +'<div style="font-family:var(--display);font-size:32px;font-weight:800;color:rgba(20,12,0,.6);letter-spacing:.08em;line-height:1.3">Coach Mike</div>'
-    +'<div style="display:flex;align-items:center;gap:12px;margin:18px 0"><div style="width:50px;height:2px;background:rgba(20,12,0,.2)"></div><div style="width:6px;height:6px;border:2px solid rgba(20,12,0,.3);transform:rotate(45deg)"></div><div style="width:50px;height:2px;background:rgba(20,12,0,.2)"></div></div>'
-    +'<div id="giftHint" style="font-family:var(--mono);font-size:11px;color:rgba(20,12,0,.4);letter-spacing:.2em;animation:pulseGlow 2s ease-in-out infinite">SWIPE TO UNWRAP</div>'
-    +'<div style="margin-top:24px;width:40px;height:40px;border:2px solid rgba(20,12,0,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:pulseGlow 2s ease-in-out infinite .5s"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(20,12,0,.3)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>'
-    +'</div>';
-  document.body.appendChild(wrap);
-  // Draw wrapping paper on canvas
-  var canvas=document.getElementById("giftCanvas");
-  var ctx2d=canvas.getContext("2d");
-  var W=window.innerWidth,H=window.innerHeight;
-  canvas.width=W;canvas.height=H;
-  // Gold gradient base
-  var grad=ctx2d.createLinearGradient(0,0,W,H);
-  grad.addColorStop(0,"#C49628");grad.addColorStop(0.3,"#E8C050");grad.addColorStop(0.5,"#D4A830");grad.addColorStop(0.7,"#E8C050");grad.addColorStop(1,"#8B6914");
-  ctx2d.fillStyle=grad;ctx2d.fillRect(0,0,W,H);
-  // Diamond pattern
-  ctx2d.strokeStyle="rgba(20,12,0,.08)";ctx2d.lineWidth=1;
-  for(var dx=0;dx<W+60;dx+=60){for(var dy=0;dy<H+60;dy+=60){ctx2d.beginPath();ctx2d.moveTo(dx,dy-15);ctx2d.lineTo(dx+15,dy);ctx2d.lineTo(dx,dy+15);ctx2d.lineTo(dx-15,dy);ctx2d.closePath();ctx2d.stroke();}}
-  // Ribbon cross
-  ctx2d.fillStyle="rgba(140,80,0,.18)";
-  ctx2d.fillRect(W/2-20,0,40,H);ctx2d.fillRect(0,H/2-20,W,40);
-  ctx2d.fillStyle="rgba(180,120,20,.12)";
-  ctx2d.fillRect(W/2-18,0,36,H);ctx2d.fillRect(0,H/2-18,W,36);
-  // Track torn area
-  var torn=[];var tornPct=0;var totalPixels=W*H;
-  var tearRadius=45;
-  function tearAt(x,y){
-    torn.push({x:x,y:y,r:tearRadius});
-    ctx2d.globalCompositeOperation="destination-out";
-    var rg=ctx2d.createRadialGradient(x,y,0,x,y,tearRadius);
-    rg.addColorStop(0,"rgba(0,0,0,1)");rg.addColorStop(0.7,"rgba(0,0,0,.8)");rg.addColorStop(1,"rgba(0,0,0,0)");
-    ctx2d.fillStyle=rg;ctx2d.beginPath();ctx2d.arc(x,y,tearRadius,0,Math.PI*2);ctx2d.fill();
-    ctx2d.globalCompositeOperation="source-over";
-    // Rough torn edge
-    ctx2d.strokeStyle="rgba(100,60,0,.3)";ctx2d.lineWidth=2;
-    ctx2d.beginPath();
-    for(var a=0;a<Math.PI*2;a+=0.3){var rr=tearRadius+Math.random()*8-4;ctx2d.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}
-    ctx2d.stroke();
-    tornPct+=Math.PI*tearRadius*tearRadius/totalPixels;
-    // Update hint
-    var hint=document.getElementById("giftHint");
-    if(hint&&tornPct>0.03)hint.textContent="KEEP GOING...";
-    if(hint&&tornPct>0.15)hint.textContent="ALMOST THERE...";
-    if(tornPct>0.30)finishUnwrap();
-  }
-  var dragging=false;
-  wrap.addEventListener("mousedown",function(e){dragging=true;tearAt(e.clientX,e.clientY);});
-  wrap.addEventListener("mousemove",function(e){if(dragging)tearAt(e.clientX,e.clientY);});
-  wrap.addEventListener("mouseup",function(){dragging=false;});
-  wrap.addEventListener("touchstart",function(e){dragging=true;var t=e.touches[0];tearAt(t.clientX,t.clientY);},{passive:true});
-  wrap.addEventListener("touchmove",function(e){if(dragging){var t=e.touches[0];tearAt(t.clientX,t.clientY);}},{passive:true});
-  wrap.addEventListener("touchend",function(){dragging=false;},{passive:true});
-  function finishUnwrap(){
-    if(wrap._done)return;wrap._done=true;
-    // Dissolve remaining paper
-    wrap.style.transition="opacity .8s ease";
-    wrap.style.opacity="0";
-    setTimeout(function(){
-      wrap.remove();
-      LS.set("bdayDismissed",true);
-      // Show brief birthday message overlay then proceed to lock screen
-      var msg=document.createElement("div");msg.id="bdayMsg";
-      msg.style.cssText="position:fixed;inset:0;z-index:900;background:rgba(2,2,4,.96);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;animation:fadeIn .5s ease";
-      msg.innerHTML='<div style="width:100%;max-width:380px;text-align:center;animation:slideUp .4s ease">'
-        +'<div style="width:100px;height:100px;margin:0 auto 24px;border-radius:26px;background:linear-gradient(145deg,#0c0c0c,#060606);border:2px solid var(--accB);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px var(--accM),0 0 80px var(--accS);animation:neonBreathe 4s ease-in-out infinite"><span style="font-family:var(--display);font-size:54px;font-weight:900;background:var(--goldGrad);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 4s ease-in-out infinite">M</span></div>'
-        +'<div style="font-family:var(--display);font-size:26px;font-weight:800;color:var(--ice);letter-spacing:.06em;line-height:1.3;margin-bottom:6px">Happy Birthday, Coach</div>'
-        +'<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:14px 0 18px"><div style="width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--acc))"></div><div style="width:6px;height:6px;border:2px solid var(--acc);transform:rotate(45deg)"></div><div style="width:50px;height:2px;background:linear-gradient(90deg,var(--acc),transparent)"></div></div>'
-        +'<div style="font-size:14px;color:var(--ow);line-height:1.8;margin-bottom:8px">Built this for you. Your own coaching platform \u2014 clients, sessions, programs, meal plans, PDFs, the works.</div>'
-        +'<div style="font-size:12px;color:var(--dm);line-height:1.6;margin-bottom:24px">Happy birthday to the real pro creator.</div>'
-        +'<button class="btn" onclick="dismissBdayMsg()" style="max-width:220px;margin:0 auto;padding:14px 28px;border-radius:12px;font-size:11px">LET\'S GO</button>'
-        +'</div>';
-      document.body.appendChild(msg);
-    },900);
-  }
-}
-function dismissBdayMsg(){var m=el("bdayMsg");if(m){m.style.transition="opacity .4s";m.style.opacity="0";setTimeout(function(){m.remove();showLockScreen();},400);}else{showLockScreen();}}
 // ── BOOT ──
 (function boot(){
-  var now=Date.now();
-  var bdayActive=now<=_bdayExpiry&&!LS.get("bdayDismissed",false);
-  if(bdayActive){
-    showBirthdayPopup();
-  }else if(!isUnlocked()){showLockScreen();}
+  if(!isUnlocked()){showLockScreen();}
   else{
     el("app").style.display="";el("qnoteFab").style.display="";
     render();

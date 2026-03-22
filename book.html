@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<title>Book a Session · Big Mike Ely Coaching</title>
+<title>Book a Session · Coaching Lab</title>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="theme-color" content="#020202"/>
-<meta name="description" content="Book your coaching session with IFBB Pro Big Mike Ely. Training, Nutrition, Contest Prep, and Posing."/>
+<meta name="description" content="Book your coaching session. Training, Nutrition, Contest Prep, and Posing."/>
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -175,9 +175,9 @@ button{font-family:var(--body);cursor:pointer;border:none;outline:none;transitio
 
   <!-- HEADER -->
   <div class="portal-hdr">
-    <div class="logo-mark"><span>M</span></div>
-    <div class="portal-title">Big Mike Ely</div>
-    <div class="portal-sub">IFBB PRO · COACHING</div>
+    <div class="logo-mark"><span>C</span></div>
+    <div class="portal-title">Coaching Lab</div>
+    <div class="portal-sub">BOOK A SESSION</div>
   </div>
 
   <!-- STEP INDICATOR -->
@@ -188,12 +188,8 @@ button{font-family:var(--body);cursor:pointer;border:none;outline:none;transitio
     <div class="setup-msg">
       <div class="sl">Booking Unavailable</div>
       <div style="color:var(--mu);font-size:13px;line-height:1.6;margin-bottom:20px">
-        Online booking is currently being set up.<br>Please contact Big Mike directly to schedule your session.
+        Online booking is currently being set up.<br>Please contact your coach directly to schedule your session.
       </div>
-      <a href="https://instagram.com/ifbbprobigmikeely" target="_blank" rel="noopener" class="btn2" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
-        @IFBBPROBIGMIKEELY
-      </a>
     </div>
   </div>
 
@@ -303,8 +299,7 @@ button{font-family:var(--body);cursor:pointer;border:none;outline:none;transitio
   </div>
 
   <div class="portal-footer">
-    <div style="margin-bottom:6px">IFBB PRO BIG MIKE ELY COACHING</div>
-    <a href="https://instagram.com/ifbbprobigmikeely" target="_blank" rel="noopener">@ifbbprobigmikeely</a>
+    <div style="margin-bottom:6px">COACHING LAB</div>
   </div>
 </div>
 
@@ -728,7 +723,7 @@ function confirmBooking(){
     var dt=new Date(_selectedDate+"T12:00:00");
     var dayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dt.getDay()];
     document.getElementById("successMsg").innerHTML=
-      '<strong>'+esc(typeName)+'</strong> with Big Mike<br>'
+      '<strong>'+esc(typeName)+'</strong><br>'
       +dayName+', '+MONTHS_SHORT[dt.getMonth()]+' '+dt.getDate()+' at '+fmtTime(_selectedTime)
       +'<br><br><span style="font-size:11px;color:var(--dm)">Confirmation sent to '+formatPhoneDisplay(_phone)+'</span>';
     goStep(5);

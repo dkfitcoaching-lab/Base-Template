@@ -1,7 +1,7 @@
 {
-  "name": "Big Mike Ely Coaching Lab",
+  "name": "Coaching Lab",
   "short_name": "Coaching Lab",
-  "description": "IFBB Pro Big Mike Ely's coaching management platform",
+  "description": "Professional coaching management platform",
   "id": "/",
   "start_url": "/",
   "display": "standalone",

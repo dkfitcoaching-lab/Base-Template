@@ -1,67 +1,49 @@
-# DK Fit Coaching Lab — Base Template Checkpoint
+# Coaching Lab — Base App Template Checkpoint
 
-## Template Source
-Copied from `dkfitcoaching-lab/bigmike` repository (the original Big Mike Ely coaching app).
+## What This Is
+This is the **base app template** — a white-label version of the coaching platform, stripped of all client-specific branding. It serves as the starting point for every new client deployment.
 
-## Template Status
+## Origin
+Created from the Big Mike Ely Coaching Lab app (the original build). All Mike-specific branding, the birthday gift system, and personal references have been removed. Core functionality is 100% intact.
 
-### Included From Source
-- [x] Full coaching app SPA (index.html ~3900 lines)
-- [x] Public booking page (book.html)
-- [x] PWA manifest, service worker, icons
-- [x] GitHub Pages deployment workflow
-- [x] Supabase cloud sync functions (send-sms, auto-remind)
-- [x] Database migration schema
-- [x] Technical architecture documentation
-- [x] Claude Code development instructions (CLAUDE.md)
-- [x] Full audit hook system (.claude/settings.local.json)
+## Architecture
+Single-file SPA at `index.html` (~3800 lines). Vanilla JS, localStorage + Supabase sync. PWA-ready.
 
-### What Needs Customization Per Deployment
-- [ ] Coach name (replace "Big Mike Ely" throughout)
-- [ ] Brand name and taglines
-- [ ] CNAME file (new domain)
-- [ ] manifest.json (app name, description)
-- [ ] CSS color variables (brand colors)
-- [ ] Icons and apple-touch-icon (brand logo)
-- [ ] book.html (coach-specific copy)
-- [ ] Birthday system removal (_bdayExpiry block)
-- [ ] PDF cover page branding
-- [ ] Supabase project setup (new project per client)
-- [ ] Twilio phone number configuration
+## What's Included (Generic & Ready)
+- Client CRUD with full profiles
+- Session logging with exercises, sets, reps, PRs
+- Schedule management with SMS reminders
+- Meal plan builder with FOOD_DB (100+ foods)
+- Workout builder with EXERCISE_DB (150+ exercises, 9 muscle groups)
+- Anabolics protocol builder with ANABOLICS_DB (8 categories)
+- Supplement tracking
+- Peptides management
+- Water/hydration tracking
+- Program builder (8 section types: training, nutrition, anabolics, peptides, fatloss, supplements, water, protocol)
+- PDF generation (individual sections or combined)
+- Two themes: Crimson and Gold
+- PIN lock security
+- Cloud sync via Supabase
+- Import/export (JSON backup)
+- External booking page (book.html)
 
-### Pending Feature Work (Inherited From Source)
-- [ ] Fat Loss / GLP section (new program section type)
-- [ ] Supplement database expansion (SUPP_DB with picker modal)
-- [ ] Food prep state indicators (cooked/dry badges)
-- [ ] Dosage customization (custom dose entry in all pickers)
+## Customization Points Per Client
+1. App name (title, manifest, header)
+2. Logo letter/icon
+3. Subtitle text
+4. Theme colors (can add new themes)
+5. PDF cover page branding
+6. SMS signature
+7. Tutorial text
+8. Domain (CNAME)
+9. Booking page branding (book.html)
 
-## Architecture Quick Reference
-
-### Navigation
-```js
-go(tab)           // switch main tab
-push(view, data)  // navigate to sub-view (stacked)
-pop()             // go back
-render()          // re-render current view
-```
-
-### Data Storage
-```js
-LS.get(key, default)  // read from localStorage (fm_ prefix)
-LS.set(key, value)    // write to localStorage
-save()                // persist all data + trigger cloud sync
-```
-
-### Modals
-```js
-showModal(title, html)      // open modal overlay
-closeModal()                // close it
-showConfirm(title, msg)     // returns Promise<boolean>
-showDoubleConfirm(title, msg) // two-step confirm for destructive actions
-```
-
-### PDF Generation
-```js
-_renderPDFToFile(pages, filename, docType, pageLabel)
-// pages[0] = cover page, pages[1+] = content pages
-```
+## Files
+- `index.html` — The entire app
+- `book.html` — External booking portal
+- `manifest.json` — PWA manifest
+- `sw.js` — Service worker
+- `CNAME` — GitHub Pages domain
+- `CLAUDE.md` — Development instructions (includes Faith's onboarding protocol)
+- `WELCOME_FAITH.md` — First-session onboarding guide for Faith
+- `supabase/` — Cloud sync functions (SMS, auto-remind, schema)

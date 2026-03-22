@@ -1,7 +1,7 @@
-# Big Mike Coaching Lab — Technical Architecture Document
+# Coaching Lab — Technical Architecture Document
 
 ## Context
-This document is a developer-facing technical overview of the IFBB Pro Big Mike Ely coaching app at ifbbprobigmikeely.com. It explains how every external system is wired together, how data flows, and flags known issues. The app is a single-file SPA (`index.html`, ~2,164 lines of HTML+CSS+JS) hosted on GitHub Pages.
+This document is a developer-facing technical overview of the Coaching Lab base app template. It explains how every external system is wired together, how data flows, and flags known issues. The app is a single-file SPA (`index.html`, ~3800 lines of HTML+CSS+JS) hosted on GitHub Pages.
 
 ---
 
@@ -9,8 +9,8 @@ This document is a developer-facing technical overview of the IFBB Pro Big Mike 
 
 | Layer | Detail |
 |-------|--------|
-| **Host** | GitHub Pages (repo: `dkfitcoaching-lab/bigmike`) |
-| **Domain** | `ifbbprobigmikeely.com` via CNAME file |
+| **Host** | GitHub Pages |
+| **Domain** | Custom domain via CNAME file |
 | **Routing** | None — single `index.html`, all navigation is in-memory via `go()`/`push()`/`pop()` functions that swap DOM content. No hash routing, no History API. |
 | **CDN deps** | Google Fonts (Cinzel, Rajdhani, IBM Plex Mono), Supabase JS SDK v2, jsPDF v2.5.2, html2canvas v1.4.1 — all loaded from CDNs in `<head>` |
 
@@ -167,9 +167,9 @@ POST request with JSON body: {to, message}
 | `generateFullPrepPDF(idx)` | Combined: program + all meal plans + comp info | `[Client]_Full_Prep.pdf` |
 
 ### Branding
-- Cover page: "M" logo, "BIG MIKE ELY", "IFBB PRO COACHING LAB"
+- Cover page: Logo letter, app name, subtitle (all customizable per client)
 - Accent color: gold (`#D4A830`) or crimson (`#D03030`) based on theme setting
-- Footer on every content page with lab name + generated date
+- Footer on every content page with app name + generated date
 
 ### Known issues
 - Requires internet (CDN libraries). If jsPDF/html2canvas fail to load → error toast
@@ -224,7 +224,7 @@ Tags: `gf` (gluten-free), `df` (dairy-free), `lc` (low-carb), `hp` (high-protein
 ┌──────────────────────────────┐
 │       GitHub Pages           │
 │   (serves index.html)        │
-│   ifbbprobigmikeely.com      │
+│   (custom domain via CNAME)  │
 └──────────┬───────────────────┘
            │
     ┌──────▼──────────────────────────────────────┐
