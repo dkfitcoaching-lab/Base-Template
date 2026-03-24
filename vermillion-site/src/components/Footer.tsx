@@ -15,7 +15,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-4 text-xs text-text-caption">
             <span>Las Vegas, NV</span>
-            <span className="w-px h-3 bg-border/50" />
+            <span className="w-px h-3 bg-border/50" aria-hidden="true" />
             <span>&copy; 2026</span>
           </div>
         </div>

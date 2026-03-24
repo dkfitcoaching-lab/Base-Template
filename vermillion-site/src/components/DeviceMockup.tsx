@@ -12,7 +12,7 @@ export default function DeviceMockup({ label, image }: DeviceMockupProps) {
     <div className="group">
       <div className="relative rounded-hero overflow-hidden bg-surface-2 border border-border/50 shadow-[0_8px_40px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:shadow-[0_12px_50px_rgba(0,0,0,0.5)] group-hover:border-border/80">
         {/* Top bezel */}
-        <div className="h-6 bg-surface-3/60 flex items-center px-3 gap-1.5">
+        <div className="h-6 bg-surface-3/60 flex items-center px-3 gap-1.5" aria-hidden="true">
           <div className="w-2 h-2 rounded-full bg-border/60" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
@@ -40,6 +40,7 @@ export default function DeviceMockup({ label, image }: DeviceMockupProps) {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth={1.5}
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
