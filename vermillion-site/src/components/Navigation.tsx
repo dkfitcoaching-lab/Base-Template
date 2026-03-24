@@ -102,7 +102,7 @@ export default function Navigation() {
               />
               <motion.span
                 animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease }}
                 className="block w-6 h-[1.5px] bg-text-primary"
               />
               <motion.span

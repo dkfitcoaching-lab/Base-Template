@@ -39,7 +39,7 @@ function GridBackground() {
           y: [0, -20, 0],
           opacity: [0.08, 0.15, 0.08],
         }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 8, repeat: Infinity, ease }}
         className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-vermillion/10 blur-[120px]"
       />
       <motion.div
@@ -47,7 +47,7 @@ function GridBackground() {
           y: [0, 15, 0],
           opacity: [0.05, 0.1, 0.05],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{ duration: 10, repeat: Infinity, ease, delay: 2 }}
         className="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full bg-vermillion/10 blur-[100px]"
       />
     </div>
@@ -117,23 +117,24 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
-          aria-hidden="true"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-5 h-8 rounded-full border border-border flex items-start justify-center pt-1.5"
-          >
-            <div className="w-1 h-2 rounded-full bg-text-caption" />
-          </motion.div>
-        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+        aria-hidden="true"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease }}
+          className="w-5 h-8 rounded-full border border-border flex items-start justify-center pt-1.5"
+        >
+          <div className="w-1 h-2 rounded-full bg-text-caption" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
