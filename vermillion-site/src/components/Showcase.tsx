@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import DeviceMockup from "./DeviceMockup";
 import { SHOWCASE_ITEMS } from "@/lib/constants";
 
+const ease = [0.22, 1, 0.36, 1];
+
 const containerVariants = {
   hidden: {},
   visible: {
@@ -18,26 +20,29 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease },
   },
 };
 
 export default function Showcase() {
   return (
-    <section id="work" className="py-24 lg:py-32">
+    <section id="work" className="py-24 lg:py-32" aria-labelledby="showcase-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
             Portfolio
           </p>
-          <h2 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary">
+          <h2
+            id="showcase-heading"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+          >
             Built to Perform
           </h2>
         </motion.div>
@@ -70,7 +75,7 @@ export default function Showcase() {
             href="https://www.ifbbprobigmikeely.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-vermillion hover:text-red-400 transition-colors underline underline-offset-4"
+            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
           >
             IFBB Pro Big Mike Ely
           </a>

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
+const ease = [0.22, 1, 0.36, 1];
+
 function GridBackground() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -13,7 +15,7 @@ function GridBackground() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
       {/* Radial gradient - dark red core fading to black */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_40%,rgba(192,48,48,0.12),transparent_70%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(192,48,48,0.06),transparent_60%)]" />
@@ -46,7 +48,7 @@ function GridBackground() {
           opacity: [0.05, 0.1, 0.05],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full bg-vermillion/8 blur-[100px]"
+        className="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full bg-vermillion/10 blur-[100px]"
       />
     </div>
   );
@@ -62,7 +64,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.2, ease }}
           className="font-heading text-xs sm:text-sm tracking-[0.35em] text-vermillion uppercase mb-6"
         >
           Vermillion Axis Technologies
@@ -72,13 +74,13 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.4, ease }}
           className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-text-primary leading-[1.1] mb-6"
         >
           Custom Software for
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-vermillion to-red-400">
-            Fitness & Wellness
+            Fitness &amp; Wellness
           </span>{" "}
           Businesses
         </motion.h1>
@@ -87,7 +89,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.6, ease }}
           className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           We build what agencies charge $40,000+ for. You own every line of
@@ -98,18 +100,18 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.8, ease }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
             href="#work"
-            className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-medium text-sm tracking-wide hover:border-text-secondary hover:bg-surface-1/50 transition-all duration-300"
+            className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-medium text-sm tracking-wide hover:border-text-secondary hover:bg-surface-1/50 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
           >
             See Our Work
           </a>
           <a
             href="#contact"
-            className="px-8 py-3.5 rounded-btn bg-vermillion text-white font-medium text-sm tracking-wide hover:shadow-[0_0_30px_rgba(192,48,48,0.4)] transition-all duration-300"
+            className="px-8 py-3.5 rounded-btn bg-vermillion text-white font-medium text-sm tracking-wide hover:shadow-[0_0_30px_rgba(192,48,48,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             Book a Discovery Call
           </a>
@@ -120,7 +122,8 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+          aria-hidden="true"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { TIERS } from "@/lib/constants";
 import { Check } from "lucide-react";
 
+const ease = [0.22, 1, 0.36, 1];
+
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -12,27 +14,34 @@ const cardVariants = {
     transition: {
       delay: i * 0.15,
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   }),
 };
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 lg:py-32 bg-surface-1/30">
+    <section
+      id="services"
+      className="py-24 lg:py-32 bg-surface-1/30"
+      aria-labelledby="services-heading"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
             Pricing
           </p>
-          <h2 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary">
+          <h2
+            id="services-heading"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+          >
             Service Tiers
           </h2>
         </motion.div>
@@ -60,10 +69,14 @@ export default function Services() {
                     ? "bg-gradient-to-r from-transparent via-vermillion to-transparent"
                     : "bg-gradient-to-r from-transparent via-border to-transparent"
                 }`}
+                aria-hidden="true"
               />
 
               {/* Hover glow */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,48,48,0.06),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,48,48,0.06),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                aria-hidden="true"
+              />
 
               <div className="relative p-8">
                 {/* Tier name + price */}
@@ -80,15 +93,15 @@ export default function Services() {
                 {/* Delivery + Support */}
                 <div className="flex items-center gap-4 text-xs text-text-caption mb-6 pb-6 border-b border-border/30">
                   <span>Delivery: {tier.delivery}</span>
-                  <span className="w-px h-3 bg-border/50" />
+                  <span className="w-px h-3 bg-border/50" aria-hidden="true" />
                   <span>Support: {tier.support}</span>
                 </div>
 
                 {/* Features */}
-                <ul className="space-y-3">
+                <ul className="space-y-3" aria-label={`${tier.name} features`}>
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-vermillion mt-0.5 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-vermillion mt-0.5 flex-shrink-0" aria-hidden="true" />
                       <span className="text-sm text-text-body leading-snug">
                         {feature}
                       </span>
@@ -111,7 +124,7 @@ export default function Services() {
           Need something specific?{" "}
           <a
             href="#contact"
-            className="text-vermillion hover:text-red-400 transition-colors underline underline-offset-4"
+            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
           >
             Build Your Own
           </a>{" "}
