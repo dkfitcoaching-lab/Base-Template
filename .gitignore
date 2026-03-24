@@ -1,5 +1,1 @@
 node_modules/
-package-lock.json
-package.json
-!vermillion-site/package.json
-!vermillion-site/package-lock.json
