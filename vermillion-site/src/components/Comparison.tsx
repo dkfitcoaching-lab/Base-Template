@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { COMPARISON } from "@/lib/constants";
 
+const ease = [0.22, 1, 0.36, 1];
+
 export default function Comparison() {
   return (
     <section className="py-24 lg:py-32" aria-labelledby="comparison-heading">
@@ -12,7 +14,7 @@ export default function Comparison() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
@@ -31,7 +33,7 @@ export default function Comparison() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
           className="hidden sm:block rounded-card border border-border/50 overflow-hidden"
           role="table"
           aria-label="Price comparison"
@@ -74,7 +76,7 @@ export default function Comparison() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
           className="sm:hidden space-y-4"
         >
           {COMPARISON.map((row) => (

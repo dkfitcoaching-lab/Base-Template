@@ -114,7 +114,7 @@ export default function Hero() {
             href="#contact"
             className="px-8 py-3.5 rounded-btn bg-vermillion text-white font-medium text-sm tracking-wide hover:shadow-[0_0_30px_rgba(192,48,48,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
-            Book a Discovery Call
+            Start a Project
           </a>
         </motion.div>
 
