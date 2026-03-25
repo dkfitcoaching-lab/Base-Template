@@ -5,8 +5,21 @@ export const SITE = {
     "We build custom coaching management applications for fitness and wellness businesses. From $2,500. Full code ownership. Delivered in days.",
   location: "Las Vegas, NV",
   domain: "vermillionaxistech.com",
-  calendlyUrl: "#",
 };
+
+/**
+ * Web3Forms access key — register at https://web3forms.com to get yours.
+ * Set the primary recipient to david@vermillionaxistech.com,
+ * and add faith@vermillionaxistech.com as CC in the Web3Forms dashboard.
+ */
+export const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+export const SERVICE_OPTIONS = [
+  "Foundation ($2,500 – $5,000)",
+  "Professional ($7,500 – $15,000)",
+  "Enterprise ($20,000+)",
+  "Custom / Not Sure",
+] as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
@@ -140,7 +153,7 @@ export const PROCESS_STEPS = [
     step: "01",
     title: "Discovery",
     description:
-      "15-minute conversation. We learn your business, show you a live demo.",
+      "15-minute call. We learn your business, show you a live demo.",
   },
   {
     step: "02",

@@ -57,7 +57,7 @@ export default function Showcase() {
         >
           {SHOWCASE_ITEMS.map((item) => (
             <motion.div key={item.label} variants={itemVariants}>
-              <DeviceMockup label={item.label} image={item.image} />
+              <DeviceMockup label={item.label} />
             </motion.div>
           ))}
         </motion.div>
