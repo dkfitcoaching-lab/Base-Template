@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { SERVICE_OPTIONS } from "@/lib/constants";
+import { SERVICE_OPTIONS, WEB3FORMS_KEY } from "@/lib/constants";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -46,11 +46,28 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus("submitting");
 
-    // TODO: Replace with actual API endpoint
     try {
-      console.log("Form submission:", formData);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setStatus("success");
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New inquiry from ${formData.name} — ${formData.service || "General"}`,
+          from_name: formData.name,
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || "N/A",
+          service: formData.service || "Not selected",
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }

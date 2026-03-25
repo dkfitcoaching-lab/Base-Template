@@ -7,6 +7,13 @@ export const SITE = {
   domain: "vermillionaxistech.com",
 };
 
+/**
+ * Web3Forms access key — register at https://web3forms.com to get yours.
+ * Set the primary recipient to david@vermillionaxistech.com,
+ * and add faith@vermillionaxistech.com as CC in the Web3Forms dashboard.
+ */
+export const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
+
 export const SERVICE_OPTIONS = [
   "Foundation ($2,500 – $5,000)",
   "Professional ($7,500 – $15,000)",
