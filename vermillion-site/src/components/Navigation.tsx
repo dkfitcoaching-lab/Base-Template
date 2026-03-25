@@ -55,7 +55,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <a
-              href="/"
+              href="#top"
               className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded-lg"
               aria-label="Vermillion Axis Technologies — home"
             >
