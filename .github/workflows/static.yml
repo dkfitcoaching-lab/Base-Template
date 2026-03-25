@@ -36,6 +36,8 @@ jobs:
       - name: Build
         working-directory: vermillion-site
         run: npm run build
+        env:
+          PAGES_BASE_PATH: /Base-Template
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
