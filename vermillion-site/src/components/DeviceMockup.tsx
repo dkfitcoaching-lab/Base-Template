@@ -3,6 +3,7 @@
 interface DeviceMockupProps {
   label: string;
   image?: string;
+  description?: string;
 }
 
 /* ── Abstract SVG mockup screens keyed by showcase label ── */
@@ -272,7 +273,7 @@ function FallbackMockup() {
   );
 }
 
-export default function DeviceMockup({ label, image }: DeviceMockupProps) {
+export default function DeviceMockup({ label, image, description }: DeviceMockupProps) {
   const MockupComponent = MOCKUP_MAP[label] || FallbackMockup;
 
   return (
@@ -336,9 +337,14 @@ export default function DeviceMockup({ label, image }: DeviceMockupProps) {
       </div>
 
       {/* Caption */}
-      <p className="mt-4 text-sm text-text-secondary text-center font-body tracking-wide">
+      <p className="mt-4 text-sm text-text-primary text-center font-heading font-semibold tracking-wide">
         {label}
       </p>
+      {description && (
+        <p className="mt-1 text-xs text-text-secondary text-center font-body leading-relaxed">
+          {description}
+        </p>
+      )}
     </div>
   );
 }

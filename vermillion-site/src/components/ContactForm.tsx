@@ -189,7 +189,7 @@ export default function ContactForm() {
             viewport={{ once: true }}
           >
             <label htmlFor="cf-name" className={labelClasses}>
-              Name
+              Name <span className="text-vermillion">*</span>
             </label>
             <input
               id="cf-name"
@@ -198,7 +198,7 @@ export default function ContactForm() {
               required
               value={formData.name}
               onChange={handleChange}
-              placeholder="Jane Doe"
+              placeholder="Alex Chen"
               className={inputClasses}
             />
           </motion.div>
@@ -210,7 +210,7 @@ export default function ContactForm() {
             viewport={{ once: true }}
           >
             <label htmlFor="cf-email" className={labelClasses}>
-              Email
+              Email <span className="text-vermillion">*</span>
             </label>
             <input
               id="cf-email"
@@ -219,7 +219,7 @@ export default function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              placeholder="jane@company.com"
+              placeholder="alex@peakfitness.com"
               className={inputClasses}
             />
           </motion.div>
@@ -233,7 +233,7 @@ export default function ContactForm() {
           viewport={{ once: true }}
         >
           <label htmlFor="cf-company" className={labelClasses}>
-            Company{" "}
+            Business Name{" "}
             <span className="normal-case tracking-normal text-text-caption">
               (optional)
             </span>
@@ -244,7 +244,7 @@ export default function ContactForm() {
             type="text"
             value={formData.company}
             onChange={handleChange}
-            placeholder="Acme Fitness"
+            placeholder="Peak Performance Training"
             className={inputClasses}
           />
         </motion.div>
@@ -283,16 +283,16 @@ export default function ContactForm() {
           viewport={{ once: true }}
         >
           <label htmlFor="cf-message" className={labelClasses}>
-            Message
+            How can we help? <span className="text-vermillion">*</span>
           </label>
           <textarea
             id="cf-message"
             name="message"
             required
-            rows={4}
+            rows={3}
             value={formData.message}
             onChange={handleChange}
-            placeholder="Tell us about your project..."
+            placeholder="Tell us about your business and what you need..."
             className={`${inputClasses} resize-none`}
           />
         </motion.div>
@@ -309,7 +309,7 @@ export default function ContactForm() {
             disabled={status === "submitting"}
             className="shimmer-btn w-full sm:w-auto px-12 py-4 rounded-btn bg-vermillion text-white font-heading font-semibold text-base tracking-wide hover:shadow-[0_0_40px_rgba(192,48,48,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {status === "submitting" ? "Sending..." : "Send Message"}
+            {status === "submitting" ? "Submitting..." : "Get Started"}
           </button>
 
           {status === "error" && (
@@ -319,7 +319,7 @@ export default function ContactForm() {
               transition={{ duration: 0.3 }}
               className="mt-4 text-sm text-red-400"
             >
-              Something went wrong. Please try again.
+              Unable to send your message. Please try again or email us directly at david@vermillionaxistech.com.
             </motion.p>
           )}
         </motion.div>

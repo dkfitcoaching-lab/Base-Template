@@ -5,16 +5,14 @@ import { useEffect, useState } from "react";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const headlineLine1 = "Custom Software for".split(" ");
-const headlineLine2 = "Fitness & Wellness".split(" ");
-const headlineLine3 = "Businesses";
+const headlineLine1 = "Software That Runs".split(" ");
+const headlineLine2 = "Your Coaching".split(" ");
+const headlineLine3 = "Business";
 
 const floatingOrbs = [
   { top: "15%", left: "20%", size: 384, duration: 8, delay: 0, opacity: [0.06, 0.12, 0.06] },
   { top: "60%", right: "15%", size: 256, duration: 10, delay: 2, opacity: [0.04, 0.09, 0.04] },
-  { top: "40%", left: "60%", size: 192, duration: 7, delay: 1, opacity: [0.05, 0.1, 0.05] },
   { bottom: "20%", left: "10%", size: 128, duration: 6, delay: 3, opacity: [0.07, 0.14, 0.07] },
-  { top: "10%", right: "25%", size: 96, duration: 12, delay: 4, opacity: [0.08, 0.15, 0.08] },
 ];
 
 function AnimatedBackground() {
@@ -38,19 +36,6 @@ function AnimatedBackground() {
             "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(138,32,32,0.08), transparent 60%)",
           backgroundSize: "200% 200%",
           animation: "gradient-shift 8s ease infinite",
-        }}
-      />
-
-      {/* Secondary mesh layer */}
-      <motion.div
-        animate={{
-          opacity: [0.15, 0.25, 0.15],
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease }}
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(192,48,48,0.06), transparent 60%)",
         }}
       />
 
@@ -164,7 +149,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease }}
-          className="font-heading text-xs sm:text-sm tracking-[0.35em] text-vermillion uppercase mb-6"
+          className="font-heading text-overline text-vermillion uppercase mb-6"
         >
           Vermillion Axis Technologies
         </motion.p>
@@ -181,7 +166,7 @@ export default function Hero() {
             <WordReveal
               words={headlineLine2}
               startDelay={line2Delay}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-vermillion to-red-400"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-vermillion via-vermillion-light to-vermillion"
             />
             <motion.span
               initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
@@ -205,8 +190,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: subtextDelay, ease }}
           className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          We build what agencies charge $40,000+ for. You own every line of
-          code. No subscriptions. No lock-in.
+          Custom platforms for fitness and wellness professionals. Full-stack
+          development. Full code ownership. Delivered in days.
         </motion.p>
 
         {/* CTAs */}
@@ -216,13 +201,13 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: ctaDelay, ease }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
+          <ShimmerButton href="#contact">Start Your Project</ShimmerButton>
           <a
             href="#work"
             className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-medium text-sm tracking-wide transition-all duration-300 hover:border-vermillion hover:shadow-glow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
           >
             See Our Work
           </a>
-          <ShimmerButton href="#contact">Start a Project</ShimmerButton>
         </motion.div>
       </div>
 

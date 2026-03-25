@@ -9,7 +9,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -27,10 +27,10 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-24 lg:py-32 bg-surface-1/30"
+      className="py-32 lg:py-40 bg-surface-1/30"
       aria-labelledby="process-heading"
     >
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -40,13 +40,13 @@ export default function Process() {
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Workflow
+            How It Works
           </p>
           <h2
             id="process-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            How We Work
+            From Idea to Launch in Days
           </h2>
         </motion.div>
 
@@ -62,7 +62,7 @@ export default function Process() {
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1.4, ease }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             aria-hidden="true"
           />
 
@@ -83,7 +83,7 @@ export default function Process() {
                 <div
                   className="flex-shrink-0 w-12 h-12 rounded-full bg-surface-2 border border-vermillion/40
                     flex items-center justify-center relative z-10
-                    group-hover:border-vermillion group-hover:shadow-[0_0_20px_rgba(192,48,48,0.2)]
+                    group-hover:bg-vermillion/10 group-hover:border-vermillion group-hover:shadow-[0_0_20px_rgba(192,48,48,0.2)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >

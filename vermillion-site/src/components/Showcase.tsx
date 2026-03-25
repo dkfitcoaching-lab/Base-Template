@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import DeviceMockup from "./DeviceMockup";
 import { SHOWCASE_ITEMS } from "@/lib/constants";
 
@@ -26,6 +26,11 @@ const itemVariants = {
 };
 
 function TiltCard({ children }: { children: React.ReactNode }) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   const ref = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState("");
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
@@ -46,6 +51,10 @@ function TiltCard({ children }: { children: React.ReactNode }) {
   function handleMouseLeave() {
     setTransform("");
     setGlowPos({ x: 50, y: 50 });
+  }
+
+  if (isTouchDevice) {
+    return <div className="relative group">{children}</div>;
   }
 
   return (
@@ -86,13 +95,13 @@ export default function Showcase() {
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Portfolio
+            Our Work
           </p>
           <h2
             id="showcase-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Built to Perform
+            Real Platforms. Real Businesses.
           </h2>
         </motion.div>
 
@@ -107,7 +116,7 @@ export default function Showcase() {
           {SHOWCASE_ITEMS.map((item) => (
             <motion.div key={item.label} variants={itemVariants}>
               <TiltCard>
-                <DeviceMockup label={item.label} />
+                <DeviceMockup label={item.label} description={item.description} />
               </TiltCard>
             </motion.div>
           ))}
@@ -121,14 +130,14 @@ export default function Showcase() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-center mt-12 text-sm text-text-caption"
         >
-          Reference build:{" "}
+          Live example:{" "}
           <a
             href="https://www.ifbbprobigmikeely.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
           >
-            IFBB Pro Big Mike Ely
+            IFBB Pro Big Mike Ely — ifbbprobigmikeely.com
           </a>
         </motion.p>
       </div>

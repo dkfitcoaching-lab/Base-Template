@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { TIERS } from "@/lib/constants";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -47,8 +46,6 @@ const checkVariants = {
 };
 
 export default function Services() {
-  const [selectedTier, setSelectedTier] = useState<string>("Professional");
-
   return (
     <section
       id="services"
@@ -77,14 +74,13 @@ export default function Services() {
             id="services-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Service Tiers
+            Choose Your Starting Point
           </h2>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
           {TIERS.map((tier, i) => {
-            const isSelected = selectedTier === tier.name;
             const isHighlighted = tier.highlighted;
 
             return (
@@ -96,8 +92,7 @@ export default function Services() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
                 whileHover={{ y: -8, transition: { duration: 0.35, ease } }}
-                onClick={() => setSelectedTier(tier.name)}
-                className="relative cursor-pointer"
+                className="relative"
               >
                 {/* RECOMMENDED badge for Professional */}
                 {isHighlighted && (
@@ -117,16 +112,16 @@ export default function Services() {
                 {/* Card container with animated border */}
                 <motion.div
                   animate={{
-                    scale: isSelected ? 1.02 : isHighlighted ? 1.0 : 1,
-                    opacity: selectedTier && !isSelected ? 0.75 : 1,
+                    scale: isHighlighted ? 1.0 : 1,
+                    opacity: 1,
                   }}
                   transition={{ duration: 0.35, ease }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 ${
-                    isSelected
+                    isHighlighted
                       ? "border border-vermillion/60 shadow-[0_0_60px_rgba(192,48,48,0.15)]"
                       : "border border-border/50 hover:border-border hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
                   } ${
-                    isHighlighted && !isSelected
+                    isHighlighted
                       ? "shadow-[0_0_60px_rgba(192,48,48,0.08)]"
                       : ""
                   }`}
@@ -138,10 +133,10 @@ export default function Services() {
                   {/* Animated gradient border overlay on hover/select */}
                   <div
                     className={`absolute inset-0 rounded-card pointer-events-none transition-opacity duration-500 ${
-                      isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      isHighlighted ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                     }`}
                     style={{
-                      background: isSelected
+                      background: isHighlighted
                         ? "linear-gradient(135deg, rgba(192,48,48,0.12), transparent 40%, transparent 60%, rgba(192,48,48,0.08))"
                         : undefined,
                     }}
@@ -151,7 +146,7 @@ export default function Services() {
                   {/* Top accent bar */}
                   <div
                     className={`h-[2px] transition-all duration-500 ${
-                      isSelected || isHighlighted
+                      isHighlighted
                         ? "bg-gradient-to-r from-transparent via-vermillion to-transparent"
                         : "bg-gradient-to-r from-transparent via-border to-transparent"
                     }`}
@@ -161,7 +156,7 @@ export default function Services() {
                   {/* Hover/select glow */}
                   <div
                     className={`absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,48,48,0.08),transparent_60%)] transition-opacity duration-500 pointer-events-none ${
-                      isSelected ? "opacity-100" : "opacity-0"
+                      isHighlighted ? "opacity-100" : "opacity-0"
                     }`}
                     aria-hidden="true"
                   />
@@ -181,12 +176,12 @@ export default function Services() {
                     {/* Price with animated scale */}
                     <motion.p
                       animate={{
-                        scale: isSelected ? 1.05 : 1,
+                        scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
                       className="relative inline-block font-heading font-bold text-2xl sm:text-3xl text-vermillion mb-3 origin-left"
                     >
-                      {isSelected && (
+                      {isHighlighted && (
                         <span
                           className="absolute inset-0 -inset-x-2 bg-vermillion/10 blur-xl rounded-full pointer-events-none"
                           aria-hidden="true"
@@ -200,14 +195,7 @@ export default function Services() {
                     </p>
 
                     {/* Delivery + Support */}
-                    <div className="flex items-center gap-4 text-xs text-text-caption mb-6 pb-6 border-b border-border/30">
-                      <span>Delivery: {tier.delivery}</span>
-                      <span
-                        className="w-px h-3 bg-border/50"
-                        aria-hidden="true"
-                      />
-                      <span>Support: {tier.support}</span>
-                    </div>
+                    <p className="text-xs text-text-caption mb-6 pb-6 border-b border-border/30">Typical delivery: {tier.delivery}</p>
 
                     {/* Features with stagger */}
                     <ul
@@ -248,14 +236,14 @@ export default function Services() {
                     <a
                       href="#contact"
                       className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden ${
-                        isHighlighted || isSelected
+                        isHighlighted
                           ? "bg-vermillion text-white hover:shadow-[0_0_30px_rgba(192,48,48,0.3)] hover:bg-vermillion/90"
                           : "border border-border/60 text-text-primary hover:border-vermillion/50 hover:text-vermillion hover:shadow-[0_0_20px_rgba(192,48,48,0.1)]"
                       }`}
                     >
                       <span className="relative z-10">Get Started</span>
                       <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                      {(isHighlighted || isSelected) && (
+                      {isHighlighted && (
                         <span
                           className="absolute inset-0 bg-gradient-to-r from-vermillion via-vermillion/90 to-vermillion opacity-0 hover:opacity-100 transition-opacity duration-300"
                           aria-hidden="true"
@@ -277,14 +265,14 @@ export default function Services() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-center mt-10 text-sm text-text-caption"
         >
-          Need something specific?{" "}
+          Not sure which tier fits?{" "}
           <a
             href="#contact"
             className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
           >
-            Build Your Own
+            Tell us about your project
           </a>{" "}
-          — a la carte pricing available on request.
+          and we will recommend the right scope.
         </motion.p>
       </div>
     </section>

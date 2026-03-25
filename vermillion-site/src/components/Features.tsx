@@ -30,7 +30,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.06,
+      staggerChildren: 0.08,
     },
   },
 };
@@ -57,13 +57,13 @@ export default function Features() {
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Capabilities
+            Platform Capabilities
           </p>
           <h2
             id="features-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Everything a Coaching
+            Everything Your Coaching
             <br className="hidden sm:block" /> Business Needs
           </h2>
         </motion.div>
@@ -92,7 +92,7 @@ export default function Features() {
                   hover:bg-white/[0.04] hover:border-white/[0.1]
                   hover:shadow-glass
                   transition-all duration-500
-                  ${isLarge ? "lg:col-span-2" : ""}
+                  ${isLarge ? "sm:col-span-2 lg:col-span-2" : ""}
                 `}
                 style={{ willChange: "transform" }}
                 whileHover={{ y: -4 }}

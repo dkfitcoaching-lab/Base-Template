@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/lib/constants";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const sectionIds = ["work", "services", "process", "contact"];
+const sectionIds = ["work", "services", "pricing", "process", "contact"];
 
 function NavLink({
   href,
@@ -48,6 +48,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   /* Scroll state for nav background */
   useEffect(() => {
@@ -106,6 +107,30 @@ export default function Navigation() {
     }
   }, [mobileOpen, handleEscape]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href], button, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first?.focus();
+    function handleTab(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    }
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, [mobileOpen]);
+
   return (
     <>
       <motion.nav
@@ -135,13 +160,7 @@ export default function Navigation() {
                   aria-hidden="true"
                 />
                 {/* Logo dot glow on hover */}
-                <span
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{
-                    boxShadow: "0 0 16px 4px rgba(192, 48, 48, 0.35)",
-                  }}
-                  aria-hidden="true"
-                />
+                <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-vermillion/20 blur-lg" aria-hidden="true" />
               </div>
               <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em] hidden sm:block">
                 VERMILLION <span className="text-vermillion">AXIS</span>
@@ -160,19 +179,7 @@ export default function Navigation() {
               ))}
               <a
                 href="#contact"
-                className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                style={{
-                  boxShadow: "0 0 15px rgba(192, 48, 48, 0.2), 0 0 5px rgba(192, 48, 48, 0.15)",
-                  animation: "glow-pulse 3s ease-in-out infinite",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 0 30px rgba(192, 48, 48, 0.4), 0 0 10px rgba(192, 48, 48, 0.3)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 0 15px rgba(192, 48, 48, 0.2), 0 0 5px rgba(192, 48, 48, 0.15)";
-                }}
+                className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
               >
                 Get Started
               </a>
@@ -209,11 +216,12 @@ export default function Navigation() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={dialogRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-2xl flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-lg flex items-center justify-center"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
@@ -227,7 +235,7 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05, ease }}
-                  className={`relative text-2xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-vermillion group ${
+                  className={`relative text-xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-vermillion group ${
                     activeSection === link.href.replace("#", "")
                       ? "text-vermillion"
                       : "text-text-primary"

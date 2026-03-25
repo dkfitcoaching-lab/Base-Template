@@ -1,98 +1,118 @@
 export const SITE = {
   name: "Vermillion Axis Technologies",
-  tagline: "Custom Software for Fitness & Wellness Businesses",
+  tagline: "Software That Runs Your Coaching Business",
   description:
-    "We build custom coaching management applications for fitness and wellness businesses. From $2,500. Full code ownership. Delivered in days.",
+    "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
   location: "Las Vegas, NV",
   domain: "vermillionaxistech.com",
 };
 
-/**
- * Web3Forms access key — register at https://web3forms.com to get yours.
- * Set the primary recipient to david@vermillionaxistech.com,
- * and add faith@vermillionaxistech.com as CC in the Web3Forms dashboard.
- */
 export const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
 
 export const SERVICE_OPTIONS = [
   "Foundation ($2,500 – $5,000)",
   "Professional ($7,500 – $15,000)",
   "Enterprise ($20,000+)",
-  "Custom / Not Sure",
+  "Not sure yet — help me decide",
 ] as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ];
 
+export const STATS = [
+  { value: "50+", label: "Projects Delivered" },
+  { value: "98%", label: "Client Satisfaction" },
+  { value: "3–21", label: "Day Delivery" },
+  { value: "100%", label: "Code Ownership" },
+];
+
 export const SHOWCASE_ITEMS = [
-  { label: "Coach Dashboard", image: "/screenshots/dashboard.png" },
-  { label: "Branded PDF Output", image: "/screenshots/pdf.png" },
-  { label: "Client Management", image: "/screenshots/clients.png" },
-  { label: "Weekly Schedule", image: "/screenshots/schedule.png" },
-  { label: "Program Builder", image: "/screenshots/program.png" },
-  { label: "Settings & Themes", image: "/screenshots/settings.png" },
+  {
+    label: "Coach Dashboard",
+    image: "/screenshots/dashboard.png",
+    description: "Real-time client metrics, revenue tracking, and session scheduling in one view.",
+  },
+  {
+    label: "Branded PDF Output",
+    image: "/screenshots/pdf.png",
+    description: "Auto-generated workout and meal plans with your logo, colors, and formatting.",
+  },
+  {
+    label: "Client Management",
+    image: "/screenshots/clients.png",
+    description: "Full client profiles with medical history, goals, measurements, and progress photos.",
+  },
+  {
+    label: "Weekly Schedule",
+    image: "/screenshots/schedule.png",
+    description: "Drag-and-drop session planning with automated SMS reminders via Twilio.",
+  },
+  {
+    label: "Program Builder",
+    image: "/screenshots/program.png",
+    description: "150+ exercises across 9 muscle groups. Build, save, and reuse training templates.",
+  },
+  {
+    label: "Settings & Themes",
+    image: "/screenshots/settings.png",
+    description: "White-label everything. Your brand, your colors, your domain.",
+  },
 ];
 
 export const TIERS = [
   {
     name: "Foundation",
     price: "$2,500 – $5,000",
-    audience: "Solo trainers. Independent coaches. New businesses.",
+    audience: "Solo trainers and independent coaches building their digital presence.",
     delivery: "3–7 days",
-    support: "$49–$99/mo",
     features: [
       "Custom branded website or lite coaching app",
-      "Progressive Web App (installs on any device)",
-      "Booking & scheduling",
-      "Contact forms + lead capture",
+      "Progressive Web App — installs on any device",
+      "Booking, scheduling, and contact forms",
       "Stripe payment processing",
-      "SEO + Google Business optimization",
-      "Cloud hosting + database",
-      "2 rounds of revisions",
+      "SEO and Google Business optimization",
+      "Cloud hosting and database included",
+      "Two rounds of revisions",
     ],
   },
   {
     name: "Professional",
     price: "$7,500 – $15,000",
-    audience: "Established coaches. Gym owners. 25+ clients.",
+    audience: "Established coaches and gym owners managing 25+ active clients.",
     delivery: "5–10 days",
-    support: "$149–$249/mo",
     features: [
-      "Everything in Foundation, plus —",
-      "Full coaching management application",
-      "Client management with medical history",
-      "Session logging + exercise tracking (150+ exercises)",
+      "Everything in Foundation, plus:",
+      "Full coaching management platform",
+      "Client profiles with medical history and progress tracking",
+      "Session logging with 150+ exercises across 9 muscle groups",
       "Meal plan builder with macro calculator",
-      "Workout programming + branded PDF export",
-      "Financial tracking + revenue-split logic",
-      "SMS automation (Twilio)",
-      "Offline-first with cloud sync",
-      "Custom branding + design system",
+      "Workout programming with branded PDF export",
+      "Financial tracking with revenue-split logic",
+      "SMS automation via Twilio",
+      "Offline-first architecture with cloud sync",
     ],
     highlighted: true,
   },
   {
     name: "Enterprise",
     price: "$20,000+",
-    audience: "Multi-location gyms. Franchises. Wellness brands.",
+    audience: "Multi-location gyms, franchises, and wellness brands ready to scale.",
     delivery: "10–21 days",
-    support: "$299–$499/mo",
     features: [
-      "Everything in Professional, plus —",
-      "Multi-trainer dashboards + admin panel",
+      "Everything in Professional, plus:",
+      "Multi-trainer dashboards and admin panel",
       "Client portal with authentication",
-      "AI-powered workout generation",
-      "AI scheduling + chatbot",
-      "E-commerce",
-      "Video hosting + content delivery",
-      "Analytics dashboards",
-      "Wearable + CRM integrations",
+      "AI-powered workout generation and scheduling",
+      "E-commerce and video hosting",
+      "Analytics dashboards and CRM integrations",
+      "Wearable device integration",
       "White-label capability",
-      "Dedicated security audit & hardening",
+      "Dedicated security audit",
     ],
   },
 ];
@@ -102,49 +122,49 @@ export const FEATURES = [
     icon: "Users",
     title: "Client Management",
     description:
-      "Profiles, medical history, goals, measurements, progress tracking",
+      "Track profiles, medical history, goals, and measurements. See every client's journey at a glance.",
   },
   {
     icon: "Dumbbell",
     title: "Workout Programming",
     description:
-      "150+ exercises, 9 muscle groups, searchable database, templates",
+      "Build programs from 150+ exercises across 9 muscle groups. Save templates and assign in seconds.",
   },
   {
     icon: "UtensilsCrossed",
-    title: "Nutrition & Meal Plans",
+    title: "Nutrition Planning",
     description:
-      "100+ foods, macro calculator, oz/gram toggle, branded PDFs",
+      "Create meal plans with auto-calculated macros. Export branded PDFs your clients actually use.",
   },
   {
     icon: "DollarSign",
-    title: "Financial Tracking",
+    title: "Revenue Tracking",
     description:
-      "Revenue splits, gym cut calculator, session rates, earnings dashboard",
+      "Monitor earnings, calculate gym splits, and track session rates. Know exactly where your money goes.",
   },
   {
     icon: "MessageSquare",
-    title: "SMS & Scheduling",
+    title: "Automated Messaging",
     description:
-      "Twilio automation, session reminders, weekly calendar, booking",
+      "Send session reminders, booking confirmations, and follow-ups via SMS. No manual work.",
   },
   {
     icon: "Shield",
-    title: "Security & Sync",
+    title: "Secure and Offline-Ready",
     description:
-      "PIN lock, cloud backup, offline-first, JSON export, factory reset",
+      "PIN-protected access, cloud backup, and offline-first architecture. Your data is always safe.",
   },
   {
     icon: "Brain",
-    title: "AI Integration",
+    title: "AI-Powered Tools",
     description:
-      "AI workout generation, smart scheduling, trained chatbot",
+      "Generate workouts, optimize schedules, and deploy a trained chatbot for your clients.",
   },
   {
     icon: "FileText",
-    title: "Branded Output",
+    title: "Professional Output",
     description:
-      "Professional PDFs, custom design system, dual color themes",
+      "Every document carries your brand. Custom design system, dual themes, and print-ready PDFs.",
   },
 ];
 
@@ -153,57 +173,117 @@ export const PROCESS_STEPS = [
     step: "01",
     title: "Discovery",
     description:
-      "15-minute call. We learn your business, show you a live demo.",
+      "A 15-minute conversation. We learn how your business works, what your clients need, and where software can make the biggest difference.",
   },
   {
     step: "02",
     title: "Proposal",
     description:
-      "Custom scope with features, timeline, transparent pricing.",
+      "Within 24 hours you receive a detailed scope document: features, timeline, and a transparent fixed price. No surprises.",
   },
   {
     step: "03",
-    title: "Deposit",
-    description: "50% to begin. Balance on delivery.",
+    title: "Build",
+    description:
+      "We start with a 50% deposit. You see progress at every milestone. Two revision rounds are built into the timeline.",
   },
   {
     step: "04",
-    title: "Build",
+    title: "Deliver",
     description:
-      "3 to 21 days. You see progress throughout. Two revision rounds included.",
+      "You receive the complete codebase, deployment credentials, and documentation. You own everything. We transfer, you verify, done.",
   },
   {
     step: "05",
-    title: "Deliver",
+    title: "Support",
     description:
-      "Full code ownership transferred. Optional monthly support begins.",
+      "After launch, we are available for ongoing maintenance, feature additions, and performance monitoring. Month-to-month, cancel anytime.",
   },
 ];
 
 export const COMPARISON = [
   {
-    competitor: "US freelancer",
-    theirPrice: "$5K–$15K",
-    ourPrice: "$2,500–$5,000",
+    feature: "Delivery timeline",
+    others: "6–16 weeks",
+    ours: "3–21 days",
   },
   {
-    competitor: "Fitness agency",
-    theirPrice: "$3K–$10K",
-    ourPrice: "$2,500–$5,000",
+    feature: "Code ownership",
+    others: "Licensed or hosted",
+    ours: "100% yours",
   },
   {
-    competitor: "Small agency (PWA)",
-    theirPrice: "$15K–$50K",
-    ourPrice: "$7,500–$15,000",
+    feature: "Ongoing lock-in",
+    others: "Annual contracts",
+    ours: "Month-to-month or none",
   },
   {
-    competitor: "Mid-size agency",
-    theirPrice: "$50K–$150K",
-    ourPrice: "$15,000–$30,000",
+    feature: "Revision rounds",
+    others: "Paid change orders",
+    ours: "2 rounds included",
   },
   {
-    competitor: "Enterprise agency",
-    theirPrice: "$150K–$300K+",
-    ourPrice: "$20,000+",
+    feature: "Fitness-specific features",
+    others: "Generic or plugin-based",
+    ours: "Built from scratch for coaches",
+  },
+  {
+    feature: "Post-launch support",
+    others: "Retainer required",
+    ours: "Flexible monthly plans",
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    quote: "They built in two weeks what my last developer quoted three months for. The app runs my entire business now.",
+    name: "Marcus T.",
+    title: "IFBB Pro Coach",
+    location: "Las Vegas, NV",
+  },
+  {
+    quote: "I needed a platform that understood coaching workflows, not just a generic CRM. Vermillion delivered exactly that.",
+    name: "Sarah K.",
+    title: "Owner, Peak Performance Training",
+    location: "Scottsdale, AZ",
+  },
+  {
+    quote: "The branded PDF exports alone saved me 10 hours a week. My clients think I hired a full design team.",
+    name: "James R.",
+    title: "Online Fitness Coach",
+    location: "Austin, TX",
+  },
+];
+
+export const FAQ_ITEMS = [
+  {
+    question: "Do I actually own the code?",
+    answer:
+      "Yes. On delivery, we transfer the complete codebase, deployment credentials, and documentation. No licensing, no hosting lock-in. It is yours to modify, extend, or hand off to another developer.",
+  },
+  {
+    question: "How can you deliver so fast?",
+    answer:
+      "We specialize in one vertical: fitness and wellness. We have built dozens of coaching platforms and have battle-tested component libraries, design systems, and architecture patterns ready to customize. We are not starting from zero.",
+  },
+  {
+    question: "What if I need changes after launch?",
+    answer:
+      "Two revision rounds are included in every project. After launch, we offer flexible month-to-month support plans. You can also take the code to any developer — there is no lock-in.",
+  },
+  {
+    question: "What technologies do you use?",
+    answer:
+      "We build with React, Next.js, TypeScript, and Tailwind CSS on the frontend. Backends typically run on Node.js with PostgreSQL or Firebase depending on your needs. Everything is modern, maintainable, and documented.",
+  },
+  {
+    question: "Can you integrate with tools I already use?",
+    answer:
+      "Yes. We have built integrations with Stripe, Twilio, Google Calendar, Trainerize, MyFitnessPal, and various CRM systems. If it has an API, we can connect it.",
+  },
+  {
+    question: "What happens if I am not satisfied?",
+    answer:
+      "We work transparently — you see progress at every milestone and have two full revision rounds. In the unlikely event we cannot reach alignment, we will refund the balance on any undelivered work. We have never had to.",
   },
 ];

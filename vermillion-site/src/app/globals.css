@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -11,6 +10,7 @@ html {
 body {
   background-color: #0A0A0E;
   color: #C0C0CC;
+  line-height: 1.75;
   font-family: 'Source Sans 3', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,7 +51,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(192, 48, 48, 0.3);
+  background: rgba(180, 43, 43, 0.3);
   color: #E8E8F0;
 }
 
@@ -71,7 +71,7 @@ body {
 
 /* Focus-visible for keyboard accessibility */
 *:focus-visible {
-  outline: 2px solid #C03030;
+  outline: 2px solid #B42B2B;
   outline-offset: 2px;
 }
 
@@ -145,11 +145,19 @@ body {
 }
 
 .glow-border {
-  box-shadow: 0 0 0 1px rgba(192, 48, 48, 0.1),
-              0 0 20px rgba(192, 48, 48, 0.05);
+  box-shadow: 0 0 0 1px rgba(180, 43, 43, 0.1),
+              0 0 20px rgba(180, 43, 43, 0.05);
 }
 
 .glow-border:hover {
-  box-shadow: 0 0 0 1px rgba(192, 48, 48, 0.3),
-              0 0 30px rgba(192, 48, 48, 0.1);
+  box-shadow: 0 0 0 1px rgba(180, 43, 43, 0.3),
+              0 0 30px rgba(180, 43, 43, 0.1);
+}
+
+.btn-glow {
+  box-shadow: 0 0 15px rgba(180, 43, 43, 0.2), 0 0 5px rgba(180, 43, 43, 0.15);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 30px rgba(180, 43, 43, 0.4), 0 0 10px rgba(180, 43, 43, 0.3);
 }

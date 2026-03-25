@@ -5,14 +5,6 @@ import { COMPARISON } from "@/lib/constants";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const SAVINGS = [
-  "Up to 67% less",
-  "Up to 50% less",
-  "Up to 70% less",
-  "Up to 80% less",
-  "Up to 87% less",
-];
-
 const containerVariants = {
   hidden: {},
   visible: {
@@ -42,7 +34,7 @@ const mobileCardVariants = {
 
 export default function Comparison() {
   return (
-    <section className="py-24 lg:py-32" aria-labelledby="comparison-heading">
+    <section id="pricing" className="py-32 lg:py-40" aria-labelledby="comparison-heading">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -52,129 +44,95 @@ export default function Comparison() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Value
+          <p className="text-overline text-vermillion uppercase font-heading mb-3">
+            Why Vermillion
           </p>
           <h2
             id="comparison-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            How We Compare
+            Built Different. Delivered Faster.
           </h2>
         </motion.div>
 
-        {/* ─── Desktop Table ─── */}
+        {/* Desktop Table */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="hidden sm:block rounded-card border border-white/[0.06] overflow-hidden
-            bg-white/[0.01] backdrop-blur-sm"
+          className="hidden md:block rounded-card border border-white/[0.06] overflow-hidden bg-white/[0.01] backdrop-blur-sm"
           role="table"
-          aria-label="Price comparison"
+          aria-label="Feature comparison"
         >
           {/* Header row */}
           <div
-            className="grid grid-cols-[1fr_1fr_1fr_auto] bg-surface-2/80 backdrop-blur-sm border-b border-white/[0.06] px-6 py-4"
+            className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface-2/80 backdrop-blur-sm border-b border-white/[0.06] px-8 py-5"
             role="row"
           >
-            <span
-              role="columnheader"
-              className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider"
-            >
-              Competitor
+            <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider">
+              Feature
             </span>
-            <span
-              role="columnheader"
-              className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center"
-            >
-              Their Price
+            <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
+              Traditional Agencies
             </span>
-            <span
-              role="columnheader"
-              className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center"
-            >
-              Our Price
-            </span>
-            <span
-              role="columnheader"
-              className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-right w-32"
-            >
-              Savings
+            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center">
+              Vermillion Axis
             </span>
           </div>
 
           {/* Data rows */}
           {COMPARISON.map((row, i) => (
             <motion.div
-              key={row.competitor}
+              key={row.feature}
               variants={rowVariants}
               role="row"
-              className={`group grid grid-cols-[1fr_1fr_1fr_auto] items-center px-6 py-4
+              className={`group grid grid-cols-[1.5fr_1fr_1fr] items-center px-8 py-5
                 hover:bg-white/[0.02]
                 border-l-2 border-l-transparent hover:border-l-vermillion/60
                 transition-all duration-300
                 ${i < COMPARISON.length - 1 ? "border-b border-b-white/[0.04]" : ""}
               `}
             >
-              <span
-                role="cell"
-                className="text-sm text-text-body group-hover:text-text-primary transition-colors duration-300"
-              >
-                {row.competitor}
+              <span role="cell" className="text-sm text-text-body group-hover:text-text-primary transition-colors duration-300 font-medium">
+                {row.feature}
               </span>
-              <span
-                role="cell"
-                className="text-sm text-text-caption text-center line-through decoration-text-caption/30"
-              >
-                {row.theirPrice}
+              <span role="cell" className="text-sm text-text-caption text-center">
+                {row.others}
               </span>
-              <span
-                role="cell"
-                className="text-sm text-vermillion font-bold text-center"
-              >
-                {row.ourPrice}
-              </span>
-              <span role="cell" className="flex justify-end w-32">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-semibold bg-vermillion/10 text-vermillion border border-vermillion/20">
-                  {SAVINGS[i]}
-                </span>
+              <span role="cell" className="text-sm text-vermillion font-semibold text-center">
+                {row.ours}
               </span>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* ─── Mobile Cards ─── */}
+        {/* Mobile Cards */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="sm:hidden space-y-4"
+          className="md:hidden space-y-4"
         >
-          {COMPARISON.map((row, i) => (
+          {COMPARISON.map((row) => (
             <motion.div
-              key={row.competitor}
+              key={row.feature}
               variants={mobileCardVariants}
-              className="rounded-card border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-5
-                border-l-2 border-l-vermillion/40"
+              className="rounded-card border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-5 border-l-2 border-l-vermillion/40"
             >
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-sm text-text-secondary font-heading">
-                  {row.competitor}
-                </p>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-heading font-semibold bg-vermillion/10 text-vermillion border border-vermillion/20">
-                  {SAVINGS[i]}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-text-caption line-through decoration-text-caption/30">
-                  {row.theirPrice}
-                </span>
-                <span className="text-base text-vermillion font-bold">
-                  {row.ourPrice}
-                </span>
+              <p className="text-sm text-text-primary font-heading font-semibold mb-3">
+                {row.feature}
+              </p>
+              <div className="flex items-center justify-between text-sm">
+                <div>
+                  <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Others</span>
+                  <span className="text-text-secondary">{row.others}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Us</span>
+                  <span className="text-vermillion font-semibold">{row.ours}</span>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -186,12 +144,13 @@ export default function Comparison() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-center mt-10 lg:mt-12 text-text-secondary text-lg font-body"
+          className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
         >
-          Same deliverable. Fraction of the cost.{" "}
+          We are not cheaper. We are{" "}
           <span className="text-text-primary font-semibold">
-            Delivered in days, not months.
+            more focused
           </span>
+          . Specialization lets us deliver faster and better.
         </motion.p>
       </div>
     </section>

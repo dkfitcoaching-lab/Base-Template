@@ -52,7 +52,7 @@ export default function Footer() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
-                  className="relative text-xs text-text-caption hover:text-vermillion transition-colors duration-300 tracking-wider uppercase font-heading group"
+                  className="relative text-sm text-text-caption hover:text-vermillion transition-colors duration-300 tracking-wider uppercase font-heading group"
                 >
                   {link.label}
                   {/* Sliding underline */}
@@ -97,7 +97,9 @@ export default function Footer() {
               className="w-px h-3 bg-border/50"
               aria-hidden="true"
             />
-            <span>&copy; 2026</span>
+            <a href="mailto:david@vermillionaxistech.com" className="hover:text-vermillion transition-colors duration-300">david@vermillionaxistech.com</a>
+            <span className="w-px h-3 bg-border/50" aria-hidden="true" />
+            <span>&copy; {new Date().getFullYear()}</span>
           </motion.div>
         </div>
       </div>

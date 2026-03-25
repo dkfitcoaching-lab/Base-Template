@@ -86,12 +86,12 @@ export default function CTA() {
             transition={{ duration: 0.7, ease }}
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-text-primary to-vermillion">
-              Ready to build
+            <span className="text-text-primary">
+              Ready to Build Something
             </span>
             <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-text-primary to-vermillion">
-              something real?
+            <span className="text-text-primary">
+              Your Clients Will Love?
             </span>
           </motion.h2>
 
@@ -102,7 +102,7 @@ export default function CTA() {
             transition={{ delay: 0.15, duration: 0.7, ease }}
             className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
-            50% deposit to start. Balance on delivery. No long-term contracts.
+            Tell us about your business. We will respond within 24 hours with a clear scope, timeline, and price.
           </motion.p>
         </div>
 
@@ -117,28 +117,15 @@ export default function CTA() {
         </motion.div>
 
         {/* ── Payment methods ── */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs text-text-caption"
+          className="mt-10 text-center text-sm text-text-caption"
         >
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-vermillion/40" aria-hidden="true" />
-            Zelle (no fee)
-          </span>
-          <span className="hidden sm:block w-px h-3 bg-border/50" aria-hidden="true" />
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-vermillion/40" aria-hidden="true" />
-            Stripe ACH ($5)
-          </span>
-          <span className="hidden sm:block w-px h-3 bg-border/50" aria-hidden="true" />
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-vermillion/40" aria-hidden="true" />
-            Card (3% surcharge)
-          </span>
-        </motion.div>
+          We accept all major payment methods. No contracts. No hidden fees.
+        </motion.p>
       </div>
     </section>
   );
