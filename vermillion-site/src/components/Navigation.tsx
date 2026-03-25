@@ -59,13 +59,14 @@ export default function Navigation() {
               className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded-lg"
               aria-label="Vermillion Axis Technologies — home"
             >
-              <div className="w-8 h-8 rounded-lg bg-vermillion/10 border border-vermillion/20 flex items-center justify-center group-hover:bg-vermillion/20 transition-colors duration-300">
-                <span className="text-vermillion font-heading font-bold text-sm">
-                  V
-                </span>
-              </div>
-              <span className="font-heading font-semibold text-text-primary text-sm tracking-wide hidden sm:block">
-                VERMILLION AXIS
+              <img
+                src="/Base-Template/logo-mark.svg"
+                alt=""
+                className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
+                aria-hidden="true"
+              />
+              <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em] hidden sm:block">
+                VERMILLION <span className="text-vermillion">AXIS</span>
               </span>
             </a>
 
