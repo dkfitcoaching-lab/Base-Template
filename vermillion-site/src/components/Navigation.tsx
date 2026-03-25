@@ -6,16 +6,83 @@ import { NAV_LINKS } from "@/lib/constants";
 
 const ease = [0.22, 1, 0.36, 1];
 
+const sectionIds = ["work", "services", "process", "contact"];
+
+function NavLink({
+  href,
+  label,
+  isActive,
+}: {
+  href: string;
+  label: string;
+  isActive: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      className={`relative text-sm font-body tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:text-text-primary focus-visible:underline underline-offset-4 group ${
+        isActive ? "text-vermillion" : "text-text-secondary hover:text-text-primary"
+      }`}
+    >
+      {label}
+      {/* Animated underline */}
+      <span
+        className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
+        style={{ transformOrigin: "left center" }}
+        aria-hidden="true"
+      />
+      {/* Active indicator */}
+      {isActive && (
+        <motion.span
+          layoutId="nav-active-underline"
+          className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+          aria-hidden="true"
+        />
+      )}
+    </a>
+  );
+}
+
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
+  /* Scroll state for nav background */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Active section tracking via IntersectionObserver */
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  /* Lock body scroll when mobile menu is open */
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -27,6 +94,7 @@ export default function Navigation() {
     };
   }, [mobileOpen]);
 
+  /* Escape key closes mobile menu */
   const handleEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") setMobileOpen(false);
   }, []);
@@ -47,7 +115,7 @@ export default function Navigation() {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-surface-1/90 backdrop-blur-xl border-b border-border/50"
+            ? "bg-surface-1/90 backdrop-blur-xl border-b border-border/50 shadow-glass"
             : "bg-transparent"
         }`}
       >
@@ -59,12 +127,22 @@ export default function Navigation() {
               className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded-lg"
               aria-label="Vermillion Axis Technologies — home"
             >
-              <img
-                src="/Base-Template/logo-mark.svg"
-                alt=""
-                className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
-                aria-hidden="true"
-              />
+              <div className="relative">
+                <img
+                  src="/logo-mark.svg"
+                  alt=""
+                  className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
+                  aria-hidden="true"
+                />
+                {/* Logo dot glow on hover */}
+                <span
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    boxShadow: "0 0 16px 4px rgba(192, 48, 48, 0.35)",
+                  }}
+                  aria-hidden="true"
+                />
+              </div>
               <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em] hidden sm:block">
                 VERMILLION <span className="text-vermillion">AXIS</span>
               </span>
@@ -73,17 +151,28 @@ export default function Navigation() {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
               {NAV_LINKS.map((link) => (
-                <a
+                <NavLink
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-body text-text-secondary hover:text-text-primary transition-colors duration-300 tracking-wide focus-visible:outline-none focus-visible:text-text-primary focus-visible:underline underline-offset-4"
-                >
-                  {link.label}
-                </a>
+                  label={link.label}
+                  isActive={activeSection === link.href.replace("#", "")}
+                />
               ))}
               <a
                 href="#contact"
-                className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-text-primary text-sm font-medium hover:bg-vermillion/90 transition-all duration-300 hover:shadow-[0_0_20px_rgba(192,48,48,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                style={{
+                  boxShadow: "0 0 15px rgba(192, 48, 48, 0.2), 0 0 5px rgba(192, 48, 48, 0.15)",
+                  animation: "glow-pulse 3s ease-in-out infinite",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    "0 0 30px rgba(192, 48, 48, 0.4), 0 0 10px rgba(192, 48, 48, 0.3)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    "0 0 15px rgba(192, 48, 48, 0.2), 0 0 5px rgba(192, 48, 48, 0.15)";
+                }}
               >
                 Get Started
               </a>
@@ -116,7 +205,7 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay — Glassmorphism */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -124,7 +213,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-2xl flex items-center justify-center"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
@@ -138,9 +227,18 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05, ease }}
-                  className="text-2xl font-heading font-light text-text-primary tracking-widest focus-visible:outline-none focus-visible:text-vermillion"
+                  className={`relative text-2xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-vermillion group ${
+                    activeSection === link.href.replace("#", "")
+                      ? "text-vermillion"
+                      : "text-text-primary"
+                  }`}
                 >
                   {link.label}
+                  {/* Hover underline for mobile links */}
+                  <span
+                    className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
+                    aria-hidden="true"
+                  />
                 </motion.a>
               ))}
               <motion.a
@@ -149,7 +247,10 @@ export default function Navigation() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, ease }}
-                className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-text-primary font-medium hover:bg-vermillion/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
+                className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-white font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
+                style={{
+                  boxShadow: "0 0 20px rgba(192, 48, 48, 0.3)",
+                }}
               >
                 Get Started
               </motion.a>

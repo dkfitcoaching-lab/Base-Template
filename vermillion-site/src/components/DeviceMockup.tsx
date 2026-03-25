@@ -277,10 +277,32 @@ export default function DeviceMockup({ label, image }: DeviceMockupProps) {
 
   return (
     <div className="group">
-      <div className="relative rounded-hero overflow-hidden bg-surface-2 border border-border/50 shadow-[0_8px_40px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:shadow-[0_12px_50px_rgba(0,0,0,0.5)] group-hover:border-border/80">
+      {/* Outer container with metallic frame gradient and screen glow */}
+      <div
+        className="relative rounded-hero overflow-hidden bg-surface-2 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(192,48,48,0.06)] transition-all duration-500 group-hover:shadow-[0_12px_50px_rgba(0,0,0,0.5),0_0_60px_rgba(192,48,48,0.12)] group-hover:scale-[1.02]"
+        style={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderImage:
+            "linear-gradient(to bottom, rgba(42,42,56,0.5) 0%, rgba(42,42,56,0.8) 100%) 1",
+        }}
+      >
+        {/* Hover border brightening overlay */}
+        <div
+          className="absolute inset-0 rounded-hero pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          style={{
+            boxShadow: "inset 0 0 0 1px rgba(192,48,48,0.2)",
+          }}
+          aria-hidden="true"
+        />
+
         {/* Top bezel */}
-        <div className="h-6 bg-surface-3/60 flex items-center px-3 gap-1.5" aria-hidden="true">
-          <div className="w-2 h-2 rounded-full bg-border/60" />
+        <div
+          className="h-6 bg-surface-3/60 flex items-center px-3 gap-1.5"
+          aria-hidden="true"
+        >
+          {/* First dot pulses */}
+          <div className="w-2 h-2 rounded-full bg-border/60 animate-glow-pulse" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
         </div>
@@ -298,8 +320,18 @@ export default function DeviceMockup({ label, image }: DeviceMockupProps) {
             <MockupComponent />
           )}
 
+          {/* Scan-line animation */}
+          <div
+            className="absolute left-0 w-full h-px bg-white/[0.05] pointer-events-none animate-scan-line z-[2]"
+            style={{ top: "-2px" }}
+            aria-hidden="true"
+          />
+
           {/* Reflection / shine effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none"
+            aria-hidden="true"
+          />
         </div>
       </div>
 

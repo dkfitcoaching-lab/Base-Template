@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 import DeviceMockup from "./DeviceMockup";
 import { SHOWCASE_ITEMS } from "@/lib/constants";
 
@@ -23,6 +24,54 @@ const itemVariants = {
     transition: { duration: 0.7, ease },
   },
 };
+
+function TiltCard({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [transform, setTransform] = useState("");
+  const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
+
+  function handleMouseMove(e: React.MouseEvent) {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotateX = (y - 0.5) * -8;
+    const rotateY = (x - 0.5) * 8;
+    setTransform(
+      `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+    );
+    setGlowPos({ x: x * 100, y: y * 100 });
+  }
+
+  function handleMouseLeave() {
+    setTransform("");
+    setGlowPos({ x: 50, y: 50 });
+  }
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative group"
+      style={{
+        transform: transform || "perspective(800px) rotateX(0deg) rotateY(0deg)",
+        transition: transform ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
+        willChange: "transform",
+      }}
+    >
+      {/* Dynamic glow that follows cursor */}
+      <div
+        className="absolute -inset-1 rounded-hero opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-xl"
+        style={{
+          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(192, 48, 48, 0.15), transparent 60%)`,
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+}
 
 export default function Showcase() {
   return (
@@ -57,7 +106,9 @@ export default function Showcase() {
         >
           {SHOWCASE_ITEMS.map((item) => (
             <motion.div key={item.label} variants={itemVariants}>
-              <DeviceMockup label={item.label} />
+              <TiltCard>
+                <DeviceMockup label={item.label} />
+              </TiltCard>
             </motion.div>
           ))}
         </motion.div>
