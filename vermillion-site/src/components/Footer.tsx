@@ -29,6 +29,9 @@ export default function Footer() {
             aria-hidden="true"
           />
         </div>
+        <p className="text-xs text-text-caption tracking-[0.2em] uppercase font-heading mt-1">
+          Engineering dominance. Delivered.
+        </p>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-4">
@@ -94,6 +97,11 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.2, ease }}
             className="flex items-center justify-center sm:justify-end gap-4 text-xs text-text-caption"
           >
+            <span className="metallic-text font-heading tracking-widest uppercase text-[10px]">Vermillion Axis Technologies</span>
+            <span
+              className="w-px h-3 bg-border/50"
+              aria-hidden="true"
+            />
             <span>Las Vegas, NV</span>
             <span
               className="w-px h-3 bg-border/50"

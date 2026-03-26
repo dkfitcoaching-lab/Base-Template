@@ -18,7 +18,7 @@ const config: Config = {
         vermillion: {
           DEFAULT: "#B42B2B",
           light: "#D44040",
-          glow: "rgba(180, 43, 43, 0.15)",
+          glow: "rgba(255, 23, 68, 0.15)",
           dark: "#7A1C1C",
           muted: "#963333",
         },
@@ -76,7 +76,6 @@ const config: Config = {
         "neon-sm": "0 0 10px rgba(255, 23, 68, 0.2), 0 0 4px rgba(255, 23, 68, 0.15)",
         "neon-md": "0 0 25px rgba(255, 23, 68, 0.25), 0 0 8px rgba(255, 23, 68, 0.2)",
         "neon-lg": "0 0 50px rgba(255, 23, 68, 0.3), 0 0 15px rgba(255, 23, 68, 0.25)",
-        "neon-border": "0 0 15px rgba(255, 23, 68, 0.1), inset 0 0 15px rgba(255, 23, 68, 0.05)",
       },
       animation: {
         shimmer: "shimmer 3s ease-in-out infinite",

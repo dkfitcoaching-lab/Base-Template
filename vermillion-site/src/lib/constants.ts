@@ -1,8 +1,8 @@
 export const SITE = {
   name: "Vermillion Axis Technologies",
-  tagline: "We Engineer What Others Can't Build",
+  tagline: "Infrastructure-Grade Software Engineering",
   description:
-    "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
+    "We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. No templates. No dependencies. No compromises.",
   location: "Las Vegas, NV",
   domain: "vermillionaxis.tech",
   email: "contact@vermillionaxis.tech",
@@ -14,7 +14,7 @@ export const SERVICE_OPTIONS = [
   "Foundation ($2,500 – $5,000)",
   "Professional ($7,500 – $15,000)",
   "Enterprise ($20,000+)",
-  "Custom scope — let's discuss",
+  "Custom engagement — request a briefing",
 ] as const;
 
 export const NAV_LINKS = [
@@ -26,53 +26,53 @@ export const NAV_LINKS = [
 ];
 
 export const STATS = [
-  { value: "100+", label: "Projects Shipped" },
-  { value: "<72hr", label: "Response Time" },
-  { value: "3–21", label: "Day Delivery" },
+  { value: "100+", label: "Systems Deployed" },
+  { value: "<72hr", label: "Engagement to Kickoff" },
+  { value: "3–21", label: "Day Delivery Window" },
   { value: "100%", label: "Code Ownership" },
 ];
 
 export const SHOWCASE_ITEMS = [
   {
-    label: "Analytics Dashboard",
+    label: "Analytics Command Center",
     image: "/screenshots/analytics.png",
     description:
-      "Real-time SaaS metrics, revenue tracking, and predictive insights for enterprise clients.",
+      "Real-time telemetry, revenue attribution, and predictive modeling. Built to give decision-makers a single pane of glass over the entire operation.",
     category: "SaaS",
   },
   {
     label: "Enterprise CRM",
     image: "/screenshots/crm.png",
     description:
-      "Custom client relationship management with pipeline tracking and automated workflows.",
+      "Multi-pipeline relationship intelligence with automated lifecycle workflows, granular RBAC, and audit-grade data integrity.",
     category: "Enterprise",
   },
   {
     label: "Member Portal",
     image: "/screenshots/portal.png",
     description:
-      "Luxury membership management with authentication, billing, and content delivery.",
+      "Authenticated membership infrastructure — integrated billing, content gating, and role-based delivery. Zero third-party platform dependencies.",
     category: "Membership",
   },
   {
     label: "E-Commerce Platform",
     image: "/screenshots/ecommerce.png",
     description:
-      "High-performance storefront with inventory management, payments, and analytics.",
+      "Sub-second storefront with real-time inventory synchronization, payment orchestration, and conversion analytics baked into the architecture.",
     category: "E-Commerce",
   },
   {
     label: "Coaching Platform",
     image: "/screenshots/dashboard.png",
     description:
-      "Full-stack coaching management with scheduling, payments, and branded PDF exports.",
+      "Full-stack operational system — scheduling engine, payment processing, branded document generation. One codebase running the entire business.",
     category: "Fitness",
   },
   {
     label: "Mobile Application",
     image: "/screenshots/mobile.png",
     description:
-      "Cross-platform progressive web app with offline-first architecture and push notifications.",
+      "Offline-first progressive web application with background sync, push notifications, and native-grade performance. No app store required.",
     category: "Mobile",
   },
 ];
@@ -82,33 +82,33 @@ export const TIERS = [
     name: "Foundation",
     price: "$2,500 – $5,000",
     audience:
-      "Startups, solo founders, and businesses launching their digital presence.",
+      "For operators who need a production-grade digital system — not a brochure site.",
     delivery: "3–7 days",
     features: [
-      "Custom branded website or application",
-      "Progressive Web App — installs on any device",
-      "Booking, scheduling, and contact forms",
-      "Stripe payment processing",
-      "SEO and performance optimization",
-      "Cloud hosting and database included",
-      "Two rounds of revisions",
+      "Custom-engineered website or web application — zero templates",
+      "Progressive Web App — installable on any device",
+      "Integrated booking, scheduling, and intake systems",
+      "Stripe payment infrastructure with webhook orchestration",
+      "SEO architecture and sub-second load times",
+      "Cloud hosting, managed database, and CI/CD pipeline",
+      "Full source code, credentials, and infrastructure transfer on delivery",
     ],
   },
   {
     name: "Professional",
     price: "$7,500 – $15,000",
     audience:
-      "Growing businesses managing operations at scale.",
+      "For companies building the operational backbone their competitors cannot replicate.",
     delivery: "5–10 days",
     features: [
       "Everything in Foundation, plus:",
-      "Full-stack management platform",
-      "User profiles with role-based access control",
-      "Database architecture and API design",
-      "Third-party integrations (CRM, payments, messaging)",
-      "Automated workflows and scheduling",
-      "Branded document and PDF export",
-      "Offline-first architecture with cloud sync",
+      "Full-stack operational command center with live dashboards",
+      "Role-based access control and multi-tier user management",
+      "Normalized relational database architecture and typed API layer",
+      "Deep system integrations — CRM, payments, messaging, calendaring",
+      "Automated workflow engine with event-driven scheduling",
+      "Branded document and PDF generation pipeline",
+      "Offline-first architecture with real-time data synchronization",
     ],
     highlighted: true,
   },
@@ -116,17 +116,17 @@ export const TIERS = [
     name: "Enterprise",
     price: "$20,000+",
     audience:
-      "Organizations requiring multi-system architecture and advanced capabilities.",
+      "For organizations engineering platform-level infrastructure built to absorb scale.",
     delivery: "10–21 days",
     features: [
       "Everything in Professional, plus:",
-      "Multi-tenant SaaS architecture",
-      "Admin panel with analytics dashboards",
-      "AI-powered automation and generation",
-      "E-commerce and marketplace features",
-      "CRM and third-party API integrations",
-      "White-label and multi-brand support",
-      "Dedicated security audit",
+      "Multi-tenant SaaS infrastructure with tenant isolation",
+      "Administrative command panel with real-time operational analytics",
+      "AI-driven automation and intelligent content generation",
+      "Commerce engine with marketplace and vendor management capabilities",
+      "Enterprise API integrations and custom middleware layer",
+      "White-label and multi-brand architecture",
+      "Security audit, penetration hardening, and compliance documentation",
     ],
   },
 ];
@@ -136,82 +136,82 @@ export const FEATURES = [
     icon: "Layers",
     title: "Full-Stack Architecture",
     description:
-      "End-to-end systems built on React, Next.js, Node.js, and PostgreSQL. Modern, maintainable, and production-ready.",
+      "Vertically integrated systems on React, Next.js, Node.js, and PostgreSQL. Every layer production-hardened. Every interface statically typed. No scaffolding left behind.",
   },
   {
     icon: "Zap",
     title: "Real-Time Systems",
     description:
-      "Live dashboards, instant notifications, and WebSocket-powered features that keep your users engaged.",
+      "WebSocket-driven dashboards, event-sourced state management, and sub-second data propagation. Your operation runs on live data, not polling intervals.",
   },
   {
     icon: "Cloud",
-    title: "Cloud-Native & Scalable",
+    title: "Cloud-Native Infrastructure",
     description:
-      "Auto-scaling infrastructure designed for growth. From day-one startup to enterprise-grade load.",
+      "Auto-scaling compute with zero-downtime deployments. Architected to absorb ten times your current load without human intervention or architectural changes.",
   },
   {
     icon: "Smartphone",
     title: "Progressive Web Apps",
     description:
-      "Install on any device, work offline, push notifications. Native app experience without the app store.",
+      "Device-installable, offline-capable, push-enabled. Native application performance delivered through the browser. No app store gatekeeping. No review cycles.",
   },
   {
     icon: "Shield",
-    title: "Enterprise Security",
+    title: "Hardened Security",
     description:
-      "Encryption at rest and in transit, role-based access, audit trails, and security-first architecture.",
+      "AES-256 encryption at rest and in transit. Role-based access control. Immutable audit trails. Defense-in-depth architecture engineered to withstand hostile environments.",
   },
   {
     icon: "Plug",
-    title: "API Design & Integration",
+    title: "API Engineering",
     description:
-      "RESTful and GraphQL APIs, third-party integrations, webhooks, and middleware for any ecosystem.",
+      "RESTful and GraphQL interfaces, webhook orchestration, and middleware that integrates cleanly with any system exposing an endpoint. Documented. Versioned. Typed.",
   },
   {
     icon: "Brain",
-    title: "AI-Powered Features",
+    title: "AI-Powered Systems",
     description:
-      "Machine learning models, intelligent automation, chatbots, and predictive analytics built into your platform.",
+      "Production machine learning pipelines, intelligent document processing, and predictive models embedded directly into your operational workflow. Not bolted on — built in.",
   },
   {
     icon: "BarChart3",
-    title: "Analytics & Reporting",
+    title: "Analytics & Intelligence",
     description:
-      "Custom dashboards, data visualization, and business intelligence tools tailored to your KPIs.",
+      "Purpose-built dashboards and data visualization surfaces engineered around your operational metrics. Every chart answers a question. Every metric drives a decision.",
   },
 ];
 
 export const PROCESS_STEPS = [
   {
     step: "01",
-    title: "Discovery",
+    title: "Discovery & Reconnaissance",
     description:
-      "A focused consultation. We understand your vision, define technical requirements, and identify the fastest path to a production-ready product.",
+      "One focused briefing. We extract operational requirements, map technical constraints, identify integration surfaces, and define mission parameters. No discovery phases that bill by the hour.",
   },
   {
     step: "02",
-    title: "Proposal",
+    title: "System Architecture",
     description:
-      "Within 24 hours: a detailed scope document with architecture overview, timeline, and transparent fixed pricing. No ambiguity.",
+      "Within 24 hours: a complete system blueprint — data models, API contracts, infrastructure topology, security boundaries, and fixed-scope pricing. Every decision documented before a line of code is written.",
   },
   {
     step: "03",
-    title: "Build",
+    title: "Precision Engineering",
     description:
-      "Rapid development with milestone-based progress updates. Two revision rounds built into every engagement. You see everything as it happens.",
+      "Systematic, milestone-driven construction. Every component tested in isolation, integrated under load, and validated against specification. Continuous deployment to a staging environment you can inspect in real time.",
   },
   {
     step: "04",
-    title: "Deliver",
+    title: "Production Deployment",
     description:
-      "Complete codebase, deployment credentials, and documentation. Full ownership transfer. You control every line of code.",
+      "Zero-downtime launch with full asset transfer — codebase, credentials, infrastructure access, CI/CD pipeline, and technical documentation. Complete operational handoff. You own every line.",
   },
   {
     step: "05",
-    title: "Support",
+    title: "Sustained Operations",
     description:
-      "Post-launch maintenance, feature additions, and performance monitoring. Month-to-month, cancel anytime. No lock-in.",
+      "Ongoing monitoring, performance optimization, and feature engineering. Month-to-month. No contracts. Disengage at any time with zero penalty and zero data loss.",
   },
 ];
 
@@ -223,49 +223,49 @@ export const COMPARISON = [
   },
   {
     feature: "Code ownership",
-    others: "Licensed or hosted",
-    ours: "100% yours",
+    others: "Licensed or platform-locked",
+    ours: "100% yours — every line, every credential",
   },
   {
-    feature: "Ongoing lock-in",
+    feature: "Contractual lock-in",
     others: "Annual contracts",
-    ours: "Month-to-month or none",
+    ours: "None. Month-to-month or zero obligation",
   },
   {
-    feature: "Revision rounds",
-    others: "Paid change orders",
-    ours: "2 rounds included",
+    feature: "Change velocity",
+    others: "Paid change orders, 2-week cycles",
+    ours: "Continuous deployment, same-day iterations",
   },
   {
     feature: "Technology stack",
-    others: "Template-based or outsourced",
-    ours: "Custom-built from scratch",
+    others: "Template-based or offshore assembly",
+    ours: "Custom-engineered, statically typed, documented",
   },
   {
-    feature: "Post-launch support",
-    others: "Retainer required",
-    ours: "Flexible monthly plans",
+    feature: "Post-launch engineering",
+    others: "Retainer required, scope renegotiation",
+    ours: "Flexible monthly engagement, no minimums",
   },
 ];
 
 export const TESTIMONIALS = [
   {
     quote:
-      "They built our entire platform in eleven days. Our previous agency quoted four months and triple the cost. Scheduling, payments, branded exports — our team uses it every single morning.",
+      "Eleven days. Full platform — scheduling, payments, branded exports. Our previous vendor quoted four months at three times the cost. My entire team runs their day out of this system now.",
     name: "Michael K.",
     title: "Founder, Coaching Lab",
     location: "Las Vegas, NV",
   },
   {
     quote:
-      "I needed more than a website. I needed a system that understood how my business actually works — client onboarding, progress tracking, automated workflows. Vermillion got it immediately. No back-and-forth, no explaining the basics.",
+      "I did not need a website. I needed an operational system that mirrored how my business actually works — client intake, progress tracking, automated follow-ups. Vermillion mapped the requirements in a single call and delivered exactly that. No translation layer required.",
     name: "Rachel Chen",
     title: "Founder, Elevate Wellness",
     location: "Scottsdale, AZ",
   },
   {
     quote:
-      "The branded exports alone changed my business. My clients receive professionally designed documents with my logo and colors. They think I have a full design team. I just have Vermillion.",
+      "The document generation pipeline alone changed how we operate. Professionally branded deliverables generated on demand with our full identity system. Clients assume we have an entire design department. We do not. We have Vermillion.",
     name: "David Okafor",
     title: "CEO, Okafor Digital",
     location: "Austin, TX",
@@ -274,33 +274,33 @@ export const TESTIMONIALS = [
 
 export const FAQ_ITEMS = [
   {
-    question: "Do I actually own the code?",
+    question: "Do I own the code?",
     answer:
-      "Yes. On delivery, we transfer the complete codebase, deployment credentials, and documentation. No licensing, no hosting lock-in. It is yours to modify, extend, or hand off to another developer.",
+      "Entirely. Full codebase, deployment credentials, and infrastructure access transferred on delivery. Your intellectual property. No licensing. No dependencies on us.",
   },
   {
-    question: "How can you deliver so fast?",
+    question: "How do you deliver this fast?",
     answer:
-      "Years of refined component libraries, battle-tested architecture patterns, and purpose-built tooling eliminate the cold-start problem. We are not starting from zero — we are starting from proven systems designed for speed.",
+      "Proprietary component libraries, battle-tested architecture patterns, and purpose-built tooling eliminate the cold-start problem. We deploy proven, production-grade systems — not prototypes.",
   },
   {
-    question: "What if I need changes after launch?",
+    question: "What happens after launch?",
     answer:
-      "Two revision rounds are included in every project. After launch, we offer flexible month-to-month support plans. You can also take the code to any developer — there is no lock-in.",
+      "You hold the source code. Any qualified engineer can extend it. If you want us to continue building, we offer month-to-month engineering support with no minimums and no lock-in.",
   },
   {
-    question: "What technologies do you use?",
+    question: "What is the technology stack?",
     answer:
-      "We build with React, Next.js, TypeScript, and Tailwind CSS on the frontend. Backends typically run on Node.js with PostgreSQL or Firebase depending on your needs. Everything is modern, maintainable, and documented.",
+      "React, Next.js, and TypeScript on the frontend. Node.js with PostgreSQL or Firebase on the backend. Statically typed end-to-end, fully documented, and built for decade-scale maintainability.",
   },
   {
-    question: "Can you integrate with tools I already use?",
+    question: "Can you integrate with our existing systems?",
     answer:
-      "Yes. We have built integrations with Stripe, Twilio, Google Calendar, Salesforce, HubSpot, Shopify, and dozens of CRM and API systems. If it has an API, we can connect it.",
+      "If it has an API, we connect to it. Production integrations with Stripe, Twilio, Google Calendar, Salesforce, HubSpot, Shopify, and dozens of other platforms already in our deployment history.",
   },
   {
-    question: "What happens if I am not satisfied?",
+    question: "How long does a project take?",
     answer:
-      "We work transparently — you see progress at every milestone and have two full revision rounds. In the unlikely event we cannot reach alignment, we will refund the balance on any undelivered work. We have never had to.",
+      "Three to twenty-one days. Foundation systems ship in under a week. Enterprise platforms deliver within three weeks. We commit to a date and we hold it.",
   },
 ];
