@@ -15,8 +15,8 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 lg:py-24" aria-labelledby="faq-heading">
-      <div className="max-w-3xl mx-auto px-6 lg:px-8">
+    <section id="faq" className="py-16 sm:py-20 lg:py-24" aria-labelledby="faq-heading">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -29,13 +29,13 @@ export default function FAQ() {
           </p>
           <h2
             id="faq-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Everything You Need to Know
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="gothic-card neon-glow-border rounded-card p-4 sm:p-6 space-y-0">
           {FAQ_ITEMS.map((item, i) => {
             const isOpen = openIndex === i;
             const panelId = `faq-panel-${i}`;
@@ -48,7 +48,7 @@ export default function FAQ() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.5, ease }}
-                className={`border-b border-neon/[0.06] ${isOpen ? "border-l-2 border-l-neon" : ""}`}
+                className={`border-b border-neon/[0.06] transition-all duration-300 ${isOpen ? "border-l-2 border-l-neon shadow-[inset_4px_0_20px_rgba(255,23,68,0.15),0_0_25px_rgba(255,23,68,0.1),0_0_50px_rgba(255,23,68,0.04)] bg-neon/[0.03]" : ""}`}
               >
                 <button
                   id={buttonId}
@@ -57,7 +57,7 @@ export default function FAQ() {
                   aria-controls={panelId}
                   className="w-full flex items-center justify-between py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
                 >
-                  <span className="font-heading font-semibold text-base text-text-primary pr-4">
+                  <span className="font-heading font-semibold text-sm sm:text-base text-text-primary pr-4">
                     {item.question}
                   </span>
                   <motion.span

@@ -19,7 +19,7 @@ export const SERVICE_OPTIONS = [
 
 export const NAV_LINKS = [
   { label: "Portfolio", href: "#work" },
-  { label: "Solutions", href: "#services" },
+  { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
@@ -34,7 +34,7 @@ export const STATS = [
 
 export const SHOWCASE_ITEMS = [
   {
-    label: "Analytics Command Center",
+    label: "Analytics Dashboard",
     image: "/screenshots/analytics.png",
     description:
       "Real-time telemetry, revenue attribution, and predictive modeling. Built to give decision-makers a single pane of glass over the entire operation.",

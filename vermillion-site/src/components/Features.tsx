@@ -55,8 +55,8 @@ const itemVariantsRight = {
 
 export default function Features() {
   return (
-    <section className="py-24 lg:py-32" aria-labelledby="features-heading">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="features" className="py-16 sm:py-24 lg:py-32" aria-labelledby="features-heading">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -65,12 +65,12 @@ export default function Features() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon text-neon-glow-subtle uppercase font-heading mb-3">
             Capabilities
           </p>
           <h2
             id="features-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Built for What&apos;s Next
           </h2>
@@ -94,7 +94,7 @@ export default function Features() {
                 key={feature.title}
                 variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
                 role="listitem"
-                className={`group relative p-6 lg:p-7 rounded-card gothic-card
+                className={`group relative p-4 sm:p-6 lg:p-7 rounded-card gothic-card neon-glow-border
                   transition-all duration-500
                   ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}
@@ -127,7 +127,9 @@ export default function Features() {
                   aria-hidden="true"
                 >
                   {Icon && (
-                    <Icon className="w-5 h-5 text-neon group-hover:text-neon transition-colors duration-500" />
+                    <span style={{ filter: 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}>
+                      <Icon className="w-5 h-5 text-neon group-hover:text-neon transition-colors duration-500" />
+                    </span>
                   )}
                 </div>
 

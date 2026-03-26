@@ -25,7 +25,7 @@ const initialFormData: FormData = {
 };
 
 const inputClasses =
-  "w-full bg-white/[0.03] border border-neon/[0.15] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption shadow-[0_0_12px_rgba(255,23,68,0.06)] focus:outline-none focus:border-neon/40 focus:shadow-[0_0_28px_rgba(255,23,68,0.25)] transition-all duration-300";
+  "w-full bg-white/[0.03] border border-neon/[0.15] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption shadow-[0_0_12px_rgba(255,23,68,0.06)] focus:outline-none focus:border-neon/60 focus:shadow-[0_0_30px_rgba(255,23,68,0.3),0_0_60px_rgba(255,23,68,0.1)] focus:ring-2 focus:ring-neon/40 transition-all duration-300";
 
 const labelClasses =
   "block text-sm font-heading text-text-secondary uppercase tracking-wide mb-2";
@@ -97,7 +97,7 @@ export default function ContactForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease }}
-        className="gothic-card neon-border-flow rounded-hero p-8 sm:p-12 text-center"
+        className="gothic-card neon-border-flow rounded-hero p-6 sm:p-8 lg:p-12 text-center"
       >
         {/* Animated checkmark with ring draw-in */}
         <motion.div
@@ -168,7 +168,7 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5, ease }}
-          className="px-8 py-3 rounded-btn border border-neon/[0.12] text-text-secondary font-heading text-sm tracking-wide hover:border-neon/30 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] transition-all duration-300"
+          className="px-8 py-3 rounded-btn border border-neon/[0.12] text-text-secondary font-heading text-sm tracking-wide hover:border-neon/30 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
           Send another message
         </motion.button>
@@ -307,7 +307,8 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="shimmer-btn w-full sm:w-auto px-12 py-4 rounded-btn bg-vermillion text-white font-heading font-semibold text-base tracking-wide hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed disabled:animate-pulse"
+            className="shimmer-btn w-full sm:w-auto px-12 py-4 rounded-btn bg-vermillion text-white font-heading font-semibold text-base tracking-wide shadow-[0_0_25px_rgba(255,23,68,0.3),0_0_50px_rgba(255,23,68,0.15),0_0_80px_rgba(255,23,68,0.06)] hover:shadow-[0_0_35px_rgba(255,23,68,0.4),0_0_70px_rgba(255,23,68,0.2),0_0_110px_rgba(255,23,68,0.1)] active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed disabled:animate-pulse"
+            style={{ boxShadow: '0 0 20px rgba(255,23,68,0.15)' }}
           >
             {status === "submitting" ? (
               <span className="flex items-center justify-center gap-2">

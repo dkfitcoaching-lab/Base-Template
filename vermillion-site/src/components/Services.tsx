@@ -49,7 +49,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 overflow-hidden"
       aria-labelledby="services-heading"
     >
       {/* Section background glow */}
@@ -58,7 +58,7 @@ export default function Services() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,7 +72,7 @@ export default function Services() {
           </p>
           <h2
             id="services-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Transparent Pricing. No Surprises.
           </h2>
@@ -125,9 +125,14 @@ export default function Services() {
                   transition={{ duration: 0.35, ease }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow"
-                      : "border-neon/[0.06] hover:border-neon/20 hover:shadow-neon-sm"
+                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow neon-pulse-border"
+                      : "neon-glow-border"
                   }`}
+                  style={{
+                    boxShadow: isHighlighted
+                      ? '0 0 25px rgba(255,23,68,0.2), 0 0 50px rgba(255,23,68,0.1), 0 0 90px rgba(255,23,68,0.05)'
+                      : '0 0 15px rgba(255,23,68,0.1), 0 0 30px rgba(255,23,68,0.04)',
+                  }}
                 >
                   {/* Animated gradient border overlay on hover/select */}
                   <div
@@ -166,7 +171,7 @@ export default function Services() {
                     aria-hidden="true"
                   />
 
-                  <div className="relative p-8">
+                  <div className="relative p-4 sm:p-6 lg:p-8">
                     {/* Tier name */}
                     <h3 className="font-heading font-bold text-lg text-text-primary tracking-wider uppercase mb-1">
                       {tier.name}
@@ -178,7 +183,7 @@ export default function Services() {
                         scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl text-neon text-neon-glow-subtle mb-3 origin-left"
+                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon text-neon-glow-subtle mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span
@@ -234,7 +239,7 @@ export default function Services() {
                     {/* CTA Button */}
                     <a
                       href="#contact"
-                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] ${
+                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${
                         isHighlighted
                           ? "bg-vermillion text-white hover:shadow-neon-md hover:bg-vermillion/90"
                           : "border border-border/60 text-text-primary hover:border-neon/50 hover:text-neon hover:shadow-neon-sm"

@@ -21,7 +21,7 @@ export default function CTA() {
   return (
     <section
       id="contact"
-      className="py-32 lg:py-40 relative overflow-hidden"
+      className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* ── Layered background gradients ── */}
@@ -121,9 +121,9 @@ export default function CTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7, ease }}
-              className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight"
             >
-              <span className="text-text-primary">
+              <span className="text-text-primary metallic-text">
                 Ready to Build.
               </span>
               <br />
@@ -138,7 +138,7 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.7, ease }}
-            className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
             Describe your vision. Within 24 hours you&apos;ll have architecture, timeline, and investment — no ambiguity, no obligation.
           </motion.p>

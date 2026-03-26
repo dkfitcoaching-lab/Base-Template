@@ -39,12 +39,12 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6, ease }}
     >
-      <dt className="font-mono font-bold text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow metallic-text">
+      <dt className="font-mono font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow metallic-text">
         <span>{prefix}</span>
         <motion.span>{rounded}</motion.span>
         <span>{suffix}</span>
       </dt>
-      <dd className="text-sm text-neon tracking-wide">
+      <dd className="text-sm text-neon text-neon-glow-subtle tracking-wide">
         {label}
       </dd>
     </motion.div>
@@ -54,8 +54,8 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
 export default function Stats() {
   return (
     <section className="relative border-y border-neon/[0.12] shadow-[0_0_30px_rgba(255,23,68,0.06)]" aria-label="Key metrics">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10 lg:py-12">
-        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 lg:gap-12">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
@@ -69,8 +69,13 @@ export default function Stats() {
 
       {/* Vermillion gradient accent at bottom */}
       <div
-        className="absolute bottom-0 left-[10%] right-[10%] h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.3), transparent)" }}
+        className="absolute bottom-0 left-[10%] right-[10%] h-px animate-pulse"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-0 left-[10%] right-[10%] h-px animate-pulse"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", animationDelay: "1s" }}
         aria-hidden="true"
       />
     </section>
