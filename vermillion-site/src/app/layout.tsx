@@ -75,7 +75,7 @@ export default function RootLayout({
               name: "Vermillion Axis Technologies",
               url: "https://vermillionaxis.tech",
               description:
-                "Premium custom software development for visionary companies",
+                "Infrastructure-grade software engineering. Engineered for load, hardened for production, delivered with the source.",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Las Vegas",

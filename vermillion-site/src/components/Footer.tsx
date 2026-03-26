@@ -85,7 +85,7 @@ export default function Footer() {
               <span className="tracking-wider uppercase font-heading hidden sm:inline text-xs text-text-caption group-hover:text-text-secondary transition-colors duration-300">
                 Top
               </span>
-              <span className="flex items-center justify-center w-10 h-10 rounded-full border border-neon/[0.1] bg-surface-1 hover:bg-surface-2 hover:shadow-neon-sm hover:border-neon/30 transition-all duration-300">
+              <span className="flex items-center justify-center w-10 h-10 rounded-full border border-neon/[0.1] bg-surface-1 hover:bg-neon/[0.06] hover:shadow-neon-sm hover:border-neon/40 transition-all duration-300">
                 <ArrowUp className="w-3.5 h-3.5 text-text-caption group-hover:text-text-secondary group-hover:-translate-y-0.5 transition-all duration-300" />
               </span>
             </a>

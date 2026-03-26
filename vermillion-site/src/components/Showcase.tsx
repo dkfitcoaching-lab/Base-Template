@@ -71,7 +71,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     >
       {/* Dynamic glow that follows cursor */}
       <div
-        className="absolute -inset-2 rounded-hero opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
+        className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
         style={{
           background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`,
         }}

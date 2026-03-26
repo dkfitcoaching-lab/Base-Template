@@ -169,7 +169,7 @@ function VerticalNeonLine() {
           boxShadow: "0 0 12px rgba(255,23,68,0.5), 0 0 30px rgba(255,23,68,0.25), 0 0 60px rgba(255,23,68,0.12), 0 0 100px rgba(255,23,68,0.06)",
         }}
         initial={{ height: 0, opacity: 0 }}
-        animate={{ height: 120, opacity: 1 }}
+        animate={{ height: 240, opacity: 1 }}
         transition={{ duration: 1.8, delay: 0.2, ease }}
       />
       {/* Pulsing glow at the tip */}
@@ -626,7 +626,7 @@ export default function Hero() {
           <MagneticButton>
             <a
               href="#work"
-              className="px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>
