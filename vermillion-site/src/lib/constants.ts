@@ -236,21 +236,21 @@ export const COMPARISON = [
 
 export const TESTIMONIALS = [
   {
-    quote: "They built in two weeks what my last developer quoted three months for. The app runs my entire business now.",
-    name: "Marcus T.",
-    title: "IFBB Pro Coach",
+    quote: "They built our entire coaching platform in eleven days. Our previous agency quoted four months and triple the cost. The app handles scheduling, payments, and branded PDF programs — our coaches use it every single morning.",
+    name: "Michael K.",
+    title: "IFBB Pro, Coaching Lab",
     location: "Las Vegas, NV",
   },
   {
-    quote: "I needed a platform that understood coaching workflows, not just a generic CRM. Vermillion delivered exactly that.",
-    name: "Sarah K.",
-    title: "Owner, Peak Performance Training",
+    quote: "I needed more than a website. I needed a system that understood how coaching actually works — intake forms, progress tracking, automated programming. Vermillion got it immediately. No back-and-forth, no explaining the basics.",
+    name: "Rachel Chen",
+    title: "Founder, Elevate Wellness",
     location: "Scottsdale, AZ",
   },
   {
-    quote: "The branded PDF exports alone saved me 10 hours a week. My clients think I hired a full design team.",
-    name: "James R.",
-    title: "Online Fitness Coach",
+    quote: "The branded exports alone changed my business. My clients receive professionally designed workout and nutrition plans with my logo and colors. They think I have a full design team. I just have Vermillion.",
+    name: "David Okafor",
+    title: "Online Performance Coach",
     location: "Austin, TX",
   },
 ];

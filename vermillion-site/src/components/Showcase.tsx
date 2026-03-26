@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import DeviceMockup from "./DeviceMockup";
 import { SHOWCASE_ITEMS } from "@/lib/constants";
@@ -82,9 +82,33 @@ function TiltCard({ children }: { children: React.ReactNode }) {
   );
 }
 
+const parallaxOffsets: [number, number][] = [
+  [20, -20],   // index 0: move less
+  [40, -40],   // index 1: move more
+  [30, -30],   // index 2: medium
+  [20, -20],   // index 3: move less
+  [40, -40],   // index 4: move more
+  [30, -30],   // index 5: medium
+];
+
 export default function Showcase() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const yTransform0 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[0]);
+  const yTransform1 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[1]);
+  const yTransform2 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[2]);
+  const yTransform3 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[3]);
+  const yTransform4 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[4]);
+  const yTransform5 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[5]);
+
+  const transforms = [yTransform0, yTransform1, yTransform2, yTransform3, yTransform4, yTransform5];
+
   return (
-    <section id="work" className="py-24 lg:py-32" aria-labelledby="showcase-heading">
+    <section ref={sectionRef} id="work" className="py-24 lg:py-32 section-glow-divider" aria-labelledby="showcase-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -113,8 +137,8 @@ export default function Showcase() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {SHOWCASE_ITEMS.map((item) => (
-            <motion.div key={item.label} variants={itemVariants}>
+          {SHOWCASE_ITEMS.map((item, index) => (
+            <motion.div key={item.label} variants={itemVariants} style={{ y: transforms[index] }}>
               <TiltCard>
                 <DeviceMockup label={item.label} description={item.description} />
               </TiltCard>

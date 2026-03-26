@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/lib/constants";
+import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -177,12 +178,14 @@ export default function Navigation() {
                   isActive={activeSection === link.href.replace("#", "")}
                 />
               ))}
-              <a
-                href="#contact"
-                className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-              >
-                Get Started
-              </a>
+              <MagneticButton strength={0.25}>
+                <a
+                  href="#contact"
+                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                >
+                  Get Started
+                </a>
+              </MagneticButton>
             </div>
 
             {/* Mobile Hamburger */}

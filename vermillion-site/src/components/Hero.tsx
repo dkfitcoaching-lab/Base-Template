@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -91,8 +92,8 @@ function WordReveal({
       {words.map((word, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 30, clipPath: "inset(100% 0 0 0)" }}
+          animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
           transition={{
             duration: 0.5,
             delay: startDelay + i * 0.08,
@@ -169,8 +170,8 @@ export default function Hero() {
               className="text-transparent bg-clip-text bg-gradient-to-r from-vermillion via-vermillion-light to-vermillion"
             />
             <motion.span
-              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 30, clipPath: "inset(100% 0 0 0)" }}
+              animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
               transition={{
                 duration: 0.5,
                 delay: line3Delay,
@@ -201,13 +202,15 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: ctaDelay, ease }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <ShimmerButton href="#contact">Start Your Project</ShimmerButton>
-          <a
-            href="#work"
-            className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-medium text-sm tracking-wide transition-all duration-300 hover:border-vermillion hover:shadow-glow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
-          >
-            See Our Work
-          </a>
+          <MagneticButton><ShimmerButton href="#contact">Start Your Project</ShimmerButton></MagneticButton>
+          <MagneticButton>
+            <a
+              href="#work"
+              className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-medium text-sm tracking-wide transition-all duration-300 hover:border-vermillion hover:shadow-glow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
+            >
+              See Our Work
+            </a>
+          </MagneticButton>
         </motion.div>
       </div>
 

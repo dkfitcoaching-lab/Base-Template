@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
+import CursorSpotlight from "@/components/CursorSpotlight";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Showcase from "@/components/Showcase";
@@ -15,6 +16,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main id="main-content" className="relative">
+      <CursorSpotlight />
       <ScrollProgress />
       <Navigation />
       <Hero />
