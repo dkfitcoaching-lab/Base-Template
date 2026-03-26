@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/Base-Template",
-  assetPrefix: "/Base-Template",
+  basePath: "",
+  assetPrefix: "",
   images: {
     unoptimized: true,
   },

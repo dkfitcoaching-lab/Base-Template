@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
   description:
-    "We build custom coaching management applications for fitness and wellness businesses. From $2,500. Full code ownership. Delivered in days.",
+    "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
   keywords: [
     "custom software development",
     "fitness app development",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
     description:
-      "We build custom coaching management applications for fitness and wellness businesses. From $2,500. Full code ownership. Delivered in days.",
+      "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
     type: "website",
     url: "https://vermillionaxistech.com",
     siteName: "Vermillion Axis Technologies",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
     description:
-      "We build custom coaching management applications for fitness and wellness businesses. From $2,500. Full code ownership. Delivered in days.",
+      "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
     images: ["/og-image.png"],
   },
   metadataBase: new URL("https://vermillionaxistech.com"),
