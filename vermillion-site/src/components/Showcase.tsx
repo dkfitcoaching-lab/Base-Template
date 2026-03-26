@@ -119,13 +119,13 @@ export default function Showcase() {
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Our Work
+            Selected Work
           </p>
           <h2
             id="showcase-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Real Platforms. Real Businesses.
+            Engineered for Impact
           </h2>
         </motion.div>
 
@@ -154,7 +154,7 @@ export default function Showcase() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-center mt-12 text-sm text-text-caption"
         >
-          Live example:{" "}
+          Featured:{" "}
           <a
             href="https://www.ifbbprobigmikeely.com"
             target="_blank"

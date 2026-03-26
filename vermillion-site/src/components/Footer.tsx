@@ -97,7 +97,7 @@ export default function Footer() {
               className="w-px h-3 bg-border/50"
               aria-hidden="true"
             />
-            <a href="mailto:david@vermillionaxistech.com" className="hover:text-vermillion transition-colors duration-300">david@vermillionaxistech.com</a>
+            <a href="mailto:contact@vermillionaxis.tech" className="hover:text-vermillion transition-colors duration-300">contact@vermillionaxis.tech</a>
             <span className="w-px h-3 bg-border/50" aria-hidden="true" />
             <span>&copy; {new Date().getFullYear()}</span>
           </motion.div>

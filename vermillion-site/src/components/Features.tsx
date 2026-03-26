@@ -3,25 +3,25 @@
 import { motion } from "framer-motion";
 import { FEATURES } from "@/lib/constants";
 import {
-  Users,
-  Dumbbell,
-  UtensilsCrossed,
-  DollarSign,
-  MessageSquare,
+  Layers,
+  Zap,
+  Cloud,
+  Smartphone,
   Shield,
+  Plug,
   Brain,
-  FileText,
+  BarChart3,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Users,
-  Dumbbell,
-  UtensilsCrossed,
-  DollarSign,
-  MessageSquare,
+  Layers,
+  Zap,
+  Cloud,
+  Smartphone,
   Shield,
+  Plug,
   Brain,
-  FileText,
+  BarChart3,
 };
 
 const ease = [0.22, 1, 0.36, 1];
@@ -57,14 +57,13 @@ export default function Features() {
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Platform Capabilities
+            Capabilities
           </p>
           <h2
             id="features-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Everything Your Coaching
-            <br className="hidden sm:block" /> Business Needs
+            Built for What&apos;s Next
           </h2>
         </motion.div>
 

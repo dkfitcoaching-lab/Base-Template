@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
+  title: "Vermillion Axis Technologies | Premium Custom Software Development",
   description:
-    "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
+    "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
   keywords: [
     "custom software development",
-    "fitness app development",
-    "coaching management software",
-    "wellness technology",
+    "premium web development",
+    "enterprise software",
     "PWA development",
-    "Las Vegas software development",
-    "white-label coaching app",
+    "Las Vegas software agency",
+    "full-stack development",
+    "AI software development",
   ],
   robots: {
     index: true,
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
+    title: "Vermillion Axis Technologies | Premium Custom Software Development",
     description:
-      "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
+      "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
     type: "website",
-    url: "https://vermillionaxistech.com",
+    url: "https://vermillionaxis.tech",
     siteName: "Vermillion Axis Technologies",
     images: [
       {
@@ -40,12 +40,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vermillion Axis Technologies | Custom Software for Fitness & Wellness",
+    title: "Vermillion Axis Technologies | Premium Custom Software Development",
     description:
-      "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
+      "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
     images: ["/og-image.png"],
   },
-  metadataBase: new URL("https://vermillionaxistech.com"),
+  metadataBase: new URL("https://vermillionaxis.tech"),
 };
 
 export default function RootLayout({
@@ -73,9 +73,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Vermillion Axis Technologies",
-              url: "https://vermillionaxistech.com",
+              url: "https://vermillionaxis.tech",
               description:
-                "Custom software development for fitness, wellness, and coaching businesses",
+                "Premium custom software development for visionary companies",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Las Vegas",
@@ -105,7 +105,7 @@ export default function RootLayout({
               offers: {
                 "@type": "AggregateOffer",
                 lowPrice: "2500",
-                highPrice: "20000",
+                highPrice: "300000",
                 priceCurrency: "USD",
               },
             }),

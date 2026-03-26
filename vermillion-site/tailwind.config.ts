@@ -32,6 +32,8 @@ const config: Config = {
       },
       fontSize: {
         overline: ["0.6875rem", { letterSpacing: "0.2em", lineHeight: "1.2" }],
+        "display-lg": ["5.5rem", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        "display-xl": ["7rem", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
       },
       lineHeight: {
         body: "1.75",

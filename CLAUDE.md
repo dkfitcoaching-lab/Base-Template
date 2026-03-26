@@ -20,7 +20,7 @@ vermillion-site/src/
 ```
 
 ## Components
-Navigation, Hero, Showcase, Services, Features, Comparison, Process, CTA (with ContactForm), Footer, DeviceMockup
+Navigation, Hero, Stats, Showcase, Services, Features, Comparison, Process, Testimonials, FAQ, CTA (with ContactForm), Footer, DeviceMockup, MagneticButton, CursorSpotlight, ScrollProgress
 
 ## Theme
 - Dark mode default

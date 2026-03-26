@@ -146,11 +146,11 @@ export default function Comparison() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
         >
-          We are not cheaper. We are{" "}
+          We don&apos;t compete on price. We compete on{" "}
           <span className="text-text-primary font-semibold">
-            more focused
+            speed, quality, and ownership
           </span>
-          . Specialization lets us deliver faster and better.
+          .
         </motion.p>
       </div>
     </section>

@@ -219,7 +219,7 @@ export default function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              placeholder="alex@peakfitness.com"
+              placeholder="alex@company.com"
               className={inputClasses}
             />
           </motion.div>
@@ -244,7 +244,7 @@ export default function ContactForm() {
             type="text"
             value={formData.company}
             onChange={handleChange}
-            placeholder="Peak Performance Training"
+            placeholder="Acme Corporation"
             className={inputClasses}
           />
         </motion.div>
@@ -257,7 +257,7 @@ export default function ContactForm() {
           viewport={{ once: true }}
         >
           <label htmlFor="cf-service" className={labelClasses}>
-            Service Interest
+            Project Scope
           </label>
           <select
             id="cf-service"
@@ -266,7 +266,7 @@ export default function ContactForm() {
             onChange={handleChange}
             className={`${inputClasses} appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23808090%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]`}
           >
-            <option value="">Select a tier...</option>
+            <option value="">Select a scope...</option>
             {SERVICE_OPTIONS.map((opt) => (
               <option key={opt} value={opt}>
                 {opt}
@@ -292,7 +292,7 @@ export default function ContactForm() {
             rows={3}
             value={formData.message}
             onChange={handleChange}
-            placeholder="Tell us about your business and what you need..."
+            placeholder="Tell us about your project and what you need..."
             className={`${inputClasses} resize-none`}
           />
         </motion.div>
@@ -319,7 +319,7 @@ export default function ContactForm() {
               transition={{ duration: 0.3 }}
               className="mt-4 text-sm text-red-400"
             >
-              Unable to send your message. Please try again or email us directly at david@vermillionaxistech.com.
+              Unable to send your message. Please try again or email us directly at contact@vermillionaxis.tech.
             </motion.p>
           )}
         </motion.div>

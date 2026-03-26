@@ -87,11 +87,11 @@ export default function CTA() {
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
           >
             <span className="text-text-primary">
-              Ready to Build Something
+              Let&apos;s Build Something
             </span>
             <br />
             <span className="text-text-primary">
-              Your Clients Will Love?
+              Exceptional
             </span>
           </motion.h2>
 
@@ -102,7 +102,7 @@ export default function CTA() {
             transition={{ delay: 0.15, duration: 0.7, ease }}
             className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
-            Tell us about your business. We will respond within 24 hours with a clear scope, timeline, and price.
+            Tell us about your project. We respond within 24 hours with a clear scope, timeline, and price.
           </motion.p>
         </div>
 
