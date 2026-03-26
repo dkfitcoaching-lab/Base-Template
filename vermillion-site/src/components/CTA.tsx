@@ -12,9 +12,6 @@ const particles = [
   { size: 14, x: "78%", y: "72%", duration: 8, delay: 0.8, opacity: 0.35 },
   { size: 9, x: "8%", y: "68%", duration: 10, delay: 2, opacity: 0.45 },
   { size: 6, x: "45%", y: "12%", duration: 11, delay: 0.5, opacity: 0.45 },
-  { size: 12, x: "92%", y: "55%", duration: 8.5, delay: 1, opacity: 0.35 },
-  { size: 5, x: "30%", y: "85%", duration: 12, delay: 3, opacity: 0.4 },
-  { size: 8, x: "65%", y: "8%", duration: 7.5, delay: 0.3, opacity: 0.35 },
 ];
 
 export default function CTA() {

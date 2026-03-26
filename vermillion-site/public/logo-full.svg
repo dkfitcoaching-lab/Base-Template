@@ -1,39 +1,83 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" fill="none">
-  <!-- Tombstone/arch container -->
-  <path d="M130 200 L130 100 Q130 50 200 50 Q270 50 270 100 L270 200" stroke="#4A4A58" stroke-width="0.8" fill="none" opacity="0.5"/>
+  <!-- Outer tombstone/arch container — premium weight -->
+  <path d="M125 205 L125 105 Q125 45 200 45 Q275 45 275 105 L275 205"
+    stroke="url(#archGrad)" stroke-width="1.8" fill="none"/>
+  <!-- Inner arch — subtle double-line effect -->
+  <path d="M135 200 L135 108 Q135 55 200 55 Q265 55 265 108 L265 200"
+    stroke="url(#archInnerGrad)" stroke-width="0.6" fill="none" opacity="0.4"/>
 
-  <!-- V mark - two converging lines -->
-  <line x1="160" y1="80" x2="200" y2="175" stroke="#9A9A9A" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="240" y1="80" x2="200" y2="175" stroke="#C0C0CC" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- V mark — bold converging strokes with metallic gradient -->
+  <line x1="158" y1="78" x2="200" y2="178" stroke="url(#vLeftGrad)" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="242" y1="78" x2="200" y2="178" stroke="url(#vRightGrad)" stroke-width="2.8" stroke-linecap="round"/>
 
-  <!-- Vermillion dot at convergence -->
-  <circle cx="200" cy="175" r="3.5" fill="#C03030"/>
-  <!-- Subtle glow behind dot -->
-  <circle cx="200" cy="175" r="12" fill="url(#dotGlow)" opacity="0.6"/>
+  <!-- Vermillion dot at convergence — larger, with layered glow -->
+  <circle cx="200" cy="178" r="18" fill="url(#dotGlowOuter)" opacity="0.5"/>
+  <circle cx="200" cy="178" r="10" fill="url(#dotGlowInner)" opacity="0.7"/>
+  <circle cx="200" cy="178" r="4" fill="#FF1744"/>
+  <circle cx="200" cy="178" r="2" fill="#fff" opacity="0.4"/>
+
+  <!-- Decorative finials at arch top -->
+  <circle cx="200" cy="45" r="2" fill="#FF1744" opacity="0.5"/>
+  <line x1="195" y1="45" x2="205" y2="45" stroke="rgba(192,192,192,0.25)" stroke-width="0.5"/>
 
   <!-- VERMILLION text -->
-  <text x="200" y="238" text-anchor="middle" fill="#D0D0DC" font-family="Cinzel, serif" font-size="28" letter-spacing="0.2em" font-weight="400">VERMILLION</text>
+  <text x="200" y="238" text-anchor="middle" fill="url(#textGrad)" font-family="Cinzel, serif" font-size="28" letter-spacing="0.2em" font-weight="500">VERMILLION</text>
 
-  <!-- AXIS text -->
-  <text x="200" y="264" text-anchor="middle" fill="#C03030" font-family="Cinzel, serif" font-size="16" letter-spacing="0.25em" font-weight="600">AXIS</text>
+  <!-- AXIS text — neon red -->
+  <text x="200" y="264" text-anchor="middle" fill="#FF1744" font-family="Cinzel, serif" font-size="16" letter-spacing="0.25em" font-weight="700">AXIS</text>
 
-  <!-- Horizontal rule -->
-  <line x1="140" y1="278" x2="260" y2="278" stroke="url(#ruleGrad)" stroke-width="1"/>
+  <!-- Horizontal rule with glow -->
+  <line x1="135" y1="278" x2="265" y2="278" stroke="url(#ruleGrad)" stroke-width="1"/>
 
   <!-- TECHNOLOGIES text -->
-  <text x="200" y="300" text-anchor="middle" fill="#8E8EA0" font-family="Cinzel, serif" font-size="11" letter-spacing="0.35em" font-weight="400">TECHNOLOGIES</text>
+  <text x="200" y="300" text-anchor="middle" fill="#9A9A9A" font-family="Cinzel, serif" font-size="11" letter-spacing="0.35em" font-weight="400">TECHNOLOGIES</text>
 
   <!-- Gradient definitions -->
   <defs>
-    <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF1744" stop-opacity="0.4"/>
+    <!-- Arch gradient — chrome silver with neon hint -->
+    <linearGradient id="archGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0E0E0" stop-opacity="0.6"/>
+      <stop offset="30%" stop-color="#C0C0C0" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#888888" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF1744" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="archInnerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C0C0C0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FF1744" stop-opacity="0.15"/>
+    </linearGradient>
+    <!-- V stroke gradients — metallic silver -->
+    <linearGradient id="vLeftGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D0D0D0"/>
+      <stop offset="50%" stop-color="#A0A0A0"/>
+      <stop offset="100%" stop-color="#C0C0C0"/>
+    </linearGradient>
+    <linearGradient id="vRightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="50%" stop-color="#B8B8B8"/>
+      <stop offset="100%" stop-color="#D0D0D0"/>
+    </linearGradient>
+    <!-- Dot glow layers -->
+    <radialGradient id="dotGlowOuter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF1744" stop-opacity="0.5"/>
       <stop offset="100%" stop-color="#FF1744" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="dotGlowInner" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF1744" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FF1744" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Text metallic gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="50%" stop-color="#C0C0C0"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    <!-- Rule gradient -->
     <linearGradient id="ruleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#C03030" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#C03030" stop-opacity="0.8"/>
-      <stop offset="70%" stop-color="#C03030" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#C03030" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#FF1744" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#FF1744" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#FF1744" stop-opacity="0.9"/>
+      <stop offset="75%" stop-color="#FF1744" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FF1744" stop-opacity="0"/>
     </linearGradient>
   </defs>
 </svg>

@@ -85,6 +85,12 @@ body {
   }
 }
 
+/* GPU-accelerate sections for smooth scroll */
+section {
+  contain: layout style;
+}
+
+
 /* ═══════════════════════════════════════════════════
    CONTINUOUS PAGE BACKGROUND — Dual-tone depth
    Neon crimson focal points over deep black
