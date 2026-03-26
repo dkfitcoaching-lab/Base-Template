@@ -29,7 +29,7 @@ export default function MarqueeDivider({
         {items.map((item, i) => (
           <span
             key={i}
-            className="flex items-center gap-6 sm:gap-8 mx-6 sm:mx-8 text-[0.55rem] sm:text-[0.65rem] font-heading font-semibold uppercase tracking-[0.4em] text-white/[0.18] select-none"
+            className="flex items-center gap-6 sm:gap-8 mx-6 sm:mx-8 text-[0.55rem] sm:text-[0.65rem] md:text-[0.7rem] font-heading font-semibold uppercase tracking-[0.4em] text-text-caption/40 select-none"
             style={{ textShadow: "0 0 16px rgba(255,23,68,0.25), 0 0 32px rgba(255,23,68,0.08)" }}
           >
             {item}

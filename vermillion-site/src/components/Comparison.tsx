@@ -61,7 +61,7 @@ export default function Comparison() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="hidden md:block rounded-card overflow-hidden gothic-card"
+          className="hidden md:block rounded-card overflow-hidden gothic-card neon-glow-border"
           role="table"
           aria-label="Feature comparison"
         >
@@ -119,7 +119,7 @@ export default function Comparison() {
             <motion.div
               key={row.feature}
               variants={mobileCardVariants}
-              className="rounded-card gothic-card p-4 sm:p-5 border-l-2 border-l-neon/40"
+              className="rounded-card gothic-card neon-glow-border p-4 sm:p-5 border-l-2 border-l-neon/40"
             >
               <p className="text-xs sm:text-sm text-text-primary font-heading font-semibold mb-3">
                 {row.feature}
