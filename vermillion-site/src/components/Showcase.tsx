@@ -138,12 +138,22 @@ export default function Showcase() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {SHOWCASE_ITEMS.map((item, index) => (
-            <motion.div key={item.label} variants={itemVariants} style={{ y: transforms[index] }}>
+            <motion.div
+              key={item.label}
+              variants={itemVariants}
+              style={{ y: transforms[index] }}
+              className={index === 0 ? "sm:col-span-2 lg:col-span-2" : ""}
+            >
               <TiltCard>
                 <div className="relative">
                   {"category" in item && item.category && (
                     <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-vermillion bg-vermillion/10 border border-vermillion/20 rounded-full backdrop-blur-sm">
                       {item.category}
+                    </span>
+                  )}
+                  {index === 0 && (
+                    <span className="absolute top-3 left-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-text-primary bg-white/[0.06] border border-white/[0.1] rounded-full backdrop-blur-sm">
+                      Featured
                     </span>
                   )}
                   <DeviceMockup label={item.label} description={item.description} />

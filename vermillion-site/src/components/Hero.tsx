@@ -109,6 +109,38 @@ function WordReveal({
   );
 }
 
+const techStack = [
+  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS",
+  "GraphQL", "REST APIs", "Firebase", "Stripe", "AWS", "Progressive Web Apps",
+  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS",
+  "GraphQL", "REST APIs", "Firebase", "Stripe", "AWS", "Progressive Web Apps",
+];
+
+function TechMarquee() {
+  return (
+    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-16" aria-hidden="true">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
+      <motion.div
+        className="flex gap-8 whitespace-nowrap"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        {techStack.map((tech, i) => (
+          <span
+            key={i}
+            className="text-xs font-heading uppercase tracking-[0.25em] text-text-caption/50 flex items-center gap-8"
+          >
+            {tech}
+            <span className="w-1 h-1 rounded-full bg-vermillion/30" />
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 function ShimmerButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
@@ -214,6 +246,15 @@ export default function Hero() {
               View Our Work
             </a>
           </MagneticButton>
+        </motion.div>
+
+        {/* Tech stack marquee */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: ctaDelay + 0.5, ease }}
+        >
+          <TechMarquee />
         </motion.div>
       </div>
     </section>
