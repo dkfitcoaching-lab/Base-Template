@@ -372,14 +372,14 @@ export default function DeviceMockup({ label, image, description }: DeviceMockup
           borderImage: "linear-gradient(to bottom, rgba(42,42,56,0.5) 0%, rgba(42,42,56,0.8) 100%) 1",
           border: "1px solid",
           boxShadow:
-            "0 8px 40px rgba(0,0,0,0.4), 0 0 40px rgba(180,43,43,0.06)",
+            "0 8px 40px rgba(0,0,0,0.4), 0 0 40px rgba(255,23,68,0.08)",
         }}
       >
         {/* Hover border brightening overlay */}
         <div
           className="absolute inset-0 rounded-hero pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
           style={{
-            boxShadow: "inset 0 0 0 1px rgba(180,43,43,0.2)",
+            boxShadow: "inset 0 0 0 1px rgba(255,23,68,0.15)",
           }}
           aria-hidden="true"
         />
@@ -390,7 +390,7 @@ export default function DeviceMockup({ label, image, description }: DeviceMockup
           aria-hidden="true"
         >
           {/* First dot pulses */}
-          <div className="w-2 h-2 rounded-full bg-border/60 animate-glow-pulse" />
+          <div className="w-2 h-2 rounded-full bg-neon/60 shadow-[0_0_6px_rgba(255,23,68,0.4)] animate-glow-pulse" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
           <div className="w-2 h-2 rounded-full bg-border/60" />
         </div>
