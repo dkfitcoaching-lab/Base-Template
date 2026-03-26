@@ -40,10 +40,10 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     const rect = ref.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
-    const rotateX = (y - 0.5) * -8;
-    const rotateY = (x - 0.5) * 8;
+    const rotateX = (y - 0.5) * -12;
+    const rotateY = (x - 0.5) * 12;
     setTransform(
-      `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+      `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.02)`
     );
     setGlowPos({ x: x * 100, y: y * 100 });
   }
@@ -71,7 +71,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     >
       {/* Dynamic glow that follows cursor */}
       <div
-        className="absolute -inset-1 rounded-hero opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-xl"
+        className="absolute -inset-1 rounded-hero opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-[100px]"
         style={{
           background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.15), transparent 60%)`,
         }}

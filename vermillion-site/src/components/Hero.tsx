@@ -12,11 +12,11 @@ const headlineLine3 = "Can't Build".split(" ");
 
 /* Breathing ambient orbs — neon crimson + deep violet mix */
 const ambientOrbs = [
-  { top: "10%", left: "15%", size: 400, duration: 8, delay: 0, color: "rgba(255,23,68,0.06)", opacity: [0.04, 0.1, 0.04] },
-  { top: "55%", right: "10%", size: 300, duration: 10, delay: 2, color: "rgba(75,20,120,0.08)", opacity: [0.03, 0.09, 0.03] },
-  { bottom: "15%", left: "5%", size: 200, duration: 7, delay: 1, color: "rgba(255,23,68,0.05)", opacity: [0.04, 0.12, 0.04] },
-  { top: "30%", right: "25%", size: 350, duration: 12, delay: 3, color: "rgba(75,20,120,0.06)", opacity: [0.03, 0.08, 0.03] },
-  { bottom: "30%", left: "50%", size: 250, duration: 9, delay: 1.5, color: "rgba(255,23,68,0.04)", opacity: [0.03, 0.07, 0.03] },
+  { top: "10%", left: "15%", size: 450, duration: 8, delay: 0, color: "rgba(255,23,68,0.1)", opacity: [0.08, 0.18, 0.08] },
+  { top: "55%", right: "10%", size: 350, duration: 10, delay: 2, color: "rgba(75,20,120,0.12)", opacity: [0.06, 0.15, 0.06] },
+  { bottom: "15%", left: "5%", size: 250, duration: 7, delay: 1, color: "rgba(255,23,68,0.08)", opacity: [0.08, 0.2, 0.08] },
+  { top: "30%", right: "25%", size: 400, duration: 12, delay: 3, color: "rgba(75,20,120,0.1)", opacity: [0.06, 0.14, 0.06] },
+  { bottom: "30%", left: "50%", size: 300, duration: 9, delay: 1.5, color: "rgba(255,23,68,0.07)", opacity: [0.06, 0.12, 0.06] },
 ];
 
 function AnimatedBackground() {
@@ -73,7 +73,7 @@ function AnimatedBackground() {
             y: [0, i % 2 === 0 ? -20 : 15, 0],
             x: [0, i % 3 === 0 ? 10 : -8, 0],
             opacity: orb.opacity,
-            scale: [1, 1.05, 1],
+            scale: [1, 1.15, 1],
           }}
           transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
           className="absolute rounded-full blur-[120px]"
@@ -210,7 +210,7 @@ export default function Hero() {
             className="absolute -inset-16 sm:-inset-20 pointer-events-none"
             aria-hidden="true"
           >
-            <div className="w-full h-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.15)_0%,rgba(75,20,120,0.06)_40%,transparent_70%)]" />
+            <div className="w-full h-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.25)_0%,rgba(75,20,120,0.12)_40%,transparent_70%)]" style={{ filter: "drop-shadow(0 0 40px rgba(255,23,68,0.2))" }} />
           </motion.div>
 
           {/* The logo itself with flicker effect */}

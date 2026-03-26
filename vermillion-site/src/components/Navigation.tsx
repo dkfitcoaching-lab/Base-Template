@@ -141,7 +141,7 @@ export default function Navigation() {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-surface-1/90 backdrop-blur-xl border-b border-neon/[0.06] shadow-glass shadow-[0_1px_30px_rgba(255,23,68,0.05)]"
+            ? "bg-surface-1/90 backdrop-blur-xl border-b border-neon/[0.1] shadow-[0_2px_40px_rgba(255,23,68,0.12),inset_0_-1px_0_rgba(255,23,68,0.15)]"
             : "bg-transparent"
         }`}
       >

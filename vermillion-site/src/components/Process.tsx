@@ -87,9 +87,10 @@ export default function Process() {
               >
                 {/* Step number circle */}
                 <div
-                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-neon/30
+                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-neon/40
                     flex items-center justify-center relative z-10
-                    group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_20px_rgba(255,23,68,0.25)]
+                    shadow-[0_0_20px_rgba(255,23,68,0.15)]
+                    group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_30px_rgba(255,23,68,0.5),inset_0_0_10px_rgba(255,23,68,0.15)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >

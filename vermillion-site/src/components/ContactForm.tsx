@@ -25,7 +25,7 @@ const initialFormData: FormData = {
 };
 
 const inputClasses =
-  "w-full bg-white/[0.03] border border-neon/[0.08] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption focus:outline-none focus:border-neon/40 focus:shadow-[0_0_20px_rgba(255,23,68,0.12)] transition-all duration-300";
+  "w-full bg-white/[0.03] border border-neon/[0.15] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption shadow-[0_0_12px_rgba(255,23,68,0.06)] focus:outline-none focus:border-neon/40 focus:shadow-[0_0_24px_rgba(255,23,68,0.2)] transition-all duration-300";
 
 const labelClasses =
   "block text-sm font-heading text-text-secondary uppercase tracking-wide mb-2";

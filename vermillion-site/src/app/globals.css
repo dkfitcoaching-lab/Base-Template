@@ -42,12 +42,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2A38;
+  background: linear-gradient(180deg, rgba(255,23,68,0.3), rgba(75,20,120,0.25));
   border-radius: 3px;
+  box-shadow: 0 0 8px rgba(255,23,68,0.2) inset;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A3A48;
+  background: linear-gradient(180deg, rgba(255,23,68,0.6), rgba(75,20,120,0.4));
+  box-shadow: 0 0 12px rgba(255,23,68,0.4) inset, 0 0 16px rgba(255,23,68,0.3);
 }
 
 /* Selection */
@@ -88,18 +90,20 @@ body {
    ═══════════════════════════════════════════════════ */
 .page-bg {
   background:
+    /* Dramatic top neon accent — hero area pull */
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(255,23,68,0.09), transparent 60%),
     /* Warm neon crimson focal points at key content areas */
-    radial-gradient(ellipse 80% 30% at 50% 0%, rgba(255,23,68,0.04), transparent 60%),
-    radial-gradient(ellipse 60% 20% at 50% 30%, rgba(255,23,68,0.025), transparent 50%),
-    radial-gradient(ellipse 70% 25% at 50% 70%, rgba(255,23,68,0.035), transparent 55%),
-    radial-gradient(ellipse 80% 30% at 50% 95%, rgba(255,23,68,0.05), transparent 50%),
+    radial-gradient(ellipse 80% 30% at 50% 0%, rgba(255,23,68,0.07), transparent 60%),
+    radial-gradient(ellipse 60% 20% at 50% 30%, rgba(255,23,68,0.05), transparent 50%),
+    radial-gradient(ellipse 70% 25% at 50% 70%, rgba(255,23,68,0.06), transparent 55%),
+    radial-gradient(ellipse 80% 30% at 50% 95%, rgba(255,23,68,0.08), transparent 50%),
     /* Deep violet atmospheric depth — cyberpunk cathedral */
-    radial-gradient(ellipse 100% 60% at 20% 10%, rgba(75,20,120,0.05), transparent 70%),
-    radial-gradient(ellipse 70% 40% at 80% 40%, rgba(75,20,120,0.04), transparent 60%),
-    radial-gradient(ellipse 90% 50% at 30% 75%, rgba(75,20,120,0.045), transparent 65%),
-    radial-gradient(ellipse 80% 50% at 70% 90%, rgba(50,15,80,0.04), transparent 65%),
+    radial-gradient(ellipse 100% 60% at 20% 10%, rgba(75,20,120,0.07), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 80% 40%, rgba(75,20,120,0.06), transparent 60%),
+    radial-gradient(ellipse 90% 50% at 30% 75%, rgba(75,20,120,0.065), transparent 65%),
+    radial-gradient(ellipse 80% 50% at 70% 90%, rgba(50,15,80,0.06), transparent 65%),
     /* Deep indigo undertone */
-    radial-gradient(ellipse 120% 80% at 50% 50%, rgba(15,10,30,0.5), transparent 80%),
+    radial-gradient(ellipse 120% 80% at 50% 50%, rgba(15,10,30,0.6), transparent 80%),
     #0A0A0E;
 }
 

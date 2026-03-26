@@ -28,10 +28,11 @@ export default function MarqueeDivider({
         {items.map((item, i) => (
           <span
             key={i}
-            className="flex items-center gap-8 mx-8 text-[0.65rem] font-heading font-semibold uppercase tracking-[0.4em] text-white/[0.08] select-none"
+            className="flex items-center gap-8 mx-8 text-[0.65rem] font-heading font-semibold uppercase tracking-[0.4em] text-white/[0.15] select-none"
+            style={{ textShadow: "0 0 10px rgba(255,23,68,0.15)" }}
           >
             {item}
-            <span className="w-1.5 h-1.5 rounded-full bg-neon/30 shadow-[0_0_6px_rgba(255,23,68,0.4)] flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-neon/50 shadow-[0_0_12px_rgba(255,23,68,0.6),0_0_24px_rgba(255,23,68,0.2)] flex-shrink-0" />
           </span>
         ))}
       </motion.div>

@@ -102,9 +102,9 @@ export default function Services() {
                     transition={{ delay: 0.5, duration: 0.5, ease }}
                     className="flex justify-center mb-3"
                   >
-                    <span className="relative inline-flex items-center bg-vermillion text-white text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full font-heading font-semibold shadow-neon-sm">
-                      <span className="absolute inset-0 rounded-full bg-neon animate-pulse opacity-30" />
-                      <span className="relative">Recommended</span>
+                    <span className="relative inline-flex items-center bg-vermillion text-white text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full font-heading font-semibold shadow-[0_0_16px_rgba(255,23,68,0.5)]">
+                      <span className="absolute inset-0 rounded-full bg-neon animate-pulse opacity-50" />
+                      <span className="relative drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]">Recommended</span>
                     </span>
                   </motion.div>
                 )}
