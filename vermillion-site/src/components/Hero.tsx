@@ -245,7 +245,7 @@ export default function Hero() {
                 className="text-gradient-vermillion text-neon-glow"
               />
             </span>
-            <span className="block">
+            <span className="block font-display">
               <WordReveal words={headlineLine3} startDelay={line3Delay} />
             </span>
           </h1>

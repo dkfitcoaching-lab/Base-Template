@@ -19,6 +19,8 @@ export default function Home() {
     <div className="page-bg">
       {/* Circuit pattern overlay */}
       <div className="circuit-overlay" aria-hidden="true" />
+      {/* Edge vignette for cathedral depth */}
+      <div className="page-vignette" aria-hidden="true" />
 
       <main id="main-content" className="relative">
         <CursorSpotlight />

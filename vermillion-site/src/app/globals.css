@@ -312,3 +312,14 @@ body {
   background: linear-gradient(90deg, transparent 5%, rgba(255,23,68,0.3) 30%, rgba(75,20,120,0.2) 50%, rgba(255,23,68,0.3) 70%, transparent 95%);
   box-shadow: 0 0 12px rgba(255,23,68,0.15), 0 0 30px rgba(255,23,68,0.05);
 }
+
+/* ═══════════════════════════════════════════════════
+   VIGNETTE — Deep edge darkening for cathedral depth
+   ═══════════════════════════════════════════════════ */
+.page-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 50%, rgba(0,0,0,0.4) 100%);
+}

@@ -97,7 +97,7 @@ export default function ContactForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease }}
-        className="gothic-card rounded-hero p-8 sm:p-12 text-center"
+        className="gothic-card neon-border-flow rounded-hero p-8 sm:p-12 text-center"
       >
         {/* Animated checkmark with ring draw-in */}
         <motion.div
@@ -151,7 +151,7 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5, ease }}
-          className="font-heading font-semibold text-2xl text-text-primary mb-3"
+          className="font-heading font-semibold text-2xl text-text-primary mb-3 text-neon-glow-subtle"
         >
           Message received.
         </motion.h3>
@@ -168,7 +168,7 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5, ease }}
-          className="px-8 py-3 rounded-btn border border-white/[0.08] text-text-secondary font-heading text-sm tracking-wide hover:border-white/[0.16] hover:text-text-primary transition-all duration-300"
+          className="px-8 py-3 rounded-btn border border-neon/[0.12] text-text-secondary font-heading text-sm tracking-wide hover:border-neon/30 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] transition-all duration-300"
         >
           Send another message
         </motion.button>

@@ -152,7 +152,7 @@ export default function Showcase() {
                     </span>
                   )}
                   {index === 0 && (
-                    <span className="absolute top-3 left-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-text-primary bg-white/[0.06] border border-white/[0.1] rounded-full backdrop-blur-sm">
+                    <span className="absolute top-3 left-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-neon bg-neon/[0.08] border border-neon/20 rounded-full backdrop-blur-sm shadow-[0_0_12px_rgba(255,23,68,0.3)]">
                       Featured
                     </span>
                   )}

@@ -94,7 +94,7 @@ export default function Process() {
                     transition-all duration-500"
                   aria-hidden="true"
                 >
-                  <span className="font-heading font-bold text-sm text-neon tracking-wider">
+                  <span className="font-heading font-bold text-sm text-neon tracking-wider text-neon-glow-subtle">
                     {step.step}
                   </span>
                 </div>
