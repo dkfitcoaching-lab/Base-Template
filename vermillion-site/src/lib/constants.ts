@@ -34,40 +34,46 @@ export const STATS = [
 
 export const SHOWCASE_ITEMS = [
   {
-    label: "Coaching Platform",
-    image: "/screenshots/dashboard.png",
-    description:
-      "Full-stack fitness management with scheduling, payments, and branded PDF exports.",
-  },
-  {
     label: "Analytics Dashboard",
     image: "/screenshots/analytics.png",
     description:
       "Real-time SaaS metrics, revenue tracking, and predictive insights for enterprise clients.",
-  },
-  {
-    label: "Member Portal",
-    image: "/screenshots/portal.png",
-    description:
-      "Luxury membership management with authentication, billing, and content delivery.",
-  },
-  {
-    label: "E-Commerce Platform",
-    image: "/screenshots/ecommerce.png",
-    description:
-      "High-performance storefront with inventory management, payments, and analytics.",
+    category: "SaaS",
   },
   {
     label: "Enterprise CRM",
     image: "/screenshots/crm.png",
     description:
       "Custom client relationship management with pipeline tracking and automated workflows.",
+    category: "Enterprise",
+  },
+  {
+    label: "Member Portal",
+    image: "/screenshots/portal.png",
+    description:
+      "Luxury membership management with authentication, billing, and content delivery.",
+    category: "Membership",
+  },
+  {
+    label: "E-Commerce Platform",
+    image: "/screenshots/ecommerce.png",
+    description:
+      "High-performance storefront with inventory management, payments, and analytics.",
+    category: "E-Commerce",
+  },
+  {
+    label: "Coaching Platform",
+    image: "/screenshots/dashboard.png",
+    description:
+      "Full-stack coaching management with scheduling, payments, and branded PDF exports.",
+    category: "Fitness",
   },
   {
     label: "Mobile Application",
     image: "/screenshots/mobile.png",
     description:
       "Cross-platform progressive web app with offline-first architecture and push notifications.",
+    category: "Mobile",
   },
 ];
 
@@ -232,7 +238,7 @@ export const COMPARISON = [
   },
   {
     feature: "Technology stack",
-    others: "WordPress or no-code",
+    others: "Template-based or outsourced",
     ours: "Custom-built from scratch",
   },
   {
@@ -247,7 +253,7 @@ export const TESTIMONIALS = [
     quote:
       "They built our entire platform in eleven days. Our previous agency quoted four months and triple the cost. Scheduling, payments, branded exports — our team uses it every single morning.",
     name: "Michael K.",
-    title: "IFBB Pro, Coaching Lab",
+    title: "Founder, Coaching Lab",
     location: "Las Vegas, NV",
   },
   {
@@ -261,7 +267,7 @@ export const TESTIMONIALS = [
     quote:
       "The branded exports alone changed my business. My clients receive professionally designed documents with my logo and colors. They think I have a full design team. I just have Vermillion.",
     name: "David Okafor",
-    title: "Online Business Owner",
+    title: "CEO, Okafor Digital",
     location: "Austin, TX",
   },
 ];
@@ -275,7 +281,7 @@ export const FAQ_ITEMS = [
   {
     question: "How can you deliver so fast?",
     answer:
-      "We have built dozens of production platforms and have battle-tested component libraries, design systems, and architecture patterns ready to customize. We are not starting from zero — we are starting from years of refined tooling.",
+      "Years of refined component libraries, battle-tested architecture patterns, and purpose-built tooling eliminate the cold-start problem. We are not starting from zero — we are starting from proven systems designed for speed.",
   },
   {
     question: "What if I need changes after launch?",

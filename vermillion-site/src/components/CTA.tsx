@@ -87,11 +87,11 @@ export default function CTA() {
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
           >
             <span className="text-text-primary">
-              Let&apos;s Build Something
+              Your Project. Our Speed.
             </span>
             <br />
-            <span className="text-text-primary">
-              Exceptional
+            <span className="text-gradient-vermillion">
+              Let&apos;s Talk.
             </span>
           </motion.h2>
 
@@ -124,7 +124,7 @@ export default function CTA() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="mt-10 text-center text-sm text-text-caption"
         >
-          We accept all major payment methods. No contracts. No hidden fees.
+          Average response time: under 24 hours. No contracts. No hidden fees.
         </motion.p>
       </div>
     </section>

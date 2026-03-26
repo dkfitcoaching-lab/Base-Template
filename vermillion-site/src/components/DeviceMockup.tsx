@@ -21,17 +21,17 @@ function CoachingPlatformMockup() {
       {/* Top bar */}
       <rect x="48" y="0" width="272" height="28" fill="#1C1C28" />
       <circle cx="64" cy="14" r="8" fill="#B42B2B" opacity="0.9" />
-      <text x="64" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">M</text>
-      <text x="78" y="11" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Big Mike Ely</text>
-      <text x="78" y="19" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Head Coach</text>
+      <text x="64" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">A</text>
+      <text x="78" y="11" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Dashboard</text>
+      <text x="78" y="19" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Administrator</text>
       <rect x="296" y="8" width="12" height="12" rx="2" fill="#2A2A38" />
       <circle cx="302" cy="14" r="2" fill="#585868" />
       {/* Greeting */}
-      <text x="60" y="40" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Good morning, Mike</text>
+      <text x="60" y="40" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Welcome back</text>
       {/* 2x2 stat cards */}
       <rect x="60" y="48" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="68" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">SESSIONS</text>
-      <text x="68" y="71" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">12</text>
+      <text x="68" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">PROJECTS</text>
+      <text x="68" y="71" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">24</text>
       <rect x="128" y="48" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
       <text x="136" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">REVENUE</text>
       <text x="136" y="71" fill="#10B981" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">$4,280</text>

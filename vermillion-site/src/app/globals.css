@@ -205,3 +205,8 @@ body {
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(180, 43, 43, 0.06);
 }
+
+/* ── Section highlight background for visual variety ── */
+.section-highlight {
+  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(180, 43, 43, 0.03), transparent 70%);
+}

@@ -140,13 +140,20 @@ export default function Showcase() {
           {SHOWCASE_ITEMS.map((item, index) => (
             <motion.div key={item.label} variants={itemVariants} style={{ y: transforms[index] }}>
               <TiltCard>
-                <DeviceMockup label={item.label} description={item.description} />
+                <div className="relative">
+                  {"category" in item && item.category && (
+                    <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-vermillion bg-vermillion/10 border border-vermillion/20 rounded-full backdrop-blur-sm">
+                      {item.category}
+                    </span>
+                  )}
+                  <DeviceMockup label={item.label} description={item.description} />
+                </div>
               </TiltCard>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Reference */}
+        {/* Tagline */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -154,15 +161,7 @@ export default function Showcase() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-center mt-12 text-sm text-text-caption"
         >
-          Featured:{" "}
-          <a
-            href="https://www.ifbbprobigmikeely.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
-          >
-            IFBB Pro Big Mike Ely — ifbbprobigmikeely.com
-          </a>
+          Every project is custom-built from scratch. No templates. No shortcuts.
         </motion.p>
       </div>
     </section>

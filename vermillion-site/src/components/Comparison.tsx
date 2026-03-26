@@ -76,7 +76,7 @@ export default function Comparison() {
             <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
               Traditional Agencies
             </span>
-            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center">
+            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
               Vermillion Axis
             </span>
           </div>
@@ -100,7 +100,7 @@ export default function Comparison() {
               <span role="cell" className="text-sm text-text-caption text-center">
                 {row.others}
               </span>
-              <span role="cell" className="text-sm text-vermillion font-semibold text-center">
+              <span role="cell" className="text-sm text-vermillion font-bold text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
                 {row.ours}
               </span>
             </motion.div>

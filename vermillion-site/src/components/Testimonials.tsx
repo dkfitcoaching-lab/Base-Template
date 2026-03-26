@@ -34,7 +34,7 @@ export default function Testimonials() {
             id="testimonials-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Trusted by Leaders Who Demand More
+            Trusted by Founders. Verified by Results.
           </h2>
         </motion.div>
 

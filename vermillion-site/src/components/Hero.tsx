@@ -154,16 +154,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Company name */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease }}
-          className="font-heading text-overline text-vermillion uppercase mb-6"
-        >
-          Vermillion Axis Technologies
-        </motion.p>
-
         {/* Headline with word-by-word reveal */}
         <motion.div
           initial={{ scale: 1.02 }}
@@ -205,8 +195,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: subtextDelay, ease }}
           className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Premium custom software for visionary companies. Full-stack
-          development. Complete code ownership. Delivered at impossible speed.
+          Custom software. Full ownership. Shipped in days, not months.
         </motion.p>
 
         {/* CTAs */}
