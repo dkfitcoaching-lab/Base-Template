@@ -17,9 +17,6 @@ const ambientOrbs = [
   { bottom: "8%", left: "2%", size: 280, duration: 7, delay: 1, color: "rgba(255,23,68,0.09)", opacity: [0.04, 0.2, 0.04] },
   { top: "20%", right: "15%", size: 550, duration: 13, delay: 3, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.1, 0.03] },
   { top: "65%", left: "35%", size: 90, duration: 4, delay: 0.5, color: "rgba(255,23,68,0.16)", opacity: [0.08, 0.28, 0.08] },
-  { top: "10%", right: "35%", size: 800, duration: 16, delay: 4, color: "rgba(255,23,68,0.04)", opacity: [0.02, 0.08, 0.02] },
-  { bottom: "20%", right: "10%", size: 60, duration: 3.5, delay: 0.8, color: "rgba(255,23,68,0.18)", opacity: [0.08, 0.3, 0.08] },
-  { top: "35%", left: "20%", size: 420, duration: 11, delay: 2.5, color: "rgba(255,23,68,0.07)", opacity: [0.03, 0.14, 0.03] },
 ];
 
 /* Gothic ornamental corner SVG — wrought iron pointed arch style, larger and more detailed */
@@ -255,6 +252,7 @@ function AnimatedBackground() {
           `,
           backgroundSize: "60px 60px",
           transform: `translateY(${scrollY * 0.1}px)`,
+          willChange: "transform",
         }}
       />
 
@@ -494,7 +492,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: logoDelay, ease }}
-          className="relative mx-auto mb-8 sm:mb-14 w-[220px] sm:w-[380px] md:w-[420px] lg:w-[520px]"
+          className="relative mx-auto mb-8 sm:mb-14 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
         >
           {/* Intense multi-layer neon underglow — outermost layer */}
           <motion.div
