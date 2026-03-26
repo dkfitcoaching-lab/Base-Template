@@ -34,7 +34,7 @@ export default function Testimonials() {
   const [featured, ...rest] = TESTIMONIALS;
 
   return (
-    <section id="testimonials" className="py-20 sm:py-32 lg:py-40" aria-labelledby="testimonials-heading">
+    <section id="testimonials" className="py-16 sm:py-24 lg:py-32" aria-labelledby="testimonials-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -48,7 +48,7 @@ export default function Testimonials() {
           </p>
           <h2
             id="testimonials-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Trusted by Founders. Verified by Results.
           </h2>
@@ -65,6 +65,7 @@ export default function Testimonials() {
           <motion.blockquote
             variants={itemVariants}
             className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow neon-glow-border overflow-hidden"
+            style={{ boxShadow: '0 0 15px rgba(255,23,68,0.05)' }}
           >
             {/* Decorative oversized quote mark */}
             <span
@@ -79,7 +80,7 @@ export default function Testimonials() {
 
             <div className="relative">
               <StarRating />
-              <p className="text-text-body text-base sm:text-lg lg:text-xl leading-relaxed mb-8 max-w-4xl">
+              <p className="text-text-body text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-8 max-w-4xl">
                 &ldquo;{featured.quote}&rdquo;
               </p>
 
@@ -90,7 +91,7 @@ export default function Testimonials() {
                   </span>
                 </div>
                 <div>
-                  <cite className="not-italic font-heading font-semibold text-base text-text-primary block">
+                  <cite className="not-italic font-heading font-semibold text-base text-neon text-neon-glow-subtle block">
                     {featured.name}
                   </cite>
                   <span className="text-sm text-text-secondary">
@@ -108,6 +109,7 @@ export default function Testimonials() {
                 key={t.name}
                 variants={itemVariants}
                 className="relative p-6 lg:p-8 rounded-card gothic-card neon-glow-border border-l border-l-neon/[0.06] hover:border-l-neon/20"
+                style={{ boxShadow: '0 0 15px rgba(255,23,68,0.05)' }}
               >
                 {/* Decorative quote mark */}
                 <span
@@ -130,7 +132,7 @@ export default function Testimonials() {
                       </span>
                     </div>
                     <div>
-                      <cite className="not-italic font-heading font-semibold text-sm text-text-primary block">
+                      <cite className="not-italic font-heading font-semibold text-sm text-neon text-neon-glow-subtle block">
                         {t.name}
                       </cite>
                       <span className="text-xs text-text-secondary">

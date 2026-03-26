@@ -39,12 +39,12 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6, ease }}
     >
-      <dt className="font-mono font-bold text-2xl sm:text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow metallic-text">
+      <dt className="font-mono font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow metallic-text">
         <span>{prefix}</span>
         <motion.span>{rounded}</motion.span>
         <span>{suffix}</span>
       </dt>
-      <dd className="text-sm text-neon tracking-wide">
+      <dd className="text-sm text-neon text-neon-glow-subtle tracking-wide">
         {label}
       </dd>
     </motion.div>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vermillion Axis Technologies | Premium Custom Software Development",
+  title: "Vermillion Axis Technologies | Infrastructure-Grade Software Engineering",
   description:
-    "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
+    "We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. 3–21 day delivery. 100% code ownership.",
   keywords: [
     "custom software development",
     "premium web development",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Vermillion Axis Technologies | Premium Custom Software Development",
+    title: "Vermillion Axis Technologies | Infrastructure-Grade Software Engineering",
     description:
-      "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
+      "We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. 3–21 day delivery. 100% code ownership.",
     type: "website",
     url: "https://vermillionaxis.tech",
     siteName: "Vermillion Axis Technologies",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vermillion Axis Technologies | Premium Custom Software Development",
+    title: "Vermillion Axis Technologies | Infrastructure-Grade Software Engineering",
     description:
-      "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
+      "We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. 3–21 day delivery. 100% code ownership.",
     images: ["/og-image.png"],
   },
   metadataBase: new URL("https://vermillionaxis.tech"),

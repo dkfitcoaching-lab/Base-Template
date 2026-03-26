@@ -15,7 +15,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 lg:py-24" aria-labelledby="faq-heading">
+    <section id="faq" className="py-16 sm:py-20 lg:py-24" aria-labelledby="faq-heading">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -29,7 +29,7 @@ export default function FAQ() {
           </p>
           <h2
             id="faq-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Everything You Need to Know
           </h2>
@@ -57,7 +57,7 @@ export default function FAQ() {
                   aria-controls={panelId}
                   className="w-full flex items-center justify-between py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
                 >
-                  <span className="font-heading font-semibold text-base text-text-primary pr-4">
+                  <span className="font-heading font-semibold text-sm sm:text-base text-text-primary pr-4">
                     {item.question}
                   </span>
                   <motion.span

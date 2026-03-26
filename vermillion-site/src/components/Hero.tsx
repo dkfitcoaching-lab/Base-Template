@@ -355,7 +355,7 @@ const techStack = [
 
 function TechMarquee() {
   return (
-    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-10 sm:mt-16" aria-hidden="true">
+    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-8 sm:mt-16" aria-hidden="true">
       {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
@@ -382,7 +382,7 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
   return (
     <a
       href={href}
-      className="shimmer-btn relative overflow-hidden px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="shimmer-btn relative overflow-hidden px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="relative z-10">{children}</span>
       <span
@@ -494,7 +494,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: logoDelay, ease }}
-          className="relative mx-auto mb-8 sm:mb-14 w-[240px] sm:w-[380px] md:w-[420px] lg:w-[520px]"
+          className="relative mx-auto mb-8 sm:mb-14 w-[220px] sm:w-[380px] md:w-[420px] lg:w-[520px]"
         >
           {/* Intense multi-layer neon underglow — outermost layer */}
           <motion.div
@@ -558,21 +558,21 @@ export default function Hero() {
         <div className="relative inline-block">
           {/* Ornamental chrome brackets — top-left */}
           <HeadlineBracket
-            className="absolute -top-5 -left-8 sm:-top-7 sm:-left-12"
+            className="hidden sm:block absolute -top-5 -left-8 sm:-top-7 sm:-left-12"
           />
           {/* Top-right — flipped horizontally */}
           <HeadlineBracket
-            className="absolute -top-5 -right-8 sm:-top-7 sm:-right-12"
+            className="hidden sm:block absolute -top-5 -right-8 sm:-top-7 sm:-right-12"
             style={{ transform: "scaleX(-1)" }}
           />
           {/* Bottom-left — flipped vertically */}
           <HeadlineBracket
-            className="absolute -bottom-5 -left-8 sm:-bottom-7 sm:-left-12"
+            className="hidden sm:block absolute -bottom-5 -left-8 sm:-bottom-7 sm:-left-12"
             style={{ transform: "scaleY(-1)" }}
           />
           {/* Bottom-right — flipped both */}
           <HeadlineBracket
-            className="absolute -bottom-5 -right-8 sm:-bottom-7 sm:-right-12"
+            className="hidden sm:block absolute -bottom-5 -right-8 sm:-bottom-7 sm:-right-12"
             style={{ transform: "scale(-1, -1)" }}
           />
 
@@ -583,7 +583,7 @@ export default function Hero() {
           >
             <h1
               id="hero-heading"
-              className="font-heading font-bold text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              className="font-heading font-bold text-[1.6rem] sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
             >
               <span className="block">
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
@@ -610,7 +610,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: subtextDelay, ease }}
-          className="font-body text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed"
+          className="font-body text-[0.95rem] sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed"
         >
           Systems architecture for organizations that refuse to compromise. Zero templates. Zero shortcuts. Every line written with surgical precision.
         </motion.p>
@@ -626,7 +626,7 @@ export default function Hero() {
           <MagneticButton>
             <a
               href="#work"
-              className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>

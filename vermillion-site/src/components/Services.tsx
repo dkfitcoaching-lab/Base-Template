@@ -49,7 +49,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 overflow-hidden"
       aria-labelledby="services-heading"
     >
       {/* Section background glow */}
@@ -72,7 +72,7 @@ export default function Services() {
           </p>
           <h2
             id="services-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Transparent Pricing. No Surprises.
           </h2>
@@ -128,6 +128,11 @@ export default function Services() {
                       ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow neon-pulse-border"
                       : "neon-glow-border"
                   }`}
+                  style={{
+                    boxShadow: isHighlighted
+                      ? '0 0 30px rgba(255,23,68,0.12), 0 0 60px rgba(255,23,68,0.05)'
+                      : '0 0 20px rgba(255,23,68,0.06)',
+                  }}
                 >
                   {/* Animated gradient border overlay on hover/select */}
                   <div
@@ -178,7 +183,7 @@ export default function Services() {
                         scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-mono font-bold text-xl sm:text-2xl md:text-3xl text-neon text-neon-glow-subtle mb-3 origin-left"
+                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon text-neon-glow-subtle mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span

@@ -27,7 +27,7 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-20 sm:py-32 lg:py-40"
+      className="py-16 sm:py-24 lg:py-32"
       aria-labelledby="process-heading"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,7 +44,7 @@ export default function Process() {
           </p>
           <h2
             id="process-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             From Idea to Launch in Days
           </h2>

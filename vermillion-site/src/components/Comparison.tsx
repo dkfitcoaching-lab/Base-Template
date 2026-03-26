@@ -34,7 +34,7 @@ const mobileCardVariants = {
 
 export default function Comparison() {
   return (
-    <section id="pricing" className="py-20 sm:py-32 lg:py-40" aria-labelledby="comparison-heading">
+    <section id="pricing" className="py-16 sm:py-24 lg:py-32" aria-labelledby="comparison-heading">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -49,7 +49,7 @@ export default function Comparison() {
           </p>
           <h2
             id="comparison-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Built Different. Delivered Faster.
           </h2>
@@ -76,7 +76,7 @@ export default function Comparison() {
             <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
               Traditional Agencies
             </span>
-            <span role="columnheader" className="text-xs font-heading font-bold text-neon uppercase tracking-wider text-center bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
+            <span role="columnheader" className="text-xs font-heading font-bold text-neon text-neon-glow uppercase tracking-wider text-center bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
               Vermillion Axis
             </span>
           </div>
