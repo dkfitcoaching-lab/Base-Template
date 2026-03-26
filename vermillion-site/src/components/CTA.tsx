@@ -95,22 +95,43 @@ export default function CTA() {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             aria-hidden="true"
           />
-          <motion.h2
-            id="cta-heading"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease }}
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
-          >
-            <span className="text-text-primary">
-              Your Project. Our Speed.
-            </span>
-            <br />
-            <span className="text-gradient-vermillion text-neon-glow">
-              Let&apos;s Talk.
-            </span>
-          </motion.h2>
+
+          {/* Ornamental corner brackets */}
+          <div className="relative inline-block px-8 py-4">
+            {/* Top-left corner */}
+            <svg className="absolute top-0 left-0 w-6 h-6 text-neon/40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 8V2h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Top-right corner */}
+            <svg className="absolute top-0 right-0 w-6 h-6 text-neon/40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 8V2h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-left corner */}
+            <svg className="absolute bottom-0 left-0 w-6 h-6 text-neon/40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 16v6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-right corner */}
+            <svg className="absolute bottom-0 right-0 w-6 h-6 text-neon/40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 16v6h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+
+            <motion.h2
+              id="cta-heading"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease }}
+              className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
+            >
+              <span className="text-text-primary">
+                Ready to Build.
+              </span>
+              <br />
+              <span className="text-gradient-vermillion text-neon-glow">
+                Start Here.
+              </span>
+            </motion.h2>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -119,7 +140,7 @@ export default function CTA() {
             transition={{ delay: 0.15, duration: 0.7, ease }}
             className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
-            Tell us about your project. We respond within 24 hours with a clear scope, timeline, and price.
+            Describe your vision. Within 24 hours you&apos;ll have architecture, timeline, and investment — no ambiguity, no obligation.
           </motion.p>
         </div>
 

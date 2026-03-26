@@ -9,16 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0A0A0E",
+        bg: "#050505",
         surface: {
-          1: "#12121A",
-          2: "#1A1A24",
-          3: "#222230",
+          1: "#0A0A0A",
+          2: "#111111",
+          3: "#1A1A1A",
         },
         vermillion: {
           DEFAULT: "#B42B2B",
           light: "#D44040",
-          glow: "rgba(180, 43, 43, 0.15)",
+          glow: "rgba(255, 23, 68, 0.15)",
           dark: "#7A1C1C",
           muted: "#963333",
         },
@@ -29,17 +29,17 @@ const config: Config = {
           muted: "rgba(255, 23, 68, 0.03)",
         },
         depth: {
-          DEFAULT: "#0D0A1A",
-          glow: "rgba(13, 10, 26, 0.6)",
-          accent: "rgba(30, 20, 60, 0.1)",
-          violet: "rgba(75, 20, 120, 0.08)",
+          DEFAULT: "#080808",
+          glow: "rgba(8, 8, 8, 0.6)",
+          accent: "rgba(20, 8, 8, 0.1)",
+          violet: "rgba(40, 10, 60, 0.06)",
         },
-        border: "#333345",
+        border: "#252525",
         text: {
-          primary: "#EDEDF4",
-          body: "#B8B8C8",
-          secondary: "#8E8EA0",
-          caption: "#606072",
+          primary: "#F0F0F0",
+          body: "#C0C0C0",
+          secondary: "#888888",
+          caption: "#555555",
         },
       },
       fontSize: {
@@ -76,7 +76,6 @@ const config: Config = {
         "neon-sm": "0 0 10px rgba(255, 23, 68, 0.2), 0 0 4px rgba(255, 23, 68, 0.15)",
         "neon-md": "0 0 25px rgba(255, 23, 68, 0.25), 0 0 8px rgba(255, 23, 68, 0.2)",
         "neon-lg": "0 0 50px rgba(255, 23, 68, 0.3), 0 0 15px rgba(255, 23, 68, 0.25)",
-        "neon-border": "0 0 15px rgba(255, 23, 68, 0.1), inset 0 0 15px rgba(255, 23, 68, 0.05)",
       },
       animation: {
         shimmer: "shimmer 3s ease-in-out infinite",

@@ -65,7 +65,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease }}
-          className="text-center mb-16"
+          className="text-center"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Pricing
@@ -77,6 +77,13 @@ export default function Services() {
             Transparent Pricing. No Surprises.
           </h2>
         </motion.div>
+
+        {/* Ornamental divider */}
+        <div className="flex items-center justify-center gap-4 mt-8 mb-16" aria-hidden="true">
+          <span className="h-px w-16 bg-gradient-to-r from-transparent to-neon/30" />
+          <span className="block w-1.5 h-1.5 rotate-45 border border-neon/40" />
+          <span className="h-px w-16 bg-gradient-to-l from-transparent to-neon/30" />
+        </div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 items-start">
@@ -118,7 +125,7 @@ export default function Services() {
                   transition={{ duration: 0.35, ease }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "border-neon/30 shadow-neon-md neon-border-flow"
+                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow"
                       : "border-neon/[0.06] hover:border-neon/20 hover:shadow-neon-sm"
                   }`}
                 >
