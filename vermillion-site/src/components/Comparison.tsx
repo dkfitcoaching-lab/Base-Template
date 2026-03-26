@@ -139,19 +139,21 @@ export default function Comparison() {
         </motion.div>
 
         {/* Tagline */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
+          className="mt-10 lg:mt-12 max-w-xl mx-auto gothic-frame rounded-card px-6 py-5"
         >
-          We don&apos;t compete on price. We compete on{" "}
-          <span className="text-neon font-semibold text-neon-glow-subtle">
-            speed, quality, and ownership
-          </span>
-          .
-        </motion.p>
+          <p className="text-center text-text-secondary text-base font-body">
+            We don&apos;t compete on price. We compete on{" "}
+            <span className="text-neon font-semibold text-neon-glow-subtle">
+              speed, quality, and ownership
+            </span>
+            .
+          </p>
+        </motion.div>
       </div>
     </section>
   );

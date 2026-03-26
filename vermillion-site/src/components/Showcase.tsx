@@ -74,6 +74,9 @@ function TiltCard({ children }: { children: React.ReactNode }) {
         className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
         style={{
           background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`,
+          willChange: "opacity",
+          backfaceVisibility: "hidden",
+          transform: "translateZ(0)",
         }}
         aria-hidden="true"
       />
@@ -118,15 +121,33 @@ export default function Showcase() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
-            Selected Work
-          </p>
-          <h2
-            id="showcase-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
-          >
-            Engineered for Impact
-          </h2>
+          <div className="relative inline-block px-8 py-4">
+            {/* Top-left corner */}
+            <svg className="absolute top-0 left-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 8V2h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Top-right corner */}
+            <svg className="absolute top-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 8V2h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-left corner */}
+            <svg className="absolute bottom-0 left-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 16v6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-right corner */}
+            <svg className="absolute bottom-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 16v6h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
+              Selected Work
+            </p>
+            <h2
+              id="showcase-heading"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            >
+              Engineered for Impact
+            </h2>
+          </div>
         </motion.div>
 
         {/* Grid */}

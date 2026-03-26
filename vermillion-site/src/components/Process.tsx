@@ -104,9 +104,8 @@ export default function Process() {
                 {/* Content card with glassmorphism on hover */}
                 <div
                   className="flex-1 pt-1 pb-2 px-5 -ml-1 rounded-card
-                    border border-transparent
+                    neon-glow-border
                     group-hover:bg-white/[0.02] group-hover:backdrop-blur-sm
-                    group-hover:border-neon/[0.06]
                     transition-all duration-500"
                 >
                   <div className="flex items-baseline gap-3 mb-2">

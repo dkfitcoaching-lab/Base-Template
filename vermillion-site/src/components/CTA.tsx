@@ -65,6 +65,9 @@ export default function CTA() {
             left: p.x,
             top: p.y,
             opacity: p.opacity,
+            willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)",
           }}
           animate={{
             y: [0, -24, 0, 16, 0],
@@ -88,6 +91,7 @@ export default function CTA() {
           {/* Animated glow backdrop */}
           <motion.div
             className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.1),transparent_70%)] blur-[80px] pointer-events-none"
+            style={{ willChange: "opacity", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             aria-hidden="true"
