@@ -111,7 +111,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.025;
+  opacity: 0.045;
   background-image:
     linear-gradient(rgba(255,23,68,0.4) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px),
@@ -119,25 +119,9 @@ body {
   background-size: 80px 80px, 80px 80px, 80px 80px;
 }
 
-/* ═══════════════════════════════════════════════════
-   SECTION DIVIDERS & HIGHLIGHTS
-   ═══════════════════════════════════════════════════ */
-.section-glow-divider {
-  position: relative;
-}
-.section-glow-divider::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.15), transparent);
-  pointer-events: none;
-}
-
-.section-highlight {
-  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255, 23, 68, 0.025), transparent 70%);
+/* Focus-visible glow enhancement */
+*:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,23,68,0.15), 0 0 15px rgba(255,23,68,0.1);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -193,13 +177,6 @@ body {
   50% { opacity: 0.7; transform: scale(1.05); }
 }
 
-@keyframes data-flow {
-  0% { transform: translateY(-100%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
 @keyframes border-rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -218,8 +195,8 @@ body {
 }
 .gothic-card:hover {
   border-color: rgba(255,23,68,0.18);
-  box-shadow: 0 0 25px rgba(255,23,68,0.06), 0 0 0 1px rgba(255,23,68,0.08), 0 8px 40px rgba(0,0,0,0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(255,23,68,0.08), 0 0 0 1px rgba(255,23,68,0.1), 0 8px 40px rgba(0,0,0,0.5), 0 20px 60px rgba(0,0,0,0.3);
+  transform: translateY(-2px) scale(1.01);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -302,55 +279,6 @@ body {
   );
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
-}
-
-.btn-glow {
-  box-shadow: 0 0 15px rgba(255, 23, 68, 0.25), 0 0 5px rgba(255, 23, 68, 0.2);
-  animation: glow-pulse 3s ease-in-out infinite;
-}
-.btn-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 23, 68, 0.4), 0 0 10px rgba(255, 23, 68, 0.3);
-}
-
-/* ═══════════════════════════════════════════════════
-   GLASS CARDS
-   ═══════════════════════════════════════════════════ */
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 23, 68, 0.05);
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 23, 68, 0.1);
-}
-
-.glass-card-premium {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 23, 68, 0.06);
-}
-
-.glass-card-premium:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 23, 68, 0.12);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 23, 68, 0.06);
-}
-
-/* ═══════════════════════════════════════════════════
-   GLOW BORDERS
-   ═══════════════════════════════════════════════════ */
-.glow-border {
-  box-shadow: 0 0 0 1px rgba(255, 23, 68, 0.1),
-              0 0 20px rgba(255, 23, 68, 0.05);
-}
-
-.glow-border:hover {
-  box-shadow: 0 0 0 1px rgba(255, 23, 68, 0.3),
-              0 0 30px rgba(255, 23, 68, 0.1);
 }
 
 /* ═══════════════════════════════════════════════════

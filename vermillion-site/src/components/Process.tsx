@@ -39,7 +39,7 @@ export default function Process() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             How It Works
           </p>
           <h2
@@ -68,7 +68,7 @@ export default function Process() {
 
           {/* Traveling light dot */}
           <div
-            className="absolute left-[25px] w-[5px] h-[5px] rounded-full bg-neon shadow-[0_0_10px_rgba(255,23,68,0.6)] animate-scan-line opacity-80"
+            className="absolute left-[25px] w-[5px] h-[5px] rounded-full bg-neon shadow-[0_0_15px_rgba(255,23,68,0.7),0_0_30px_rgba(255,23,68,0.3)] animate-scan-line opacity-90"
             aria-hidden="true"
           />
 

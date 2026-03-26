@@ -67,12 +67,12 @@ export default function Services() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Pricing
           </p>
           <h2
             id="services-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Transparent Pricing. No Surprises.
           </h2>
@@ -213,7 +213,7 @@ export default function Services() {
                             className="flex-shrink-0 mt-0.5"
                           >
                             <Check
-                              className="w-4 h-4 text-vermillion"
+                              className="w-4 h-4 text-neon"
                               aria-hidden="true"
                             />
                           </motion.span>
@@ -227,9 +227,9 @@ export default function Services() {
                     {/* CTA Button */}
                     <a
                       href="#contact"
-                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden ${
+                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] ${
                         isHighlighted
-                          ? "bg-vermillion text-white hover:shadow-[0_0_30px_rgba(255,23,68,0.3)] hover:bg-vermillion/90"
+                          ? "bg-vermillion text-white hover:shadow-neon-md hover:bg-vermillion/90"
                           : "border border-border/60 text-text-primary hover:border-neon/50 hover:text-neon hover:shadow-neon-sm"
                       }`}
                     >
@@ -260,7 +260,7 @@ export default function Services() {
           Not sure which tier fits?{" "}
           <a
             href="#contact"
-            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
+            className="text-neon hover:text-neon/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
           >
             Tell us about your project
           </a>{" "}

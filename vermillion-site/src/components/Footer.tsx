@@ -41,20 +41,6 @@ export default function Footer() {
             transition={{ duration: 0.6, ease }}
             className="flex flex-col sm:flex-row items-center justify-between gap-6"
           >
-            {/* Brand */}
-            <div className="flex items-center gap-3">
-              <img
-                src="/logo-mark.svg"
-                alt=""
-                className="w-6 h-6"
-                aria-hidden="true"
-              />
-              <span className="font-heading text-xs text-text-secondary tracking-[0.15em]">
-                VERMILLION <span className="text-vermillion">AXIS</span>{" "}
-                TECHNOLOGIES
-              </span>
-            </div>
-
             {/* Nav links */}
             <nav
               aria-label="Footer navigation"

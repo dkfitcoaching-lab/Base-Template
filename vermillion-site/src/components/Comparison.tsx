@@ -44,7 +44,7 @@ export default function Comparison() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-overline text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Why Vermillion
           </p>
           <h2

@@ -97,7 +97,7 @@ export default function CTA() {
               Your Project. Our Speed.
             </span>
             <br />
-            <span className="text-gradient-vermillion">
+            <span className="text-gradient-vermillion text-neon-glow">
               Let&apos;s Talk.
             </span>
           </motion.h2>

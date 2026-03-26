@@ -65,12 +65,12 @@ export default function Features() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Capabilities
           </p>
           <h2
             id="features-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Built for What&apos;s Next
           </h2>
@@ -96,7 +96,7 @@ export default function Features() {
                 role="listitem"
                 className={`group relative p-6 lg:p-7 rounded-card gothic-card
                   transition-all duration-500
-                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/30" : ""}
+                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : ""}
                 `}
                 style={{ willChange: "transform" }}
                 whileHover={{ y: -4 }}
@@ -127,7 +127,7 @@ export default function Features() {
                   aria-hidden="true"
                 >
                   {Icon && (
-                    <Icon className="w-5 h-5 text-vermillion group-hover:text-vermillion-light transition-colors duration-500" />
+                    <Icon className="w-5 h-5 text-neon group-hover:text-neon transition-colors duration-500" />
                   )}
                 </div>
 

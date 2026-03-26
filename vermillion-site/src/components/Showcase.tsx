@@ -118,7 +118,7 @@ export default function Showcase() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Selected Work
           </p>
           <h2

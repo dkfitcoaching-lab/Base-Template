@@ -43,7 +43,7 @@ export default function Testimonials() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Client Feedback
           </p>
           <h2
@@ -64,7 +64,7 @@ export default function Testimonials() {
           {/* Featured testimonial — full width, larger */}
           <motion.blockquote
             variants={itemVariants}
-            className="relative p-8 lg:p-12 rounded-card gothic-card overflow-hidden"
+            className="relative p-8 lg:p-12 rounded-card gothic-card neon-border-flow overflow-hidden"
           >
             {/* Decorative oversized quote mark */}
             <span
@@ -75,7 +75,7 @@ export default function Testimonials() {
             </span>
 
             {/* Vermillion accent bar */}
-            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-neon via-neon/60 to-transparent rounded-l-card" aria-hidden="true" />
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] holographic-shimmer rounded-l-card" aria-hidden="true" />
 
             <div className="relative">
               <StarRating />

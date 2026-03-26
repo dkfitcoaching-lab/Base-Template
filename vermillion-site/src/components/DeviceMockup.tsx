@@ -14,13 +14,13 @@ function CoachingPlatformMockup() {
       <rect width="320" height="200" fill="#0C0C14" />
       {/* Sidebar */}
       <rect x="0" y="0" width="48" height="200" fill="#14141E" />
-      <rect x="0" y="32" width="2" height="10" rx="1" fill="#B42B2B" />
+      <rect x="0" y="32" width="2" height="10" rx="1" fill="#FF1744" />
       {[32, 52, 72, 92, 112].map((y, i) => (
-        <rect key={`si${i}`} x="14" y={y} width="20" height="8" rx="2" fill={i === 0 ? "#B42B2B" : "#2A2A38"} opacity={i === 0 ? 0.8 : 0.5} />
+        <rect key={`si${i}`} x="14" y={y} width="20" height="8" rx="2" fill={i === 0 ? "#FF1744" : "#2A2A38"} opacity={i === 0 ? 0.8 : 0.5} />
       ))}
       {/* Top bar */}
       <rect x="48" y="0" width="272" height="28" fill="#1C1C28" />
-      <circle cx="64" cy="14" r="8" fill="#B42B2B" opacity="0.9" />
+      <circle cx="64" cy="14" r="8" fill="#FF1744" opacity="0.9" />
       <text x="64" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">A</text>
       <text x="78" y="11" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Dashboard</text>
       <text x="78" y="19" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Administrator</text>
@@ -48,11 +48,11 @@ function CoachingPlatformMockup() {
       <line x1="208" y1="80" x2="302" y2="80" stroke="#2A2A38" strokeWidth="0.3" />
       <line x1="208" y1="92" x2="302" y2="92" stroke="#2A2A38" strokeWidth="0.3" />
       <line x1="208" y1="104" x2="302" y2="104" stroke="#2A2A38" strokeWidth="0.3" />
-      <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66" fill="none" stroke="#B42B2B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66" fill="none" stroke="#FF1744" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66 294,106 210,106" fill="url(#coachGrad)" stroke="none" opacity="0.15" />
       <defs>
         <linearGradient id="coachGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#B42B2B" />
+          <stop offset="0%" stopColor="#FF1744" />
           <stop offset="100%" stopColor="#0C0C14" stopOpacity="0" />
         </linearGradient>
       </defs>
@@ -86,7 +86,7 @@ function AnalyticsDashboardMockup() {
       {[
         { label: "MRR", value: "$42.8K", color: "#10B981", change: "+12%" },
         { label: "USERS", value: "3,847", color: "#6366F1", change: "+8%" },
-        { label: "CHURN", value: "1.2%", color: "#B42B2B", change: "-0.3%" },
+        { label: "CHURN", value: "1.2%", color: "#FF1744", change: "-0.3%" },
         { label: "NPS", value: "72", color: "#D4A853", change: "+5" },
       ].map((kpi, i) => {
         const x = 52 + i * 66;
@@ -133,7 +133,7 @@ function MemberPortalMockup() {
       <rect width="320" height="200" fill="#0C0C14" />
       {/* Header */}
       <rect x="0" y="0" width="320" height="28" fill="#1C1C28" />
-      <rect x="16" y="8" width="24" height="12" rx="2" fill="#B42B2B" opacity="0.8" />
+      <rect x="16" y="8" width="24" height="12" rx="2" fill="#FF1744" opacity="0.8" />
       <text x="28" y="14" fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">V</text>
       <text x="48" y="14" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Welcome back, James</text>
       <circle cx="296" cy="14" r="7" fill="#2A2A38" />
@@ -166,7 +166,7 @@ function MemberPortalMockup() {
       <text x="28" y="136" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">QUICK ACTIONS</text>
       {["View Content", "Manage Billing", "Get Support"].map((btn, i) => (
         <g key={`btn${i}`}>
-          <rect x={28 + i * 92} y="142" width="80" height="10" rx="3" fill={i === 0 ? "#B42B2B" : "#1C1C28"} opacity={i === 0 ? 0.8 : 1} stroke="#2A2A38" strokeWidth="0.3" />
+          <rect x={28 + i * 92} y="142" width="80" height="10" rx="3" fill={i === 0 ? "#FF1744" : "#1C1C28"} opacity={i === 0 ? 0.8 : 1} stroke="#2A2A38" strokeWidth="0.3" />
           <text x={68 + i * 92} y="147" fill={i === 0 ? "#E8E8F0" : "#585868"} fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{btn}</text>
         </g>
       ))}
@@ -204,7 +204,7 @@ function ECommerceMockup() {
       {/* Category pills */}
       {["All", "New", "Accessories", "Sale"].map((cat, i) => (
         <g key={`cat${i}`}>
-          <rect x={16 + i * 60} y="30" width={i === 0 ? 30 : 50} height="14" rx="7" fill={i === 0 ? "#B42B2B" : "#14141E"} opacity={i === 0 ? 0.8 : 1} stroke={i === 0 ? "#B42B2B" : "#2A2A38"} strokeWidth="0.5" />
+          <rect x={16 + i * 60} y="30" width={i === 0 ? 30 : 50} height="14" rx="7" fill={i === 0 ? "#FF1744" : "#14141E"} opacity={i === 0 ? 0.8 : 1} stroke={i === 0 ? "#FF1744" : "#2A2A38"} strokeWidth="0.5" />
           <text x={16 + i * 60 + (i === 0 ? 15 : 25)} y="37" fill={i === 0 ? "#E8E8F0" : "#585868"} fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{cat}</text>
         </g>
       ))}
@@ -222,7 +222,7 @@ function ECommerceMockup() {
             <text x={x + 8} y={y + 42} fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{p.name}</text>
             <text x={x + 8} y={y + 50} fill="#D4A853" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{p.price}</text>
             {/* Add to cart button */}
-            <rect x={x + 100} y={y + 42} width="32" height="12" rx="3" fill="#B42B2B" opacity="0.8" />
+            <rect x={x + 100} y={y + 42} width="32" height="12" rx="3" fill="#FF1744" opacity="0.8" />
             <text x={x + 116} y={y + 48} fill="#E8E8F0" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Add</text>
           </g>
         );
@@ -248,7 +248,7 @@ function EnterpriseCRMMockup() {
       <rect x="0" y="0" width="320" height="24" fill="#1C1C28" />
       <text x="16" y="12" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Pipeline</text>
       <text x="70" y="12" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Q1 2026 · $1.2M total value</text>
-      <rect x="260" y="5" width="44" height="14" rx="3" fill="#B42B2B" opacity="0.8" />
+      <rect x="260" y="5" width="44" height="14" rx="3" fill="#FF1744" opacity="0.8" />
       <text x="282" y="12" fill="#E8E8F0" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">+ New Deal</text>
       {/* Pipeline columns */}
       {stages.map((stage, i) => {
@@ -298,7 +298,7 @@ function MobileAppMockup() {
       <text x="116" y="30" fill="#585868" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">←</text>
       <text x="160" y="30" fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">Dashboard</text>
       {/* Welcome card */}
-      <rect x="108" y="44" width="104" height="30" rx="4" fill="#B42B2B" opacity="0.15" stroke="#B42B2B" strokeWidth="0.5" />
+      <rect x="108" y="44" width="104" height="30" rx="4" fill="#FF1744" opacity="0.15" stroke="#FF1744" strokeWidth="0.5" />
       <text x="116" y="54" fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Good morning</text>
       <text x="116" y="64" fill="#9898A8" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">3 tasks pending today</text>
       {/* Notification cards */}
@@ -323,7 +323,7 @@ function MobileAppMockup() {
       <rect x="108" y="168" width="104" height="24" fill="#1C1C28" />
       <line x1="108" y1="168" x2="212" y2="168" stroke="#2A2A38" strokeWidth="0.5" />
       {["⌂", "📊", "✉", "⚙"].map((icon, i) => (
-        <text key={`tab${i}`} x={130 + i * 22} y="180" fill={i === 0 ? "#B42B2B" : "#585868"} fontSize="7" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{icon}</text>
+        <text key={`tab${i}`} x={130 + i * 22} y="180" fill={i === 0 ? "#FF1744" : "#585868"} fontSize="7" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{icon}</text>
       ))}
       {/* Side decorative elements */}
       <rect x="20" y="40" width="60" height="30" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" opacity="0.5" />
@@ -355,7 +355,7 @@ function FallbackMockup() {
       <rect x="80" y="80" width="160" height="4" rx="1" fill="#585868" opacity="0.5" />
       <rect x="80" y="90" width="140" height="4" rx="1" fill="#585868" opacity="0.5" />
       <rect x="80" y="100" width="120" height="4" rx="1" fill="#585868" opacity="0.5" />
-      <rect x="80" y="120" width="60" height="16" rx="4" fill="#B42B2B" opacity="0.6" />
+      <rect x="80" y="120" width="60" height="16" rx="4" fill="#FF1744" opacity="0.6" />
     </svg>
   );
 }

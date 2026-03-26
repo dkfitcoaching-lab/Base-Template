@@ -55,7 +55,7 @@ export default function FAQ() {
                   onClick={() => toggle(i)}
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  className="w-full flex items-center justify-between py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
+                  className="w-full flex items-center justify-between py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
                 >
                   <span className="font-heading font-semibold text-base text-text-primary pr-4">
                     {item.question}

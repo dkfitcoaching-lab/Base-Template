@@ -159,7 +159,7 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
   return (
     <a
       href={href}
-      className="shimmer-btn relative overflow-hidden px-8 py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="shimmer-btn relative overflow-hidden px-8 py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="relative z-10">{children}</span>
       <span
@@ -242,7 +242,7 @@ export default function Hero() {
               <WordReveal
                 words={headlineLine2}
                 startDelay={line2Delay}
-                className="text-gradient-vermillion"
+                className="text-gradient-vermillion text-neon-glow"
               />
             </span>
             <span className="block">
@@ -280,7 +280,7 @@ export default function Hero() {
           <MagneticButton>
             <a
               href="#work"
-              className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>
