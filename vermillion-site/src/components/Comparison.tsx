@@ -76,7 +76,7 @@ export default function Comparison() {
             <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
               Traditional Agencies
             </span>
-            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center">
+            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
               Vermillion Axis
             </span>
           </div>
@@ -100,7 +100,7 @@ export default function Comparison() {
               <span role="cell" className="text-sm text-text-caption text-center">
                 {row.others}
               </span>
-              <span role="cell" className="text-sm text-vermillion font-semibold text-center">
+              <span role="cell" className="text-sm text-vermillion font-bold text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
                 {row.ours}
               </span>
             </motion.div>
@@ -146,11 +146,11 @@ export default function Comparison() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
         >
-          We are not cheaper. We are{" "}
+          We don&apos;t compete on price. We compete on{" "}
           <span className="text-text-primary font-semibold">
-            more focused
+            speed, quality, and ownership
           </span>
-          . Specialization lets us deliver faster and better.
+          .
         </motion.p>
       </div>
     </section>

@@ -3,25 +3,25 @@
 import { motion } from "framer-motion";
 import { FEATURES } from "@/lib/constants";
 import {
-  Users,
-  Dumbbell,
-  UtensilsCrossed,
-  DollarSign,
-  MessageSquare,
+  Layers,
+  Zap,
+  Cloud,
+  Smartphone,
   Shield,
+  Plug,
   Brain,
-  FileText,
+  BarChart3,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Users,
-  Dumbbell,
-  UtensilsCrossed,
-  DollarSign,
-  MessageSquare,
+  Layers,
+  Zap,
+  Cloud,
+  Smartphone,
   Shield,
+  Plug,
   Brain,
-  FileText,
+  BarChart3,
 };
 
 const ease = [0.22, 1, 0.36, 1];
@@ -35,18 +35,27 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+const itemVariantsLeft = {
+  hidden: { opacity: 0, x: -30 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
+    transition: { duration: 0.6, ease },
+  },
+};
+
+const itemVariantsRight = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
     transition: { duration: 0.6, ease },
   },
 };
 
 export default function Features() {
   return (
-    <section className="py-24 lg:py-32" aria-labelledby="features-heading">
+    <section className="py-24 lg:py-32 section-highlight" aria-labelledby="features-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -57,14 +66,13 @@ export default function Features() {
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Platform Capabilities
+            Capabilities
           </p>
           <h2
             id="features-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Everything Your Coaching
-            <br className="hidden sm:block" /> Business Needs
+            Built for What&apos;s Next
           </h2>
         </motion.div>
 
@@ -84,7 +92,7 @@ export default function Features() {
             return (
               <motion.article
                 key={feature.title}
-                variants={itemVariants}
+                variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
                 role="listitem"
                 className={`group relative p-6 lg:p-7 rounded-card
                   bg-white/[0.02] backdrop-blur-sm
@@ -92,7 +100,7 @@ export default function Features() {
                   hover:bg-white/[0.04] hover:border-white/[0.1]
                   hover:shadow-glass
                   transition-all duration-500
-                  ${isLarge ? "sm:col-span-2 lg:col-span-2" : ""}
+                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-vermillion/40" : ""}
                 `}
                 style={{ willChange: "transform" }}
                 whileHover={{ y: -4 }}
@@ -103,6 +111,15 @@ export default function Features() {
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent rounded-t-card"
                   aria-hidden="true"
                 />
+
+                {/* Radial glow for large cards */}
+                {isLarge && (
+                  <div
+                    className="absolute inset-0 rounded-card pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse 60% 60% at 20% 50%, rgba(180, 43, 43, 0.04), transparent 70%)" }}
+                    aria-hidden="true"
+                  />
+                )}
 
                 {/* Icon with glow */}
                 <div

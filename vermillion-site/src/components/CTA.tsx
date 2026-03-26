@@ -87,11 +87,11 @@ export default function CTA() {
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
           >
             <span className="text-text-primary">
-              Ready to Build Something
+              Your Project. Our Speed.
             </span>
             <br />
-            <span className="text-text-primary">
-              Your Clients Will Love?
+            <span className="text-gradient-vermillion">
+              Let&apos;s Talk.
             </span>
           </motion.h2>
 
@@ -102,7 +102,7 @@ export default function CTA() {
             transition={{ delay: 0.15, duration: 0.7, ease }}
             className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
-            Tell us about your business. We will respond within 24 hours with a clear scope, timeline, and price.
+            Tell us about your project. We respond within 24 hours with a clear scope, timeline, and price.
           </motion.p>
         </div>
 
@@ -124,7 +124,7 @@ export default function CTA() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="mt-10 text-center text-sm text-text-caption"
         >
-          We accept all major payment methods. No contracts. No hidden fees.
+          Average response time: under 24 hours. No contracts. No hidden fees.
         </motion.p>
       </div>
     </section>

@@ -12,6 +12,7 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import MarqueeDivider from "@/components/MarqueeDivider";
 
 export default function Home() {
   return (
@@ -21,11 +22,14 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Stats />
+      <MarqueeDivider text="CUSTOM SOFTWARE" speed={25} direction="left" />
       <Showcase />
       <Services />
+      <MarqueeDivider text="FULL OWNERSHIP" speed={30} direction="right" />
       <Comparison />
       <Features />
       <Process />
+      <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
       <Testimonials />
       <FAQ />
       <CTA />

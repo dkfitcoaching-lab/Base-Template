@@ -74,7 +74,7 @@ export default function Services() {
             id="services-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Choose Your Starting Point
+            Transparent Pricing. No Surprises.
           </h2>
         </motion.div>
 

@@ -1,10 +1,11 @@
 export const SITE = {
   name: "Vermillion Axis Technologies",
-  tagline: "Software That Runs Your Coaching Business",
+  tagline: "We Engineer What Others Can't Build",
   description:
-    "We design and build custom coaching platforms for fitness and wellness businesses. Full-stack. Full ownership. Delivered in days, not months.",
+    "Premium custom software for visionary companies. Full-stack development. Complete code ownership. Delivered at impossible speed.",
   location: "Las Vegas, NV",
-  domain: "vermillionaxistech.com",
+  domain: "vermillionaxis.tech",
+  email: "contact@vermillionaxis.tech",
 };
 
 export const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
@@ -13,54 +14,66 @@ export const SERVICE_OPTIONS = [
   "Foundation ($2,500 – $5,000)",
   "Professional ($7,500 – $15,000)",
   "Enterprise ($20,000+)",
-  "Not sure yet — help me decide",
+  "Custom scope — let's discuss",
 ] as const;
 
 export const NAV_LINKS = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#work" },
+  { label: "Solutions", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const STATS = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
+  { value: "100+", label: "Projects Shipped" },
+  { value: "<72hr", label: "Response Time" },
   { value: "3–21", label: "Day Delivery" },
   { value: "100%", label: "Code Ownership" },
 ];
 
 export const SHOWCASE_ITEMS = [
   {
-    label: "Coach Dashboard",
+    label: "Analytics Dashboard",
+    image: "/screenshots/analytics.png",
+    description:
+      "Real-time SaaS metrics, revenue tracking, and predictive insights for enterprise clients.",
+    category: "SaaS",
+  },
+  {
+    label: "Enterprise CRM",
+    image: "/screenshots/crm.png",
+    description:
+      "Custom client relationship management with pipeline tracking and automated workflows.",
+    category: "Enterprise",
+  },
+  {
+    label: "Member Portal",
+    image: "/screenshots/portal.png",
+    description:
+      "Luxury membership management with authentication, billing, and content delivery.",
+    category: "Membership",
+  },
+  {
+    label: "E-Commerce Platform",
+    image: "/screenshots/ecommerce.png",
+    description:
+      "High-performance storefront with inventory management, payments, and analytics.",
+    category: "E-Commerce",
+  },
+  {
+    label: "Coaching Platform",
     image: "/screenshots/dashboard.png",
-    description: "Real-time client metrics, revenue tracking, and session scheduling in one view.",
+    description:
+      "Full-stack coaching management with scheduling, payments, and branded PDF exports.",
+    category: "Fitness",
   },
   {
-    label: "Branded PDF Output",
-    image: "/screenshots/pdf.png",
-    description: "Auto-generated workout and meal plans with your logo, colors, and formatting.",
-  },
-  {
-    label: "Client Management",
-    image: "/screenshots/clients.png",
-    description: "Full client profiles with medical history, goals, measurements, and progress photos.",
-  },
-  {
-    label: "Weekly Schedule",
-    image: "/screenshots/schedule.png",
-    description: "Drag-and-drop session planning with automated SMS reminders via Twilio.",
-  },
-  {
-    label: "Program Builder",
-    image: "/screenshots/program.png",
-    description: "150+ exercises across 9 muscle groups. Build, save, and reuse training templates.",
-  },
-  {
-    label: "Settings & Themes",
-    image: "/screenshots/settings.png",
-    description: "White-label everything. Your brand, your colors, your domain.",
+    label: "Mobile Application",
+    image: "/screenshots/mobile.png",
+    description:
+      "Cross-platform progressive web app with offline-first architecture and push notifications.",
+    category: "Mobile",
   },
 ];
 
@@ -68,14 +81,15 @@ export const TIERS = [
   {
     name: "Foundation",
     price: "$2,500 – $5,000",
-    audience: "Solo trainers and independent coaches building their digital presence.",
+    audience:
+      "Startups, solo founders, and businesses launching their digital presence.",
     delivery: "3–7 days",
     features: [
-      "Custom branded website or lite coaching app",
+      "Custom branded website or application",
       "Progressive Web App — installs on any device",
       "Booking, scheduling, and contact forms",
       "Stripe payment processing",
-      "SEO and Google Business optimization",
+      "SEO and performance optimization",
       "Cloud hosting and database included",
       "Two rounds of revisions",
     ],
@@ -83,17 +97,17 @@ export const TIERS = [
   {
     name: "Professional",
     price: "$7,500 – $15,000",
-    audience: "Established coaches and gym owners managing 25+ active clients.",
+    audience:
+      "Growing businesses managing operations at scale.",
     delivery: "5–10 days",
     features: [
       "Everything in Foundation, plus:",
-      "Full coaching management platform",
-      "Client profiles with medical history and progress tracking",
-      "Session logging with 150+ exercises across 9 muscle groups",
-      "Meal plan builder with macro calculator",
-      "Workout programming with branded PDF export",
-      "Financial tracking with revenue-split logic",
-      "SMS automation via Twilio",
+      "Full-stack management platform",
+      "User profiles with role-based access control",
+      "Database architecture and API design",
+      "Third-party integrations (CRM, payments, messaging)",
+      "Automated workflows and scheduling",
+      "Branded document and PDF export",
       "Offline-first architecture with cloud sync",
     ],
     highlighted: true,
@@ -101,17 +115,17 @@ export const TIERS = [
   {
     name: "Enterprise",
     price: "$20,000+",
-    audience: "Multi-location gyms, franchises, and wellness brands ready to scale.",
+    audience:
+      "Organizations requiring multi-system architecture and advanced capabilities.",
     delivery: "10–21 days",
     features: [
       "Everything in Professional, plus:",
-      "Multi-trainer dashboards and admin panel",
-      "Client portal with authentication",
-      "AI-powered workout generation and scheduling",
-      "E-commerce and video hosting",
-      "Analytics dashboards and CRM integrations",
-      "Wearable device integration",
-      "White-label capability",
+      "Multi-tenant SaaS architecture",
+      "Admin panel with analytics dashboards",
+      "AI-powered automation and generation",
+      "E-commerce and marketplace features",
+      "CRM and third-party API integrations",
+      "White-label and multi-brand support",
       "Dedicated security audit",
     ],
   },
@@ -119,52 +133,52 @@ export const TIERS = [
 
 export const FEATURES = [
   {
-    icon: "Users",
-    title: "Client Management",
+    icon: "Layers",
+    title: "Full-Stack Architecture",
     description:
-      "Track profiles, medical history, goals, and measurements. See every client's journey at a glance.",
+      "End-to-end systems built on React, Next.js, Node.js, and PostgreSQL. Modern, maintainable, and production-ready.",
   },
   {
-    icon: "Dumbbell",
-    title: "Workout Programming",
+    icon: "Zap",
+    title: "Real-Time Systems",
     description:
-      "Build programs from 150+ exercises across 9 muscle groups. Save templates and assign in seconds.",
+      "Live dashboards, instant notifications, and WebSocket-powered features that keep your users engaged.",
   },
   {
-    icon: "UtensilsCrossed",
-    title: "Nutrition Planning",
+    icon: "Cloud",
+    title: "Cloud-Native & Scalable",
     description:
-      "Create meal plans with auto-calculated macros. Export branded PDFs your clients actually use.",
+      "Auto-scaling infrastructure designed for growth. From day-one startup to enterprise-grade load.",
   },
   {
-    icon: "DollarSign",
-    title: "Revenue Tracking",
+    icon: "Smartphone",
+    title: "Progressive Web Apps",
     description:
-      "Monitor earnings, calculate gym splits, and track session rates. Know exactly where your money goes.",
-  },
-  {
-    icon: "MessageSquare",
-    title: "Automated Messaging",
-    description:
-      "Send session reminders, booking confirmations, and follow-ups via SMS. No manual work.",
+      "Install on any device, work offline, push notifications. Native app experience without the app store.",
   },
   {
     icon: "Shield",
-    title: "Secure and Offline-Ready",
+    title: "Enterprise Security",
     description:
-      "PIN-protected access, cloud backup, and offline-first architecture. Your data is always safe.",
+      "Encryption at rest and in transit, role-based access, audit trails, and security-first architecture.",
+  },
+  {
+    icon: "Plug",
+    title: "API Design & Integration",
+    description:
+      "RESTful and GraphQL APIs, third-party integrations, webhooks, and middleware for any ecosystem.",
   },
   {
     icon: "Brain",
-    title: "AI-Powered Tools",
+    title: "AI-Powered Features",
     description:
-      "Generate workouts, optimize schedules, and deploy a trained chatbot for your clients.",
+      "Machine learning models, intelligent automation, chatbots, and predictive analytics built into your platform.",
   },
   {
-    icon: "FileText",
-    title: "Professional Output",
+    icon: "BarChart3",
+    title: "Analytics & Reporting",
     description:
-      "Every document carries your brand. Custom design system, dual themes, and print-ready PDFs.",
+      "Custom dashboards, data visualization, and business intelligence tools tailored to your KPIs.",
   },
 ];
 
@@ -173,31 +187,31 @@ export const PROCESS_STEPS = [
     step: "01",
     title: "Discovery",
     description:
-      "A 15-minute conversation. We learn how your business works, what your clients need, and where software can make the biggest difference.",
+      "A focused consultation. We understand your vision, define technical requirements, and identify the fastest path to a production-ready product.",
   },
   {
     step: "02",
     title: "Proposal",
     description:
-      "Within 24 hours you receive a detailed scope document: features, timeline, and a transparent fixed price. No surprises.",
+      "Within 24 hours: a detailed scope document with architecture overview, timeline, and transparent fixed pricing. No ambiguity.",
   },
   {
     step: "03",
     title: "Build",
     description:
-      "We start with a 50% deposit. You see progress at every milestone. Two revision rounds are built into the timeline.",
+      "Rapid development with milestone-based progress updates. Two revision rounds built into every engagement. You see everything as it happens.",
   },
   {
     step: "04",
     title: "Deliver",
     description:
-      "You receive the complete codebase, deployment credentials, and documentation. You own everything. We transfer, you verify, done.",
+      "Complete codebase, deployment credentials, and documentation. Full ownership transfer. You control every line of code.",
   },
   {
     step: "05",
     title: "Support",
     description:
-      "After launch, we are available for ongoing maintenance, feature additions, and performance monitoring. Month-to-month, cancel anytime.",
+      "Post-launch maintenance, feature additions, and performance monitoring. Month-to-month, cancel anytime. No lock-in.",
   },
 ];
 
@@ -223,9 +237,9 @@ export const COMPARISON = [
     ours: "2 rounds included",
   },
   {
-    feature: "Fitness-specific features",
-    others: "Generic or plugin-based",
-    ours: "Built from scratch for coaches",
+    feature: "Technology stack",
+    others: "Template-based or outsourced",
+    ours: "Custom-built from scratch",
   },
   {
     feature: "Post-launch support",
@@ -236,21 +250,24 @@ export const COMPARISON = [
 
 export const TESTIMONIALS = [
   {
-    quote: "They built our entire coaching platform in eleven days. Our previous agency quoted four months and triple the cost. The app handles scheduling, payments, and branded PDF programs — our coaches use it every single morning.",
+    quote:
+      "They built our entire platform in eleven days. Our previous agency quoted four months and triple the cost. Scheduling, payments, branded exports — our team uses it every single morning.",
     name: "Michael K.",
-    title: "IFBB Pro, Coaching Lab",
+    title: "Founder, Coaching Lab",
     location: "Las Vegas, NV",
   },
   {
-    quote: "I needed more than a website. I needed a system that understood how coaching actually works — intake forms, progress tracking, automated programming. Vermillion got it immediately. No back-and-forth, no explaining the basics.",
+    quote:
+      "I needed more than a website. I needed a system that understood how my business actually works — client onboarding, progress tracking, automated workflows. Vermillion got it immediately. No back-and-forth, no explaining the basics.",
     name: "Rachel Chen",
     title: "Founder, Elevate Wellness",
     location: "Scottsdale, AZ",
   },
   {
-    quote: "The branded exports alone changed my business. My clients receive professionally designed workout and nutrition plans with my logo and colors. They think I have a full design team. I just have Vermillion.",
+    quote:
+      "The branded exports alone changed my business. My clients receive professionally designed documents with my logo and colors. They think I have a full design team. I just have Vermillion.",
     name: "David Okafor",
-    title: "Online Performance Coach",
+    title: "CEO, Okafor Digital",
     location: "Austin, TX",
   },
 ];
@@ -264,7 +281,7 @@ export const FAQ_ITEMS = [
   {
     question: "How can you deliver so fast?",
     answer:
-      "We specialize in one vertical: fitness and wellness. We have built dozens of coaching platforms and have battle-tested component libraries, design systems, and architecture patterns ready to customize. We are not starting from zero.",
+      "Years of refined component libraries, battle-tested architecture patterns, and purpose-built tooling eliminate the cold-start problem. We are not starting from zero — we are starting from proven systems designed for speed.",
   },
   {
     question: "What if I need changes after launch?",
@@ -279,7 +296,7 @@ export const FAQ_ITEMS = [
   {
     question: "Can you integrate with tools I already use?",
     answer:
-      "Yes. We have built integrations with Stripe, Twilio, Google Calendar, Trainerize, MyFitnessPal, and various CRM systems. If it has an API, we can connect it.",
+      "Yes. We have built integrations with Stripe, Twilio, Google Calendar, Salesforce, HubSpot, Shopify, and dozens of CRM and API systems. If it has an API, we can connect it.",
   },
   {
     question: "What happens if I am not satisfied?",

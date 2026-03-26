@@ -119,13 +119,13 @@ export default function Showcase() {
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
-            Our Work
+            Selected Work
           </p>
           <h2
             id="showcase-heading"
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
           >
-            Real Platforms. Real Businesses.
+            Engineered for Impact
           </h2>
         </motion.div>
 
@@ -138,15 +138,32 @@ export default function Showcase() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {SHOWCASE_ITEMS.map((item, index) => (
-            <motion.div key={item.label} variants={itemVariants} style={{ y: transforms[index] }}>
+            <motion.div
+              key={item.label}
+              variants={itemVariants}
+              style={{ y: transforms[index] }}
+              className={index === 0 ? "sm:col-span-2 lg:col-span-2" : ""}
+            >
               <TiltCard>
-                <DeviceMockup label={item.label} description={item.description} />
+                <div className="relative">
+                  {"category" in item && item.category && (
+                    <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-vermillion bg-vermillion/10 border border-vermillion/20 rounded-full backdrop-blur-sm">
+                      {item.category}
+                    </span>
+                  )}
+                  {index === 0 && (
+                    <span className="absolute top-3 left-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-text-primary bg-white/[0.06] border border-white/[0.1] rounded-full backdrop-blur-sm">
+                      Featured
+                    </span>
+                  )}
+                  <DeviceMockup label={item.label} description={item.description} />
+                </div>
               </TiltCard>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Reference */}
+        {/* Tagline */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -154,15 +171,7 @@ export default function Showcase() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-center mt-12 text-sm text-text-caption"
         >
-          Live example:{" "}
-          <a
-            href="https://www.ifbbprobigmikeely.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
-          >
-            IFBB Pro Big Mike Ely — ifbbprobigmikeely.com
-          </a>
+          Every project is custom-built from scratch. No templates. No shortcuts.
         </motion.p>
       </div>
     </section>

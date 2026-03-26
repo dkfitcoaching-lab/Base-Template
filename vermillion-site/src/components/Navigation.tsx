@@ -157,13 +157,13 @@ export default function Navigation() {
                 <img
                   src="/logo-mark.svg"
                   alt=""
-                  className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
+                  className="w-9 h-9 group-hover:scale-110 transition-transform duration-300"
                   aria-hidden="true"
                 />
                 {/* Logo dot glow on hover */}
                 <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-vermillion/20 blur-lg" aria-hidden="true" />
               </div>
-              <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em] hidden sm:block">
+              <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em]">
                 VERMILLION <span className="text-vermillion">AXIS</span>
               </span>
             </a>
@@ -183,7 +183,7 @@ export default function Navigation() {
                   href="#contact"
                   className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
-                  Get Started
+                  Start a Project
                 </a>
               </MagneticButton>
             </div>
@@ -263,7 +263,7 @@ export default function Navigation() {
                   boxShadow: "0 0 20px rgba(192, 48, 48, 0.3)",
                 }}
               >
-                Get Started
+                Start a Project
               </motion.a>
             </nav>
           </motion.div>

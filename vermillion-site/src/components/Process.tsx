@@ -54,7 +54,7 @@ export default function Process() {
         <div className="relative">
           {/* Animated vertical line */}
           <motion.div
-            className="absolute left-[23px] top-0 bottom-0 w-px origin-top"
+            className="absolute left-[27px] top-0 bottom-0 w-px origin-top"
             style={{
               background:
                 "linear-gradient(to bottom, #C03030 0%, #C03030 30%, #2A2A38 70%, transparent 100%)",
@@ -81,13 +81,13 @@ export default function Process() {
               >
                 {/* Step number circle */}
                 <div
-                  className="flex-shrink-0 w-12 h-12 rounded-full bg-surface-2 border border-vermillion/40
+                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-vermillion/40
                     flex items-center justify-center relative z-10
                     group-hover:bg-vermillion/10 group-hover:border-vermillion group-hover:shadow-[0_0_20px_rgba(192,48,48,0.2)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >
-                  <span className="font-heading font-bold text-xs text-vermillion tracking-wider">
+                  <span className="font-heading font-bold text-sm text-vermillion tracking-wider">
                     {step.step}
                   </span>
                 </div>
@@ -100,9 +100,20 @@ export default function Process() {
                     group-hover:border-white/[0.06]
                     transition-all duration-500"
                 >
-                  <h3 className="font-heading font-bold text-lg text-text-primary uppercase tracking-wider mb-2">
-                    {step.title}
-                  </h3>
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <h3 className="font-heading font-bold text-lg text-text-primary uppercase tracking-wider">
+                      {step.title}
+                    </h3>
+                    {step.step === "01" && (
+                      <span className="text-xs text-text-caption font-body">~15 minutes</span>
+                    )}
+                    {step.step === "02" && (
+                      <span className="text-xs text-text-caption font-body">Within 24 hours</span>
+                    )}
+                    {step.step === "03" && (
+                      <span className="text-xs text-text-caption font-body">3–21 days</span>
+                    )}
+                  </div>
                   <p className="text-text-secondary leading-relaxed">
                     {step.description}
                   </p>

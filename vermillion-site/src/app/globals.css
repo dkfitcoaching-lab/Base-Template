@@ -183,3 +183,30 @@ body {
 .btn-glow:hover {
   box-shadow: 0 0 30px rgba(180, 43, 43, 0.4), 0 0 10px rgba(180, 43, 43, 0.3);
 }
+
+/* ── Premium text gradient ── */
+.text-gradient-vermillion {
+  background: linear-gradient(135deg, #D44040, #B42B2B, #C03030);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Enhanced glass card hover ── */
+.glass-card-premium {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-premium:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(180, 43, 43, 0.06);
+}
+
+/* ── Section highlight background for visual variety ── */
+.section-highlight {
+  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(180, 43, 43, 0.03), transparent 70%);
+}

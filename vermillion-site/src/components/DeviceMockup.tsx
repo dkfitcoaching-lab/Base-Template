@@ -8,7 +8,7 @@ interface DeviceMockupProps {
 
 /* ── Abstract SVG mockup screens keyed by showcase label ── */
 
-function DashboardMockup() {
+function CoachingPlatformMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#0C0C14" />
@@ -21,43 +21,37 @@ function DashboardMockup() {
       {/* Top bar */}
       <rect x="48" y="0" width="272" height="28" fill="#1C1C28" />
       <circle cx="64" cy="14" r="8" fill="#B42B2B" opacity="0.9" />
-      <text x="64" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">M</text>
-      <text x="78" y="11" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Big Mike Ely</text>
-      <text x="78" y="19" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Head Coach</text>
+      <text x="64" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">A</text>
+      <text x="78" y="11" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Dashboard</text>
+      <text x="78" y="19" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Administrator</text>
       <rect x="296" y="8" width="12" height="12" rx="2" fill="#2A2A38" />
       <circle cx="302" cy="14" r="2" fill="#585868" />
       {/* Greeting */}
-      <text x="60" y="40" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Good morning, Mike</text>
+      <text x="60" y="40" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Welcome back</text>
       {/* 2x2 stat cards */}
-      {/* Card 1 - Sessions */}
       <rect x="60" y="48" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="68" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">SESSIONS</text>
-      <text x="68" y="71" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">12</text>
-      {/* Card 2 - Revenue */}
+      <text x="68" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">PROJECTS</text>
+      <text x="68" y="71" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">24</text>
       <rect x="128" y="48" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
       <text x="136" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">REVENUE</text>
       <text x="136" y="71" fill="#10B981" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">$4,280</text>
-      {/* Card 3 - Gym Split */}
       <rect x="60" y="86" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="68" y="96" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">GYM SPLIT</text>
-      <text x="68" y="109" fill="#D44040" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">-$856</text>
-      {/* Card 4 - Your Take */}
+      <text x="68" y="96" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">CLIENTS</text>
+      <text x="68" y="109" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">48</text>
       <rect x="128" y="86" width="62" height="34" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="136" y="96" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">YOUR TAKE</text>
-      <text x="136" y="109" fill="#E8E8F0" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">$3,424</text>
+      <text x="136" y="96" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">RETENTION</text>
+      <text x="136" y="109" fill="#10B981" fontSize="10" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">94%</text>
       {/* Line chart */}
       <rect x="200" y="48" width="110" height="72" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
       <text x="208" y="58" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">REVENUE TREND</text>
-      {/* Grid lines */}
       <line x1="208" y1="68" x2="302" y2="68" stroke="#2A2A38" strokeWidth="0.3" />
       <line x1="208" y1="80" x2="302" y2="80" stroke="#2A2A38" strokeWidth="0.3" />
       <line x1="208" y1="92" x2="302" y2="92" stroke="#2A2A38" strokeWidth="0.3" />
       <line x1="208" y1="104" x2="302" y2="104" stroke="#2A2A38" strokeWidth="0.3" />
-      {/* Chart line */}
       <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66" fill="none" stroke="#B42B2B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66" fill="url(#chartGrad)" stroke="none" opacity="0.15" />
+      <polyline points="210,100 222,94 234,96 246,86 258,82 270,74 282,78 294,66 294,106 210,106" fill="url(#coachGrad)" stroke="none" opacity="0.15" />
       <defs>
-        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="coachGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#B42B2B" />
           <stop offset="100%" stopColor="#0C0C14" stopOpacity="0" />
         </linearGradient>
@@ -68,100 +62,220 @@ function DashboardMockup() {
       <text x="120" y="135" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Clients: 8</text>
       <text x="170" y="135" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Sessions: 12</text>
       <text x="225" y="135" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Completion: 92%</text>
-      <text x="68" y="144" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Next: Sarah M. @ 2:00 PM · Push Day A</text>
+      <text x="68" y="144" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Next: Sarah M. @ 2:00 PM</text>
     </svg>
   );
 }
 
-function PdfMockup() {
+function AnalyticsDashboardMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#0C0C14" />
-      {/* Page background */}
-      <rect x="40" y="8" width="240" height="184" rx="3" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      {/* Emerald left border */}
-      <rect x="40" y="8" width="2" height="184" fill="#10B981" />
-      {/* Header area */}
-      <text x="54" y="24" fill="#10B981" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold" letterSpacing="1">C RESISTANCE TRAINING</text>
-      <text x="54" y="36" fill="#E8E8F0" fontSize="8" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Day 3: Shoulders</text>
-      <text x="54" y="46" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Wednesday · 60 min · Moderate carb day</text>
-      <line x1="54" y1="52" x2="268" y2="52" stroke="#2A2A38" strokeWidth="0.5" />
-      {/* Exercise 1 */}
-      <circle cx="62" cy="64" r="6" fill="#10B981" opacity="0.2" />
-      <text x="62" y="64" fill="#10B981" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">1</text>
-      <text x="74" y="62" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Seated Dumbbell Press</text>
-      <rect x="180" y="58" width="38" height="8" rx="3" fill="#10B981" opacity="0.15" />
-      <text x="199" y="62" fill="#10B981" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">DELTOIDS</text>
-      <text x="74" y="72" fill="#10B981" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">4 × 8-10 · 90s rest</text>
-      {/* Exercise 2 */}
-      <circle cx="62" cy="90" r="6" fill="#10B981" opacity="0.2" />
-      <text x="62" y="90" fill="#10B981" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">2</text>
-      <text x="74" y="88" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Lateral Raises</text>
-      <rect x="155" y="84" width="44" height="8" rx="3" fill="#10B981" opacity="0.15" />
-      <text x="177" y="88" fill="#10B981" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">SIDE DELTS</text>
-      <text x="74" y="98" fill="#10B981" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">3 × 12-15 · 60s rest</text>
-      {/* Exercise 3 */}
-      <circle cx="62" cy="116" r="6" fill="#10B981" opacity="0.2" />
-      <text x="62" y="116" fill="#10B981" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">3</text>
-      <text x="74" y="114" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Face Pulls</text>
-      <rect x="140" y="110" width="46" height="8" rx="3" fill="#10B981" opacity="0.15" />
-      <text x="163" y="114" fill="#10B981" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">REAR DELTS</text>
-      <text x="74" y="124" fill="#10B981" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">3 × 15-20 · 45s rest</text>
-      {/* Exercise 4 */}
-      <circle cx="62" cy="142" r="6" fill="#10B981" opacity="0.2" />
-      <text x="62" y="142" fill="#10B981" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">4</text>
-      <text x="74" y="140" fill="#E8E8F0" fontSize="5.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Shrugs</text>
-      <rect x="118" y="136" width="30" height="8" rx="3" fill="#10B981" opacity="0.15" />
-      <text x="133" y="140" fill="#10B981" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">TRAPS</text>
-      <text x="74" y="150" fill="#10B981" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">4 × 10-12 · 60s rest</text>
-      {/* Footer */}
-      <line x1="54" y1="172" x2="268" y2="172" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="54" y="182" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">FORGE · fitnessforge.ai</text>
-      <text x="268" y="182" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" textAnchor="end">PAGE 4</text>
+      {/* Sidebar */}
+      <rect x="0" y="0" width="44" height="200" fill="#14141E" />
+      <rect x="0" y="28" width="2" height="10" rx="1" fill="#10B981" />
+      {[28, 48, 68, 88, 108].map((y, i) => (
+        <rect key={`an${i}`} x="12" y={y} width="20" height="8" rx="2" fill={i === 0 ? "#10B981" : "#2A2A38"} opacity={i === 0 ? 0.7 : 0.4} />
+      ))}
+      {/* Top bar */}
+      <rect x="44" y="0" width="276" height="24" fill="#1C1C28" />
+      <text x="56" y="12" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Analytics</text>
+      <circle cx="300" cy="12" r="7" fill="#2A2A38" />
+      <text x="300" y="12" fill="#585868" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">A</text>
+      {/* KPI cards row */}
+      {[
+        { label: "MRR", value: "$42.8K", color: "#10B981", change: "+12%" },
+        { label: "USERS", value: "3,847", color: "#6366F1", change: "+8%" },
+        { label: "CHURN", value: "1.2%", color: "#B42B2B", change: "-0.3%" },
+        { label: "NPS", value: "72", color: "#D4A853", change: "+5" },
+      ].map((kpi, i) => {
+        const x = 52 + i * 66;
+        return (
+          <g key={`kpi${i}`}>
+            <rect x={x} y="30" width="60" height="36" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+            <text x={x + 8} y="40" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" letterSpacing="0.5">{kpi.label}</text>
+            <text x={x + 8} y="52" fill="#E8E8F0" fontSize="9" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{kpi.value}</text>
+            <text x={x + 8} y="60" fill={kpi.color} fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{kpi.change}</text>
+          </g>
+        );
+      })}
+      {/* Area chart */}
+      <rect x="52" y="72" width="258" height="90" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="60" y="82" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">REVENUE OVER TIME</text>
+      {[90, 105, 120, 135].map((y) => (
+        <line key={`gl${y}`} x1="60" y1={y} x2="302" y2={y} stroke="#2A2A38" strokeWidth="0.3" />
+      ))}
+      <polyline points="64,130 84,125 104,128 124,118 144,110 164,115 184,105 204,100 224,95 244,90 264,92 284,85 300,80" fill="none" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="64,130 84,125 104,128 124,118 144,110 164,115 184,105 204,100 224,95 244,90 264,92 284,85 300,80 300,150 64,150" fill="url(#analyticsGrad)" stroke="none" opacity="0.12" />
+      <defs>
+        <linearGradient id="analyticsGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#10B981" />
+          <stop offset="100%" stopColor="#0C0C14" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {/* Bottom status */}
+      <rect x="52" y="168" width="258" height="20" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="60" y="178" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Last updated: 2 minutes ago</text>
+      <circle cx="290" cy="178" r="3" fill="#10B981" opacity="0.6" />
+      <text x="280" y="178" fill="#10B981" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" textAnchor="end">Live</text>
     </svg>
   );
 }
 
-function ClientsMockup() {
-  const clients = [
-    { init: "S", name: "Sarah Mitchell", program: "Push/Pull/Legs", date: "Mar 27", status: "Active", color: "#B42B2B" },
-    { init: "J", name: "James Cooper", program: "Upper/Lower", date: "Mar 27", status: "Active", color: "#B42B2B" },
-    { init: "R", name: "Rachel Kim", program: "Full Body", date: "Mar 28", status: "Review", color: "#D4A040" },
-    { init: "T", name: "Tyler Brooks", program: "Push/Pull/Legs", date: "—", status: "Paused", color: "#585868" },
-    { init: "M", name: "Maria Santos", program: "Cut Program", date: "—", status: "Paused", color: "#585868" },
+function MemberPortalMockup() {
+  const activities = [
+    { icon: "✓", text: "Payment processed", time: "2h ago", color: "#10B981" },
+    { icon: "★", text: "Membership renewed", time: "1d ago", color: "#D4A853" },
+    { icon: "→", text: "Content unlocked", time: "3d ago", color: "#6366F1" },
   ];
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#0C0C14" />
+      {/* Header */}
+      <rect x="0" y="0" width="320" height="28" fill="#1C1C28" />
+      <rect x="16" y="8" width="24" height="12" rx="2" fill="#B42B2B" opacity="0.8" />
+      <text x="28" y="14" fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">V</text>
+      <text x="48" y="14" fill="#9898A8" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Welcome back, James</text>
+      <circle cx="296" cy="14" r="7" fill="#2A2A38" />
+      <text x="296" y="14" fill="#D4A853" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">J</text>
+      {/* Profile card */}
+      <rect x="16" y="36" width="140" height="80" rx="6" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <circle cx="86" cy="56" r="12" fill="#1C1C28" stroke="#D4A853" strokeWidth="0.8" />
+      <text x="86" y="56" fill="#D4A853" fontSize="8" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">JC</text>
+      <rect x="56" y="74" width="60" height="6" rx="2" fill="#2A2A38" />
+      {/* Membership badge */}
+      <rect x="56" y="84" width="60" height="14" rx="7" fill="#D4A853" opacity="0.15" stroke="#D4A853" strokeWidth="0.5" />
+      <text x="86" y="91" fill="#D4A853" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">PLATINUM</text>
+      <text x="56" y="106" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Member since Jan 2025</text>
+      {/* Activity feed */}
+      <rect x="164" y="36" width="140" height="80" rx="6" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="176" y="48" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">RECENT ACTIVITY</text>
+      {activities.map((a, i) => {
+        const y = 58 + i * 18;
+        return (
+          <g key={`act${i}`}>
+            <circle cx="176" cy={y} r="5" fill={a.color} opacity="0.15" />
+            <text x="176" y={y} fill={a.color} fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{a.icon}</text>
+            <text x="186" y={y - 2} fill="#E8E8F0" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{a.text}</text>
+            <text x="186" y={y + 6} fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{a.time}</text>
+          </g>
+        );
+      })}
+      {/* Quick actions */}
+      <rect x="16" y="124" width="288" height="32" rx="6" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="28" y="136" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">QUICK ACTIONS</text>
+      {["View Content", "Manage Billing", "Get Support"].map((btn, i) => (
+        <g key={`btn${i}`}>
+          <rect x={28 + i * 92} y="142" width="80" height="10" rx="3" fill={i === 0 ? "#B42B2B" : "#1C1C28"} opacity={i === 0 ? 0.8 : 1} stroke="#2A2A38" strokeWidth="0.3" />
+          <text x={68 + i * 92} y="147" fill={i === 0 ? "#E8E8F0" : "#585868"} fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{btn}</text>
+        </g>
+      ))}
+      {/* Stats bar */}
+      <rect x="16" y="164" width="288" height="24" rx="6" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="60" y="176" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">127</text>
+      <text x="60" y="184" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Days Active</text>
+      <text x="160" y="176" fill="#10B981" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">24</text>
+      <text x="160" y="184" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Resources</text>
+      <text x="260" y="176" fill="#D4A853" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">∞</text>
+      <text x="260" y="184" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Access</text>
+    </svg>
+  );
+}
+
+function ECommerceMockup() {
+  const products = [
+    { name: "Premium Watch", price: "$2,490", y: 52 },
+    { name: "Leather Bag", price: "$1,850", y: 52 },
+    { name: "Silk Scarf", price: "$680", y: 120 },
+    { name: "Sunglasses", price: "$920", y: 120 },
+  ];
+  return (
+    <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
+      <rect width="320" height="200" fill="#0C0C14" />
+      {/* Top nav */}
+      <rect x="0" y="0" width="320" height="24" fill="#1C1C28" />
+      <text x="16" y="12" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">LUXE</text>
       {/* Search bar */}
-      <rect x="16" y="8" width="288" height="20" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="30" y="18" fill="#585868" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Search clients...</text>
-      <rect x="284" y="13" width="12" height="10" rx="2" fill="#2A2A38" />
-      {/* Column headers */}
-      <rect x="16" y="34" width="288" height="14" rx="2" fill="#1C1C28" />
-      <text x="44" y="41" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">CLIENT</text>
-      <text x="130" y="41" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">PROGRAM</text>
-      <text x="210" y="41" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">NEXT SESSION</text>
-      <text x="274" y="41" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">STATUS</text>
-      {/* Data rows */}
-      {clients.map((c, i) => {
-        const y = 52 + i * 28;
+      <rect x="80" y="5" width="140" height="14" rx="7" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="96" y="12" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Search products...</text>
+      {/* Cart */}
+      <rect x="280" y="5" width="24" height="14" rx="3" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+      <text x="292" y="12" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">🛒 2</text>
+      {/* Category pills */}
+      {["All", "New", "Accessories", "Sale"].map((cat, i) => (
+        <g key={`cat${i}`}>
+          <rect x={16 + i * 60} y="30" width={i === 0 ? 30 : 50} height="14" rx="7" fill={i === 0 ? "#B42B2B" : "#14141E"} opacity={i === 0 ? 0.8 : 1} stroke={i === 0 ? "#B42B2B" : "#2A2A38"} strokeWidth="0.5" />
+          <text x={16 + i * 60 + (i === 0 ? 15 : 25)} y="37" fill={i === 0 ? "#E8E8F0" : "#585868"} fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{cat}</text>
+        </g>
+      ))}
+      {/* Product grid 2x2 */}
+      {products.map((p, i) => {
+        const x = 16 + (i % 2) * 148;
+        const y = p.y;
         return (
-          <g key={`row${i}`}>
-            <rect x="16" y={y} width="288" height="26" rx="0" fill={i % 2 === 0 ? "#14141E" : "#0C0C14"} />
-            <line x1="16" y1={y + 26} x2="304" y2={y + 26} stroke="#2A2A38" strokeWidth="0.3" />
-            {/* Avatar */}
-            <circle cx="30" cy={y + 13} r="7" fill="#1C1C28" stroke="#2A2A38" strokeWidth="0.5" />
-            <text x="30" y={y + 13} fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">{c.init}</text>
-            {/* Name */}
-            <text x="44" y={y + 13} fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{c.name}</text>
-            {/* Program */}
-            <text x="130" y={y + 13} fill="#9898A8" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{c.program}</text>
-            {/* Date */}
-            <text x="210" y={y + 13} fill="#9898A8" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{c.date}</text>
-            {/* Status badge */}
-            <rect x="260" y={y + 7} width="36" height="12" rx="6" fill={c.color} opacity={c.status === "Paused" ? 0.25 : 0.2} />
-            <text x="278" y={y + 13} fill={c.color} fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold" opacity={c.status === "Paused" ? 0.6 : 1}>{c.status}</text>
+          <g key={`prod${i}`}>
+            <rect x={x} y={y} width="140" height="60" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+            {/* Product image placeholder */}
+            <rect x={x + 4} y={y + 4} width="132" height="30" rx="3" fill="#1C1C28" />
+            <rect x={x + 52} y={y + 14} width="28" height="8" rx="2" fill="#2A2A38" opacity="0.5" />
+            {/* Product info */}
+            <text x={x + 8} y={y + 42} fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{p.name}</text>
+            <text x={x + 8} y={y + 50} fill="#D4A853" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{p.price}</text>
+            {/* Add to cart button */}
+            <rect x={x + 100} y={y + 42} width="32" height="12" rx="3" fill="#B42B2B" opacity="0.8" />
+            <text x={x + 116} y={y + 48} fill="#E8E8F0" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Add</text>
+          </g>
+        );
+      })}
+      {/* Footer bar */}
+      <rect x="16" y="186" width="288" height="8" rx="2" fill="#14141E" />
+      <text x="160" y="190" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">4 of 128 products · Page 1</text>
+    </svg>
+  );
+}
+
+function EnterpriseCRMMockup() {
+  const stages = [
+    { name: "Lead", count: 12, color: "#585868", cards: [{ init: "A", name: "Acme Corp" }, { init: "B", name: "BlueSky" }] },
+    { name: "Qualified", count: 8, color: "#6366F1", cards: [{ init: "C", name: "CloudNet" }, { init: "D", name: "DataFlow" }] },
+    { name: "Proposal", count: 5, color: "#D4A853", cards: [{ init: "E", name: "EverGreen" }, { init: "F", name: "FinServ" }] },
+    { name: "Won", count: 3, color: "#10B981", cards: [{ init: "G", name: "GlobalTech" }] },
+  ];
+  return (
+    <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
+      <rect width="320" height="200" fill="#0C0C14" />
+      {/* Header */}
+      <rect x="0" y="0" width="320" height="24" fill="#1C1C28" />
+      <text x="16" y="12" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Pipeline</text>
+      <text x="70" y="12" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Q1 2026 · $1.2M total value</text>
+      <rect x="260" y="5" width="44" height="14" rx="3" fill="#B42B2B" opacity="0.8" />
+      <text x="282" y="12" fill="#E8E8F0" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">+ New Deal</text>
+      {/* Pipeline columns */}
+      {stages.map((stage, i) => {
+        const x = 8 + i * 78;
+        return (
+          <g key={`stage${i}`}>
+            {/* Column header */}
+            <rect x={x} y="30" width="72" height="16" rx="3" fill="#14141E" />
+            <text x={x + 6} y="38" fill={stage.color} fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{stage.name}</text>
+            <circle cx={x + 62} cy="38" r="5" fill={stage.color} opacity="0.2" />
+            <text x={x + 62} y="38" fill={stage.color} fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{stage.count}</text>
+            {/* Column background */}
+            <rect x={x} y="50" width="72" height="142" rx="3" fill="#14141E" opacity="0.4" />
+            {/* Cards */}
+            {stage.cards.map((card, ci) => {
+              const cy = 56 + ci * 42;
+              return (
+                <g key={`card${i}${ci}`}>
+                  <rect x={x + 4} y={cy} width="64" height="36" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
+                  <circle cx={x + 14} cy={cy + 10} r="5" fill={stage.color} opacity="0.2" />
+                  <text x={x + 14} y={cy + 10} fill={stage.color} fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">{card.init}</text>
+                  <text x={x + 24} y={cy + 10} fill="#E8E8F0" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{card.name}</text>
+                  <rect x={x + 8} y={cy + 20} width="40" height="3" rx="1" fill="#2A2A38" />
+                  <rect x={x + 8} y={cy + 26} width="28" height="3" rx="1" fill="#2A2A38" opacity="0.5" />
+                </g>
+              );
+            })}
           </g>
         );
       })}
@@ -169,203 +283,66 @@ function ClientsMockup() {
   );
 }
 
-function ScheduleMockup() {
-  const days = ["M", "T", "W", "T", "F", "S", "S"];
-  const sessions = [
-    { col: 0, row: 0, label: "SM 6a", opacity: 0.9 },
-    { col: 0, row: 2, label: "JC 10a", opacity: 0.7 },
-    { col: 1, row: 1, label: "RK 8a", opacity: 0.8 },
-    { col: 1, row: 3, label: "TB 12p", opacity: 0.6 },
-    { col: 2, row: 0, label: "SM 6a", opacity: 0.9 },
-    { col: 2, row: 2, label: "MS 10a", opacity: 0.7 },
-    { col: 3, row: 1, label: "JC 8a", opacity: 0.8 },
-    { col: 3, row: 4, label: "RK 2p", opacity: 0.6 },
-    { col: 4, row: 0, label: "SM 6a", opacity: 0.9 },
-    { col: 4, row: 3, label: "TB 12p", opacity: 0.5 },
-  ];
-  const todayCol = 2; // Wednesday
+function MobileAppMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#0C0C14" />
-      {/* Month header */}
-      <rect x="16" y="6" width="288" height="20" rx="4" fill="#1C1C28" />
-      <text x="160" y="16" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">March 2026</text>
-      <polygon points="40,16 34,13 34,19" fill="#585868" />
-      <polygon points="280,16 286,13 286,19" fill="#585868" />
-      {/* Day headers */}
-      {days.map((d, i) => {
-        const x = 28 + i * 40;
+      {/* Phone frame centered */}
+      <rect x="100" y="4" width="120" height="192" rx="10" fill="#14141E" stroke="#2A2A38" strokeWidth="1" />
+      {/* Status bar */}
+      <text x="116" y="14" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle">9:41</text>
+      <rect x="186" y="10" width="16" height="6" rx="1.5" fill="#585868" opacity="0.5" />
+      <rect x="186" y="10" width="10" height="6" rx="1.5" fill="#585868" opacity="0.8" />
+      {/* Header */}
+      <rect x="108" y="20" width="104" height="20" fill="#1C1C28" />
+      <text x="116" y="30" fill="#585868" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">←</text>
+      <text x="160" y="30" fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">Dashboard</text>
+      {/* Welcome card */}
+      <rect x="108" y="44" width="104" height="30" rx="4" fill="#B42B2B" opacity="0.15" stroke="#B42B2B" strokeWidth="0.5" />
+      <text x="116" y="54" fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Good morning</text>
+      <text x="116" y="64" fill="#9898A8" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">3 tasks pending today</text>
+      {/* Notification cards */}
+      {[
+        { title: "New message", desc: "From Sarah M.", time: "2m", color: "#6366F1" },
+        { title: "Payment received", desc: "$450.00", time: "1h", color: "#10B981" },
+        { title: "Meeting reminder", desc: "3:00 PM today", time: "30m", color: "#D4A853" },
+      ].map((notif, i) => {
+        const y = 80 + i * 28;
         return (
-          <text key={`dh${i}`} x={x + 16} y="36" fill={i === todayCol ? "#D44040" : "#9898A8"} fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">{d}</text>
-        );
-      })}
-      <line x1="16" y1="42" x2="304" y2="42" stroke="#2A2A38" strokeWidth="0.5" />
-      {/* Today column highlight */}
-      <rect x={28 + todayCol * 40} y="42" width="32" height="150" fill="#B42B2B" opacity="0.04" />
-      <rect x={28 + todayCol * 40} y="42" width="32" height="150" fill="none" stroke="#B42B2B" strokeWidth="0.5" opacity="0.3" />
-      {/* Time grid rows */}
-      {[0, 1, 2, 3, 4, 5].map((row) => {
-        const y = 48 + row * 24;
-        const hours = ["6 AM", "8 AM", "10 AM", "12 PM", "2 PM", "4 PM"];
-        return (
-          <g key={`tr${row}`}>
-            <line x1="16" y1={y} x2="304" y2={y} stroke="#2A2A38" strokeWidth="0.3" opacity="0.5" />
-            <text x="20" y={y + 6} fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{hours[row]}</text>
+          <g key={`notif${i}`}>
+            <rect x="108" y={y} width="104" height="24" rx="4" fill="#1C1C28" stroke="#2A2A38" strokeWidth="0.3" />
+            <circle cx="118" cy={y + 12} r="4" fill={notif.color} opacity="0.2" />
+            <rect x="116" y={y + 10} width="4" height="4" rx="1" fill={notif.color} />
+            <text x="126" y={y + 8} fill="#E8E8F0" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{notif.title}</text>
+            <text x="126" y={y + 16} fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{notif.desc}</text>
+            <text x="204" y={y + 8} fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="end" dominantBaseline="middle">{notif.time}</text>
           </g>
         );
       })}
-      {/* Session blocks */}
-      {sessions.map((s, i) => {
-        const x = 30 + s.col * 40;
-        const y = 49 + s.row * 24;
-        return (
-          <g key={`ses${i}`}>
-            <rect x={x} y={y} width="28" height="18" rx="3" fill="#B42B2B" opacity={s.opacity * 0.25} stroke="#B42B2B" strokeWidth="0.5" />
-            <text x={x + 14} y={y + 9} fill="#D44040" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold" opacity={s.opacity}>{s.label}</text>
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
-function ProgramMockup() {
-  const programs = [
-    { name: "Push/Pull/Legs", active: true },
-    { name: "Upper/Lower", active: false },
-    { name: "Full Body", active: false },
-  ];
-  const exercises = [
-    { num: "1", name: "Bench Press", sets: "4×8", rest: "120s" },
-    { num: "2", name: "Incline DB Press", sets: "3×10", rest: "90s" },
-    { num: "3", name: "Cable Flyes", sets: "3×12", rest: "60s" },
-    { num: "4", name: "Tricep Pushdown", sets: "3×15", rest: "60s" },
-  ];
-  return (
-    <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
-      <rect width="320" height="200" fill="#0C0C14" />
-      {/* Left panel - program list */}
-      <rect x="0" y="0" width="120" height="200" fill="#14141E" />
-      <line x1="120" y1="0" x2="120" y2="200" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="12" y="16" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold" letterSpacing="0.5">PROGRAMS</text>
-      {programs.map((p, i) => {
-        const y = 28 + i * 28;
-        return (
-          <g key={`prog${i}`}>
-            <rect x="0" y={y} width="120" height="24" fill={p.active ? "#1C1C28" : "transparent"} />
-            {p.active && <rect x="0" y={y} width="2" height="24" fill="#B42B2B" />}
-            <text x="14" y={y + 12} fill={p.active ? "#E8E8F0" : "#585868"} fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{p.name}</text>
-            <text x="14" y={y + 19} fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{p.active ? "6 days · 4 weeks" : "4 days · 6 weeks"}</text>
-          </g>
-        );
-      })}
-      {/* Right panel - program detail */}
-      <rect x="120" y="0" width="200" height="28" fill="#1C1C28" />
-      <text x="132" y="14" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Push Day A</text>
-      <text x="132" y="22" fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Chest, Shoulders, Triceps</text>
-      {/* Exercise list */}
-      {exercises.map((e, i) => {
-        const y = 36 + i * 28;
-        return (
-          <g key={`ex${i}`}>
-            <rect x="126" y={y} width="188" height="24" rx="3" fill="#14141E" stroke="#2A2A38" strokeWidth="0.3" />
-            {/* Drag handle dots */}
-            <circle cx="133" cy={y + 10} r="0.8" fill="#585868" />
-            <circle cx="133" cy={y + 13} r="0.8" fill="#585868" />
-            <circle cx="136" cy={y + 10} r="0.8" fill="#585868" />
-            <circle cx="136" cy={y + 13} r="0.8" fill="#585868" />
-            {/* Number */}
-            <text x="146" y={y + 12} fill="#585868" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">{e.num}</text>
-            {/* Exercise name */}
-            <text x="156" y={y + 9} fill="#E8E8F0" fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{e.name}</text>
-            <text x="156" y={y + 17} fill="#585868" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{e.sets} · {e.rest} rest</text>
-            {/* Sets badges */}
-            <rect x="270" y={y + 5} width="20" height="10" rx="3" fill="#1C1C28" stroke="#2A2A38" strokeWidth="0.3" />
-            <text x="280" y={y + 10} fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{e.sets}</text>
-          </g>
-        );
-      })}
-      {/* Add Exercise button */}
-      <rect x="126" y="150" width="188" height="20" rx="4" fill="transparent" stroke="#B42B2B" strokeWidth="0.8" strokeDasharray="3,2" />
-      <text x="220" y="160" fill="#B42B2B" fontSize="4.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">+ Add Exercise</text>
-    </svg>
-  );
-}
-
-function SettingsMockup() {
-  const navItems = [
-    { label: "Profile", active: false },
-    { label: "Branding", active: true },
-    { label: "Billing", active: false },
-    { label: "Notifications", active: false },
-  ];
-  const toggles = [
-    { label: "Dark Mode", on: true },
-    { label: "White Label", on: true },
-    { label: "Custom Domain", on: false },
-  ];
-  return (
-    <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
-      <rect width="320" height="200" fill="#0C0C14" />
-      {/* Left nav panel */}
-      <rect x="0" y="0" width="100" height="200" fill="#14141E" />
-      <line x1="100" y1="0" x2="100" y2="200" stroke="#2A2A38" strokeWidth="0.5" />
-      <text x="12" y="16" fill="#9898A8" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold" letterSpacing="0.5">SETTINGS</text>
-      {navItems.map((item, i) => {
-        const y = 28 + i * 24;
-        return (
-          <g key={`nav${i}`}>
-            <rect x="4" y={y} width="92" height="20" rx="3" fill={item.active ? "#B42B2B" : "transparent"} opacity={item.active ? 0.2 : 1} />
-            {item.active && <rect x="4" y={y} width="2" height="20" rx="1" fill="#B42B2B" />}
-            <text x="16" y={y + 10} fill={item.active ? "#D44040" : "#585868"} fontSize="5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{item.label}</text>
-          </g>
-        );
-      })}
-      {/* Right panel - branding settings */}
-      <text x="114" y="16" fill="#E8E8F0" fontSize="6" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Branding</text>
-      {/* Color Theme label */}
-      <text x="114" y="34" fill="#9898A8" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Color Theme</text>
-      {/* Theme card 1 - Wild (selected) */}
-      <rect x="114" y="42" width="86" height="44" rx="4" fill="#14141E" stroke="#B42B2B" strokeWidth="1" />
-      <rect x="118" y="46" width="78" height="24" rx="3" fill="#1C1C28" />
-      <circle cx="136" cy="58" r="5" fill="#B42B2B" />
-      <rect x="148" y="54" width="30" height="3" rx="1" fill="#2A2A38" />
-      <rect x="148" y="60" width="20" height="2" rx="1" fill="#2A2A38" opacity="0.5" />
-      <text x="157" y="80" fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Wild</text>
-      {/* Checkmark on selected */}
-      <circle cx="192" cy="48" r="3" fill="#B42B2B" />
-      <polyline points="190,48 191.5,49.5 194,46.5" fill="none" stroke="#E8E8F0" strokeWidth="0.8" strokeLinecap="round" />
-      {/* Theme card 2 - Ocean */}
-      <rect x="208" y="42" width="86" height="44" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" />
-      <rect x="212" y="46" width="78" height="24" rx="3" fill="#1C1C28" />
-      <circle cx="230" cy="58" r="5" fill="#4A90D9" />
-      <rect x="242" y="54" width="30" height="3" rx="1" fill="#2A2A38" />
-      <rect x="242" y="60" width="20" height="2" rx="1" fill="#2A2A38" opacity="0.5" />
-      <text x="251" y="80" fill="#9898A8" fontSize="4.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Ocean</text>
-      {/* Toggle rows */}
-      {toggles.map((t, i) => {
-        const y = 96 + i * 26;
-        return (
-          <g key={`tog${i}`}>
-            <rect x="114" y={y} width="180" height="22" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.3" />
-            <text x="126" y={y + 11} fill="#E8E8F0" fontSize="4.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{t.label}</text>
-            {/* Toggle pill */}
-            <rect x="270" y={y + 5} width="18" height="10" rx="5" fill={t.on ? "#B42B2B" : "#2A2A38"} />
-            <circle cx={t.on ? 283 : 276} cy={y + 10} r="3.5" fill={t.on ? "#E8E8F0" : "#585868"} />
-          </g>
-        );
-      })}
+      {/* Bottom tab bar */}
+      <rect x="108" y="168" width="104" height="24" fill="#1C1C28" />
+      <line x1="108" y1="168" x2="212" y2="168" stroke="#2A2A38" strokeWidth="0.5" />
+      {["⌂", "📊", "✉", "⚙"].map((icon, i) => (
+        <text key={`tab${i}`} x={130 + i * 22} y="180" fill={i === 0 ? "#B42B2B" : "#585868"} fontSize="7" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{icon}</text>
+      ))}
+      {/* Side decorative elements */}
+      <rect x="20" y="40" width="60" height="30" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" opacity="0.5" />
+      <text x="50" y="52" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">iOS</text>
+      <text x="50" y="62" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">& Android</text>
+      <rect x="240" y="40" width="60" height="30" rx="4" fill="#14141E" stroke="#2A2A38" strokeWidth="0.5" opacity="0.5" />
+      <text x="270" y="52" fill="#585868" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">PWA</text>
+      <text x="270" y="62" fill="#585868" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Offline-first</text>
     </svg>
   );
 }
 
 const MOCKUP_MAP: Record<string, React.FC> = {
-  "Coach Dashboard": DashboardMockup,
-  "Branded PDF Output": PdfMockup,
-  "Client Management": ClientsMockup,
-  "Weekly Schedule": ScheduleMockup,
-  "Program Builder": ProgramMockup,
-  "Settings & Themes": SettingsMockup,
+  "Coaching Platform": CoachingPlatformMockup,
+  "Analytics Dashboard": AnalyticsDashboardMockup,
+  "Member Portal": MemberPortalMockup,
+  "E-Commerce Platform": ECommerceMockup,
+  "Enterprise CRM": EnterpriseCRMMockup,
+  "Mobile Application": MobileAppMockup,
 };
 
 /* Fallback for unknown labels */
@@ -388,14 +365,14 @@ export default function DeviceMockup({ label, image, description }: DeviceMockup
 
   return (
     <div className="group">
-      {/* Outer container with metallic frame gradient and screen glow */}
+      {/* Device container */}
       <div
-        className="relative rounded-hero overflow-hidden bg-surface-2 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(180,43,43,0.06)] transition-all duration-500 group-hover:shadow-[0_12px_50px_rgba(0,0,0,0.5),0_0_60px_rgba(180,43,43,0.12)] group-hover:scale-[1.02]"
+        className="relative rounded-hero overflow-hidden transition-all duration-500"
         style={{
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderImage:
-            "linear-gradient(to bottom, rgba(42,42,56,0.5) 0%, rgba(42,42,56,0.8) 100%) 1",
+          borderImage: "linear-gradient(to bottom, rgba(42,42,56,0.5) 0%, rgba(42,42,56,0.8) 100%) 1",
+          border: "1px solid",
+          boxShadow:
+            "0 8px 40px rgba(0,0,0,0.4), 0 0 40px rgba(180,43,43,0.06)",
         }}
       >
         {/* Hover border brightening overlay */}
