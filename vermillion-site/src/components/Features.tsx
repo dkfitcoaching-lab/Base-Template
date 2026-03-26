@@ -65,15 +65,33 @@ export default function Features() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-neon text-neon-glow-subtle uppercase font-heading mb-3">
-            Capabilities
-          </p>
-          <h2
-            id="features-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
-          >
-            Built for What&apos;s Next
-          </h2>
+          <div className="relative inline-block px-8 py-4">
+            {/* Top-left corner */}
+            <svg className="absolute top-0 left-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 8V2h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Top-right corner */}
+            <svg className="absolute top-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 8V2h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-left corner */}
+            <svg className="absolute bottom-0 left-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 16v6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {/* Bottom-right corner */}
+            <svg className="absolute bottom-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 16v6h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <p className="text-xs tracking-[0.3em] text-neon text-neon-glow-subtle uppercase font-heading mb-3">
+              Capabilities
+            </p>
+            <h2
+              id="features-heading"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            >
+              Built for What&apos;s Next
+            </h2>
+          </div>
         </motion.div>
 
         {/* Bento grid */}

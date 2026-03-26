@@ -97,7 +97,7 @@ export default function ContactForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease }}
-        className="gothic-card neon-border-flow rounded-hero p-6 sm:p-8 lg:p-12 text-center"
+        className="gothic-card neon-glow-border rounded-hero p-6 sm:p-8 lg:p-12 text-center"
       >
         {/* Animated checkmark with ring draw-in */}
         <motion.div
@@ -178,7 +178,7 @@ export default function ContactForm() {
 
   /* ── Form ── */
   return (
-    <div className="gothic-card neon-border-flow rounded-hero p-6 sm:p-8 lg:p-10">
+    <div className="gothic-card neon-glow-border rounded-hero p-6 sm:p-8 lg:p-10">
       <form onSubmit={handleSubmit} className="text-left space-y-6">
         {/* Name / Email — two-column on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

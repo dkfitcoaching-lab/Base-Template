@@ -488,6 +488,9 @@ function MobileAppMockup() {
             alt="Forge AI — Fitness coaching intelligence platform"
             className="w-full h-auto block"
             loading="lazy"
+            decoding="async"
+            width={390}
+            height={844}
           />
           {/* Home indicator */}
           <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
@@ -505,6 +508,9 @@ function MobileAppMockup() {
             alt="Big Mike Ely Coaching Lab — Programs and workout templates"
             className="w-full h-auto block"
             loading="lazy"
+            decoding="async"
+            width={390}
+            height={844}
           />
           {/* Home indicator */}
           <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
@@ -604,6 +610,7 @@ export default function DeviceMockup({ label, image, description }: DeviceMockup
               alt={label}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <MockupComponent />

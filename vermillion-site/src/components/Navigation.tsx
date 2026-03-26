@@ -52,10 +52,19 @@ export default function Navigation() {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   /* Scroll state for nav background */
+  const scrollRafId = useRef<number | null>(null);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      if (scrollRafId.current) cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 60);
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (scrollRafId.current) cancelAnimationFrame(scrollRafId.current);
+    };
   }, []);
 
   /* Active section tracking via IntersectionObserver */

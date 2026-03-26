@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 interface MagneticButtonProps {
@@ -15,21 +15,30 @@ export default function MagneticButton({
   strength = 0.3,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const rafId = useRef<number | null>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const dx = (e.clientX - centerX) * strength;
-    const dy = (e.clientY - centerY) * strength;
-    setOffset({ x: dx, y: dy });
-  };
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!ref.current) return;
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = (e.clientX - centerX) * strength;
+        const dy = (e.clientY - centerY) * strength;
+        setOffset({ x: dx, y: dy });
+      });
+    },
+    [strength]
+  );
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
+    if (rafId.current) cancelAnimationFrame(rafId.current);
     setOffset({ x: 0, y: 0 });
-  };
+  }, []);
 
   return (
     <div

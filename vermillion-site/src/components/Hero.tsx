@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -198,11 +198,18 @@ function VerticalNeonLine() {
 
 function AnimatedBackground() {
   const [scrollY, setScrollY] = useState(0);
+  const rafId = useRef<number | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => setScrollY(window.scrollY));
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
   }, []);
 
   return (
@@ -306,6 +313,9 @@ function AnimatedBackground() {
             width: orb.size,
             height: orb.size,
             background: orb.color,
+            willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)",
           }}
         />
       ))}
@@ -507,6 +517,9 @@ export default function Hero() {
               style={{
                 background: "radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(255,23,68,0.14) 25%, rgba(255,23,68,0.05) 50%, rgba(255,23,68,0.01) 70%, transparent 85%)",
                 filter: "drop-shadow(0 0 80px rgba(255,23,68,0.25)) drop-shadow(0 0 140px rgba(255,23,68,0.12))",
+                willChange: "filter",
+                backfaceVisibility: "hidden",
+                transform: "translateZ(0)",
               }}
             />
           </motion.div>
@@ -515,6 +528,8 @@ export default function Hero() {
             className="absolute -inset-12 sm:-inset-18 lg:-inset-24 pointer-events-none rounded-full"
             style={{
               background: "radial-gradient(ellipse at center, rgba(255,23,68,0.18) 0%, transparent 65%)",
+              willChange: "transform, opacity",
+              backfaceVisibility: "hidden",
             }}
             animate={{
               opacity: [0.2, 0.8, 0.2],
@@ -523,7 +538,7 @@ export default function Hero() {
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
             aria-hidden="true"
           />
-          {/* Tertiary rapid flicker glow */}
+          {/* Tertiary rapid flicker glow — runs 5 times then stops */}
           <motion.div
             className="absolute -inset-6 sm:-inset-8 lg:-inset-12 pointer-events-none rounded-full"
             style={{
@@ -532,7 +547,7 @@ export default function Hero() {
             animate={{
               opacity: [0.1, 0.5, 0.05, 0.4, 0.1],
             }}
-            transition={{ duration: 0.3, repeat: Infinity, ease: "linear", delay: glowDelay + 1 }}
+            transition={{ duration: 0.3, repeat: 5, ease: "linear", delay: glowDelay + 1 }}
             aria-hidden="true"
           />
 
