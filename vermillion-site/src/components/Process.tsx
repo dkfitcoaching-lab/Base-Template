@@ -83,7 +83,7 @@ export default function Process() {
               <motion.li
                 key={step.step}
                 variants={stepVariants}
-                className="group flex items-start gap-6 sm:gap-8"
+                className="group flex items-start gap-4 sm:gap-6 lg:gap-8"
               >
                 {/* Step number circle */}
                 <div

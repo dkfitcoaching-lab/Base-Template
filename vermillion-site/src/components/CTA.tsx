@@ -85,7 +85,7 @@ export default function CTA() {
         />
       ))}
 
-      <div className="relative z-10 max-w-3xl mx-auto px-6">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         {/* ── Heading ── */}
         <div className="text-center mb-14 relative">
           {/* Animated glow backdrop */}

@@ -64,7 +64,7 @@ export default function Testimonials() {
           {/* Featured testimonial — full width, larger */}
           <motion.blockquote
             variants={itemVariants}
-            className="relative p-8 lg:p-12 rounded-card gothic-card neon-border-flow overflow-hidden"
+            className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow overflow-hidden"
           >
             {/* Decorative oversized quote mark */}
             <span

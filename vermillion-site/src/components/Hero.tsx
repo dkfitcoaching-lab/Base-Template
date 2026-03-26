@@ -207,7 +207,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: glowDelay, ease }}
-            className="absolute -inset-16 sm:-inset-20 pointer-events-none"
+            className="absolute -inset-12 sm:-inset-16 lg:-inset-20 pointer-events-none"
             aria-hidden="true"
           >
             <div className="w-full h-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.25)_0%,rgba(75,20,120,0.12)_40%,transparent_70%)]" style={{ filter: "drop-shadow(0 0 40px rgba(255,23,68,0.2))" }} />
@@ -233,7 +233,7 @@ export default function Hero() {
         >
           <h1
             id="hero-heading"
-            className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+            className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
           >
             <span className="block">
               <WordReveal words={headlineLine1} startDelay={wordBaseDelay} />

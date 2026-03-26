@@ -44,7 +44,7 @@ export default function Footer() {
             {/* Nav links */}
             <nav
               aria-label="Footer navigation"
-              className="flex items-center gap-6"
+              className="flex flex-wrap justify-center items-center gap-4 sm:gap-6"
             >
               {NAV_LINKS.map((link, i) => (
                 <motion.a
@@ -54,7 +54,7 @@ export default function Footer() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
-                  className="relative text-sm text-text-caption hover:text-neon transition-colors duration-300 tracking-wider uppercase font-heading group"
+                  className="relative text-sm text-text-caption hover:text-neon transition-colors duration-300 tracking-wider uppercase font-heading group py-2"
                 >
                   {link.label}
                   {/* Sliding underline */}
@@ -80,7 +80,7 @@ export default function Footer() {
               <span className="tracking-wider uppercase font-heading hidden sm:inline text-xs text-text-caption group-hover:text-text-secondary transition-colors duration-300">
                 Top
               </span>
-              <span className="flex items-center justify-center w-8 h-8 rounded-full border border-neon/[0.1] bg-surface-1 hover:bg-surface-2 hover:shadow-neon-sm hover:border-neon/30 transition-all duration-300">
+              <span className="flex items-center justify-center w-10 h-10 rounded-full border border-neon/[0.1] bg-surface-1 hover:bg-surface-2 hover:shadow-neon-sm hover:border-neon/30 transition-all duration-300">
                 <ArrowUp className="w-3.5 h-3.5 text-text-caption group-hover:text-text-secondary group-hover:-translate-y-0.5 transition-all duration-300" />
               </span>
             </a>
