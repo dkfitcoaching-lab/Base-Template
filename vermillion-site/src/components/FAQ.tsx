@@ -29,7 +29,7 @@ export default function FAQ() {
           </p>
           <h2
             id="faq-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Everything You Need to Know
           </h2>

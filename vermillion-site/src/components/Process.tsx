@@ -44,7 +44,7 @@ export default function Process() {
           </p>
           <h2
             id="process-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             From Idea to Launch in Days
           </h2>

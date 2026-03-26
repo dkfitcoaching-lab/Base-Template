@@ -123,7 +123,7 @@ export default function Showcase() {
           </p>
           <h2
             id="showcase-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Engineered for Impact
           </h2>

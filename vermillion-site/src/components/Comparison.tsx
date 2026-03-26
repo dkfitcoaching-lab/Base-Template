@@ -49,7 +49,7 @@ export default function Comparison() {
           </p>
           <h2
             id="comparison-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Built Different. Delivered Faster.
           </h2>
@@ -147,7 +147,7 @@ export default function Comparison() {
           className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
         >
           We don&apos;t compete on price. We compete on{" "}
-          <span className="text-text-primary font-semibold">
+          <span className="text-neon font-semibold text-neon-glow-subtle">
             speed, quality, and ownership
           </span>
           .
