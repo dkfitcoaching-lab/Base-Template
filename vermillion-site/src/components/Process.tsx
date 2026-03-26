@@ -57,7 +57,7 @@ export default function Process() {
             className="absolute left-[27px] top-0 bottom-0 w-px origin-top"
             style={{
               background:
-                "linear-gradient(to bottom, #FF1744 0%, #FF1744 30%, rgba(75,20,120,0.3) 70%, transparent 100%)",
+                "linear-gradient(to bottom, #FF1744 0%, #FF1744 30%, rgba(255,23,68,0.15) 70%, transparent 100%)",
             }}
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}

@@ -6,17 +6,16 @@ import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const headlineLine1 = "We Engineer".split(" ");
-const headlineLine2 = "What Others".split(" ");
-const headlineLine3 = "Can't Build".split(" ");
+const headlineLine1 = "Precision".split(" ");
+const headlineLine2 = "Engineered".split(" ");
+const headlineLine3 = "Software".split(" ");
 
 /* Breathing ambient orbs — neon crimson + deep violet mix */
 const ambientOrbs = [
-  { top: "10%", left: "15%", size: 450, duration: 8, delay: 0, color: "rgba(255,23,68,0.1)", opacity: [0.08, 0.18, 0.08] },
-  { top: "55%", right: "10%", size: 350, duration: 10, delay: 2, color: "rgba(75,20,120,0.12)", opacity: [0.06, 0.15, 0.06] },
-  { bottom: "15%", left: "5%", size: 250, duration: 7, delay: 1, color: "rgba(255,23,68,0.08)", opacity: [0.08, 0.2, 0.08] },
-  { top: "30%", right: "25%", size: 400, duration: 12, delay: 3, color: "rgba(75,20,120,0.1)", opacity: [0.06, 0.14, 0.06] },
-  { bottom: "30%", left: "50%", size: 300, duration: 9, delay: 1.5, color: "rgba(255,23,68,0.07)", opacity: [0.06, 0.12, 0.06] },
+  { top: "10%", left: "15%", size: 400, duration: 8, delay: 0, color: "rgba(255,23,68,0.08)", opacity: [0.04, 0.12, 0.04] },
+  { top: "55%", right: "10%", size: 300, duration: 10, delay: 2, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.1, 0.03] },
+  { bottom: "15%", left: "5%", size: 250, duration: 7, delay: 1, color: "rgba(255,23,68,0.07)", opacity: [0.04, 0.14, 0.04] },
+  { top: "30%", right: "25%", size: 350, duration: 12, delay: 3, color: "rgba(255,23,68,0.05)", opacity: [0.03, 0.08, 0.03] },
 ];
 
 function AnimatedBackground() {
@@ -35,9 +34,9 @@ function AnimatedBackground() {
         className="absolute inset-0 opacity-40"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(255,23,68,0.1), transparent 70%), " +
-            "radial-gradient(ellipse 40% 60% at 20% 60%, rgba(75,20,120,0.06), transparent 50%), " +
-            "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(255,23,68,0.06), transparent 60%)",
+            "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(255,23,68,0.07), transparent 70%), " +
+            "radial-gradient(ellipse 40% 60% at 20% 60%, rgba(255,23,68,0.03), transparent 50%), " +
+            "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(255,23,68,0.04), transparent 60%)",
           backgroundSize: "200% 200%",
           animation: "gradient-shift 8s ease infinite",
         }}
@@ -210,7 +209,7 @@ export default function Hero() {
             className="absolute -inset-12 sm:-inset-16 lg:-inset-20 pointer-events-none"
             aria-hidden="true"
           >
-            <div className="w-full h-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.25)_0%,rgba(75,20,120,0.12)_40%,transparent_70%)]" style={{ filter: "drop-shadow(0 0 40px rgba(255,23,68,0.2))" }} />
+            <div className="w-full h-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.20)_0%,rgba(255,23,68,0.06)_40%,transparent_70%)]" style={{ filter: "drop-shadow(0 0 40px rgba(255,23,68,0.15))" }} />
           </motion.div>
 
           {/* The logo itself with flicker effect */}
@@ -266,7 +265,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: subtextDelay, ease }}
           className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Custom software. Full ownership. Shipped in days, not months.
+          Full-stack systems built from the ground up. Complete code ownership. Delivered at a pace the industry doesn&apos;t believe is possible.
         </motion.p>
 
         {/* CTAs */}

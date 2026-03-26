@@ -104,11 +104,11 @@ export default function CTA() {
             className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight"
           >
             <span className="text-text-primary">
-              Your Project. Our Speed.
+              Ready to Build.
             </span>
             <br />
             <span className="text-gradient-vermillion text-neon-glow">
-              Let&apos;s Talk.
+              Start Here.
             </span>
           </motion.h2>
 
