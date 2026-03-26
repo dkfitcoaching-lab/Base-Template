@@ -105,17 +105,30 @@ export default function Home() {
         <MarqueeDivider text="CUSTOM SOFTWARE" speed={25} direction="left" />
         <Showcase />
         <OrnamentalDivider />
-        <Services />
+        <div className="relative">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(255,23,68,0.03),transparent_70%)] pointer-events-none" aria-hidden="true" />
+          <Services />
+        </div>
         <MarqueeDivider text="FULL OWNERSHIP" speed={30} direction="right" />
         <Comparison />
         <OrnamentalDivider />
-        <Features />
+        <div className="relative">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_30%_50%,rgba(255,23,68,0.025),transparent_60%)] pointer-events-none" aria-hidden="true" />
+          <Features />
+        </div>
         <Process />
+        <OrnamentalDivider />
         <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
-        <Testimonials />
+        <div className="relative">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_70%_50%,rgba(255,23,68,0.03),transparent_65%)] pointer-events-none" aria-hidden="true" />
+          <Testimonials />
+        </div>
         <OrnamentalDivider />
         <FAQ />
-        <CTA />
+        <div className="relative">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_40%,rgba(255,23,68,0.04),transparent_70%)] pointer-events-none" aria-hidden="true" />
+          <CTA />
+        </div>
         <Footer />
       </main>
     </div>

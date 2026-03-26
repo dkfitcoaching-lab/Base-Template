@@ -27,9 +27,11 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-16 sm:py-24 lg:py-32"
+      className="relative py-16 sm:py-24 lg:py-32"
       aria-labelledby="process-heading"
     >
+      {/* Atmospheric depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_20%_50%,rgba(255,23,68,0.025),transparent_60%)] pointer-events-none" aria-hidden="true" />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div

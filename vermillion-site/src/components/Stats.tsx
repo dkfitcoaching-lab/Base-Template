@@ -69,8 +69,13 @@ export default function Stats() {
 
       {/* Vermillion gradient accent at bottom */}
       <div
-        className="absolute bottom-0 left-[10%] right-[10%] h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.3), transparent)" }}
+        className="absolute bottom-0 left-[10%] right-[10%] h-px animate-pulse"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-0 left-[10%] right-[10%] h-px animate-pulse"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", animationDelay: "1s" }}
         aria-hidden="true"
       />
     </section>

@@ -35,7 +35,7 @@ export default function FAQ() {
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="gothic-card rounded-card p-4 sm:p-6 space-y-0">
           {FAQ_ITEMS.map((item, i) => {
             const isOpen = openIndex === i;
             const panelId = `faq-panel-${i}`;

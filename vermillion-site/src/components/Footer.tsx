@@ -8,12 +8,14 @@ const ease = [0.22, 1, 0.36, 1];
 
 export default function Footer() {
   return (
-    <footer className="relative pt-0 pb-10 bg-surface-1/10">
+    <footer className="relative pt-0 pb-10 bg-surface-1/10 overflow-hidden">
       {/* ── Gradient top border ── */}
       <div
         className="bg-gradient-to-r from-transparent via-neon to-transparent h-[2px] w-full"
         aria-hidden="true"
       />
+      {/* Atmospheric depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(255,23,68,0.04),transparent_60%)] pointer-events-none" aria-hidden="true" />
 
       {/* Full logo lockup */}
       <div className="flex flex-col items-center pt-10 pb-6 relative">
