@@ -11,8 +11,13 @@ const headlineLine2 = "Engineered".split(" ");
 const headlineLine3 = "Software".split(" ");
 
 /* Breathing ambient orbs — neon crimson, 8 total with dramatic size variance */
-/* Reduced to 2 static orbs — no animation, no blur. Pure CSS radial gradient instead. */
-const ambientOrbs: typeof Array.prototype = [];
+const ambientOrbs = [
+  { top: "2%", left: "5%", size: 700, duration: 9, delay: 0, color: "rgba(255,23,68,0.10)", opacity: [0.04, 0.18, 0.04] },
+  { top: "45%", right: "2%", size: 120, duration: 5, delay: 1.5, color: "rgba(255,23,68,0.14)", opacity: [0.06, 0.22, 0.06] },
+  { bottom: "8%", left: "2%", size: 280, duration: 7, delay: 1, color: "rgba(255,23,68,0.09)", opacity: [0.04, 0.2, 0.04] },
+  { top: "20%", right: "15%", size: 550, duration: 13, delay: 3, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.1, 0.03] },
+  { top: "65%", left: "35%", size: 90, duration: 4, delay: 0.5, color: "rgba(255,23,68,0.16)", opacity: [0.08, 0.28, 0.08] },
+];
 
 /* Gothic ornamental corner SVG — wrought iron pointed arch style, larger and more detailed */
 function GothicCorner({ className }: { className?: string }) {
@@ -281,10 +286,29 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* Static ambient glow — no animation, no blur filter, pure CSS */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none" aria-hidden="true"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(255,23,68,0.08), transparent 70%), radial-gradient(ellipse 60% 50% at 70% 70%, rgba(255,23,68,0.06), transparent 60%)" }}
-      />
+      {/* Breathing ambient orbs — 8 total with wild size variance */}
+      {ambientOrbs.map((orb, i) => (
+        <motion.div
+          key={i}
+          animate={{
+            y: [0, i % 2 === 0 ? -30 : 22, 0],
+            x: [0, i % 3 === 0 ? 15 : -12, 0],
+            opacity: orb.opacity,
+            scale: [1, 1.3, 1],
+          }}
+          transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
+          className="absolute rounded-full blur-[120px]"
+          style={{
+            top: orb.top,
+            left: orb.left,
+            right: orb.right,
+            bottom: orb.bottom,
+            width: orb.size,
+            height: orb.size,
+            background: orb.color,
+          }}
+        />
+      ))}
     </div>
   );
 }

@@ -1,18 +1,5 @@
 {
   "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.tool_input.command // \"\"' | grep -qE '^git commit' && { BRANCH=$(git branch --show-current); git push -u origin \"$BRANCH\" 2>&1; } || true",
-            "timeout": 30,
-            "statusMessage": "Auto-pushing to remote..."
-          }
-        ]
-      }
-    ],
     "UserPromptSubmit": [
       {
         "hooks": [

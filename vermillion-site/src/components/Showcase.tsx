@@ -71,7 +71,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     >
       {/* Dynamic glow that follows cursor */}
       <div
-        className="absolute -inset-2 rounded-hero opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none z-0 blur-[40px]"
+        className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
         style={{
           background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`,
         }}
@@ -82,14 +82,13 @@ function TiltCard({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* Parallax disabled — was causing scroll jank with 6 useTransform calls */
 const parallaxOffsets: [number, number][] = [
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0],
+  [20, -20],   // index 0: move less
+  [40, -40],   // index 1: move more
+  [30, -30],   // index 2: medium
+  [20, -20],   // index 3: move less
+  [40, -40],   // index 4: move more
+  [30, -30],   // index 5: medium
 ];
 
 export default function Showcase() {
