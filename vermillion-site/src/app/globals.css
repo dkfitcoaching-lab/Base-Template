@@ -186,14 +186,14 @@ body {
    ═══════════════════════════════════════════════════ */
 .gothic-card {
   background: linear-gradient(135deg, rgba(12,12,12,0.97), rgba(6,6,6,0.99));
-  border: 1px solid rgba(255,23,68,0.08);
-  box-shadow: 0 0 20px rgba(255,23,68,0.08), 0 0 40px rgba(255,23,68,0.04), 0 0 1px rgba(255,23,68,0.12);
+  border: 1px solid rgba(255,23,68,0.12);
+  box-shadow: 0 0 15px rgba(255,23,68,0.1), 0 0 35px rgba(255,23,68,0.06), 0 0 60px rgba(255,23,68,0.03), 0 0 1px rgba(255,23,68,0.15);
   border-radius: 12px;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .gothic-card:hover {
-  border-color: rgba(255,23,68,0.25);
-  box-shadow: 0 0 30px rgba(255,23,68,0.2), 0 0 60px rgba(255,23,68,0.1), 0 0 100px rgba(255,23,68,0.04), 0 0 1px rgba(255,23,68,0.25);
+  border-color: rgba(255,23,68,0.35);
+  box-shadow: 0 0 25px rgba(255,23,68,0.25), 0 0 50px rgba(255,23,68,0.15), 0 0 90px rgba(255,23,68,0.08), 0 0 140px rgba(255,23,68,0.04), 0 0 1px rgba(255,23,68,0.35);
   transform: translateY(-3px) scale(1.01);
 }
 
@@ -215,7 +215,7 @@ body {
 .neon-border-flow {
   position: relative;
   overflow: visible;
-  filter: drop-shadow(0 0 6px rgba(255,23,68,0.25));
+  filter: drop-shadow(0 0 8px rgba(255,23,68,0.3)) drop-shadow(0 0 20px rgba(255,23,68,0.1));
 }
 .neon-border-flow::before {
   content: '';
@@ -399,12 +399,13 @@ body {
    IRON FILIGREE — Ornamental border treatment
    ═══════════════════════════════════════════════════ */
 .iron-filigree {
-  border: 1px solid rgba(192,192,192,0.08);
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.1), 0 0 15px rgba(255,23,68,0.05);
+  border: 1px solid rgba(192,192,192,0.1);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.12), 0 0 15px rgba(255,23,68,0.08), 0 0 30px rgba(255,23,68,0.03);
+  transition: all 0.4s ease;
 }
 .iron-filigree:hover {
-  border-color: rgba(192,192,192,0.15);
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.15), 0 0 25px rgba(255,23,68,0.1), 0 0 50px rgba(255,23,68,0.04);
+  border-color: rgba(255,23,68,0.2);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.2), 0 0 25px rgba(255,23,68,0.15), 0 0 50px rgba(255,23,68,0.06), 0 0 80px rgba(255,23,68,0.03);
 }
 
 /* ═══════════════════════════════════════════════════

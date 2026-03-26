@@ -130,8 +130,8 @@ export default function Services() {
                   }`}
                   style={{
                     boxShadow: isHighlighted
-                      ? '0 0 30px rgba(255,23,68,0.12), 0 0 60px rgba(255,23,68,0.05)'
-                      : '0 0 20px rgba(255,23,68,0.06)',
+                      ? '0 0 25px rgba(255,23,68,0.2), 0 0 50px rgba(255,23,68,0.1), 0 0 90px rgba(255,23,68,0.05)'
+                      : '0 0 15px rgba(255,23,68,0.1), 0 0 30px rgba(255,23,68,0.04)',
                   }}
                 >
                   {/* Animated gradient border overlay on hover/select */}
