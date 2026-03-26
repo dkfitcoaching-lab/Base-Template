@@ -7,10 +7,14 @@ const ease = [0.22, 1, 0.36, 1];
 
 /* Floating particle configuration */
 const particles = [
-  { size: 6, x: "12%", y: "18%", duration: 7, delay: 0, opacity: 0.25 },
-  { size: 4, x: "85%", y: "25%", duration: 9, delay: 1.5, opacity: 0.35 },
-  { size: 8, x: "78%", y: "72%", duration: 8, delay: 0.8, opacity: 0.2 },
-  { size: 5, x: "8%", y: "68%", duration: 10, delay: 2, opacity: 0.3 },
+  { size: 10, x: "12%", y: "18%", duration: 7, delay: 0, opacity: 0.4 },
+  { size: 7, x: "85%", y: "25%", duration: 9, delay: 1.5, opacity: 0.5 },
+  { size: 14, x: "78%", y: "72%", duration: 8, delay: 0.8, opacity: 0.35 },
+  { size: 9, x: "8%", y: "68%", duration: 10, delay: 2, opacity: 0.45 },
+  { size: 6, x: "45%", y: "12%", duration: 11, delay: 0.5, opacity: 0.45 },
+  { size: 12, x: "92%", y: "55%", duration: 8.5, delay: 1, opacity: 0.35 },
+  { size: 5, x: "30%", y: "85%", duration: 12, delay: 3, opacity: 0.4 },
+  { size: 8, x: "65%", y: "8%", duration: 7.5, delay: 0.3, opacity: 0.35 },
 ];
 
 export default function CTA() {
@@ -21,25 +25,30 @@ export default function CTA() {
       aria-labelledby="cta-heading"
     >
       {/* ── Layered background gradients ── */}
-      {/* Primary vermillion radial glow */}
+      {/* Primary neon radial glow */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_45%,rgba(192,48,48,0.12),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_45%,rgba(255,23,68,0.15),transparent_70%)]"
         aria-hidden="true"
       />
       {/* Secondary softer ambient glow */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_50%,rgba(192,48,48,0.05),transparent_80%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_50%,rgba(255,23,68,0.06),transparent_80%)]"
         aria-hidden="true"
       />
       {/* Top edge accent */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_20%_at_50%_0%,rgba(192,48,48,0.06),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_20%_at_50%_0%,rgba(255,23,68,0.08),transparent_60%)]"
+        aria-hidden="true"
+      />
+      {/* Dramatic full-width neon pulse */}
+      <div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_50%,rgba(255,23,68,0.04),transparent_70%)] animate-pulse-ambient"
         aria-hidden="true"
       />
 
       {/* ── Subtle grid pattern overlay ── */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(232,232,240,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(232,232,240,0.4) 1px, transparent 1px)",
@@ -52,7 +61,7 @@ export default function CTA() {
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-vermillion blur-sm pointer-events-none"
+          className="absolute rounded-full bg-neon blur-md shadow-[0_0_16px_rgba(255,23,68,0.6)] pointer-events-none"
           style={{
             width: p.size,
             height: p.size,
@@ -61,9 +70,10 @@ export default function CTA() {
             opacity: p.opacity,
           }}
           animate={{
-            y: [0, -18, 0, 12, 0],
-            x: [0, 8, -6, 4, 0],
-            opacity: [p.opacity, p.opacity * 1.4, p.opacity, p.opacity * 0.7, p.opacity],
+            y: [0, -24, 0, 16, 0],
+            x: [0, 12, -8, 6, 0],
+            scale: [1, 1.3, 1, 0.8, 1],
+            opacity: [p.opacity, p.opacity * 1.5, p.opacity, p.opacity * 0.6, p.opacity],
           }}
           transition={{
             duration: p.duration,
@@ -75,9 +85,16 @@ export default function CTA() {
         />
       ))}
 
-      <div className="relative z-10 max-w-3xl mx-auto px-6">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         {/* ── Heading ── */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-14 relative">
+          {/* Animated glow backdrop */}
+          <motion.div
+            className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.1),transparent_70%)] blur-[80px] pointer-events-none"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
           <motion.h2
             id="cta-heading"
             initial={{ opacity: 0, y: 30 }}
@@ -90,7 +107,7 @@ export default function CTA() {
               Your Project. Our Speed.
             </span>
             <br />
-            <span className="text-gradient-vermillion">
+            <span className="text-gradient-vermillion text-neon-glow">
               Let&apos;s Talk.
             </span>
           </motion.h2>

@@ -39,7 +39,7 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6, ease }}
     >
-      <dt className="font-heading font-bold text-3xl lg:text-4xl text-text-primary mb-1">
+      <dt className="font-mono font-bold text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow">
         <span>{prefix}</span>
         <motion.span>{rounded}</motion.span>
         <span>{suffix}</span>
@@ -53,13 +53,13 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
 
 export default function Stats() {
   return (
-    <section className="relative border-y border-border/30 bg-surface-1/40" aria-label="Key metrics">
+    <section className="relative border-y border-neon/[0.12] shadow-[0_0_30px_rgba(255,23,68,0.06)]" aria-label="Key metrics">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10 lg:py-12">
         <dl className="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-12">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className={`text-center ${i < STATS.length - 1 ? "sm:border-r sm:border-border/30" : ""}`}
+              className={`text-center ${i < STATS.length - 1 ? "sm:border-r sm:border-neon/[0.12]" : ""}`}
             >
               <AnimatedStat value={stat.value} label={stat.label} delay={i * 0.1} />
             </div>
@@ -70,7 +70,7 @@ export default function Stats() {
       {/* Vermillion gradient accent at bottom */}
       <div
         className="absolute bottom-0 left-[10%] right-[10%] h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(180, 43, 43, 0.3), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.3), transparent)" }}
         aria-hidden="true"
       />
     </section>

@@ -49,12 +49,12 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-24 lg:py-32 bg-surface-1/30 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden"
       aria-labelledby="services-heading"
     >
-      {/* Section background radial glow */}
+      {/* Section background glow */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(192,48,48,0.06),transparent_70%)] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(255,23,68,0.04),transparent_70%)] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -67,19 +67,19 @@ export default function Services() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Pricing
           </p>
           <h2
             id="services-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Transparent Pricing. No Surprises.
           </h2>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 items-start">
           {TIERS.map((tier, i) => {
             const isHighlighted = tier.highlighted;
 
@@ -102,9 +102,9 @@ export default function Services() {
                     transition={{ delay: 0.5, duration: 0.5, ease }}
                     className="flex justify-center mb-3"
                   >
-                    <span className="relative inline-flex items-center bg-vermillion text-white text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full font-heading font-semibold">
-                      <span className="absolute inset-0 rounded-full bg-vermillion animate-pulse opacity-30" />
-                      <span className="relative">Recommended</span>
+                    <span className="relative inline-flex items-center bg-vermillion text-white text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full font-heading font-semibold shadow-[0_0_16px_rgba(255,23,68,0.5)]">
+                      <span className="absolute inset-0 rounded-full bg-neon animate-pulse opacity-50" />
+                      <span className="relative drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]">Recommended</span>
                     </span>
                   </motion.div>
                 )}
@@ -116,19 +116,11 @@ export default function Services() {
                     opacity: 1,
                   }}
                   transition={{ duration: 0.35, ease }}
-                  className={`relative rounded-card overflow-hidden transition-all duration-500 ${
+                  className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "border border-vermillion/60 shadow-[0_0_60px_rgba(192,48,48,0.15)]"
-                      : "border border-border/50 hover:border-border hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
-                  } ${
-                    isHighlighted
-                      ? "shadow-[0_0_60px_rgba(192,48,48,0.08)]"
-                      : ""
+                      ? "border-neon/30 shadow-neon-md neon-border-flow"
+                      : "border-neon/[0.06] hover:border-neon/20 hover:shadow-neon-sm"
                   }`}
-                  style={{
-                    background:
-                      "linear-gradient(to bottom, rgba(26,26,36,0.9), rgba(18,18,26,0.95))",
-                  }}
                 >
                   {/* Animated gradient border overlay on hover/select */}
                   <div
@@ -137,7 +129,7 @@ export default function Services() {
                     }`}
                     style={{
                       background: isHighlighted
-                        ? "linear-gradient(135deg, rgba(192,48,48,0.12), transparent 40%, transparent 60%, rgba(192,48,48,0.08))"
+                        ? "linear-gradient(135deg, rgba(255,23,68,0.12), transparent 40%, transparent 60%, rgba(255,23,68,0.08))"
                         : undefined,
                     }}
                     aria-hidden="true"
@@ -147,7 +139,7 @@ export default function Services() {
                   <div
                     className={`h-[2px] transition-all duration-500 ${
                       isHighlighted
-                        ? "bg-gradient-to-r from-transparent via-vermillion to-transparent"
+                        ? "bg-gradient-to-r from-transparent via-neon to-transparent"
                         : "bg-gradient-to-r from-transparent via-border to-transparent"
                     }`}
                     aria-hidden="true"
@@ -155,7 +147,7 @@ export default function Services() {
 
                   {/* Hover/select glow */}
                   <div
-                    className={`absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,48,48,0.08),transparent_60%)] transition-opacity duration-500 pointer-events-none ${
+                    className={`absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,23,68,0.08),transparent_60%)] transition-opacity duration-500 pointer-events-none ${
                       isHighlighted ? "opacity-100" : "opacity-0"
                     }`}
                     aria-hidden="true"
@@ -163,7 +155,7 @@ export default function Services() {
 
                   {/* Hover glow (separate so it works with CSS group-hover) */}
                   <div
-                    className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,48,48,0.06),transparent_60%)] opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,23,68,0.06),transparent_60%)] opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     aria-hidden="true"
                   />
 
@@ -179,11 +171,11 @@ export default function Services() {
                         scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-heading font-bold text-2xl sm:text-3xl text-vermillion mb-3 origin-left"
+                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl text-neon text-neon-glow-subtle mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span
-                          className="absolute inset-0 -inset-x-2 bg-vermillion/10 blur-xl rounded-full pointer-events-none"
+                          className="absolute inset-0 -inset-x-2 bg-neon/10 blur-xl rounded-full pointer-events-none"
                           aria-hidden="true"
                         />
                       )}
@@ -221,7 +213,7 @@ export default function Services() {
                             className="flex-shrink-0 mt-0.5"
                           >
                             <Check
-                              className="w-4 h-4 text-vermillion"
+                              className="w-4 h-4 text-neon"
                               aria-hidden="true"
                             />
                           </motion.span>
@@ -235,10 +227,10 @@ export default function Services() {
                     {/* CTA Button */}
                     <a
                       href="#contact"
-                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden ${
+                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] ${
                         isHighlighted
-                          ? "bg-vermillion text-white hover:shadow-[0_0_30px_rgba(192,48,48,0.3)] hover:bg-vermillion/90"
-                          : "border border-border/60 text-text-primary hover:border-vermillion/50 hover:text-vermillion hover:shadow-[0_0_20px_rgba(192,48,48,0.1)]"
+                          ? "bg-vermillion text-white hover:shadow-neon-md hover:bg-vermillion/90"
+                          : "border border-border/60 text-text-primary hover:border-neon/50 hover:text-neon hover:shadow-neon-sm"
                       }`}
                     >
                       <span className="relative z-10">Get Started</span>
@@ -268,7 +260,7 @@ export default function Services() {
           Not sure which tier fits?{" "}
           <a
             href="#contact"
-            className="text-vermillion hover:text-vermillion/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
+            className="text-neon hover:text-neon/80 transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
           >
             Tell us about your project
           </a>{" "}

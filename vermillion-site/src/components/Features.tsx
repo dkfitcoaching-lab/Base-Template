@@ -55,7 +55,7 @@ const itemVariantsRight = {
 
 export default function Features() {
   return (
-    <section className="py-24 lg:py-32 section-highlight" aria-labelledby="features-heading">
+    <section className="py-24 lg:py-32" aria-labelledby="features-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -65,12 +65,12 @@ export default function Features() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-xs tracking-[0.3em] text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Capabilities
           </p>
           <h2
             id="features-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Built for What&apos;s Next
           </h2>
@@ -94,13 +94,9 @@ export default function Features() {
                 key={feature.title}
                 variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
                 role="listitem"
-                className={`group relative p-6 lg:p-7 rounded-card
-                  bg-white/[0.02] backdrop-blur-sm
-                  border border-white/[0.06]
-                  hover:bg-white/[0.04] hover:border-white/[0.1]
-                  hover:shadow-glass
+                className={`group relative p-6 lg:p-7 rounded-card gothic-card
                   transition-all duration-500
-                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-vermillion/40" : ""}
+                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}
                 style={{ willChange: "transform" }}
                 whileHover={{ y: -4 }}
@@ -108,7 +104,7 @@ export default function Features() {
               >
                 {/* Subtle top highlight */}
                 <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent rounded-t-card"
+                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/[0.04] to-transparent rounded-t-card"
                   aria-hidden="true"
                 />
 
@@ -116,22 +112,22 @@ export default function Features() {
                 {isLarge && (
                   <div
                     className="absolute inset-0 rounded-card pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 60% 60% at 20% 50%, rgba(180, 43, 43, 0.04), transparent 70%)" }}
+                    style={{ background: "radial-gradient(ellipse 60% 60% at 20% 50%, rgba(255, 23, 68, 0.04), transparent 70%)" }}
                     aria-hidden="true"
                   />
                 )}
 
                 {/* Icon with glow */}
                 <div
-                  className="relative w-11 h-11 rounded-xl bg-vermillion/10 flex items-center justify-center mb-5
-                    shadow-[0_0_20px_rgba(192,48,48,0.15)]
-                    group-hover:shadow-[0_0_30px_rgba(192,48,48,0.25)]
-                    group-hover:bg-vermillion/15
+                  className="relative w-11 h-11 rounded-xl bg-neon/10 flex items-center justify-center mb-5
+                    shadow-[0_0_20px_rgba(255,23,68,0.15)]
+                    group-hover:shadow-[0_0_30px_rgba(255,23,68,0.25)]
+                    group-hover:bg-neon/15
                     transition-all duration-500"
                   aria-hidden="true"
                 >
                   {Icon && (
-                    <Icon className="w-5 h-5 text-vermillion group-hover:text-vermillion-light transition-colors duration-500" />
+                    <Icon className="w-5 h-5 text-neon group-hover:text-neon transition-colors duration-500" />
                   )}
                 </div>
 

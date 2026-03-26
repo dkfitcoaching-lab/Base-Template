@@ -16,24 +16,31 @@ import MarqueeDivider from "@/components/MarqueeDivider";
 
 export default function Home() {
   return (
-    <main id="main-content" className="relative">
-      <CursorSpotlight />
-      <ScrollProgress />
-      <Navigation />
-      <Hero />
-      <Stats />
-      <MarqueeDivider text="CUSTOM SOFTWARE" speed={25} direction="left" />
-      <Showcase />
-      <Services />
-      <MarqueeDivider text="FULL OWNERSHIP" speed={30} direction="right" />
-      <Comparison />
-      <Features />
-      <Process />
-      <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
-      <Testimonials />
-      <FAQ />
-      <CTA />
-      <Footer />
-    </main>
+    <div className="page-bg">
+      {/* Circuit pattern overlay */}
+      <div className="circuit-overlay" aria-hidden="true" />
+      {/* Edge vignette for cathedral depth */}
+      <div className="page-vignette" aria-hidden="true" />
+
+      <main id="main-content" className="relative">
+        <CursorSpotlight />
+        <ScrollProgress />
+        <Navigation />
+        <Hero />
+        <Stats />
+        <MarqueeDivider text="CUSTOM SOFTWARE" speed={25} direction="left" />
+        <Showcase />
+        <Services />
+        <MarqueeDivider text="FULL OWNERSHIP" speed={30} direction="right" />
+        <Comparison />
+        <Features />
+        <Process />
+        <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
+        <Testimonials />
+        <FAQ />
+        <CTA />
+        <Footer />
+      </main>
+    </div>
   );
 }

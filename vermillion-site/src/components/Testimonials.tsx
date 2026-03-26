@@ -22,7 +22,7 @@ function StarRating() {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className="w-4 h-4 fill-vermillion text-vermillion"
+          className="w-4 h-4 fill-neon text-neon"
           aria-hidden="true"
         />
       ))}
@@ -34,7 +34,7 @@ export default function Testimonials() {
   const [featured, ...rest] = TESTIMONIALS;
 
   return (
-    <section id="testimonials" className="py-32 lg:py-40 section-highlight" aria-labelledby="testimonials-heading">
+    <section id="testimonials" className="py-32 lg:py-40" aria-labelledby="testimonials-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,12 +43,12 @@ export default function Testimonials() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-overline text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Client Feedback
           </p>
           <h2
             id="testimonials-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Trusted by Founders. Verified by Results.
           </h2>
@@ -64,18 +64,18 @@ export default function Testimonials() {
           {/* Featured testimonial — full width, larger */}
           <motion.blockquote
             variants={itemVariants}
-            className="relative p-8 lg:p-12 rounded-card bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-500 overflow-hidden"
+            className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow overflow-hidden"
           >
             {/* Decorative oversized quote mark */}
             <span
-              className="absolute top-4 right-8 text-[8rem] leading-none font-heading font-bold text-vermillion/[0.06] select-none pointer-events-none"
+              className="absolute top-4 right-8 text-[8rem] leading-none font-heading font-bold text-neon/[0.06] select-none pointer-events-none"
               aria-hidden="true"
             >
               &ldquo;
             </span>
 
             {/* Vermillion accent bar */}
-            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-vermillion via-vermillion/60 to-transparent rounded-l-card" aria-hidden="true" />
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] holographic-shimmer rounded-l-card" aria-hidden="true" />
 
             <div className="relative">
               <StarRating />
@@ -84,8 +84,8 @@ export default function Testimonials() {
               </p>
 
               <footer className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-vermillion/10 flex items-center justify-center flex-shrink-0 border border-vermillion/20">
-                  <span className="font-heading font-bold text-base text-vermillion">
+                <div className="w-12 h-12 rounded-full bg-neon/10 flex items-center justify-center flex-shrink-0 border border-neon/20">
+                  <span className="font-heading font-bold text-base text-neon">
                     {featured.name.charAt(0)}
                   </span>
                 </div>
@@ -107,11 +107,11 @@ export default function Testimonials() {
               <motion.blockquote
                 key={t.name}
                 variants={itemVariants}
-                className="relative p-6 lg:p-8 rounded-card bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-500"
+                className="relative p-6 lg:p-8 rounded-card gothic-card border-l border-l-neon/[0.06] hover:border-l-neon/20"
               >
                 {/* Decorative quote mark */}
                 <span
-                  className="absolute top-2 right-6 text-[5rem] leading-none font-heading font-bold text-vermillion/[0.04] select-none pointer-events-none"
+                  className="absolute top-2 right-6 text-[5rem] leading-none font-heading font-bold text-neon/[0.04] select-none pointer-events-none"
                   aria-hidden="true"
                 >
                   &ldquo;
@@ -124,8 +124,8 @@ export default function Testimonials() {
                   </p>
 
                   <footer className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-vermillion/10 flex items-center justify-center flex-shrink-0">
-                      <span className="font-heading font-bold text-sm text-vermillion">
+                    <div className="w-10 h-10 rounded-full bg-neon/10 flex items-center justify-center flex-shrink-0 border border-neon/20">
+                      <span className="font-heading font-bold text-sm text-neon">
                         {t.name.charAt(0)}
                       </span>
                     </div>

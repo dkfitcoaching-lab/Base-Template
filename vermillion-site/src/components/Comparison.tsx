@@ -44,12 +44,12 @@ export default function Comparison() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16 lg:mb-20"
         >
-          <p className="text-overline text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Why Vermillion
           </p>
           <h2
             id="comparison-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Built Different. Delivered Faster.
           </h2>
@@ -61,13 +61,13 @@ export default function Comparison() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="hidden md:block rounded-card border border-white/[0.06] overflow-hidden bg-white/[0.01] backdrop-blur-sm"
+          className="hidden md:block rounded-card overflow-hidden gothic-card"
           role="table"
           aria-label="Feature comparison"
         >
           {/* Header row */}
           <div
-            className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface-2/80 backdrop-blur-sm border-b border-white/[0.06] px-8 py-5"
+            className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface-2/60 backdrop-blur-sm border-b border-white/[0.06] px-8 py-5"
             role="row"
           >
             <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider">
@@ -76,7 +76,7 @@ export default function Comparison() {
             <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
               Traditional Agencies
             </span>
-            <span role="columnheader" className="text-xs font-heading font-bold text-vermillion uppercase tracking-wider text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
+            <span role="columnheader" className="text-xs font-heading font-bold text-neon uppercase tracking-wider text-center bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
               Vermillion Axis
             </span>
           </div>
@@ -89,7 +89,7 @@ export default function Comparison() {
               role="row"
               className={`group grid grid-cols-[1.5fr_1fr_1fr] items-center px-8 py-5
                 hover:bg-white/[0.02]
-                border-l-2 border-l-transparent hover:border-l-vermillion/60
+                border-l-2 border-l-transparent hover:border-l-neon/60
                 transition-all duration-300
                 ${i < COMPARISON.length - 1 ? "border-b border-b-white/[0.04]" : ""}
               `}
@@ -100,7 +100,7 @@ export default function Comparison() {
               <span role="cell" className="text-sm text-text-caption text-center">
                 {row.others}
               </span>
-              <span role="cell" className="text-sm text-vermillion font-bold text-center bg-vermillion/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
+              <span role="cell" className="text-sm text-neon font-bold text-center text-neon-glow bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
                 {row.ours}
               </span>
             </motion.div>
@@ -119,7 +119,7 @@ export default function Comparison() {
             <motion.div
               key={row.feature}
               variants={mobileCardVariants}
-              className="rounded-card border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-5 border-l-2 border-l-vermillion/40"
+              className="rounded-card gothic-card p-5 border-l-2 border-l-neon/40"
             >
               <p className="text-sm text-text-primary font-heading font-semibold mb-3">
                 {row.feature}
@@ -131,7 +131,7 @@ export default function Comparison() {
                 </div>
                 <div className="text-right">
                   <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Us</span>
-                  <span className="text-vermillion font-semibold">{row.ours}</span>
+                  <span className="text-neon font-semibold text-neon-glow-subtle">{row.ours}</span>
                 </div>
               </div>
             </motion.div>
@@ -147,7 +147,7 @@ export default function Comparison() {
           className="text-center mt-10 lg:mt-12 text-text-secondary text-base font-body"
         >
           We don&apos;t compete on price. We compete on{" "}
-          <span className="text-text-primary font-semibold">
+          <span className="text-neon font-semibold text-neon-glow-subtle">
             speed, quality, and ownership
           </span>
           .

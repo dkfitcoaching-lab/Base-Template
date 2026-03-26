@@ -22,13 +22,13 @@ function NavLink({
     <a
       href={href}
       className={`relative text-sm font-body tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:text-text-primary focus-visible:underline underline-offset-4 group ${
-        isActive ? "text-vermillion" : "text-text-secondary hover:text-text-primary"
+        isActive ? "text-neon" : "text-text-secondary hover:text-text-primary"
       }`}
     >
       {label}
       {/* Animated underline */}
       <span
-        className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
+        className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-neon origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
         style={{ transformOrigin: "left center" }}
         aria-hidden="true"
       />
@@ -36,7 +36,7 @@ function NavLink({
       {isActive && (
         <motion.span
           layoutId="nav-active-underline"
-          className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion"
+          className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-neon"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
           aria-hidden="true"
         />
@@ -141,7 +141,7 @@ export default function Navigation() {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-surface-1/90 backdrop-blur-xl border-b border-border/50 shadow-glass"
+            ? "bg-surface-1/90 backdrop-blur-xl border-b border-neon/[0.1] shadow-[0_2px_40px_rgba(255,23,68,0.12),inset_0_-1px_0_rgba(255,23,68,0.15)]"
             : "bg-transparent"
         }`}
       >
@@ -150,7 +150,7 @@ export default function Navigation() {
             {/* Logo */}
             <a
               href="#top"
-              className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded-lg"
+              className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded-lg"
               aria-label="Vermillion Axis Technologies — home"
             >
               <div className="relative">
@@ -161,7 +161,7 @@ export default function Navigation() {
                   aria-hidden="true"
                 />
                 {/* Logo dot glow on hover */}
-                <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-vermillion/20 blur-lg" aria-hidden="true" />
+                <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-neon/25 blur-lg" aria-hidden="true" />
               </div>
               <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em]">
                 VERMILLION <span className="text-vermillion">AXIS</span>
@@ -181,7 +181,7 @@ export default function Navigation() {
               <MagneticButton strength={0.25}>
                 <a
                   href="#contact"
-                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase transition-all duration-300 hover:shadow-neon-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   Start a Project
                 </a>
@@ -191,7 +191,7 @@ export default function Navigation() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 rounded"
+              className="md:hidden relative w-11 h-11 flex flex-col items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
@@ -224,7 +224,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-lg flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-bg/90 backdrop-blur-xl flex items-center justify-center"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
@@ -238,16 +238,16 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05, ease }}
-                  className={`relative text-xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-vermillion group ${
+                  className={`relative text-xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-neon group ${
                     activeSection === link.href.replace("#", "")
-                      ? "text-vermillion"
+                      ? "text-neon"
                       : "text-text-primary"
                   }`}
                 >
                   {link.label}
                   {/* Hover underline for mobile links */}
                   <span
-                    className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-vermillion origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
+                    className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-neon origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
                     aria-hidden="true"
                   />
                 </motion.a>
@@ -258,9 +258,9 @@ export default function Navigation() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, ease }}
-                className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-white font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
+                className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-white font-medium transition-all duration-300 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
                 style={{
-                  boxShadow: "0 0 20px rgba(192, 48, 48, 0.3)",
+                  boxShadow: "0 0 25px rgba(255, 23, 68, 0.3)",
                 }}
               >
                 Start a Project
