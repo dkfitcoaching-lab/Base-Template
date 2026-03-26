@@ -141,7 +141,7 @@ export default function Navigation() {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-surface-1/90 backdrop-blur-xl border-b border-border/50 shadow-glass"
+            ? "bg-surface-1/90 backdrop-blur-xl border-b border-neon/[0.06] shadow-glass shadow-[0_1px_30px_rgba(255,23,68,0.05)]"
             : "bg-transparent"
         }`}
       >
@@ -161,7 +161,7 @@ export default function Navigation() {
                   aria-hidden="true"
                 />
                 {/* Logo dot glow on hover */}
-                <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-vermillion/20 blur-lg" aria-hidden="true" />
+                <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-neon/25 blur-lg" aria-hidden="true" />
               </div>
               <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em]">
                 VERMILLION <span className="text-vermillion">AXIS</span>
@@ -181,7 +181,7 @@ export default function Navigation() {
               <MagneticButton strength={0.25}>
                 <a
                   href="#contact"
-                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-medium btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase btn-glow transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   Start a Project
                 </a>
@@ -224,7 +224,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-lg flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-bg/90 backdrop-blur-xl flex items-center justify-center"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
@@ -260,7 +260,7 @@ export default function Navigation() {
                 transition={{ delay: 0.4, ease }}
                 className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-white font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50"
                 style={{
-                  boxShadow: "0 0 20px rgba(192, 48, 48, 0.3)",
+                  boxShadow: "0 0 25px rgba(255, 23, 68, 0.3)",
                 }}
               >
                 Start a Project

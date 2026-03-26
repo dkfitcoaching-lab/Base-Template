@@ -25,7 +25,7 @@ const initialFormData: FormData = {
 };
 
 const inputClasses =
-  "w-full bg-white/[0.03] border border-white/[0.06] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption focus:outline-none focus:border-vermillion/50 focus:shadow-[0_0_15px_rgba(192,48,48,0.15)] transition-all duration-300";
+  "w-full bg-white/[0.03] border border-neon/[0.08] rounded-btn px-4 py-3 text-text-primary font-body text-sm placeholder:text-text-caption focus:outline-none focus:border-neon/40 focus:shadow-[0_0_20px_rgba(255,23,68,0.12)] transition-all duration-300";
 
 const labelClasses =
   "block text-sm font-heading text-text-secondary uppercase tracking-wide mb-2";
@@ -97,7 +97,7 @@ export default function ContactForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease }}
-        className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] rounded-hero p-8 sm:p-12 text-center"
+        className="gothic-card rounded-hero p-8 sm:p-12 text-center"
       >
         {/* Animated checkmark with ring draw-in */}
         <motion.div
@@ -117,7 +117,7 @@ export default function ContactForm() {
               cx="40"
               cy="40"
               r="36"
-              stroke="#C03030"
+              stroke="#FF1744"
               strokeWidth="2"
               fill="none"
               strokeLinecap="round"
@@ -130,12 +130,12 @@ export default function ContactForm() {
               cx="40"
               cy="40"
               r="36"
-              fill="rgba(192, 48, 48, 0.08)"
+              fill="rgba(255, 23, 68, 0.08)"
             />
             {/* Checkmark */}
             <motion.path
               d="M26 40 L36 50 L54 32"
-              stroke="#C03030"
+              stroke="#FF1744"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -178,7 +178,7 @@ export default function ContactForm() {
 
   /* ── Form ── */
   return (
-    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] rounded-hero p-6 sm:p-8 lg:p-10 shadow-glass">
+    <div className="gothic-card neon-border-flow rounded-hero p-6 sm:p-8 lg:p-10">
       <form onSubmit={handleSubmit} className="text-left space-y-6">
         {/* Name / Email — two-column on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -307,7 +307,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="shimmer-btn w-full sm:w-auto px-12 py-4 rounded-btn bg-vermillion text-white font-heading font-semibold text-base tracking-wide hover:shadow-[0_0_40px_rgba(192,48,48,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vermillion/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed"
+            className="shimmer-btn w-full sm:w-auto px-12 py-4 rounded-btn bg-vermillion text-white font-heading font-semibold text-base tracking-wide hover:shadow-neon-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {status === "submitting" ? "Submitting..." : "Get Started"}
           </button>

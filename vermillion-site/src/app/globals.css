@@ -25,7 +25,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.045;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -52,7 +52,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(180, 43, 43, 0.3);
+  background: rgba(255, 23, 68, 0.25);
   color: #E8E8F0;
 }
 
@@ -72,7 +72,7 @@ body {
 
 /* Focus-visible for keyboard accessibility */
 *:focus-visible {
-  outline: 2px solid #B42B2B;
+  outline: 2px solid #FF1744;
   outline-offset: 2px;
 }
 
@@ -82,7 +82,46 @@ body {
   }
 }
 
-/* ── Section divider glow ── */
+/* ═══════════════════════════════════════════════════
+   CONTINUOUS PAGE BACKGROUND — Dual-tone depth
+   Warm neon crimson focal points over cool indigo depth
+   ═══════════════════════════════════════════════════ */
+.page-bg {
+  background:
+    /* Warm neon crimson focal points at key content areas */
+    radial-gradient(ellipse 80% 30% at 50% 0%, rgba(255,23,68,0.04), transparent 60%),
+    radial-gradient(ellipse 60% 20% at 50% 30%, rgba(255,23,68,0.025), transparent 50%),
+    radial-gradient(ellipse 70% 25% at 50% 70%, rgba(255,23,68,0.035), transparent 55%),
+    radial-gradient(ellipse 80% 30% at 50% 95%, rgba(255,23,68,0.05), transparent 50%),
+    /* Deep violet atmospheric depth — cyberpunk cathedral */
+    radial-gradient(ellipse 100% 60% at 20% 10%, rgba(75,20,120,0.05), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 80% 40%, rgba(75,20,120,0.04), transparent 60%),
+    radial-gradient(ellipse 90% 50% at 30% 75%, rgba(75,20,120,0.045), transparent 65%),
+    radial-gradient(ellipse 80% 50% at 70% 90%, rgba(50,15,80,0.04), transparent 65%),
+    /* Deep indigo undertone */
+    radial-gradient(ellipse 120% 80% at 50% 50%, rgba(15,10,30,0.5), transparent 80%),
+    #0A0A0E;
+}
+
+/* ═══════════════════════════════════════════════════
+   CIRCUIT PATTERN OVERLAY — Atmospheric tech grid
+   ═══════════════════════════════════════════════════ */
+.circuit-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image:
+    linear-gradient(rgba(255,23,68,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px),
+    radial-gradient(circle 2px at center, rgba(255,23,68,0.6) 0%, transparent 100%);
+  background-size: 80px 80px, 80px 80px, 80px 80px;
+}
+
+/* ═══════════════════════════════════════════════════
+   SECTION DIVIDERS & HIGHLIGHTS
+   ═══════════════════════════════════════════════════ */
 .section-glow-divider {
   position: relative;
 }
@@ -93,11 +132,17 @@ body {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(180, 43, 43, 0.12), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.15), transparent);
   pointer-events: none;
 }
 
-/* ── Premium animation keyframes ── */
+.section-highlight {
+  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255, 23, 68, 0.025), transparent 70%);
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATION KEYFRAMES
+   ═══════════════════════════════════════════════════ */
 @keyframes grain {
   0% { background-position: 0 0; }
   25% { background-position: -128px 64px; }
@@ -129,7 +174,112 @@ body {
   50% { background-position: 100% 50%; }
 }
 
-/* ── Premium utility classes ── */
+@keyframes neon-pulse {
+  0%, 100% { opacity: 0.6; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.2); }
+}
+
+@keyframes neon-flicker {
+  0% { opacity: 0.4; }
+  20% { opacity: 1; }
+  40% { opacity: 0.7; }
+  60% { opacity: 1; }
+  80% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+@keyframes pulse-ambient {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes data-flow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes border-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════
+   GOTHIC CARD — Signature card style
+   Dark gradient + neon-tinted borders + hover glow
+   ═══════════════════════════════════════════════════ */
+.gothic-card {
+  background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(10,10,14,0.98));
+  border: 1px solid rgba(255,23,68,0.06);
+  box-shadow: 0 0 0 1px rgba(255,23,68,0.02), 0 4px 24px rgba(0,0,0,0.4);
+  border-radius: 12px;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gothic-card:hover {
+  border-color: rgba(255,23,68,0.18);
+  box-shadow: 0 0 25px rgba(255,23,68,0.06), 0 0 0 1px rgba(255,23,68,0.08), 0 8px 40px rgba(0,0,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════
+   NEON TEXT GLOW — For key headings & stat numbers
+   ═══════════════════════════════════════════════════ */
+.text-neon-glow {
+  text-shadow: 0 0 20px rgba(255,23,68,0.3), 0 0 40px rgba(255,23,68,0.1);
+}
+
+.text-neon-glow-subtle {
+  text-shadow: 0 0 12px rgba(255,23,68,0.2), 0 0 24px rgba(255,23,68,0.06);
+}
+
+/* ═══════════════════════════════════════════════════
+   NEON BORDER FLOW — Animated traveling-light border
+   Uses a rotating conic gradient masked to border only
+   ═══════════════════════════════════════════════════ */
+.neon-border-flow {
+  position: relative;
+  overflow: visible;
+}
+.neon-border-flow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255,23,68,0.5) 45%,
+    rgba(255,23,68,0.8) 50%,
+    rgba(255,23,68,0.5) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 1px;
+  animation: border-rotate 4s linear infinite;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   PREMIUM TEXT GRADIENT — Neon vermillion
+   ═══════════════════════════════════════════════════ */
+.text-gradient-vermillion {
+  background: linear-gradient(135deg, #FF1744, #D44040, #B42B2B, #FF1744);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════
+   PREMIUM BUTTON EFFECTS
+   ═══════════════════════════════════════════════════ */
 .shimmer-btn {
   position: relative;
   overflow: hidden;
@@ -154,59 +304,68 @@ body {
   animation: shimmer 3s ease-in-out infinite;
 }
 
+.btn-glow {
+  box-shadow: 0 0 15px rgba(255, 23, 68, 0.25), 0 0 5px rgba(255, 23, 68, 0.2);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 23, 68, 0.4), 0 0 10px rgba(255, 23, 68, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════
+   GLASS CARDS
+   ═══════════════════════════════════════════════════ */
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 23, 68, 0.05);
 }
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 23, 68, 0.1);
 }
 
-.glow-border {
-  box-shadow: 0 0 0 1px rgba(180, 43, 43, 0.1),
-              0 0 20px rgba(180, 43, 43, 0.05);
-}
-
-.glow-border:hover {
-  box-shadow: 0 0 0 1px rgba(180, 43, 43, 0.3),
-              0 0 30px rgba(180, 43, 43, 0.1);
-}
-
-.btn-glow {
-  box-shadow: 0 0 15px rgba(180, 43, 43, 0.2), 0 0 5px rgba(180, 43, 43, 0.15);
-  animation: glow-pulse 3s ease-in-out infinite;
-}
-.btn-glow:hover {
-  box-shadow: 0 0 30px rgba(180, 43, 43, 0.4), 0 0 10px rgba(180, 43, 43, 0.3);
-}
-
-/* ── Premium text gradient ── */
-.text-gradient-vermillion {
-  background: linear-gradient(135deg, #D44040, #B42B2B, #C03030);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ── Enhanced glass card hover ── */
 .glass-card-premium {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 23, 68, 0.06);
 }
 
 .glass-card-premium:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(180, 43, 43, 0.06);
+  border-color: rgba(255, 23, 68, 0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 23, 68, 0.06);
 }
 
-/* ── Section highlight background for visual variety ── */
-.section-highlight {
-  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(180, 43, 43, 0.03), transparent 70%);
+/* ═══════════════════════════════════════════════════
+   GLOW BORDERS
+   ═══════════════════════════════════════════════════ */
+.glow-border {
+  box-shadow: 0 0 0 1px rgba(255, 23, 68, 0.1),
+              0 0 20px rgba(255, 23, 68, 0.05);
+}
+
+.glow-border:hover {
+  box-shadow: 0 0 0 1px rgba(255, 23, 68, 0.3),
+              0 0 30px rgba(255, 23, 68, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════
+   HOLOGRAPHIC SHIMMER — Premium surface effect
+   ═══════════════════════════════════════════════════ */
+.holographic-shimmer {
+  background: linear-gradient(
+    135deg,
+    rgba(255,23,68,0.08) 0%,
+    rgba(255,255,255,0.03) 20%,
+    rgba(75,20,120,0.08) 40%,
+    rgba(255,255,255,0.03) 60%,
+    rgba(255,23,68,0.06) 80%,
+    rgba(75,20,120,0.05) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease infinite;
 }

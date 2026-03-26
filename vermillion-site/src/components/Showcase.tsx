@@ -73,7 +73,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
       <div
         className="absolute -inset-1 rounded-hero opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-xl"
         style={{
-          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(192, 48, 48, 0.15), transparent 60%)`,
+          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.15), transparent 60%)`,
         }}
         aria-hidden="true"
       />
@@ -108,7 +108,7 @@ export default function Showcase() {
   const transforms = [yTransform0, yTransform1, yTransform2, yTransform3, yTransform4, yTransform5];
 
   return (
-    <section ref={sectionRef} id="work" className="py-24 lg:py-32 section-glow-divider" aria-labelledby="showcase-heading">
+    <section ref={sectionRef} id="work" className="py-24 lg:py-32" aria-labelledby="showcase-heading">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -145,9 +145,9 @@ export default function Showcase() {
               className={index === 0 ? "sm:col-span-2 lg:col-span-2" : ""}
             >
               <TiltCard>
-                <div className="relative">
+                <div className="relative gothic-card rounded-card overflow-hidden">
                   {"category" in item && item.category && (
-                    <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-vermillion bg-vermillion/10 border border-vermillion/20 rounded-full backdrop-blur-sm">
+                    <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-neon bg-neon/10 border border-neon/20 rounded-full backdrop-blur-sm">
                       {item.category}
                     </span>
                   )}

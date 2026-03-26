@@ -15,7 +15,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-32 lg:py-40 bg-surface-1/30" aria-labelledby="faq-heading">
+    <section id="faq" className="py-20 lg:py-24" aria-labelledby="faq-heading">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -24,7 +24,7 @@ export default function FAQ() {
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
         >
-          <p className="text-overline text-vermillion uppercase font-heading mb-3">
+          <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
             Common Questions
           </p>
           <h2
@@ -48,7 +48,7 @@ export default function FAQ() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.5, ease }}
-                className="border-b border-border/40"
+                className={`border-b border-neon/[0.06] ${isOpen ? "border-l-2 border-l-neon" : ""}`}
               >
                 <button
                   id={buttonId}
@@ -65,7 +65,7 @@ export default function FAQ() {
                     transition={{ duration: 0.3, ease }}
                     className="flex-shrink-0"
                   >
-                    <ChevronDown className="w-5 h-5 text-text-secondary" aria-hidden="true" />
+                    <ChevronDown className={`w-5 h-5 ${isOpen ? "text-neon" : "text-text-secondary"}`} aria-hidden="true" />
                   </motion.span>
                 </button>
                 <AnimatePresence initial={false}>

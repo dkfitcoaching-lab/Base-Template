@@ -27,7 +27,7 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-32 lg:py-40 bg-surface-1/30"
+      className="py-32 lg:py-40"
       aria-labelledby="process-heading"
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -57,12 +57,18 @@ export default function Process() {
             className="absolute left-[27px] top-0 bottom-0 w-px origin-top"
             style={{
               background:
-                "linear-gradient(to bottom, #C03030 0%, #C03030 30%, #2A2A38 70%, transparent 100%)",
+                "linear-gradient(to bottom, #FF1744 0%, #FF1744 30%, rgba(75,20,120,0.3) 70%, transparent 100%)",
             }}
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden="true"
+          />
+
+          {/* Traveling light dot */}
+          <div
+            className="absolute left-[25px] w-[5px] h-[5px] rounded-full bg-neon shadow-[0_0_10px_rgba(255,23,68,0.6)] animate-scan-line opacity-80"
             aria-hidden="true"
           />
 
@@ -81,13 +87,13 @@ export default function Process() {
               >
                 {/* Step number circle */}
                 <div
-                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-vermillion/40
+                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-neon/30
                     flex items-center justify-center relative z-10
-                    group-hover:bg-vermillion/10 group-hover:border-vermillion group-hover:shadow-[0_0_20px_rgba(192,48,48,0.2)]
+                    group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_20px_rgba(255,23,68,0.25)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >
-                  <span className="font-heading font-bold text-sm text-vermillion tracking-wider">
+                  <span className="font-heading font-bold text-sm text-neon tracking-wider">
                     {step.step}
                   </span>
                 </div>
@@ -97,7 +103,7 @@ export default function Process() {
                   className="flex-1 pt-1 pb-2 px-5 -ml-1 rounded-card
                     border border-transparent
                     group-hover:bg-white/[0.02] group-hover:backdrop-blur-sm
-                    group-hover:border-white/[0.06]
+                    group-hover:border-neon/[0.06]
                     transition-all duration-500"
                 >
                   <div className="flex items-baseline gap-3 mb-2">

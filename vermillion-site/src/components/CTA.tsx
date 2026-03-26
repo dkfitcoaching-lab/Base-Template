@@ -11,6 +11,8 @@ const particles = [
   { size: 4, x: "85%", y: "25%", duration: 9, delay: 1.5, opacity: 0.35 },
   { size: 8, x: "78%", y: "72%", duration: 8, delay: 0.8, opacity: 0.2 },
   { size: 5, x: "8%", y: "68%", duration: 10, delay: 2, opacity: 0.3 },
+  { size: 3, x: "45%", y: "12%", duration: 11, delay: 0.5, opacity: 0.3 },
+  { size: 7, x: "92%", y: "55%", duration: 8.5, delay: 1, opacity: 0.2 },
 ];
 
 export default function CTA() {
@@ -21,25 +23,30 @@ export default function CTA() {
       aria-labelledby="cta-heading"
     >
       {/* ── Layered background gradients ── */}
-      {/* Primary vermillion radial glow */}
+      {/* Primary neon radial glow */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_45%,rgba(192,48,48,0.12),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_45%,rgba(255,23,68,0.15),transparent_70%)]"
         aria-hidden="true"
       />
       {/* Secondary softer ambient glow */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_50%,rgba(192,48,48,0.05),transparent_80%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_50%,rgba(255,23,68,0.06),transparent_80%)]"
         aria-hidden="true"
       />
       {/* Top edge accent */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_20%_at_50%_0%,rgba(192,48,48,0.06),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_20%_at_50%_0%,rgba(255,23,68,0.08),transparent_60%)]"
+        aria-hidden="true"
+      />
+      {/* Dramatic full-width neon pulse */}
+      <div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_50%,rgba(255,23,68,0.04),transparent_70%)] animate-pulse-ambient"
         aria-hidden="true"
       />
 
       {/* ── Subtle grid pattern overlay ── */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(232,232,240,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(232,232,240,0.4) 1px, transparent 1px)",
@@ -52,7 +59,7 @@ export default function CTA() {
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-vermillion blur-sm pointer-events-none"
+          className="absolute rounded-full bg-neon blur-sm shadow-neon-sm pointer-events-none"
           style={{
             width: p.size,
             height: p.size,
