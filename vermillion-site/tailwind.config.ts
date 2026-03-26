@@ -16,11 +16,11 @@ const config: Config = {
           3: "#1A1A1A",
         },
         vermillion: {
-          DEFAULT: "#B42B2B",
-          light: "#D44040",
+          DEFAULT: "#FF1744",
+          light: "#FF3D5A",
           glow: "rgba(255, 23, 68, 0.15)",
-          dark: "#7A1C1C",
-          muted: "#963333",
+          dark: "#C62828",
+          muted: "#D44040",
         },
         neon: {
           DEFAULT: "#FF1744",

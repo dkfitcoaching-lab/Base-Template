@@ -19,7 +19,7 @@ export const SERVICE_OPTIONS = [
 
 export const NAV_LINKS = [
   { label: "Portfolio", href: "#work" },
-  { label: "Solutions", href: "#services" },
+  { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },

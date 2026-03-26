@@ -16,7 +16,7 @@ export default function Footer() {
       />
 
       {/* Full logo lockup */}
-      <div className="flex justify-center pt-10 pb-6 relative">
+      <div className="flex flex-col items-center pt-10 pb-6 relative">
         <div className="relative">
           <img
             src="/logo-full.svg"
@@ -29,7 +29,7 @@ export default function Footer() {
             aria-hidden="true"
           />
         </div>
-        <p className="text-xs text-text-caption tracking-[0.2em] uppercase font-heading mt-1">
+        <p className="text-xs text-text-caption tracking-[0.2em] uppercase font-heading mt-4">
           Engineering dominance. Delivered.
         </p>
       </div>
@@ -57,7 +57,7 @@ export default function Footer() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
-                  className="relative text-sm text-text-caption hover:text-neon transition-colors duration-300 tracking-wider uppercase font-heading group py-2"
+                  className="relative text-sm text-text-caption hover:text-neon transition-colors duration-300 tracking-wider uppercase font-heading group py-2 focus-visible:outline-none focus-visible:text-neon focus-visible:underline underline-offset-4 rounded"
                 >
                   {link.label}
                   {/* Sliding underline */}
@@ -78,7 +78,7 @@ export default function Footer() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               aria-label="Back to top"
-              className="group flex items-center gap-2"
+              className="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded-full"
             >
               <span className="tracking-wider uppercase font-heading hidden sm:inline text-xs text-text-caption group-hover:text-text-secondary transition-colors duration-300">
                 Top
@@ -107,7 +107,7 @@ export default function Footer() {
               className="w-px h-3 bg-border/50"
               aria-hidden="true"
             />
-            <a href="mailto:contact@vermillionaxis.tech" className="hover:text-neon transition-colors duration-300">contact@vermillionaxis.tech</a>
+            <a href="mailto:contact@vermillionaxis.tech" className="hover:text-neon transition-colors duration-300 focus-visible:outline-none focus-visible:text-neon focus-visible:underline underline-offset-4 rounded">contact@vermillionaxis.tech</a>
             <span className="w-px h-3 bg-border/50" aria-hidden="true" />
             <span>&copy; {new Date().getFullYear()}</span>
           </motion.div>

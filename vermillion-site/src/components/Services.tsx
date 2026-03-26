@@ -239,7 +239,7 @@ export default function Services() {
                     {/* CTA Button */}
                     <a
                       href="#contact"
-                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] ${
+                      className={`group/btn relative flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg text-sm font-heading font-semibold tracking-wide uppercase transition-all duration-300 overflow-hidden active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${
                         isHighlighted
                           ? "bg-vermillion text-white hover:shadow-neon-md hover:bg-vermillion/90"
                           : "border border-border/60 text-text-primary hover:border-neon/50 hover:text-neon hover:shadow-neon-sm"
