@@ -71,9 +71,9 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     >
       {/* Dynamic glow that follows cursor */}
       <div
-        className="absolute -inset-1 rounded-hero opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-[100px]"
+        className="absolute -inset-2 rounded-hero opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
         style={{
-          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.22), transparent 60%)`,
+          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.55), rgba(255, 23, 68, 0.15) 40%, transparent 65%)`,
         }}
         aria-hidden="true"
       />
@@ -109,7 +109,7 @@ export default function Showcase() {
 
   return (
     <section ref={sectionRef} id="work" className="py-24 lg:py-32" aria-labelledby="showcase-heading">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -145,7 +145,7 @@ export default function Showcase() {
               className={index === 0 ? "sm:col-span-2 lg:col-span-2" : ""}
             >
               <TiltCard>
-                <div className="relative gothic-card rounded-card overflow-hidden">
+                <div className="relative gothic-card neon-glow-border rounded-card overflow-hidden">
                   {"category" in item && item.category && (
                     <span className="absolute top-3 right-3 z-20 px-2.5 py-1 text-[10px] font-heading font-semibold uppercase tracking-wider text-neon bg-neon/10 border border-neon/20 rounded-full backdrop-blur-sm">
                       {item.category}

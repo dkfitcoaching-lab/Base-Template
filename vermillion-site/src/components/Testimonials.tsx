@@ -34,8 +34,8 @@ export default function Testimonials() {
   const [featured, ...rest] = TESTIMONIALS;
 
   return (
-    <section id="testimonials" className="py-32 lg:py-40" aria-labelledby="testimonials-heading">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="testimonials" className="py-20 sm:py-32 lg:py-40" aria-labelledby="testimonials-heading">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ export default function Testimonials() {
           {/* Featured testimonial — full width, larger */}
           <motion.blockquote
             variants={itemVariants}
-            className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow overflow-hidden"
+            className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow neon-glow-border overflow-hidden"
           >
             {/* Decorative oversized quote mark */}
             <span
@@ -79,7 +79,7 @@ export default function Testimonials() {
 
             <div className="relative">
               <StarRating />
-              <p className="text-text-body text-lg lg:text-xl leading-relaxed mb-8 max-w-4xl">
+              <p className="text-text-body text-base sm:text-lg lg:text-xl leading-relaxed mb-8 max-w-4xl">
                 &ldquo;{featured.quote}&rdquo;
               </p>
 
@@ -107,7 +107,7 @@ export default function Testimonials() {
               <motion.blockquote
                 key={t.name}
                 variants={itemVariants}
-                className="relative p-6 lg:p-8 rounded-card gothic-card border-l border-l-neon/[0.06] hover:border-l-neon/20"
+                className="relative p-6 lg:p-8 rounded-card gothic-card neon-glow-border border-l border-l-neon/[0.06] hover:border-l-neon/20"
               >
                 {/* Decorative quote mark */}
                 <span

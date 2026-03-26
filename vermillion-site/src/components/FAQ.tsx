@@ -16,7 +16,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-20 lg:py-24" aria-labelledby="faq-heading">
-      <div className="max-w-3xl mx-auto px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function FAQ() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.5, ease }}
-                className={`border-b border-neon/[0.06] ${isOpen ? "border-l-2 border-l-neon" : ""}`}
+                className={`border-b border-neon/[0.06] transition-all duration-300 ${isOpen ? "border-l-2 border-l-neon shadow-[inset_4px_0_20px_rgba(255,23,68,0.15),0_0_25px_rgba(255,23,68,0.1),0_0_50px_rgba(255,23,68,0.04)] bg-neon/[0.03]" : ""}`}
               >
                 <button
                   id={buttonId}

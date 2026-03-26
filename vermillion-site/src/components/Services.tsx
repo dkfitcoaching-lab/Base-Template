@@ -58,7 +58,7 @@ export default function Services() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -125,8 +125,8 @@ export default function Services() {
                   transition={{ duration: 0.35, ease }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow"
-                      : "border-neon/[0.06] hover:border-neon/20 hover:shadow-neon-sm"
+                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow neon-pulse-border"
+                      : "neon-glow-border"
                   }`}
                 >
                   {/* Animated gradient border overlay on hover/select */}
@@ -166,7 +166,7 @@ export default function Services() {
                     aria-hidden="true"
                   />
 
-                  <div className="relative p-8">
+                  <div className="relative p-4 sm:p-6 lg:p-8">
                     {/* Tier name */}
                     <h3 className="font-heading font-bold text-lg text-text-primary tracking-wider uppercase mb-1">
                       {tier.name}
@@ -178,7 +178,7 @@ export default function Services() {
                         scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl text-neon text-neon-glow-subtle mb-3 origin-left"
+                      className="relative inline-block font-mono font-bold text-xl sm:text-2xl md:text-3xl text-neon text-neon-glow-subtle mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span

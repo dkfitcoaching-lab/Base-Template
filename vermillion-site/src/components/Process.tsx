@@ -27,10 +27,10 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-32 lg:py-40"
+      className="py-20 sm:py-32 lg:py-40"
       aria-labelledby="process-heading"
     >
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -54,7 +54,7 @@ export default function Process() {
         <div className="relative">
           {/* Animated vertical line */}
           <motion.div
-            className="absolute left-[27px] top-0 bottom-0 w-px origin-top"
+            className="absolute left-[21px] sm:left-[27px] top-0 bottom-0 w-px origin-top"
             style={{
               background:
                 "linear-gradient(to bottom, #FF1744 0%, #FF1744 30%, rgba(255,23,68,0.15) 70%, transparent 100%)",
@@ -68,7 +68,7 @@ export default function Process() {
 
           {/* Traveling light dot */}
           <div
-            className="absolute left-[25px] w-[6px] h-[6px] rounded-full bg-neon shadow-[0_0_20px_rgba(255,23,68,0.8),0_0_40px_rgba(255,23,68,0.4)] animate-scan-line"
+            className="absolute left-[19px] sm:left-[25px] w-[6px] h-[6px] rounded-full bg-neon shadow-[0_0_20px_rgba(255,23,68,0.8),0_0_40px_rgba(255,23,68,0.4)] animate-scan-line"
             aria-hidden="true"
           />
 
@@ -87,7 +87,7 @@ export default function Process() {
               >
                 {/* Step number circle */}
                 <div
-                  className="flex-shrink-0 w-14 h-14 rounded-full bg-surface-2 border border-neon/40
+                  className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-surface-2 border border-neon/40
                     flex items-center justify-center relative z-10
                     shadow-[0_0_20px_rgba(255,23,68,0.15)]
                     group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_30px_rgba(255,23,68,0.5),inset_0_0_10px_rgba(255,23,68,0.15)]
@@ -121,7 +121,7 @@ export default function Process() {
                       <span className="text-xs text-text-caption font-body">3–21 days</span>
                     )}
                   </div>
-                  <p className="text-text-secondary leading-relaxed">
+                  <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
                     {step.description}
                   </p>
                 </div>

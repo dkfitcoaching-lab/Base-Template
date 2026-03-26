@@ -10,142 +10,190 @@ const headlineLine1 = "Precision".split(" ");
 const headlineLine2 = "Engineered".split(" ");
 const headlineLine3 = "Software".split(" ");
 
-/* Breathing ambient orbs — neon crimson, 8 total for dense atmosphere */
+/* Breathing ambient orbs — neon crimson, 8 total with dramatic size variance */
 const ambientOrbs = [
-  { top: "5%", left: "10%", size: 500, duration: 8, delay: 0, color: "rgba(255,23,68,0.08)", opacity: [0.04, 0.14, 0.04] },
-  { top: "50%", right: "5%", size: 250, duration: 10, delay: 2, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.1, 0.03] },
-  { bottom: "10%", left: "3%", size: 200, duration: 7, delay: 1, color: "rgba(255,23,68,0.07)", opacity: [0.04, 0.16, 0.04] },
-  { top: "25%", right: "20%", size: 450, duration: 12, delay: 3, color: "rgba(255,23,68,0.05)", opacity: [0.03, 0.08, 0.03] },
-  { top: "70%", left: "40%", size: 150, duration: 6, delay: 0.5, color: "rgba(255,23,68,0.09)", opacity: [0.05, 0.18, 0.05] },
-  { top: "15%", right: "40%", size: 600, duration: 14, delay: 4, color: "rgba(255,23,68,0.04)", opacity: [0.02, 0.07, 0.02] },
-  { bottom: "25%", right: "15%", size: 180, duration: 9, delay: 1.5, color: "rgba(255,23,68,0.08)", opacity: [0.04, 0.15, 0.04] },
-  { top: "40%", left: "25%", size: 350, duration: 11, delay: 2.5, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.12, 0.03] },
+  { top: "2%", left: "5%", size: 700, duration: 9, delay: 0, color: "rgba(255,23,68,0.10)", opacity: [0.04, 0.18, 0.04] },
+  { top: "45%", right: "2%", size: 120, duration: 5, delay: 1.5, color: "rgba(255,23,68,0.14)", opacity: [0.06, 0.22, 0.06] },
+  { bottom: "8%", left: "2%", size: 280, duration: 7, delay: 1, color: "rgba(255,23,68,0.09)", opacity: [0.04, 0.2, 0.04] },
+  { top: "20%", right: "15%", size: 550, duration: 13, delay: 3, color: "rgba(255,23,68,0.06)", opacity: [0.03, 0.1, 0.03] },
+  { top: "65%", left: "35%", size: 90, duration: 4, delay: 0.5, color: "rgba(255,23,68,0.16)", opacity: [0.08, 0.28, 0.08] },
+  { top: "10%", right: "35%", size: 800, duration: 16, delay: 4, color: "rgba(255,23,68,0.04)", opacity: [0.02, 0.08, 0.02] },
+  { bottom: "20%", right: "10%", size: 60, duration: 3.5, delay: 0.8, color: "rgba(255,23,68,0.18)", opacity: [0.08, 0.3, 0.08] },
+  { top: "35%", left: "20%", size: 420, duration: 11, delay: 2.5, color: "rgba(255,23,68,0.07)", opacity: [0.03, 0.14, 0.03] },
 ];
 
-/* Gothic ornamental corner SVG — wrought iron pointed arch style */
+/* Gothic ornamental corner SVG — wrought iron pointed arch style, larger and more detailed */
 function GothicCorner({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="80"
-      height="80"
-      viewBox="0 0 80 80"
+      width="120"
+      height="120"
+      viewBox="0 0 120 120"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Outer pointed arch corner */}
       <path
-        d="M2 78 L2 30 Q2 10 20 2 L78 2"
+        d="M2 118 L2 40 Q2 12 28 2 L118 2"
         stroke="rgba(192,192,192,0.2)"
         strokeWidth="1.5"
         fill="none"
       />
       {/* Inner filigree line */}
       <path
-        d="M8 72 L8 34 Q8 16 24 8 L72 8"
+        d="M10 110 L10 46 Q10 20 34 10 L110 10"
         stroke="rgba(192,192,192,0.12)"
         strokeWidth="0.75"
         fill="none"
       />
+      {/* Third ornamental trace */}
+      <path
+        d="M18 102 L18 50 Q18 28 40 18 L102 18"
+        stroke="rgba(192,192,192,0.07)"
+        strokeWidth="0.5"
+        fill="none"
+      />
       {/* Pointed finial detail */}
       <path
-        d="M2 30 L6 26 L2 22"
-        stroke="rgba(192,192,192,0.18)"
+        d="M2 40 L8 34 L2 28"
+        stroke="rgba(192,192,192,0.2)"
+        strokeWidth="1"
+        fill="none"
+      />
+      {/* Second finial */}
+      <path
+        d="M2 56 L5 52 L2 48"
+        stroke="rgba(192,192,192,0.12)"
+        strokeWidth="0.75"
+        fill="none"
+      />
+      {/* Horizontal finial on top edge */}
+      <path
+        d="M40 2 L34 8 L28 2"
+        stroke="rgba(192,192,192,0.2)"
         strokeWidth="1"
         fill="none"
       />
       {/* Small trefoil ornament at corner junction */}
-      <circle cx="2" cy="2" r="2" fill="rgba(192,192,192,0.15)" />
+      <circle cx="2" cy="2" r="3" fill="rgba(192,192,192,0.18)" />
       <path
-        d="M12 2 Q12 12 2 12"
+        d="M16 2 Q16 16 2 16"
         stroke="rgba(192,192,192,0.15)"
         strokeWidth="0.75"
         fill="none"
       />
+      {/* Cross ornament near corner */}
+      <line x1="2" y1="8" x2="8" y2="2" stroke="rgba(192,192,192,0.1)" strokeWidth="0.5" />
+      {/* Rose window micro detail */}
+      <circle cx="24" cy="24" r="4" stroke="rgba(192,192,192,0.08)" strokeWidth="0.5" fill="none" />
+      <circle cx="24" cy="24" r="2" stroke="rgba(192,192,192,0.06)" strokeWidth="0.4" fill="none" />
     </svg>
   );
 }
 
-/* Animated ornamental corner brackets for headline area */
+/* Animated ornamental corner brackets for headline area — chrome with neon hint */
 function HeadlineBracket({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <motion.svg
-      className={className}
+      className={`w-8 h-8 sm:w-[52px] sm:h-[52px] ${className || ""}`}
       style={style}
-      width="40"
-      height="40"
-      viewBox="0 0 40 40"
+      viewBox="0 0 52 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0, scale: 0.3 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, delay: 1.8, ease }}
+      transition={{ duration: 1, delay: 1.8, ease }}
     >
+      {/* Outer bracket */}
       <path
-        d="M2 38 L2 8 Q2 2 8 2 L38 2"
-        stroke="rgba(200,200,200,0.3)"
+        d="M2 50 L2 10 Q2 2 10 2 L50 2"
+        stroke="rgba(200,200,200,0.35)"
         strokeWidth="1.5"
         fill="none"
       />
+      {/* Inner bracket */}
       <path
-        d="M6 34 L6 10 Q6 6 10 6 L34 6"
-        stroke="rgba(200,200,200,0.15)"
+        d="M7 45 L7 12 Q7 7 12 7 L45 7"
+        stroke="rgba(200,200,200,0.18)"
         strokeWidth="0.75"
         fill="none"
       />
       {/* Chrome dot accent */}
-      <circle cx="2" cy="2" r="1.5" fill="rgba(200,200,200,0.25)" />
+      <circle cx="2" cy="2" r="2" fill="rgba(200,200,200,0.3)" />
+      {/* Neon dot at inner corner */}
+      <motion.circle
+        cx="7"
+        cy="7"
+        r="1"
+        fill="rgba(255,23,68,0.5)"
+        animate={{ opacity: [0.3, 0.8, 0.3] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+      />
+      {/* Finial tick marks */}
+      <line x1="2" y1="18" x2="5" y2="15" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
+      <line x1="18" y1="2" x2="15" y2="5" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
     </motion.svg>
   );
 }
 
-/* Scan line sweep effect */
+/* Scan line sweep effect — more dramatic width and glow */
 function ScanLine() {
   return (
     <motion.div
-      className="absolute left-0 right-0 h-[2px] pointer-events-none z-20"
+      className="absolute left-0 right-0 h-[3px] pointer-events-none z-20"
       style={{
-        background: "linear-gradient(90deg, transparent 0%, rgba(255,23,68,0.15) 20%, rgba(255,23,68,0.4) 50%, rgba(255,23,68,0.15) 80%, transparent 100%)",
-        boxShadow: "0 0 20px rgba(255,23,68,0.3), 0 0 60px rgba(255,23,68,0.1)",
+        background: "linear-gradient(90deg, transparent 0%, rgba(255,23,68,0.1) 10%, rgba(255,23,68,0.25) 30%, rgba(255,23,68,0.5) 50%, rgba(255,23,68,0.25) 70%, rgba(255,23,68,0.1) 90%, transparent 100%)",
+        boxShadow: "0 0 30px rgba(255,23,68,0.4), 0 0 80px rgba(255,23,68,0.15), 0 -4px 16px rgba(255,23,68,0.1), 0 4px 16px rgba(255,23,68,0.1)",
       }}
-      initial={{ top: "-2px" }}
+      initial={{ top: "-3px" }}
       animate={{ top: ["0%", "100%"] }}
       transition={{
-        duration: 4,
+        duration: 3.5,
         repeat: Infinity,
-        repeatDelay: 3,
+        repeatDelay: 2.5,
         ease: "linear",
       }}
     />
   );
 }
 
-/* Dramatic vertical neon line from top */
+/* Dramatic vertical neon line from top — taller, more intense pulse */
 function VerticalNeonLine() {
   return (
     <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 pointer-events-none" aria-hidden="true">
       <motion.div
         className="w-[1px] origin-top"
         style={{
-          background: "linear-gradient(180deg, rgba(255,23,68,0.6) 0%, rgba(255,23,68,0.2) 60%, transparent 100%)",
-          boxShadow: "0 0 8px rgba(255,23,68,0.4), 0 0 20px rgba(255,23,68,0.2), 0 0 40px rgba(255,23,68,0.1)",
+          background: "linear-gradient(180deg, rgba(255,23,68,0.8) 0%, rgba(255,23,68,0.4) 40%, rgba(255,23,68,0.15) 70%, transparent 100%)",
+          boxShadow: "0 0 12px rgba(255,23,68,0.5), 0 0 30px rgba(255,23,68,0.25), 0 0 60px rgba(255,23,68,0.12), 0 0 100px rgba(255,23,68,0.06)",
         }}
         initial={{ height: 0, opacity: 0 }}
-        animate={{ height: 180, opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.3, ease }}
+        animate={{ height: 120, opacity: 1 }}
+        transition={{ duration: 1.8, delay: 0.2, ease }}
       />
       {/* Pulsing glow at the tip */}
       <motion.div
-        className="w-[3px] h-[3px] rounded-full -translate-x-[1px]"
+        className="w-[5px] h-[5px] rounded-full -translate-x-[2px]"
         style={{
-          background: "rgba(255,23,68,0.8)",
-          boxShadow: "0 0 10px rgba(255,23,68,0.6), 0 0 25px rgba(255,23,68,0.3)",
+          background: "rgba(255,23,68,0.9)",
+          boxShadow: "0 0 14px rgba(255,23,68,0.7), 0 0 35px rgba(255,23,68,0.4), 0 0 60px rgba(255,23,68,0.2)",
         }}
         animate={{
-          opacity: [0.4, 1, 0.4],
-          scale: [1, 1.8, 1],
+          opacity: [0.3, 1, 0.3],
+          scale: [1, 2.2, 1],
         }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Drip trail beneath the tip */}
+      <motion.div
+        className="w-[1px] origin-top"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,23,68,0.3) 0%, transparent 100%)",
+        }}
+        initial={{ height: 0 }}
+        animate={{ height: [0, 60, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
     </div>
   );
@@ -165,59 +213,90 @@ function AnimatedBackground() {
       {/* Deep black base */}
       <div className="absolute inset-0" style={{ background: "#050505" }} />
 
-      {/* Animated gradient mesh — neon crimson only */}
+      {/* Animated gradient mesh — neon crimson only, more intense */}
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 opacity-50"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(255,23,68,0.07), transparent 70%), " +
-            "radial-gradient(ellipse 40% 60% at 20% 60%, rgba(255,23,68,0.03), transparent 50%), " +
-            "radial-gradient(ellipse 50% 40% at 80% 30%, rgba(255,23,68,0.04), transparent 60%)",
+            "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(255,23,68,0.09), transparent 70%), " +
+            "radial-gradient(ellipse 40% 60% at 15% 60%, rgba(255,23,68,0.05), transparent 50%), " +
+            "radial-gradient(ellipse 50% 40% at 85% 30%, rgba(255,23,68,0.06), transparent 60%), " +
+            "radial-gradient(ellipse 30% 30% at 50% 80%, rgba(255,23,68,0.04), transparent 50%)",
           backgroundSize: "200% 200%",
           animation: "gradient-shift 8s ease infinite",
         }}
       />
 
-      {/* Gothic cathedral vignette — heavy darkness at edges */}
+      {/* Gothic cathedral vignette — extreme darkness at edges */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, transparent 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.9) 100%)",
+            "radial-gradient(ellipse 55% 45% at 50% 50%, transparent 20%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.85) 75%, rgba(0,0,0,0.97) 100%)",
         }}
       />
 
-      {/* Grid lines with scroll parallax — neon tinted */}
+      {/* Secondary vignette — top and bottom crushing darkness */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.7) 100%)",
+        }}
+      />
+
+      {/* Grid lines with scroll parallax — neon tinted, finer */}
+      <div
+        className="absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,23,68,0.35) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,23,68,0.35) 1px, transparent 1px)
+            linear-gradient(rgba(255,23,68,0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px)
           `,
-          backgroundSize: "80px 80px",
+          backgroundSize: "60px 60px",
           transform: `translateY(${scrollY * 0.1}px)`,
         }}
       />
 
-      {/* CRT scan line overlay */}
+      {/* Diagonal cross-hatch overlay for industrial texture */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
-          background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,23,68,0.02) 2px, rgba(255,23,68,0.02) 4px)",
-          opacity: 0.3,
+          backgroundImage: `
+            linear-gradient(45deg, rgba(192,192,192,0.3) 1px, transparent 1px),
+            linear-gradient(-45deg, rgba(192,192,192,0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
         }}
       />
 
-      {/* Breathing ambient orbs — 8 total */}
+      {/* CRT scan line overlay — denser */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "repeating-linear-gradient(0deg, transparent, transparent 1.5px, rgba(255,23,68,0.025) 1.5px, rgba(255,23,68,0.025) 3px)",
+          opacity: 0.4,
+        }}
+      />
+
+      {/* Noise/grain texture via CSS */}
+      <div
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.08]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px 128px",
+        }}
+      />
+
+      {/* Breathing ambient orbs — 8 total with wild size variance */}
       {ambientOrbs.map((orb, i) => (
         <motion.div
           key={i}
           animate={{
-            y: [0, i % 2 === 0 ? -25 : 18, 0],
-            x: [0, i % 3 === 0 ? 12 : -10, 0],
+            y: [0, i % 2 === 0 ? -30 : 22, 0],
+            x: [0, i % 3 === 0 ? 15 : -12, 0],
             opacity: orb.opacity,
-            scale: [1, 1.2, 1],
+            scale: [1, 1.3, 1],
           }}
           transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
           className="absolute rounded-full blur-[120px]"
@@ -250,10 +329,10 @@ function WordReveal({
       {words.map((word, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0, y: 30, clipPath: "inset(100% 0 0 0)" }}
+          initial={{ opacity: 0, y: 40, clipPath: "inset(100% 0 0 0)" }}
           animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
           transition={{
-            duration: 0.5,
+            duration: 0.6,
             delay: startDelay + i * 0.08,
             ease,
           }}
@@ -276,7 +355,7 @@ const techStack = [
 
 function TechMarquee() {
   return (
-    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-16" aria-hidden="true">
+    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-10 sm:mt-16" aria-hidden="true">
       {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
@@ -303,7 +382,7 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
   return (
     <a
       href={href}
-      className="shimmer-btn relative overflow-hidden px-8 py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="shimmer-btn relative overflow-hidden px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="relative z-10">{children}</span>
       <span
@@ -320,16 +399,42 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
   );
 }
 
+/* Gothic cathedral divider ornament */
+function GothicDivider({ delay }: { delay: number }) {
+  return (
+    <motion.div
+      initial={{ scaleX: 0, opacity: 0 }}
+      animate={{ scaleX: 1, opacity: 1 }}
+      transition={{ duration: 1, delay, ease }}
+      className="flex items-center justify-center gap-3 max-w-[320px] mx-auto mb-8"
+    >
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
+      {/* Central ornament — gothic diamond */}
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+        <path d="M8 1 L15 8 L8 15 L1 8 Z" stroke="rgba(255,23,68,0.5)" strokeWidth="1" fill="none" />
+        <path d="M8 4 L12 8 L8 12 L4 8 Z" stroke="rgba(192,192,192,0.2)" strokeWidth="0.5" fill="none" />
+        <motion.circle
+          cx="8" cy="8" r="1.5"
+          fill="rgba(255,23,68,0.6)"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </svg>
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   /* Logo reveal timing */
   const logoDelay = 0.2;
   const glowDelay = logoDelay + 0.4;
-  const wordBaseDelay = glowDelay + 0.6;
+  const wordBaseDelay = glowDelay + 0.7;
   const line2Delay = wordBaseDelay + headlineLine1.length * 0.08 + 0.05;
   const line3Delay = line2Delay + headlineLine2.length * 0.08 + 0.05;
   const accentLineDelay = line3Delay + headlineLine3.length * 0.08 + 0.1;
-  const subtextDelay = accentLineDelay + 0.3;
-  const ctaDelay = subtextDelay + 0.3;
+  const subtextDelay = accentLineDelay + 0.4;
+  const ctaDelay = subtextDelay + 0.35;
 
   return (
     <section
@@ -342,52 +447,94 @@ export default function Hero() {
       <VerticalNeonLine />
 
       {/* ── Gothic Ornamental Corner Framing ── */}
-      <div className="absolute inset-0 pointer-events-none z-10" aria-hidden="true">
+      <div className="hidden sm:block absolute inset-0 pointer-events-none z-10" aria-hidden="true">
         {/* Top-left */}
-        <GothicCorner className="absolute top-6 left-6" />
+        <GothicCorner className="absolute top-4 left-4" />
         {/* Top-right */}
-        <GothicCorner className="absolute top-6 right-6 -scale-x-100" />
+        <GothicCorner className="absolute top-4 right-4 -scale-x-100" />
         {/* Bottom-left */}
-        <GothicCorner className="absolute bottom-6 left-6 -scale-y-100" />
+        <GothicCorner className="absolute bottom-4 left-4 -scale-y-100" />
         {/* Bottom-right */}
-        <GothicCorner className="absolute bottom-6 right-6 -scale-x-100 -scale-y-100" />
+        <GothicCorner className="absolute bottom-4 right-4 -scale-x-100 -scale-y-100" />
+
+        {/* Connecting border lines between corners — subtle silver */}
+        <motion.div
+          className="absolute top-4 left-[124px] right-[124px] h-px"
+          style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.5, delay: 0.5, ease }}
+        />
+        <motion.div
+          className="absolute bottom-4 left-[124px] right-[124px] h-px"
+          style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.5, delay: 0.5, ease }}
+        />
+        <motion.div
+          className="absolute left-4 top-[124px] bottom-[124px] w-px"
+          style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.5, delay: 0.6, ease }}
+        />
+        <motion.div
+          className="absolute right-4 top-[124px] bottom-[124px] w-px"
+          style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.5, delay: 0.6, ease }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* ── Full Logo — Dramatic Centered Reveal with intense neon underglow ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        {/* ── Full Logo — Dramatic Centered Reveal with intense neon underglow & flicker ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: logoDelay, ease }}
-          className="relative mx-auto mb-12 w-[280px] sm:w-[360px] lg:w-[440px]"
+          transition={{ duration: 1.2, delay: logoDelay, ease }}
+          className="relative mx-auto mb-8 sm:mb-14 w-[240px] sm:w-[380px] md:w-[420px] lg:w-[520px]"
         >
-          {/* Intense multi-layer neon underglow */}
+          {/* Intense multi-layer neon underglow — outermost layer */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5, delay: glowDelay, ease }}
-            className="absolute -inset-16 sm:-inset-20 lg:-inset-28 pointer-events-none"
+            className="absolute -inset-20 sm:-inset-28 lg:-inset-36 pointer-events-none"
             aria-hidden="true"
           >
             <div
               className="w-full h-full rounded-full"
               style={{
-                background: "radial-gradient(ellipse at center, rgba(255,23,68,0.25) 0%, rgba(255,23,68,0.10) 30%, rgba(255,23,68,0.03) 60%, transparent 80%)",
-                filter: "drop-shadow(0 0 60px rgba(255,23,68,0.2)) drop-shadow(0 0 100px rgba(255,23,68,0.1))",
+                background: "radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(255,23,68,0.14) 25%, rgba(255,23,68,0.05) 50%, rgba(255,23,68,0.01) 70%, transparent 85%)",
+                filter: "drop-shadow(0 0 80px rgba(255,23,68,0.25)) drop-shadow(0 0 140px rgba(255,23,68,0.12))",
               }}
             />
           </motion.div>
           {/* Secondary pulsing glow ring */}
           <motion.div
-            className="absolute -inset-10 sm:-inset-14 lg:-inset-20 pointer-events-none rounded-full"
+            className="absolute -inset-12 sm:-inset-18 lg:-inset-24 pointer-events-none rounded-full"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(255,23,68,0.12) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse at center, rgba(255,23,68,0.18) 0%, transparent 65%)",
             }}
             animate={{
-              opacity: [0.3, 0.7, 0.3],
-              scale: [0.95, 1.05, 0.95],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.92, 1.08, 0.92],
             }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
+          {/* Tertiary rapid flicker glow */}
+          <motion.div
+            className="absolute -inset-6 sm:-inset-8 lg:-inset-12 pointer-events-none rounded-full"
+            style={{
+              background: "radial-gradient(ellipse at center, rgba(255,23,68,0.1) 0%, transparent 70%)",
+            }}
+            animate={{
+              opacity: [0.1, 0.5, 0.05, 0.4, 0.1],
+            }}
+            transition={{ duration: 0.3, repeat: Infinity, ease: "linear", delay: glowDelay + 1 }}
             aria-hidden="true"
           />
 
@@ -402,7 +549,7 @@ export default function Hero() {
             style={{
               animation: "neon-flicker 0.15s ease-in-out forwards",
               animationDelay: `${logoDelay + 0.3}s`,
-              filter: "drop-shadow(0 0 12px rgba(255,23,68,0.3))",
+              filter: "drop-shadow(0 0 20px rgba(255,23,68,0.4)) drop-shadow(0 0 40px rgba(255,23,68,0.15))",
             }}
           />
         </motion.div>
@@ -411,32 +558,32 @@ export default function Hero() {
         <div className="relative inline-block">
           {/* Ornamental chrome brackets — top-left */}
           <HeadlineBracket
-            className="absolute -top-4 -left-6 sm:-top-6 sm:-left-10"
+            className="absolute -top-5 -left-8 sm:-top-7 sm:-left-12"
           />
           {/* Top-right — flipped horizontally */}
           <HeadlineBracket
-            className="absolute -top-4 -right-6 sm:-top-6 sm:-right-10"
+            className="absolute -top-5 -right-8 sm:-top-7 sm:-right-12"
             style={{ transform: "scaleX(-1)" }}
           />
           {/* Bottom-left — flipped vertically */}
           <HeadlineBracket
-            className="absolute -bottom-4 -left-6 sm:-bottom-6 sm:-left-10"
+            className="absolute -bottom-5 -left-8 sm:-bottom-7 sm:-left-12"
             style={{ transform: "scaleY(-1)" }}
           />
           {/* Bottom-right — flipped both */}
           <HeadlineBracket
-            className="absolute -bottom-4 -right-6 sm:-bottom-6 sm:-right-10"
+            className="absolute -bottom-5 -right-8 sm:-bottom-7 sm:-right-12"
             style={{ transform: "scale(-1, -1)" }}
           />
 
           <motion.div
-            initial={{ scale: 1.02 }}
+            initial={{ scale: 1.04 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.2, ease }}
+            transition={{ duration: 1.4, ease }}
           >
             <h1
               id="hero-heading"
-              className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              className="font-heading font-bold text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
             >
               <span className="block">
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
@@ -455,20 +602,15 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Accent line */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: accentLineDelay, ease }}
-          className="h-px max-w-[200px] mx-auto mb-8 bg-gradient-to-r from-transparent via-neon to-transparent shadow-[0_0_15px_rgba(255,23,68,0.4),0_0_30px_rgba(255,23,68,0.15)]"
-        />
+        {/* Gothic ornamental divider */}
+        <GothicDivider delay={accentLineDelay} />
 
         {/* Subtext — authoritative */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: subtextDelay, ease }}
-          className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="font-body text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed"
         >
           Systems architecture for organizations that refuse to compromise. Zero templates. Zero shortcuts. Every line written with surgical precision.
         </motion.p>
@@ -484,7 +626,7 @@ export default function Hero() {
           <MagneticButton>
             <a
               href="#work"
-              className="px-8 py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>

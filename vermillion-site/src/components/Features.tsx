@@ -56,7 +56,7 @@ const itemVariantsRight = {
 export default function Features() {
   return (
     <section className="py-24 lg:py-32" aria-labelledby="features-heading">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -94,7 +94,7 @@ export default function Features() {
                 key={feature.title}
                 variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
                 role="listitem"
-                className={`group relative p-6 lg:p-7 rounded-card gothic-card
+                className={`group relative p-4 sm:p-6 lg:p-7 rounded-card gothic-card neon-glow-border
                   transition-all duration-500
                   ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}

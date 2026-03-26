@@ -34,8 +34,8 @@ const mobileCardVariants = {
 
 export default function Comparison() {
   return (
-    <section id="pricing" className="py-32 lg:py-40" aria-labelledby="comparison-heading">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+    <section id="pricing" className="py-20 sm:py-32 lg:py-40" aria-labelledby="comparison-heading">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -119,12 +119,12 @@ export default function Comparison() {
             <motion.div
               key={row.feature}
               variants={mobileCardVariants}
-              className="rounded-card gothic-card p-5 border-l-2 border-l-neon/40"
+              className="rounded-card gothic-card p-4 sm:p-5 border-l-2 border-l-neon/40"
             >
-              <p className="text-sm text-text-primary font-heading font-semibold mb-3">
+              <p className="text-xs sm:text-sm text-text-primary font-heading font-semibold mb-3">
                 {row.feature}
               </p>
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
                 <div>
                   <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Others</span>
                   <span className="text-text-secondary">{row.others}</span>

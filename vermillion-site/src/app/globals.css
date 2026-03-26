@@ -184,14 +184,14 @@ body {
    ═══════════════════════════════════════════════════ */
 .gothic-card {
   background: linear-gradient(135deg, rgba(12,12,12,0.97), rgba(6,6,6,0.99));
-  border: 1px solid rgba(255,23,68,0.10);
-  box-shadow: 0 0 15px rgba(255,23,68,0.04), 0 0 0 1px rgba(255,23,68,0.03), 0 4px 24px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,23,68,0.08);
+  box-shadow: 0 0 20px rgba(255,23,68,0.1), 0 0 40px rgba(255,23,68,0.05), 0 0 0 1px rgba(255,23,68,0.05), 0 4px 24px rgba(0,0,0,0.6);
   border-radius: 12px;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .gothic-card:hover {
   border-color: rgba(255,23,68,0.25);
-  box-shadow: 0 0 35px rgba(255,23,68,0.12), 0 0 0 1px rgba(255,23,68,0.15), 0 8px 40px rgba(0,0,0,0.7), 0 24px 70px rgba(0,0,0,0.4);
+  box-shadow: 0 0 30px rgba(255,23,68,0.22), 0 0 60px rgba(255,23,68,0.1), 0 0 100px rgba(255,23,68,0.05), 0 0 0 1px rgba(255,23,68,0.18), 0 8px 40px rgba(0,0,0,0.7), 0 24px 70px rgba(0,0,0,0.4);
   transform: translateY(-3px) scale(1.01);
 }
 
@@ -213,7 +213,7 @@ body {
 .neon-border-flow {
   position: relative;
   overflow: visible;
-  filter: drop-shadow(0 0 1px rgba(192,192,192,0.1));
+  filter: drop-shadow(0 0 6px rgba(255,23,68,0.25));
 }
 .neon-border-flow::before {
   content: '';
@@ -223,11 +223,13 @@ body {
   background: conic-gradient(
     from 0deg,
     transparent 0%,
-    transparent 35%,
-    rgba(255,23,68,0.5) 45%,
-    rgba(255,23,68,0.8) 50%,
-    rgba(255,23,68,0.5) 55%,
-    transparent 65%,
+    transparent 25%,
+    rgba(255,23,68,0.5) 35%,
+    rgba(255,23,68,0.8) 42%,
+    rgba(255,23,68,1) 50%,
+    rgba(255,23,68,0.8) 58%,
+    rgba(255,23,68,0.5) 65%,
+    transparent 75%,
     transparent 100%
   );
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -299,8 +301,8 @@ body {
    ═══════════════════════════════════════════════════ */
 .neon-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent 5%, rgba(255,23,68,0.3) 30%, rgba(255,23,68,0.15) 50%, rgba(255,23,68,0.3) 70%, transparent 95%);
-  box-shadow: 0 0 12px rgba(255,23,68,0.15), 0 0 30px rgba(255,23,68,0.05);
+  background: linear-gradient(90deg, transparent 5%, rgba(255,23,68,0.35) 30%, rgba(255,23,68,0.2) 50%, rgba(255,23,68,0.35) 70%, transparent 95%);
+  box-shadow: 0 0 15px rgba(255,23,68,0.2), 0 0 35px rgba(255,23,68,0.08), 0 0 60px rgba(255,23,68,0.03);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -330,7 +332,8 @@ body {
    ═══════════════════════════════════════════════════ */
 .gothic-frame {
   position: relative;
-  border: 1px solid rgba(192,192,192,0.1);
+  border: 1px solid rgba(255,23,68,0.08);
+  box-shadow: 0 0 15px rgba(255,23,68,0.04);
 }
 .gothic-frame::before,
 .gothic-frame::after {
@@ -340,6 +343,7 @@ body {
   height: 24px;
   border-color: rgba(192,192,192,0.25);
   border-style: solid;
+  box-shadow: 0 0 8px rgba(255,23,68,0.15);
 }
 .gothic-frame::before {
   top: -1px;
@@ -390,9 +394,36 @@ body {
    ═══════════════════════════════════════════════════ */
 .iron-filigree {
   border: 1px solid rgba(192,192,192,0.08);
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.1);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.1), 0 0 15px rgba(255,23,68,0.03);
 }
 .iron-filigree:hover {
   border-color: rgba(192,192,192,0.15);
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.15), 0 0 20px rgba(255,23,68,0.05);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 0 1px rgba(192,192,192,0.15), 0 0 25px rgba(255,23,68,0.08), 0 0 50px rgba(255,23,68,0.03);
+}
+
+/* ═══════════════════════════════════════════════════
+   NEON GLOW BORDER — Reusable neon edge glow
+   ═══════════════════════════════════════════════════ */
+.neon-glow-border {
+  border: 1px solid rgba(255,23,68,0.15);
+  box-shadow: 0 0 15px rgba(255,23,68,0.08), 0 0 30px rgba(255,23,68,0.04), inset 0 0 15px rgba(255,23,68,0.03);
+  transition: all 0.4s ease;
+}
+.neon-glow-border:hover {
+  border-color: rgba(255,23,68,0.35);
+  box-shadow: 0 0 25px rgba(255,23,68,0.15), 0 0 50px rgba(255,23,68,0.08), 0 0 90px rgba(255,23,68,0.04), inset 0 0 25px rgba(255,23,68,0.04);
+}
+
+@keyframes neon-pulse-border {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(255,23,68,0.15), 0 0 50px rgba(255,23,68,0.08), 0 0 90px rgba(255,23,68,0.04);
+    border-color: rgba(255,23,68,0.25);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(255,23,68,0.25), 0 0 70px rgba(255,23,68,0.12), 0 0 120px rgba(255,23,68,0.06);
+    border-color: rgba(255,23,68,0.4);
+  }
+}
+.neon-pulse-border {
+  animation: neon-pulse-border 2.5s ease-in-out infinite;
 }

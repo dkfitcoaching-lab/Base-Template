@@ -34,7 +34,7 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div className="flex flex-col gap-8">
           {/* ── Top row: brand + nav + back to top ── */}
           <motion.div
@@ -95,7 +95,7 @@ export default function Footer() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease }}
-            className="flex items-center justify-center sm:justify-end gap-4 text-xs text-text-caption"
+            className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-4 text-xs text-text-caption"
           >
             <span className="metallic-text font-heading tracking-widest uppercase text-[10px]">Vermillion Axis Technologies</span>
             <span

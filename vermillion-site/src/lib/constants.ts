@@ -34,7 +34,7 @@ export const STATS = [
 
 export const SHOWCASE_ITEMS = [
   {
-    label: "Analytics Command Center",
+    label: "Analytics Dashboard",
     image: "/screenshots/analytics.png",
     description:
       "Real-time telemetry, revenue attribution, and predictive modeling. Built to give decision-makers a single pane of glass over the entire operation.",
