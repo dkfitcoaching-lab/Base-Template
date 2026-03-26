@@ -67,8 +67,13 @@ function OrnamentalDivider() {
             strokeWidth="0.5"
           />
           {/* Center glow dot */}
-          <circle cx="24" cy="24" r="2" fill="rgba(255,23,68,0.35)" />
-          <circle cx="24" cy="24" r="4" fill="none" stroke="rgba(255,23,68,0.12)" strokeWidth="0.5" />
+          <circle cx="24" cy="24" r="2" fill="rgba(255,23,68,0.35)">
+            <animate attributeName="opacity" values="0.35;0.7;0.35" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="24" cy="24" r="4" fill="none" stroke="rgba(255,23,68,0.12)" strokeWidth="0.5">
+            <animate attributeName="r" values="4;5;4" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.12;0.25;0.12" dur="3s" repeatCount="indefinite" />
+          </circle>
           {/* Corner dots */}
           <circle cx="24" cy="2" r="1.5" fill="rgba(192,192,192,0.2)" />
           <circle cx="46" cy="24" r="1.5" fill="rgba(192,192,192,0.2)" />
