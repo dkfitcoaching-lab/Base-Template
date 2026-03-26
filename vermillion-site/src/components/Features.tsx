@@ -96,7 +96,7 @@ export default function Features() {
                 role="listitem"
                 className={`group relative p-6 lg:p-7 rounded-card gothic-card
                   transition-all duration-500
-                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : ""}
+                  ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}
                 style={{ willChange: "transform" }}
                 whileHover={{ y: -4 }}

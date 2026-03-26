@@ -100,7 +100,7 @@ export default function Comparison() {
               <span role="cell" className="text-sm text-text-caption text-center">
                 {row.others}
               </span>
-              <span role="cell" className="text-sm text-neon font-bold text-center bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
+              <span role="cell" className="text-sm text-neon font-bold text-center text-neon-glow bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4">
                 {row.ours}
               </span>
             </motion.div>
@@ -131,7 +131,7 @@ export default function Comparison() {
                 </div>
                 <div className="text-right">
                   <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Us</span>
-                  <span className="text-neon font-semibold">{row.ours}</span>
+                  <span className="text-neon font-semibold text-neon-glow-subtle">{row.ours}</span>
                 </div>
               </div>
             </motion.div>

@@ -25,7 +25,7 @@ export default function Footer() {
           />
           {/* Neon underglow */}
           <div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.15),transparent_70%)] blur-lg pointer-events-none"
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-48 h-10 bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.28),transparent_70%)] blur-lg pointer-events-none"
             aria-hidden="true"
           />
         </div>

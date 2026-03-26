@@ -147,7 +147,7 @@ function TechMarquee() {
             className="text-xs font-mono uppercase tracking-[0.25em] text-text-caption/50 flex items-center gap-8"
           >
             {tech}
-            <span className="w-1.5 h-1.5 rounded-full bg-neon/30 shadow-[0_0_6px_rgba(255,23,68,0.4)]" />
+            <span className="w-2 h-2 rounded-full bg-neon/50 shadow-[0_0_10px_rgba(255,23,68,0.5),0_0_20px_rgba(255,23,68,0.2)]" />
           </span>
         ))}
       </motion.div>
