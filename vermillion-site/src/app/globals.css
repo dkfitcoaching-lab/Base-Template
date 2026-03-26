@@ -104,6 +104,8 @@ body {
     radial-gradient(ellipse 80% 50% at 70% 90%, rgba(50,15,80,0.06), transparent 65%),
     /* Deep indigo undertone */
     radial-gradient(ellipse 120% 80% at 50% 50%, rgba(15,10,30,0.6), transparent 80%),
+    /* Ultra-deep violet cathedral wash */
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(20,8,40,0.3), transparent 90%),
     #0A0A0E;
 }
 
@@ -198,20 +200,20 @@ body {
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .gothic-card:hover {
-  border-color: rgba(255,23,68,0.18);
-  box-shadow: 0 0 25px rgba(255,23,68,0.08), 0 0 0 1px rgba(255,23,68,0.1), 0 8px 40px rgba(0,0,0,0.5), 0 20px 60px rgba(0,0,0,0.3);
-  transform: translateY(-2px) scale(1.01);
+  border-color: rgba(255,23,68,0.20);
+  box-shadow: 0 0 30px rgba(255,23,68,0.10), 0 0 0 1px rgba(255,23,68,0.12), 0 8px 40px rgba(0,0,0,0.5), 0 24px 70px rgba(0,0,0,0.35), 0 0 60px rgba(75,20,120,0.04);
+  transform: translateY(-3px) scale(1.01);
 }
 
 /* ═══════════════════════════════════════════════════
    NEON TEXT GLOW — For key headings & stat numbers
    ═══════════════════════════════════════════════════ */
 .text-neon-glow {
-  text-shadow: 0 0 20px rgba(255,23,68,0.3), 0 0 40px rgba(255,23,68,0.1);
+  text-shadow: 0 0 20px rgba(255,23,68,0.3), 0 0 40px rgba(255,23,68,0.1), 0 0 60px rgba(75,20,120,0.06);
 }
 
 .text-neon-glow-subtle {
-  text-shadow: 0 0 12px rgba(255,23,68,0.2), 0 0 24px rgba(255,23,68,0.06);
+  text-shadow: 0 0 12px rgba(255,23,68,0.2), 0 0 24px rgba(255,23,68,0.06), 0 0 36px rgba(75,20,120,0.04);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -242,7 +244,7 @@ body {
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   padding: 1px;
-  animation: border-rotate 4s linear infinite;
+  animation: border-rotate 3.5s linear infinite;
   pointer-events: none;
 }
 
@@ -250,7 +252,7 @@ body {
    PREMIUM TEXT GRADIENT — Neon vermillion
    ═══════════════════════════════════════════════════ */
 .text-gradient-vermillion {
-  background: linear-gradient(135deg, #FF1744, #D44040, #B42B2B, #FF1744);
+  background: linear-gradient(135deg, #FF1744, #D44040, #9B1B8E, #FF1744);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -291,13 +293,22 @@ body {
 .holographic-shimmer {
   background: linear-gradient(
     135deg,
-    rgba(255,23,68,0.08) 0%,
-    rgba(255,255,255,0.03) 20%,
-    rgba(75,20,120,0.08) 40%,
-    rgba(255,255,255,0.03) 60%,
-    rgba(255,23,68,0.06) 80%,
-    rgba(75,20,120,0.05) 100%
+    rgba(255,23,68,0.12) 0%,
+    rgba(255,255,255,0.04) 20%,
+    rgba(75,20,120,0.12) 40%,
+    rgba(255,255,255,0.04) 60%,
+    rgba(255,23,68,0.10) 80%,
+    rgba(75,20,120,0.08) 100%
   );
   background-size: 400% 400%;
-  animation: gradient-shift 8s ease infinite;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════
+   NEON DIVIDER — Glowing section separator
+   ═══════════════════════════════════════════════════ */
+.neon-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(255,23,68,0.3) 30%, rgba(75,20,120,0.2) 50%, rgba(255,23,68,0.3) 70%, transparent 95%);
+  box-shadow: 0 0 12px rgba(255,23,68,0.15), 0 0 30px rgba(255,23,68,0.05);
 }

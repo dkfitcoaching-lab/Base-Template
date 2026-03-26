@@ -48,7 +48,7 @@ export default function Testimonials() {
           </p>
           <h2
             id="testimonials-heading"
-            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary"
+            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
           >
             Trusted by Founders. Verified by Results.
           </h2>
@@ -107,7 +107,7 @@ export default function Testimonials() {
               <motion.blockquote
                 key={t.name}
                 variants={itemVariants}
-                className="relative p-6 lg:p-8 rounded-card gothic-card"
+                className="relative p-6 lg:p-8 rounded-card gothic-card border-l border-l-neon/[0.06] hover:border-l-neon/20"
               >
                 {/* Decorative quote mark */}
                 <span

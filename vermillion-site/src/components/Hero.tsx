@@ -256,7 +256,7 @@ export default function Hero() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: accentLineDelay, ease }}
-          className="h-px max-w-[200px] mx-auto mb-8 bg-gradient-to-r from-transparent via-neon to-transparent shadow-[0_0_10px_rgba(255,23,68,0.3)]"
+          className="h-px max-w-[200px] mx-auto mb-8 bg-gradient-to-r from-transparent via-neon to-transparent shadow-[0_0_15px_rgba(255,23,68,0.4),0_0_30px_rgba(255,23,68,0.15)]"
         />
 
         {/* Subtext */}

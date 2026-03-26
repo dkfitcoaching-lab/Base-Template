@@ -70,9 +70,10 @@ export default function CTA() {
             opacity: p.opacity,
           }}
           animate={{
-            y: [0, -18, 0, 12, 0],
-            x: [0, 8, -6, 4, 0],
-            opacity: [p.opacity, p.opacity * 1.4, p.opacity, p.opacity * 0.7, p.opacity],
+            y: [0, -24, 0, 16, 0],
+            x: [0, 12, -8, 6, 0],
+            scale: [1, 1.3, 1, 0.8, 1],
+            opacity: [p.opacity, p.opacity * 1.5, p.opacity, p.opacity * 0.6, p.opacity],
           }}
           transition={{
             duration: p.duration,

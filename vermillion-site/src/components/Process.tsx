@@ -68,7 +68,7 @@ export default function Process() {
 
           {/* Traveling light dot */}
           <div
-            className="absolute left-[25px] w-[5px] h-[5px] rounded-full bg-neon shadow-[0_0_15px_rgba(255,23,68,0.7),0_0_30px_rgba(255,23,68,0.3)] animate-scan-line opacity-90"
+            className="absolute left-[25px] w-[6px] h-[6px] rounded-full bg-neon shadow-[0_0_20px_rgba(255,23,68,0.8),0_0_40px_rgba(255,23,68,0.4)] animate-scan-line"
             aria-hidden="true"
           />
 

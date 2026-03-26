@@ -73,7 +73,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
       <div
         className="absolute -inset-1 rounded-hero opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0 blur-[100px]"
         style={{
-          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.15), transparent 60%)`,
+          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 0.22), transparent 60%)`,
         }}
         aria-hidden="true"
       />
