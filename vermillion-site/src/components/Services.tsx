@@ -72,7 +72,7 @@ export default function Services() {
           </p>
           <h2
             id="services-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
             Transparent Pricing. No Surprises.
           </h2>
