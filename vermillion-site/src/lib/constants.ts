@@ -35,42 +35,36 @@ export const STATS = [
 export const SHOWCASE_ITEMS = [
   {
     label: "Analytics Dashboard",
-    image: "/screenshots/analytics.png",
     description:
       "Real-time telemetry, revenue attribution, and predictive modeling. Built to give decision-makers a single pane of glass over the entire operation.",
     category: "SaaS",
   },
   {
     label: "Enterprise CRM",
-    image: "/screenshots/crm.png",
     description:
       "Multi-pipeline relationship intelligence with automated lifecycle workflows, granular RBAC, and audit-grade data integrity.",
     category: "Enterprise",
   },
   {
     label: "Member Portal",
-    image: "/screenshots/portal.png",
     description:
       "Authenticated membership infrastructure — integrated billing, content gating, and role-based delivery. Zero third-party platform dependencies.",
     category: "Membership",
   },
   {
     label: "E-Commerce Platform",
-    image: "/screenshots/ecommerce.png",
     description:
       "Sub-second storefront with real-time inventory synchronization, payment orchestration, and conversion analytics baked into the architecture.",
     category: "E-Commerce",
   },
   {
     label: "Coaching Platform",
-    image: "/screenshots/dashboard.png",
     description:
       "Full-stack operational system — scheduling engine, payment processing, branded document generation. One codebase running the entire business.",
     category: "Fitness",
   },
   {
     label: "Mobile Application",
-    image: "/screenshots/mobile.png",
     description:
       "Offline-first progressive web application with background sync, push notifications, and native-grade performance. No app store required.",
     category: "Mobile",

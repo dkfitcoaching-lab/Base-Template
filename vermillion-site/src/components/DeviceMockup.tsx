@@ -472,93 +472,68 @@ function EnterpriseCRMMockup() {
 
 function MobileAppMockup() {
   return (
-    <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
-      <rect width="320" height="200" fill="#080808" />
-      {/* Phone frame with chrome edge */}
-      <rect x="100" y="2" width="120" height="196" rx="14" fill="none" stroke="#333" strokeWidth="1" />
-      <rect x="101" y="3" width="118" height="194" rx="13" fill="#0A0A0A" />
-      {/* Dynamic Island / Notch */}
-      <rect x="142" y="5" width="36" height="6" rx="3" fill="#050505" stroke="#222" strokeWidth="0.3" />
-      {/* Status bar */}
-      <text x="112" y="16" fill="#888" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">9:41</text>
-      <rect x="192" y="13" width="12" height="4.5" rx="1" fill="none" stroke="#555" strokeWidth="0.5" />
-      <rect x="193" y="14" width="8" height="2.5" rx="0.5" fill="#4CAF50" />
-      <rect x="204" y="14" width="1" height="2.5" rx="0.5" fill="#4CAF50" />
-      {/* Signal bars */}
-      {[0, 3, 6, 9].map((x, i) => (
-        <rect key={`sig${i}`} x={180 + x} y={17 - i * 1.2} width="2" height={2 + i * 1.2} rx="0.5" fill="#888" />
-      ))}
-      {/* Header */}
-      <rect x="105" y="22" width="110" height="16" fill="#0E0E0E" />
-      <text x="160" y="30" fill="#E0E0E0" fontSize="4.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">Dashboard</text>
-      {/* Welcome card with gradient border */}
-      <rect x="110" y="42" width="100" height="26" rx="5" fill="rgba(255,23,68,0.06)" stroke="#FF1744" strokeWidth="0.4" />
-      <text x="116" y="51" fill="#E0E0E0" fontSize="3.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">Good morning, James</text>
-      <text x="116" y="61" fill="#888" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">3 tasks · 2 messages · 1 payment</text>
-      {/* Quick stats row */}
-      {[
-        { label: "Clients", value: "12", color: "#FF1744" },
-        { label: "Revenue", value: "$4.2K", color: "#E0E0E0" },
-        { label: "Active", value: "8", color: "#4CAF50" },
-      ].map((s, i) => (
-        <g key={`qs${i}`}>
-          <rect x={110 + i * 34} y="72" width="30" height="18" rx="3" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.3" />
-          <text x={125 + i * 34} y="79" fill={s.color} fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">{s.value}</text>
-          <text x={125 + i * 34} y="86" fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{s.label}</text>
-        </g>
-      ))}
-      {/* Notification cards */}
-      {[
-        { title: "New message", desc: "Sarah M. sent a file", time: "2m", color: "#FF1744" },
-        { title: "Payment received", desc: "$450.00 from John D.", time: "1h", color: "#4CAF50" },
-        { title: "Session booked", desc: "Tomorrow at 3:00 PM", time: "3h", color: "#C0C0C0" },
-      ].map((notif, i) => {
-        const y = 94 + i * 22;
-        return (
-          <g key={`notif${i}`}>
-            <rect x="110" y={y} width="100" height="18" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.3" />
-            <circle cx="117" cy={y + 9} r="2" fill={notif.color} opacity="0.7" />
-            <text x="123" y={y + 6} fill="#C0C0C0" fontSize="2.8" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">{notif.title}</text>
-            <text x="123" y={y + 13} fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" dominantBaseline="middle">{notif.desc}</text>
-            <text x="206" y={y + 6} fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="end" dominantBaseline="middle">{notif.time}</text>
-          </g>
-        );
-      })}
-      {/* Floating action button */}
-      <circle cx="202" cy="154" r="6" fill="#FF1744" />
-      <text x="202" y="154" fill="#fff" fontSize="6" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="300">+</text>
-      {/* Bottom tab bar */}
-      <rect x="105" y="164" width="110" height="28" rx="0 0 13 13" fill="#0C0C0C" />
-      <line x1="105" y1="164" x2="215" y2="164" stroke="#1A1A1A" strokeWidth="0.5" />
-      {[
-        { icon: "⌂", label: "Home", active: true },
-        { icon: "◉", label: "Clients", active: false },
-        { icon: "✉", label: "Messages", active: false },
-        { icon: "⚙", label: "Settings", active: false },
-      ].map((tab, i) => (
-        <g key={`tab${i}`}>
-          <text x={120 + i * 22} y="175" fill={tab.active ? "#FF1744" : "#555"} fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{tab.icon}</text>
-          <text x={120 + i * 22} y="183" fill={tab.active ? "#FF1744" : "#444"} fontSize="1.8" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">{tab.label}</text>
-          {tab.active && <rect x={116 + i * 22} y="187" width="8" height="1.5" rx="0.75" fill="#FF1744" />}
-        </g>
-      ))}
-      {/* Home indicator */}
-      <rect x="147" y="193" width="26" height="2" rx="1" fill="#333" />
+    <div className="w-full h-full bg-[#080808] flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 py-4 relative">
+      {/* Ambient glow behind phones */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <div className="w-48 h-48 rounded-full bg-neon/[0.06] blur-[60px]" />
+      </div>
+
+      {/* Phone 1 — Forge Landing */}
+      <div className="relative flex-shrink-0 w-[100px] sm:w-[120px] md:w-[130px]">
+        <div className="relative rounded-[14px] sm:rounded-[18px] overflow-hidden border border-[#333] shadow-[0_4px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(255,23,68,0.08)]">
+          {/* Dynamic Island */}
+          <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-[5px] bg-[#050505] rounded-full z-10 border border-[#222]/30" />
+          <img
+            src="/screenshots/forge-landing.jpg"
+            alt="Forge AI — Fitness coaching intelligence platform"
+            className="w-full h-auto block"
+            loading="lazy"
+          />
+          {/* Home indicator */}
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
+        </div>
+        <p className="mt-2 text-[9px] sm:text-[10px] text-center text-text-caption tracking-wider uppercase font-heading">Forge AI</p>
+      </div>
+
+      {/* Phone 2 — Coaching Platform */}
+      <div className="relative flex-shrink-0 w-[100px] sm:w-[120px] md:w-[130px]">
+        <div className="relative rounded-[14px] sm:rounded-[18px] overflow-hidden border border-[#333] shadow-[0_4px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(255,23,68,0.08)]">
+          {/* Dynamic Island */}
+          <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-[5px] bg-[#050505] rounded-full z-10 border border-[#222]/30" />
+          <img
+            src="/screenshots/coaching-platform.png"
+            alt="Big Mike Ely Coaching Lab — Programs and workout templates"
+            className="w-full h-auto block"
+            loading="lazy"
+          />
+          {/* Home indicator */}
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
+        </div>
+        <p className="mt-2 text-[9px] sm:text-[10px] text-center text-text-caption tracking-wider uppercase font-heading">Coaching Lab</p>
+      </div>
+
       {/* Side labels */}
-      <rect x="16" y="56" width="60" height="28" rx="5" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.3" />
-      <text x="46" y="66" fill="#C0C0C0" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">iOS & Android</text>
-      <text x="46" y="76" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Cross-platform native</text>
-      <rect x="244" y="56" width="60" height="28" rx="5" fill="#0C0C0C" stroke="rgba(255,23,68,0.15)" strokeWidth="0.3" />
-      <text x="274" y="66" fill="#FF1744" fontSize="3" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">PWA Ready</text>
-      <text x="274" y="76" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Offline-first sync</text>
-      {/* Feature callouts */}
-      <rect x="16" y="108" width="60" height="20" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.3" />
-      <text x="46" y="116" fill="#888" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Push Notifications</text>
-      <text x="46" y="124" fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Real-time alerts</text>
-      <rect x="244" y="108" width="60" height="20" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.3" />
-      <text x="274" y="116" fill="#888" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Background Sync</text>
-      <text x="274" y="124" fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Queue & retry</text>
-    </svg>
+      <div className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 flex-col gap-3">
+        <div className="px-2.5 py-1.5 rounded bg-[#0C0C0C] border border-[#1A1A1A]">
+          <p className="text-[9px] text-text-secondary font-heading font-bold tracking-wider">iOS & Android</p>
+          <p className="text-[7px] text-text-caption">Cross-platform native</p>
+        </div>
+        <div className="px-2.5 py-1.5 rounded bg-[#0C0C0C] border border-[#1A1A1A]">
+          <p className="text-[9px] text-text-secondary font-heading font-bold tracking-wider">Push Notifications</p>
+          <p className="text-[7px] text-text-caption">Real-time alerts</p>
+        </div>
+      </div>
+      <div className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 flex-col gap-3">
+        <div className="px-2.5 py-1.5 rounded bg-[#0C0C0C] border border-neon/[0.15]">
+          <p className="text-[9px] text-neon font-heading font-bold tracking-wider">PWA Ready</p>
+          <p className="text-[7px] text-text-caption">Offline-first sync</p>
+        </div>
+        <div className="px-2.5 py-1.5 rounded bg-[#0C0C0C] border border-[#1A1A1A]">
+          <p className="text-[9px] text-text-secondary font-heading font-bold tracking-wider">Background Sync</p>
+          <p className="text-[7px] text-text-caption">Queue & retry</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

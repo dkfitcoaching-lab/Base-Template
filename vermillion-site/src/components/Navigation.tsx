@@ -157,7 +157,7 @@ export default function Navigation() {
                 <img
                   src="/logo-mark.svg"
                   alt=""
-                  className="w-9 h-9 group-hover:scale-110 transition-transform duration-300"
+                  className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
                   aria-hidden="true"
                 />
                 {/* Logo dot glow on hover */}

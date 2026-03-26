@@ -23,7 +23,7 @@ export default function Footer() {
           <img
             src="/logo-full.svg"
             alt="Vermillion Axis Technologies"
-            className="w-[150px] h-auto"
+            className="w-[180px] h-auto"
           />
           {/* Neon underglow */}
           <div
