@@ -51,7 +51,7 @@ export default function Comparison() {
             id="comparison-heading"
             className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
           >
-            Purpose-Built. Delivered Faster.
+            Custom-Built. Delivered Faster.
           </h2>
         </motion.div>
 
