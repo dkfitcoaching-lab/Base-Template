@@ -238,7 +238,7 @@ export default function Navigation() {
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            <nav className="flex flex-col items-center gap-8">
+            <nav className="flex flex-col items-center gap-6 px-4 max-h-[80vh] overflow-y-auto">
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.href}
