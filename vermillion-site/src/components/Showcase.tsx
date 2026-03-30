@@ -31,26 +31,42 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState("");
-  const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const cachedRect = useRef<DOMRect | null>(null);
+
+  function handleMouseEnter() {
+    if (cardRef.current) {
+      cachedRect.current = cardRef.current.getBoundingClientRect();
+    }
+  }
 
   function handleMouseMove(e: React.MouseEvent) {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
+    if (!cachedRect.current || !cardRef.current) return;
+    const rect = cachedRect.current;
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
     const rotateX = (y - 0.5) * -12;
     const rotateY = (x - 0.5) * 12;
-    setTransform(
-      `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.02)`
-    );
-    setGlowPos({ x: x * 100, y: y * 100 });
+    cardRef.current.style.transform =
+      `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.02)`;
+    cardRef.current.style.transition = "transform 0.1s ease-out";
+    if (glowRef.current) {
+      glowRef.current.style.background =
+        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`;
+    }
   }
 
   function handleMouseLeave() {
-    setTransform("");
-    setGlowPos({ x: 50, y: 50 });
+    cachedRect.current = null;
+    if (cardRef.current) {
+      cardRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
+      cardRef.current.style.transition = "transform 0.4s ease-out";
+    }
+    if (glowRef.current) {
+      glowRef.current.style.background =
+        "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)";
+    }
   }
 
   if (isTouchDevice) {
@@ -59,22 +75,24 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      ref={ref}
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="relative group"
       style={{
-        transform: transform || "perspective(800px) rotateX(0deg) rotateY(0deg)",
-        transition: transform ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
+        transform: "perspective(800px) rotateX(0deg) rotateY(0deg)",
+        transition: "transform 0.4s ease-out",
         willChange: "transform",
       }}
     >
-      {/* Dynamic glow that follows cursor */}
+      {/* Dynamic glow that follows cursor — ref-based, no re-renders */}
       <div
-        className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0 blur-[80px]"
+        ref={glowRef}
+        className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0"
         style={{
-          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`,
-          willChange: "opacity",
+          background: "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 0.6), rgba(255, 23, 68, 0.25) 40%, transparent 65%)",
+          filter: "blur(80px)",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
         }}

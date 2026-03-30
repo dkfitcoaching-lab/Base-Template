@@ -26,13 +26,11 @@ function NavLink({
       }`}
     >
       {label}
-      {/* Animated underline */}
       <span
         className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-neon origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
         style={{ transformOrigin: "left center" }}
         aria-hidden="true"
       />
-      {/* Active indicator */}
       {isActive && (
         <motion.span
           layoutId="nav-active-underline"
@@ -67,30 +65,25 @@ export default function Navigation() {
     };
   }, []);
 
-  /* Active section tracking via IntersectionObserver */
+  /* Active section tracking — single consolidated IntersectionObserver */
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
 
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id);
-            }
-          });
-        },
-        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
+      if (el) observer.observe(el);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    return () => observer.disconnect();
   }, []);
 
   /* Lock body scroll when mobile menu is open */
@@ -156,7 +149,6 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
             <a
               href="#top"
               className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded-lg"
@@ -169,7 +161,6 @@ export default function Navigation() {
                   className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
                   aria-hidden="true"
                 />
-                {/* Logo dot glow on hover */}
                 <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-neon/25 blur-lg" aria-hidden="true" />
               </div>
               <span className="font-heading font-semibold text-text-primary text-sm tracking-[0.15em]">
@@ -177,7 +168,6 @@ export default function Navigation() {
               </span>
             </a>
 
-            {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
               {NAV_LINKS.map((link) => (
                 <NavLink
@@ -197,34 +187,20 @@ export default function Navigation() {
               </MagneticButton>
             </div>
 
-            {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden relative w-11 h-11 flex flex-col items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 rounded"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
-              <motion.span
-                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3, ease }}
-                className="block w-6 h-[1.5px] bg-text-primary origin-center"
-              />
-              <motion.span
-                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.2, ease }}
-                className="block w-6 h-[1.5px] bg-text-primary"
-              />
-              <motion.span
-                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3, ease }}
-                className="block w-6 h-[1.5px] bg-text-primary origin-center"
-              />
+              <motion.span animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
+              <motion.span animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.2, ease }} className="block w-6 h-[1.5px] bg-text-primary" />
+              <motion.span animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Overlay — Glassmorphism */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -254,7 +230,6 @@ export default function Navigation() {
                   }`}
                 >
                   {link.label}
-                  {/* Hover underline for mobile links */}
                   <span
                     className="absolute left-0 -bottom-1 h-[1.5px] w-full bg-neon origin-left transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100"
                     aria-hidden="true"

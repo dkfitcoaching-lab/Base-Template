@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 interface MarqueeDividerProps {
   text?: string;
   speed?: number;
@@ -14,6 +12,7 @@ export default function MarqueeDivider({
   direction = "left",
 }: MarqueeDividerProps) {
   const items = Array(8).fill(text);
+  const duration = speed * 0.7;
 
   return (
     <div
@@ -21,10 +20,11 @@ export default function MarqueeDivider({
       style={{ boxShadow: "0 0 30px rgba(255,23,68,0.04), inset 0 0 30px rgba(255,23,68,0.02)" }}
       aria-hidden="true"
     >
-      <motion.div
+      <div
         className="flex whitespace-nowrap"
-        animate={{ x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={{ duration: speed * 0.7, repeat: Infinity, ease: "linear" }}
+        style={{
+          animation: `${direction === "left" ? "marquee-left" : "marquee-right"} ${duration}s linear infinite`,
+        }}
       >
         {items.map((item, i) => (
           <span
@@ -36,7 +36,7 @@ export default function MarqueeDivider({
             <span className="w-1.5 h-1.5 rounded-full bg-neon/50 shadow-[0_0_12px_rgba(255,23,68,0.6),0_0_24px_rgba(255,23,68,0.2)] flex-shrink-0" />
           </span>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -16,15 +16,21 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
+  const cachedRect = useRef<DOMRect | null>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseEnter = useCallback(() => {
+    if (ref.current) {
+      cachedRect.current = ref.current.getBoundingClientRect();
+    }
+  }, []);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!ref.current) return;
+      if (!cachedRect.current) return;
       if (rafId.current) cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
+        const rect = cachedRect.current!;
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         const dx = (e.clientX - centerX) * strength;
@@ -37,6 +43,7 @@ export default function MagneticButton({
 
   const handleMouseLeave = useCallback(() => {
     if (rafId.current) cancelAnimationFrame(rafId.current);
+    cachedRect.current = null;
     setOffset({ x: 0, y: 0 });
   }, []);
 
@@ -44,6 +51,7 @@ export default function MagneticButton({
     <div
       ref={ref}
       className={`p-2 ${className}`}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
