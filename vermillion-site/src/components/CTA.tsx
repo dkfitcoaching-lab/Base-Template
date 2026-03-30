@@ -58,13 +58,15 @@ export default function CTA() {
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-neon blur-md shadow-[0_0_16px_rgba(255,23,68,0.6)] pointer-events-none"
+          className="absolute rounded-full pointer-events-none"
           style={{
-            width: p.size,
-            height: p.size,
+            width: p.size * 3,
+            height: p.size * 3,
             left: p.x,
             top: p.y,
             opacity: p.opacity,
+            background: `radial-gradient(circle, rgba(255,23,68,0.8) 0%, rgba(255,23,68,0.3) 35%, transparent 70%)`,
+            boxShadow: "0 0 16px rgba(255,23,68,0.6)",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             transform: "translateZ(0)",

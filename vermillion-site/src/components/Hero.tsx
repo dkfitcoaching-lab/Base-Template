@@ -1,7 +1,7 @@
 "use client";
 
+import React, { memo, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
 import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -10,7 +10,7 @@ const headlineLine1 = "Precision".split(" ");
 const headlineLine2 = "Engineered".split(" ");
 const headlineLine3 = "Software".split(" ");
 
-/* Breathing ambient orbs — neon crimson, 8 total with dramatic size variance */
+/* Breathing ambient orbs — neon crimson, using radial gradients instead of blur filters */
 const ambientOrbs = [
   { top: "2%", left: "5%", size: 700, duration: 9, delay: 0, color: "rgba(255,23,68,0.10)", opacity: [0.04, 0.18, 0.04] },
   { top: "45%", right: "2%", size: 120, duration: 5, delay: 1.5, color: "rgba(255,23,68,0.14)", opacity: [0.06, 0.22, 0.06] },
@@ -19,8 +19,17 @@ const ambientOrbs = [
   { top: "65%", left: "35%", size: 90, duration: 4, delay: 0.5, color: "rgba(255,23,68,0.16)", opacity: [0.08, 0.28, 0.08] },
 ];
 
-/* Gothic ornamental corner SVG — wrought iron pointed arch style, larger and more detailed */
-function GothicCorner({ className }: { className?: string }) {
+/* Parse rgba color to extract r,g,b,a for radial gradient replacement */
+function orbGradient(color: string, size: number): { background: string; renderSize: number } {
+  const renderSize = Math.round(size * 2.5);
+  return {
+    background: `radial-gradient(circle, ${color} 0%, ${color.replace(/[\d.]+\)$/, (m) => `${parseFloat(m) * 0.5})`)} 35%, transparent 70%)`,
+    renderSize,
+  };
+}
+
+/* Gothic ornamental corner SVG */
+const GothicCorner = memo(function GothicCorner({ className }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -30,67 +39,23 @@ function GothicCorner({ className }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Outer pointed arch corner */}
-      <path
-        d="M2 118 L2 40 Q2 12 28 2 L118 2"
-        stroke="rgba(192,192,192,0.2)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      {/* Inner filigree line */}
-      <path
-        d="M10 110 L10 46 Q10 20 34 10 L110 10"
-        stroke="rgba(192,192,192,0.12)"
-        strokeWidth="0.75"
-        fill="none"
-      />
-      {/* Third ornamental trace */}
-      <path
-        d="M18 102 L18 50 Q18 28 40 18 L102 18"
-        stroke="rgba(192,192,192,0.07)"
-        strokeWidth="0.5"
-        fill="none"
-      />
-      {/* Pointed finial detail */}
-      <path
-        d="M2 40 L8 34 L2 28"
-        stroke="rgba(192,192,192,0.2)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Second finial */}
-      <path
-        d="M2 56 L5 52 L2 48"
-        stroke="rgba(192,192,192,0.12)"
-        strokeWidth="0.75"
-        fill="none"
-      />
-      {/* Horizontal finial on top edge */}
-      <path
-        d="M40 2 L34 8 L28 2"
-        stroke="rgba(192,192,192,0.2)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Small trefoil ornament at corner junction */}
+      <path d="M2 118 L2 40 Q2 12 28 2 L118 2" stroke="rgba(192,192,192,0.2)" strokeWidth="1.5" fill="none" />
+      <path d="M10 110 L10 46 Q10 20 34 10 L110 10" stroke="rgba(192,192,192,0.12)" strokeWidth="0.75" fill="none" />
+      <path d="M18 102 L18 50 Q18 28 40 18 L102 18" stroke="rgba(192,192,192,0.07)" strokeWidth="0.5" fill="none" />
+      <path d="M2 40 L8 34 L2 28" stroke="rgba(192,192,192,0.2)" strokeWidth="1" fill="none" />
+      <path d="M2 56 L5 52 L2 48" stroke="rgba(192,192,192,0.12)" strokeWidth="0.75" fill="none" />
+      <path d="M40 2 L34 8 L28 2" stroke="rgba(192,192,192,0.2)" strokeWidth="1" fill="none" />
       <circle cx="2" cy="2" r="3" fill="rgba(192,192,192,0.18)" />
-      <path
-        d="M16 2 Q16 16 2 16"
-        stroke="rgba(192,192,192,0.15)"
-        strokeWidth="0.75"
-        fill="none"
-      />
-      {/* Cross ornament near corner */}
+      <path d="M16 2 Q16 16 2 16" stroke="rgba(192,192,192,0.15)" strokeWidth="0.75" fill="none" />
       <line x1="2" y1="8" x2="8" y2="2" stroke="rgba(192,192,192,0.1)" strokeWidth="0.5" />
-      {/* Rose window micro detail */}
       <circle cx="24" cy="24" r="4" stroke="rgba(192,192,192,0.08)" strokeWidth="0.5" fill="none" />
       <circle cx="24" cy="24" r="2" stroke="rgba(192,192,192,0.06)" strokeWidth="0.4" fill="none" />
     </svg>
   );
-}
+});
 
-/* Animated ornamental corner brackets for headline area — chrome with neon hint */
-function HeadlineBracket({ className, style }: { className?: string; style?: React.CSSProperties }) {
+/* Animated ornamental corner brackets for headline area */
+const HeadlineBracket = memo(function HeadlineBracket({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <motion.svg
       className={`w-8 h-8 sm:w-[52px] sm:h-[52px] ${className || ""}`}
@@ -102,40 +67,23 @@ function HeadlineBracket({ className, style }: { className?: string; style?: Rea
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 1.8, ease }}
     >
-      {/* Outer bracket */}
-      <path
-        d="M2 50 L2 10 Q2 2 10 2 L50 2"
-        stroke="rgba(200,200,200,0.35)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      {/* Inner bracket */}
-      <path
-        d="M7 45 L7 12 Q7 7 12 7 L45 7"
-        stroke="rgba(200,200,200,0.18)"
-        strokeWidth="0.75"
-        fill="none"
-      />
-      {/* Chrome dot accent */}
+      <path d="M2 50 L2 10 Q2 2 10 2 L50 2" stroke="rgba(200,200,200,0.35)" strokeWidth="1.5" fill="none" />
+      <path d="M7 45 L7 12 Q7 7 12 7 L45 7" stroke="rgba(200,200,200,0.18)" strokeWidth="0.75" fill="none" />
       <circle cx="2" cy="2" r="2" fill="rgba(200,200,200,0.3)" />
-      {/* Neon dot at inner corner */}
       <motion.circle
-        cx="7"
-        cy="7"
-        r="1"
+        cx="7" cy="7" r="1"
         fill="rgba(255,23,68,0.5)"
         animate={{ opacity: [0.3, 0.8, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
       />
-      {/* Finial tick marks */}
       <line x1="2" y1="18" x2="5" y2="15" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
       <line x1="18" y1="2" x2="15" y2="5" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
     </motion.svg>
   );
-}
+});
 
-/* Scan line sweep effect — more dramatic width and glow */
-function ScanLine() {
+/* Scan line sweep effect */
+const ScanLine = memo(function ScanLine() {
   return (
     <motion.div
       className="absolute left-0 right-0 h-[3px] pointer-events-none z-20"
@@ -153,28 +101,30 @@ function ScanLine() {
       }}
     />
   );
-}
+});
 
-/* Dramatic vertical neon line from top — taller, more intense pulse */
-function VerticalNeonLine() {
+/* Dramatic vertical neon line — PERFECTLY CENTERED with the logo */
+const VerticalNeonLine = memo(function VerticalNeonLine() {
   return (
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 pointer-events-none" aria-hidden="true">
+    <div className="absolute top-0 left-1/2 z-10 pointer-events-none" style={{ transform: "translateX(-50%)" }} aria-hidden="true">
       <motion.div
         className="w-[1px] origin-top"
         style={{
           background: "linear-gradient(180deg, rgba(255,23,68,0.8) 0%, rgba(255,23,68,0.4) 40%, rgba(255,23,68,0.15) 70%, transparent 100%)",
           boxShadow: "0 0 12px rgba(255,23,68,0.5), 0 0 30px rgba(255,23,68,0.25), 0 0 60px rgba(255,23,68,0.12), 0 0 100px rgba(255,23,68,0.06)",
+          margin: "0 auto",
         }}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 240, opacity: 1 }}
         transition={{ duration: 1.8, delay: 0.2, ease }}
       />
-      {/* Pulsing glow at the tip */}
+      {/* Pulsing glow at the tip — centered on the 1px line */}
       <motion.div
-        className="w-[5px] h-[5px] rounded-full -translate-x-[2px]"
+        className="w-[5px] h-[5px] rounded-full"
         style={{
           background: "rgba(255,23,68,0.9)",
           boxShadow: "0 0 14px rgba(255,23,68,0.7), 0 0 35px rgba(255,23,68,0.4), 0 0 60px rgba(255,23,68,0.2)",
+          marginLeft: "-2px",
         }}
         animate={{
           opacity: [0.3, 1, 0.3],
@@ -194,16 +144,21 @@ function VerticalNeonLine() {
       />
     </div>
   );
-}
+});
 
-function AnimatedBackground() {
-  const [scrollY, setScrollY] = useState(0);
+/* AnimatedBackground — ref-based scroll, radial gradient orbs (no blur filter) */
+const AnimatedBackground = memo(function AnimatedBackground() {
+  const gridRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
-      rafId.current = requestAnimationFrame(() => setScrollY(window.scrollY));
+      rafId.current = requestAnimationFrame(() => {
+        if (gridRef.current) {
+          gridRef.current.style.transform = `translateY(${window.scrollY * 0.1}px)`;
+        }
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -213,11 +168,11 @@ function AnimatedBackground() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div className="absolute inset-0 overflow-hidden" style={{ contain: "paint" }} aria-hidden="true">
       {/* Deep black base */}
       <div className="absolute inset-0" style={{ background: "#050505" }} />
 
-      {/* Animated gradient mesh — neon crimson only, more intense */}
+      {/* Animated gradient mesh */}
       <div
         className="absolute inset-0 opacity-50"
         style={{
@@ -231,7 +186,7 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* Gothic cathedral vignette — extreme darkness at edges */}
+      {/* Gothic cathedral vignette */}
       <div
         className="absolute inset-0"
         style={{
@@ -240,7 +195,7 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* Secondary vignette — top and bottom crushing darkness */}
+      {/* Secondary vignette */}
       <div
         className="absolute inset-0"
         style={{
@@ -249,8 +204,9 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* Grid lines with scroll parallax — neon tinted, finer */}
+      {/* Grid lines with scroll parallax — ref-based, no React re-renders */}
       <div
+        ref={gridRef}
         className="absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage: `
@@ -258,12 +214,11 @@ function AnimatedBackground() {
             linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
-          transform: `translateY(${scrollY * 0.1}px)`,
           willChange: "transform",
         }}
       />
 
-      {/* Diagonal cross-hatch overlay for industrial texture */}
+      {/* Diagonal cross-hatch overlay */}
       <div
         className="absolute inset-0 opacity-[0.015]"
         style={{
@@ -275,7 +230,7 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* CRT scan line overlay — denser */}
+      {/* CRT scan line overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -293,37 +248,40 @@ function AnimatedBackground() {
         }}
       />
 
-      {/* Breathing ambient orbs — 8 total with wild size variance */}
-      {ambientOrbs.map((orb, i) => (
-        <motion.div
-          key={i}
-          animate={{
-            y: [0, i % 2 === 0 ? -30 : 22, 0],
-            x: [0, i % 3 === 0 ? 15 : -12, 0],
-            opacity: orb.opacity,
-            scale: [1, 1.3, 1],
-          }}
-          transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
-          className="absolute rounded-full blur-[120px]"
-          style={{
-            top: orb.top,
-            left: orb.left,
-            right: orb.right,
-            bottom: orb.bottom,
-            width: orb.size,
-            height: orb.size,
-            background: orb.color,
-            willChange: "transform, opacity",
-            backfaceVisibility: "hidden",
-            transform: "translateZ(0)",
-          }}
-        />
-      ))}
+      {/* Breathing ambient orbs — radial gradient instead of blur-[120px] */}
+      {ambientOrbs.map((orb, i) => {
+        const { background, renderSize } = orbGradient(orb.color, orb.size);
+        return (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, i % 2 === 0 ? -30 : 22, 0],
+              x: [0, i % 3 === 0 ? 15 : -12, 0],
+              opacity: orb.opacity,
+              scale: [1, 1.3, 1],
+            }}
+            transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
+            className="absolute rounded-full"
+            style={{
+              top: orb.top,
+              left: orb.left,
+              right: (orb as Record<string, unknown>).right as string | undefined,
+              bottom: (orb as Record<string, unknown>).bottom as string | undefined,
+              width: renderSize,
+              height: renderSize,
+              background,
+              willChange: "transform, opacity",
+              backfaceVisibility: "hidden",
+              transform: "translateZ(0)",
+            }}
+          />
+        );
+      })}
     </div>
   );
-}
+});
 
-function WordReveal({
+const WordReveal = memo(function WordReveal({
   words,
   startDelay,
   className,
@@ -352,7 +310,7 @@ function WordReveal({
       ))}
     </>
   );
-}
+});
 
 const techStack = [
   "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS",
@@ -361,16 +319,15 @@ const techStack = [
   "GraphQL", "REST APIs", "Firebase", "Stripe", "AWS", "Progressive Web Apps",
 ];
 
-function TechMarquee() {
+/* TechMarquee — CSS animation instead of Framer Motion for compositor thread */
+const TechMarquee = memo(function TechMarquee() {
   return (
     <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-8 sm:mt-16" aria-hidden="true">
-      {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
-      <motion.div
+      <div
         className="flex gap-8 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        style={{ animation: "marquee-left 30s linear infinite" }}
       >
         {techStack.map((tech, i) => (
           <span
@@ -381,12 +338,12 @@ function TechMarquee() {
             <span className="w-2 h-2 rounded-full bg-neon/50 shadow-[0_0_10px_rgba(255,23,68,0.5),0_0_20px_rgba(255,23,68,0.2)]" />
           </span>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
-}
+});
 
-function ShimmerButton({ href, children }: { href: string; children: React.ReactNode }) {
+const ShimmerButton = memo(function ShimmerButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
@@ -405,10 +362,10 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
       />
     </a>
   );
-}
+});
 
 /* Gothic cathedral divider ornament */
-function GothicDivider({ delay }: { delay: number }) {
+const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) {
   return (
     <motion.div
       initial={{ scaleX: 0, opacity: 0 }}
@@ -417,7 +374,6 @@ function GothicDivider({ delay }: { delay: number }) {
       className="flex items-center justify-center gap-3 max-w-[320px] mx-auto mb-8"
     >
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
-      {/* Central ornament — gothic diamond */}
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
         <path d="M8 1 L15 8 L8 15 L1 8 Z" stroke="rgba(255,23,68,0.5)" strokeWidth="1" fill="none" />
         <path d="M8 4 L12 8 L8 12 L4 8 Z" stroke="rgba(192,192,192,0.2)" strokeWidth="0.5" fill="none" />
@@ -431,10 +387,9 @@ function GothicDivider({ delay }: { delay: number }) {
       <div className="flex-1 h-px bg-gradient-to-l from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
     </motion.div>
   );
-}
+});
 
 export default function Hero() {
-  /* Logo reveal timing */
   const logoDelay = 0.2;
   const glowDelay = logoDelay + 0.4;
   const wordBaseDelay = glowDelay + 0.7;
@@ -454,18 +409,13 @@ export default function Hero() {
       <ScanLine />
       <VerticalNeonLine />
 
-      {/* ── Gothic Ornamental Corner Framing ── */}
+      {/* Gothic Ornamental Corner Framing */}
       <div className="hidden sm:block absolute inset-0 pointer-events-none z-10" aria-hidden="true">
-        {/* Top-left */}
         <GothicCorner className="absolute top-4 left-4" />
-        {/* Top-right */}
         <GothicCorner className="absolute top-4 right-4 -scale-x-100" />
-        {/* Bottom-left */}
         <GothicCorner className="absolute bottom-4 left-4 -scale-y-100" />
-        {/* Bottom-right */}
         <GothicCorner className="absolute bottom-4 right-4 -scale-x-100 -scale-y-100" />
 
-        {/* Connecting border lines between corners — subtle silver */}
         <motion.div
           className="absolute top-4 left-[124px] right-[124px] h-px"
           style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
@@ -497,14 +447,14 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        {/* ── Full Logo — Dramatic Centered Reveal with intense neon underglow & flicker ── */}
+        {/* Full Logo — Dramatic Centered Reveal */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: logoDelay, ease }}
           className="relative mx-auto mb-8 sm:mb-14 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
         >
-          {/* Intense multi-layer neon underglow — outermost layer */}
+          {/* Intense multi-layer neon underglow */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -538,7 +488,7 @@ export default function Hero() {
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
             aria-hidden="true"
           />
-          {/* Tertiary rapid flicker glow — runs 5 times then stops */}
+          {/* Tertiary rapid flicker glow */}
           <motion.div
             className="absolute -inset-6 sm:-inset-8 lg:-inset-12 pointer-events-none rounded-full"
             style={{
@@ -567,27 +517,12 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* ── Headline area with animated ornamental corner brackets ── */}
+        {/* Headline area with animated ornamental corner brackets */}
         <div className="relative inline-block">
-          {/* Ornamental chrome brackets — top-left */}
-          <HeadlineBracket
-            className="hidden sm:block absolute -top-5 -left-8 sm:-top-7 sm:-left-12"
-          />
-          {/* Top-right — flipped horizontally */}
-          <HeadlineBracket
-            className="hidden sm:block absolute -top-5 -right-8 sm:-top-7 sm:-right-12"
-            style={{ transform: "scaleX(-1)" }}
-          />
-          {/* Bottom-left — flipped vertically */}
-          <HeadlineBracket
-            className="hidden sm:block absolute -bottom-5 -left-8 sm:-bottom-7 sm:-left-12"
-            style={{ transform: "scaleY(-1)" }}
-          />
-          {/* Bottom-right — flipped both */}
-          <HeadlineBracket
-            className="hidden sm:block absolute -bottom-5 -right-8 sm:-bottom-7 sm:-right-12"
-            style={{ transform: "scale(-1, -1)" }}
-          />
+          <HeadlineBracket className="hidden sm:block absolute -top-5 -left-8 sm:-top-7 sm:-left-12" />
+          <HeadlineBracket className="hidden sm:block absolute -top-5 -right-8 sm:-top-7 sm:-right-12" style={{ transform: "scaleX(-1)" }} />
+          <HeadlineBracket className="hidden sm:block absolute -bottom-5 -left-8 sm:-bottom-7 sm:-left-12" style={{ transform: "scaleY(-1)" }} />
+          <HeadlineBracket className="hidden sm:block absolute -bottom-5 -right-8 sm:-bottom-7 sm:-right-12" style={{ transform: "scale(-1, -1)" }} />
 
           <motion.div
             initial={{ scale: 1.04 }}
@@ -602,11 +537,7 @@ export default function Hero() {
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
               </span>
               <span className="block">
-                <WordReveal
-                  words={headlineLine2}
-                  startDelay={line2Delay}
-                  className="text-gradient-vermillion text-neon-glow"
-                />
+                <WordReveal words={headlineLine2} startDelay={line2Delay} className="text-gradient-vermillion text-neon-glow" />
               </span>
               <span className="block font-display">
                 <WordReveal words={headlineLine3} startDelay={line3Delay} className="metallic-text" />
@@ -615,10 +546,8 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Gothic ornamental divider */}
         <GothicDivider delay={accentLineDelay} />
 
-        {/* Subtext — authoritative */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -628,7 +557,6 @@ export default function Hero() {
           Systems architecture for organizations that refuse to compromise. Zero templates. Zero shortcuts. Every line written with surgical precision.
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -646,7 +574,6 @@ export default function Hero() {
           </MagneticButton>
         </motion.div>
 
-        {/* Tech stack marquee */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

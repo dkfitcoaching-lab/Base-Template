@@ -1,18 +1,22 @@
+import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorSpotlight from "@/components/CursorSpotlight";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import Showcase from "@/components/Showcase";
-import Services from "@/components/Services";
-import Comparison from "@/components/Comparison";
-import Features from "@/components/Features";
-import Process from "@/components/Process";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import MarqueeDivider from "@/components/MarqueeDivider";
+
+/* Dynamic imports for below-fold sections — reduces initial JS payload */
+const Showcase = dynamic(() => import("@/components/Showcase"), { ssr: true });
+const Services = dynamic(() => import("@/components/Services"), { ssr: true });
+const Comparison = dynamic(() => import("@/components/Comparison"), { ssr: true });
+const Features = dynamic(() => import("@/components/Features"), { ssr: true });
+const Process = dynamic(() => import("@/components/Process"), { ssr: true });
+const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
+const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
+const CTA = dynamic(() => import("@/components/CTA"), { ssr: true });
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 
 /* Gothic ornamental section separator — wrought iron centerpiece between key sections */
 function OrnamentalDivider() {
@@ -102,13 +106,13 @@ export default function Home() {
       <div className="page-vignette" aria-hidden="true" />
 
       <main id="main-content" className="relative">
-        <CursorSpotlight />
+        <ErrorBoundary><CursorSpotlight /></ErrorBoundary>
         <ScrollProgress />
         <Navigation />
-        <Hero />
+        <ErrorBoundary><Hero /></ErrorBoundary>
         <Stats />
         <MarqueeDivider text="CUSTOM SOFTWARE" speed={25} direction="left" />
-        <Showcase />
+        <ErrorBoundary><Showcase /></ErrorBoundary>
         <OrnamentalDivider />
         <div className="relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(255,23,68,0.03),transparent_70%)] pointer-events-none" aria-hidden="true" />
@@ -132,7 +136,7 @@ export default function Home() {
         <FAQ />
         <div className="relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_40%,rgba(255,23,68,0.04),transparent_70%)] pointer-events-none" aria-hidden="true" />
-          <CTA />
+          <ErrorBoundary><CTA /></ErrorBoundary>
         </div>
         <Footer />
       </main>

@@ -1,14 +1,41 @@
 "use client";
 
+import React, { memo } from "react";
+
 interface DeviceMockupProps {
   label: string;
   image?: string;
   description?: string;
 }
 
+/* ── Shared SVG defs for premium effects ── */
+const SharedDefs = memo(function SharedDefs() {
+  return (
+    <defs>
+      <linearGradient id="g-neonV" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FF1744" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="#080808" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient id="g-chrome" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#333" />
+        <stop offset="50%" stopColor="#555" />
+        <stop offset="100%" stopColor="#333" />
+      </linearGradient>
+      <linearGradient id="g-cardShine" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="rgba(255,255,255,0.03)" />
+        <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+      </linearGradient>
+      <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+    </defs>
+  );
+});
+
 /* ── Abstract SVG mockup screens keyed by showcase label ── */
 
-function CoachingPlatformMockup() {
+const CoachingPlatformMockup = memo(function CoachingPlatformMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <defs>
@@ -123,9 +150,9 @@ function CoachingPlatformMockup() {
       <text x="218" y="181" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Strength Training</text>
     </svg>
   );
-}
+});
 
-function AnalyticsDashboardMockup() {
+const AnalyticsDashboardMockup = memo(function AnalyticsDashboardMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <defs>
@@ -234,9 +261,9 @@ function AnalyticsDashboardMockup() {
       ))}
     </svg>
   );
-}
+});
 
-function MemberPortalMockup() {
+const MemberPortalMockup = memo(function MemberPortalMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#080808" />
@@ -315,9 +342,9 @@ function MemberPortalMockup() {
       ))}
     </svg>
   );
-}
+});
 
-function ECommerceMockup() {
+const ECommerceMockup = memo(function ECommerceMockup() {
   const products = [
     { name: "Chronograph Elite", price: "$2,490", rating: 5, reviews: "124" },
     { name: "Artisan Leather", price: "$1,850", rating: 4, reviews: "89" },
@@ -364,7 +391,7 @@ function ECommerceMockup() {
             <rect x={x} y={y} width="122" height="66" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
             {/* Product image placeholder with gradient */}
             <rect x={x + 3} y={y + 3} width="116" height="26" rx="3" fill="#111" />
-            <rect x={x + 3} y={y + 3} width="116" height="26" rx="3" fill="url(#heroGrad)" opacity="0.3" />
+            <rect x={x + 3} y={y + 3} width="116" height="26" rx="3" fill="rgba(255,23,68,0.06)" />
             <rect x={x + 40} y={y + 12} width="36" height="8" rx="2" fill="#1A1A1A" />
             {/* Wishlist heart */}
             <text x={x + 111} y={y + 10} fill="#555" fontSize="4" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">♡</text>
@@ -386,9 +413,9 @@ function ECommerceMockup() {
       <text x="190" y="194" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Showing 4 of 128 products · Page 1 of 32</text>
     </svg>
   );
-}
+});
 
-function EnterpriseCRMMockup() {
+const EnterpriseCRMMockup = memo(function EnterpriseCRMMockup() {
   const stages = [
     { name: "Lead", count: 12, value: "$340K", color: "#666", cards: [
       { init: "A", name: "Acme Corp", deal: "$50K", pct: 20 },
@@ -468,9 +495,9 @@ function EnterpriseCRMMockup() {
       })}
     </svg>
   );
-}
+});
 
-function MobileAppMockup() {
+const MobileAppMockup = memo(function MobileAppMockup() {
   return (
     <div className="w-full h-full bg-[#080808] flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 py-4 relative">
       {/* Ambient glow behind phones */}
@@ -541,7 +568,7 @@ function MobileAppMockup() {
       </div>
     </div>
   );
-}
+});
 
 const MOCKUP_MAP: Record<string, React.FC> = {
   "Coaching Platform": CoachingPlatformMockup,
@@ -553,7 +580,7 @@ const MOCKUP_MAP: Record<string, React.FC> = {
 };
 
 /* Fallback for unknown labels */
-function FallbackMockup() {
+const FallbackMockup = memo(function FallbackMockup() {
   return (
     <svg viewBox="0 0 320 200" className="w-full h-full" aria-hidden="true">
       <rect width="320" height="200" fill="#080808" />
@@ -565,9 +592,9 @@ function FallbackMockup() {
       <rect x="80" y="118" width="60" height="16" rx="4" fill="#FF1744" />
     </svg>
   );
-}
+});
 
-export default function DeviceMockup({ label, image, description }: DeviceMockupProps) {
+const DeviceMockup = memo(function DeviceMockup({ label, image, description }: DeviceMockupProps) {
   const MockupComponent = MOCKUP_MAP[label] || FallbackMockup;
 
   return (
@@ -642,4 +669,6 @@ export default function DeviceMockup({ label, image, description }: DeviceMockup
       )}
     </div>
   );
-}
+});
+
+export default DeviceMockup;

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CursorSpotlight() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isTouch, setIsTouch] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -16,7 +16,10 @@ export default function CursorSpotlight() {
     const handleMouseMove = (e: MouseEvent) => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
-        setPosition({ x: e.clientX, y: e.clientY });
+        if (divRef.current) {
+          divRef.current.style.setProperty("--cx", `${e.clientX}px`);
+          divRef.current.style.setProperty("--cy", `${e.clientY}px`);
+        }
       });
     };
 
@@ -31,11 +34,13 @@ export default function CursorSpotlight() {
 
   return (
     <div
+      ref={divRef}
       className="fixed inset-0 z-30 pointer-events-none"
       aria-hidden="true"
       style={{
-        background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,23,68,0.10), transparent 40%), radial-gradient(300px circle at ${position.x}px ${position.y}px, rgba(255,23,68,0.06), transparent 30%)`,
-        willChange: "background",
+        ["--cx" as string]: "0px",
+        ["--cy" as string]: "0px",
+        background: "radial-gradient(600px circle at var(--cx) var(--cy), rgba(255,23,68,0.10), transparent 40%), radial-gradient(300px circle at var(--cx) var(--cy), rgba(255,23,68,0.06), transparent 30%)",
         backfaceVisibility: "hidden",
         transform: "translateZ(0)",
       }}
