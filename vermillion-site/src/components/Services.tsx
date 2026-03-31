@@ -61,8 +61,8 @@ export default function Services() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease }}
           className="text-center"
@@ -89,7 +89,7 @@ export default function Services() {
             </p>
             <h2
               id="services-heading"
-              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gradient-vermillion"
             >
               Transparent Pricing. No Surprises.
             </h2>
@@ -143,7 +143,7 @@ export default function Services() {
                   transition={{ duration: 0.35, ease }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow neon-pulse-border"
+                      ? "neon-border-flow"
                       : "neon-glow-border"
                   }`}
                   style={{
@@ -201,7 +201,7 @@ export default function Services() {
                         scale: isHighlighted ? 1.02 : 1,
                       }}
                       transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon text-neon-glow-subtle mb-3 origin-left"
+                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span

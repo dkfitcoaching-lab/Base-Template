@@ -75,7 +75,7 @@ export default function Navigation() {
           }
         });
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-20% 0px -35% 0px", threshold: 0 }
     );
 
     sectionIds.forEach((id) => {
@@ -180,7 +180,7 @@ export default function Navigation() {
               <MagneticButton strength={0.25}>
                 <a
                   href="#contact"
-                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase transition-all duration-300 hover:shadow-neon-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="ml-2 px-6 py-3 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase transition-all duration-300 hover:shadow-neon-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   Start a Project
                 </a>
@@ -223,7 +223,7 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05, ease }}
-                  className={`relative text-xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-neon group ${
+                  className={`relative text-2xl sm:text-3xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-neon group ${
                     activeSection === link.href.replace("#", "")
                       ? "text-neon"
                       : "text-text-primary"

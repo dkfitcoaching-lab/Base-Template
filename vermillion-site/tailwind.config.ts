@@ -38,12 +38,17 @@ const config: Config = {
           light: "#E0E0E0",
           dark: "#888888",
         },
+        accent: {
+          DEFAULT: "#4A90D9",
+          glow: "rgba(74, 144, 217, 0.15)",
+          soft: "rgba(74, 144, 217, 0.06)",
+        },
         border: "#252525",
         text: {
           primary: "#F0F0F0",
           body: "#C0C0C0",
           secondary: "#888888",
-          caption: "#555555",
+          caption: "#8A8A8A",
         },
       },
       fontSize: {
@@ -60,10 +65,14 @@ const config: Config = {
         "section-y-lg": "10rem",
       },
       fontFamily: {
-        heading: ["var(--font-cinzel)", "Cinzel", "serif"],
-        body: ["var(--font-source-sans)", "Source Sans 3", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "JetBrains Mono", "monospace"],
-        display: ["var(--font-cinzel-decorative)", "Cinzel Decorative", "serif"],
+        heading: ["Cinzel", "serif"],
+        body: ["'Source Sans 3'", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
+        display: ["Cinzel", "serif"],
+      },
+      screens: {
+        '2xl': '1536px',
+        '3xl': '1920px',
       },
       borderRadius: {
         card: "12px",

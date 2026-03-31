@@ -58,6 +58,11 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus("submitting");
 
+    if (!WEB3FORMS_KEY) {
+      setStatus("error");
+      return;
+    }
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",

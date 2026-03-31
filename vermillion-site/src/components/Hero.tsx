@@ -1,7 +1,7 @@
 "use client";
 
-import React, { memo, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -10,8 +10,21 @@ const headlineLine1 = "Precision".split(" ");
 const headlineLine2 = "Engineered".split(" ");
 const headlineLine3 = "Software".split(" ");
 
+/* Orb configuration type */
+interface OrbConfig {
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  size: number;
+  duration: number;
+  delay: number;
+  color: string;
+  opacity: number[];
+}
+
 /* Breathing ambient orbs — neon crimson, using radial gradients instead of blur filters */
-const ambientOrbs = [
+const ambientOrbs: OrbConfig[] = [
   { top: "2%", left: "5%", size: 700, duration: 9, delay: 0, color: "rgba(255,23,68,0.10)", opacity: [0.04, 0.18, 0.04] },
   { top: "45%", right: "2%", size: 120, duration: 5, delay: 1.5, color: "rgba(255,23,68,0.14)", opacity: [0.06, 0.22, 0.06] },
   { bottom: "8%", left: "2%", size: 280, duration: 7, delay: 1, color: "rgba(255,23,68,0.09)", opacity: [0.04, 0.2, 0.04] },
@@ -91,12 +104,10 @@ const ScanLine = memo(function ScanLine() {
         background: "linear-gradient(90deg, transparent 0%, rgba(255,23,68,0.1) 10%, rgba(255,23,68,0.25) 30%, rgba(255,23,68,0.5) 50%, rgba(255,23,68,0.25) 70%, rgba(255,23,68,0.1) 90%, transparent 100%)",
         boxShadow: "0 0 30px rgba(255,23,68,0.4), 0 0 80px rgba(255,23,68,0.15), 0 -4px 16px rgba(255,23,68,0.1), 0 4px 16px rgba(255,23,68,0.1)",
       }}
-      initial={{ top: "-3px" }}
-      animate={{ top: ["0%", "100%"] }}
+      initial={{ top: "-3px", opacity: 1 }}
+      animate={{ top: ["0%", "100%"], opacity: [1, 1, 0] }}
       transition={{
         duration: 3.5,
-        repeat: Infinity,
-        repeatDelay: 2.5,
         ease: "linear",
       }}
     />
@@ -150,6 +161,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
 const AnimatedBackground = memo(function AnimatedBackground() {
   const gridRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
+  const [showOrbs, setShowOrbs] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
@@ -165,6 +177,15 @@ const AnimatedBackground = memo(function AnimatedBackground() {
       window.removeEventListener("scroll", onScroll);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
+  }, []);
+
+  /* Disable orbs on mobile to save GPU/battery */
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setShowOrbs(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setShowOrbs(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   return (
@@ -214,7 +235,6 @@ const AnimatedBackground = memo(function AnimatedBackground() {
             linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
-          willChange: "transform",
         }}
       />
 
@@ -248,8 +268,8 @@ const AnimatedBackground = memo(function AnimatedBackground() {
         }}
       />
 
-      {/* Breathing ambient orbs — radial gradient instead of blur-[120px] */}
-      {ambientOrbs.map((orb, i) => {
+      {/* Breathing ambient orbs — radial gradient instead of blur-[120px] (disabled on mobile) */}
+      {showOrbs && ambientOrbs.map((orb, i) => {
         const { background, renderSize } = orbGradient(orb.color, orb.size);
         return (
           <motion.div
@@ -265,12 +285,11 @@ const AnimatedBackground = memo(function AnimatedBackground() {
             style={{
               top: orb.top,
               left: orb.left,
-              right: (orb as Record<string, unknown>).right as string | undefined,
-              bottom: (orb as Record<string, unknown>).bottom as string | undefined,
+              right: orb.right,
+              bottom: orb.bottom,
               width: renderSize,
               height: renderSize,
               background,
-              willChange: "transform, opacity",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
             }}
@@ -347,7 +366,7 @@ const ShimmerButton = memo(function ShimmerButton({ href, children }: { href: st
   return (
     <a
       href={href}
-      className="shimmer-btn relative overflow-hidden px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="shimmer-btn relative overflow-hidden px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="relative z-10">{children}</span>
       <span
@@ -390,6 +409,9 @@ const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) 
 });
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const logoDelay = 0.2;
   const glowDelay = logoDelay + 0.4;
   const wordBaseDelay = glowDelay + 0.7;
@@ -401,6 +423,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: "#050505" }}
       aria-labelledby="hero-heading"
@@ -446,7 +469,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <motion.div className="relative z-10 max-w-5xl 2xl:max-w-6xl mx-auto px-4 sm:px-6 text-center" style={{ y: headlineY }}>
         {/* Full Logo — Dramatic Centered Reveal */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -467,7 +490,6 @@ export default function Hero() {
               style={{
                 background: "radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(255,23,68,0.14) 25%, rgba(255,23,68,0.05) 50%, rgba(255,23,68,0.01) 70%, transparent 85%)",
                 filter: "drop-shadow(0 0 80px rgba(255,23,68,0.25)) drop-shadow(0 0 140px rgba(255,23,68,0.12))",
-                willChange: "filter",
                 backfaceVisibility: "hidden",
                 transform: "translateZ(0)",
               }}
@@ -531,7 +553,8 @@ export default function Hero() {
           >
             <h1
               id="hero-heading"
-              className="font-heading font-bold text-[1.6rem] sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              className="font-heading font-bold text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              style={{ fontSize: "clamp(1.8rem, 5vw + 1rem, 7rem)" }}
             >
               <span className="block">
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
@@ -567,7 +590,7 @@ export default function Hero() {
           <MagneticButton>
             <a
               href="#work"
-              className="px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>
@@ -581,7 +604,7 @@ export default function Hero() {
         >
           <TechMarquee />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

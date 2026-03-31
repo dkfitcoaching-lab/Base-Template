@@ -15,10 +15,19 @@ const containerVariants = {
 };
 
 const rowVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
+    transition: { duration: 0.6, ease },
+  },
+};
+
+const rowVariantsRight = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
     transition: { duration: 0.6, ease },
   },
 };
@@ -49,62 +58,59 @@ export default function Comparison() {
           </p>
           <h2
             id="comparison-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary metallic-text"
           >
             Built Different. Delivered Faster.
           </h2>
         </motion.div>
 
-        {/* Desktop Table */}
+        {/* Desktop Semantic Table */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           className="hidden md:block rounded-card overflow-hidden gothic-card neon-glow-border"
-          role="table"
-          aria-label="Feature comparison"
         >
-          {/* Header row */}
-          <div
-            className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface-2/60 backdrop-blur-sm border-b border-white/[0.06] px-8 py-5"
-            role="row"
-          >
-            <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider">
-              Feature
-            </span>
-            <span role="columnheader" className="text-xs font-heading font-semibold text-text-caption uppercase tracking-wider text-center">
-              Traditional Agencies
-            </span>
-            <span role="columnheader" className="text-xs font-heading font-bold text-neon text-neon-glow uppercase tracking-wider text-center bg-neon/[0.06] -my-5 py-5 -mr-8 pr-8 pl-4 border-l border-l-neon/20">
-              Vermillion Axis
-            </span>
-          </div>
-
-          {/* Data rows */}
-          {COMPARISON.map((row, i) => (
-            <motion.div
-              key={row.feature}
-              variants={rowVariants}
-              role="row"
-              className={`group grid grid-cols-[1.5fr_1fr_1fr] items-center px-8 py-5
-                hover:bg-white/[0.02]
-                border-l-2 border-l-transparent hover:border-l-neon/60
-                transition-all duration-300
-                ${i < COMPARISON.length - 1 ? "border-b border-b-white/[0.04]" : ""}
-              `}
-            >
-              <span role="cell" className="text-sm text-text-body group-hover:text-text-primary transition-colors duration-300 font-medium">
-                {row.feature}
-              </span>
-              <span role="cell" className="text-sm text-text-caption text-center">
-                {row.others}
-              </span>
-              <span role="cell" className="text-sm text-neon font-bold text-center text-neon-glow-subtle bg-neon/[0.04] -my-5 py-5 -mr-8 pr-8 pl-4 border-l border-l-neon/[0.08]">
-                {row.ours}
-              </span>
-            </motion.div>
-          ))}
+          <table className="w-full" aria-label="Feature comparison">
+            <thead>
+              <tr className="bg-surface-2/60 backdrop-blur-sm border-b border-white/[0.06]">
+                <th className="text-left text-xs font-heading font-semibold text-text-caption uppercase tracking-wider px-8 py-5">
+                  Feature
+                </th>
+                <th className="text-center text-xs font-heading font-semibold text-text-caption uppercase tracking-wider px-4 py-5">
+                  Traditional Agencies
+                </th>
+                <th className="text-center text-xs font-heading font-bold text-neon uppercase tracking-wider px-4 py-5 bg-neon/[0.06] border-l border-l-neon/20">
+                  Vermillion Axis
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISON.map((row, i) => (
+                <motion.tr
+                  key={row.feature}
+                  variants={i % 2 === 0 ? rowVariants : rowVariantsRight}
+                  className={`group
+                    hover:bg-white/[0.02]
+                    border-l-2 border-l-transparent hover:border-l-neon/60
+                    transition-all duration-300
+                    ${i < COMPARISON.length - 1 ? "border-b border-b-white/[0.04]" : ""}
+                  `}
+                >
+                  <td className="text-sm text-text-body group-hover:text-text-primary transition-colors duration-300 font-medium px-8 py-5">
+                    {row.feature}
+                  </td>
+                  <td className="text-sm text-text-caption text-center px-4 py-5">
+                    {row.others}
+                  </td>
+                  <td className="text-sm text-neon font-bold text-center bg-neon/[0.04] border-l border-l-neon/[0.08] px-4 py-5">
+                    {row.ours}
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
         </motion.div>
 
         {/* Mobile Cards */}
@@ -131,7 +137,7 @@ export default function Comparison() {
                 </div>
                 <div className="text-right">
                   <span className="text-text-caption text-xs uppercase tracking-wider block mb-0.5">Us</span>
-                  <span className="text-neon font-semibold text-neon-glow-subtle">{row.ours}</span>
+                  <span className="text-neon font-semibold">{row.ours}</span>
                 </div>
               </div>
             </motion.div>
@@ -148,7 +154,7 @@ export default function Comparison() {
         >
           <p className="text-center text-text-secondary text-base font-body">
             We don&apos;t compete on price. We compete on{" "}
-            <span className="text-neon font-semibold text-neon-glow-subtle">
+            <span className="text-neon font-semibold">
               speed, quality, and ownership
             </span>
             .

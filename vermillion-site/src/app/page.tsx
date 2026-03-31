@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorSpotlight from "@/components/CursorSpotlight";
@@ -6,17 +5,15 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import MarqueeDivider from "@/components/MarqueeDivider";
-
-/* Dynamic imports for below-fold sections — reduces initial JS payload */
-const Showcase = dynamic(() => import("@/components/Showcase"), { ssr: true });
-const Services = dynamic(() => import("@/components/Services"), { ssr: true });
-const Comparison = dynamic(() => import("@/components/Comparison"), { ssr: true });
-const Features = dynamic(() => import("@/components/Features"), { ssr: true });
-const Process = dynamic(() => import("@/components/Process"), { ssr: true });
-const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
-const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
-const CTA = dynamic(() => import("@/components/CTA"), { ssr: true });
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
+import Showcase from "@/components/Showcase";
+import Services from "@/components/Services";
+import Comparison from "@/components/Comparison";
+import Features from "@/components/Features";
+import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import CTA from "@/components/CTA";
+import Footer from "@/components/Footer";
 
 /* Gothic ornamental section separator — wrought iron centerpiece between key sections */
 function OrnamentalDivider() {
@@ -105,7 +102,7 @@ export default function Home() {
       {/* Edge vignette for cathedral depth */}
       <div className="page-vignette" aria-hidden="true" />
 
-      <main id="main-content" className="relative">
+      <main id="main-content" className="relative" aria-label="Vermillion Axis Technologies">
         <ErrorBoundary><CursorSpotlight /></ErrorBoundary>
         <ScrollProgress />
         <Navigation />

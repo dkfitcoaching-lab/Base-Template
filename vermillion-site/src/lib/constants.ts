@@ -8,7 +8,7 @@ export const SITE = {
   email: "contact@vermillionaxis.tech",
 };
 
-export const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
+export const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
 
 export const SERVICE_OPTIONS = [
   "Foundation ($2,500 – $5,000)",

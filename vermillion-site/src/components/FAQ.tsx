@@ -18,8 +18,8 @@ export default function FAQ() {
     <section id="faq" className="py-16 sm:py-20 lg:py-24" aria-labelledby="faq-heading">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease }}
           className="text-center mb-16"
@@ -29,7 +29,7 @@ export default function FAQ() {
           </p>
           <h2
             id="faq-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary"
           >
             Everything You Need to Know
           </h2>

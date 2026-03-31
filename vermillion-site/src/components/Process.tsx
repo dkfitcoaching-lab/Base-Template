@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { PROCESS_STEPS } from "@/lib/constants";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -24,8 +25,17 @@ const stepVariants = {
 };
 
 export default function Process() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  /* Timeline line grows with scroll progress through the section */
+  const lineScaleY = useTransform(scrollYProgress, [0.1, 0.8], [0, 1]);
+
   return (
     <section
+      ref={sectionRef}
       id="process"
       className="relative py-16 sm:py-24 lg:py-32"
       aria-labelledby="process-heading"
@@ -33,12 +43,12 @@ export default function Process() {
       {/* Atmospheric depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_20%_50%,rgba(255,23,68,0.025),transparent_60%)] pointer-events-none" aria-hidden="true" />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+        {/* Section header — clip-path reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.9, ease }}
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
@@ -46,7 +56,7 @@ export default function Process() {
           </p>
           <h2
             id="process-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary"
           >
             From Idea to Launch in Days
           </h2>
@@ -54,23 +64,14 @@ export default function Process() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Animated vertical line */}
+          {/* Scroll-linked vertical line */}
           <motion.div
             className="absolute left-[21px] sm:left-[27px] top-0 bottom-0 w-px origin-top"
             style={{
               background:
                 "linear-gradient(to bottom, #FF1744 0%, #FF1744 30%, rgba(255,23,68,0.15) 70%, transparent 100%)",
+              scaleY: lineScaleY,
             }}
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            aria-hidden="true"
-          />
-
-          {/* Traveling light dot */}
-          <div
-            className="absolute left-[19px] sm:left-[25px] w-[6px] h-[6px] rounded-full bg-neon shadow-[0_0_20px_rgba(255,23,68,0.8),0_0_40px_rgba(255,23,68,0.4)] animate-scan-line"
             aria-hidden="true"
           />
 
@@ -87,16 +88,16 @@ export default function Process() {
                 variants={stepVariants}
                 className="group flex items-start gap-4 sm:gap-6 lg:gap-8"
               >
-                {/* Step number circle */}
+                {/* Step number circle — accent blue for visual variety */}
                 <div
-                  className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-surface-2 border border-neon/40
+                  className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-surface-2 border border-accent/40
                     flex items-center justify-center relative z-10
-                    shadow-[0_0_20px_rgba(255,23,68,0.15)]
-                    group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_30px_rgba(255,23,68,0.5),inset_0_0_10px_rgba(255,23,68,0.15)]
+                    shadow-[0_0_20px_rgba(74,144,217,0.15)]
+                    group-hover:bg-accent/10 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(74,144,217,0.5),inset_0_0_10px_rgba(74,144,217,0.15)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >
-                  <span className="font-heading font-bold text-sm text-neon tracking-wider text-neon-glow-subtle">
+                  <span className="font-heading font-bold text-sm text-accent tracking-wider">
                     {step.step}
                   </span>
                 </div>

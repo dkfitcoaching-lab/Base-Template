@@ -82,12 +82,12 @@ export default function Features() {
             <svg className="absolute bottom-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M22 16v6h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <p className="text-xs tracking-[0.3em] text-neon text-neon-glow-subtle uppercase font-heading mb-3">
+            <p className="text-xs tracking-[0.3em] text-accent uppercase font-heading mb-3">
               Capabilities
             </p>
             <h2
               id="features-heading"
-              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gradient-silver"
             >
               Built for What&apos;s Next
             </h2>
@@ -137,16 +137,16 @@ export default function Features() {
 
                 {/* Icon with glow */}
                 <div
-                  className="relative w-11 h-11 rounded-xl bg-neon/10 flex items-center justify-center mb-5
-                    shadow-[0_0_20px_rgba(255,23,68,0.15)]
-                    group-hover:shadow-[0_0_30px_rgba(255,23,68,0.25)]
-                    group-hover:bg-neon/15
-                    transition-all duration-500"
+                  className={`relative w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 ${
+                    isLarge
+                      ? "bg-accent/10 shadow-[0_0_20px_rgba(74,144,217,0.15)] group-hover:shadow-[0_0_30px_rgba(74,144,217,0.25)] group-hover:bg-accent/15"
+                      : "bg-neon/10 shadow-[0_0_20px_rgba(255,23,68,0.15)] group-hover:shadow-[0_0_30px_rgba(255,23,68,0.25)] group-hover:bg-neon/15"
+                  }`}
                   aria-hidden="true"
                 >
                   {Icon && (
-                    <span style={{ filter: 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}>
-                      <Icon className="w-5 h-5 text-neon group-hover:text-neon transition-colors duration-500" />
+                    <span style={{ filter: isLarge ? 'drop-shadow(0 0 8px rgba(74,144,217,0.3))' : 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}>
+                      <Icon className={`w-5 h-5 transition-colors duration-500 ${isLarge ? "text-accent group-hover:text-accent" : "text-neon group-hover:text-neon"}`} />
                     </span>
                   )}
                 </div>
