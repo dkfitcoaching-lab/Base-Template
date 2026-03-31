@@ -86,7 +86,7 @@ const HeadlineBracket = memo(function HeadlineBracket({ className, style }: { cl
         cx="7" cy="7" r="1"
         fill="rgba(255,23,68,0.5)"
         animate={{ opacity: [0.3, 0.8, 0.3] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+        transition={{ duration: 2, repeat: 3, ease: "easeInOut", delay: 2.5 }}
       />
       <line x1="2" y1="18" x2="5" y2="15" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
       <line x1="18" y1="2" x2="15" y2="5" stroke="rgba(200,200,200,0.15)" strokeWidth="0.5" />
@@ -140,7 +140,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
           opacity: [0.3, 1, 0.3],
           scale: [1, 2.2, 1],
         }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 2.5, repeat: 5, ease: "easeInOut" }}
       />
       {/* Drip trail beneath the tip */}
       <motion.div
@@ -150,7 +150,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
         }}
         initial={{ height: 0 }}
         animate={{ height: [0, 60, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{ duration: 3, repeat: 3, ease: "easeInOut", delay: 2 }}
       />
     </div>
   );
@@ -399,7 +399,7 @@ const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) 
           cx="8" cy="8" r="1.5"
           fill="rgba(255,23,68,0.6)"
           animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2, repeat: 3, ease: "easeInOut" }}
         />
       </svg>
       <div className="flex-1 h-px bg-gradient-to-l from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
@@ -474,7 +474,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: logoDelay, ease: EASE }}
-          className="relative mx-auto mb-8 sm:mb-14 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
+          className="relative mx-auto mb-4 sm:mb-8 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
         >
           {/* Intense multi-layer neon underglow */}
           <motion.div
@@ -487,28 +487,12 @@ export default function Hero() {
             <div
               className="w-full h-full rounded-full"
               style={{
-                background: "radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(255,23,68,0.14) 25%, rgba(255,23,68,0.05) 50%, rgba(255,23,68,0.01) 70%, transparent 85%)",
-                filter: "drop-shadow(0 0 80px rgba(255,23,68,0.25)) drop-shadow(0 0 140px rgba(255,23,68,0.12))",
+                background: "radial-gradient(ellipse at center, rgba(255,23,68,0.25) 0%, rgba(255,23,68,0.15) 20%, rgba(255,23,68,0.08) 40%, rgba(255,23,68,0.03) 60%, rgba(255,23,68,0.005) 80%, transparent 100%)",
                 backfaceVisibility: "hidden",
                 transform: "translateZ(0)",
               }}
             />
           </motion.div>
-          {/* Secondary pulsing glow ring */}
-          <motion.div
-            className="absolute -inset-12 sm:-inset-18 lg:-inset-24 pointer-events-none rounded-full"
-            style={{
-              background: "radial-gradient(ellipse at center, rgba(255,23,68,0.18) 0%, transparent 65%)",
-              willChange: "transform, opacity",
-              backfaceVisibility: "hidden",
-            }}
-            animate={{
-              opacity: [0.2, 0.8, 0.2],
-              scale: [0.92, 1.08, 0.92],
-            }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-            aria-hidden="true"
-          />
           {/* Tertiary rapid flicker glow */}
           <motion.div
             className="absolute -inset-6 sm:-inset-8 lg:-inset-12 pointer-events-none rounded-full"
@@ -533,7 +517,6 @@ export default function Hero() {
             style={{
               animation: "neon-flicker 0.15s ease-in-out forwards",
               animationDelay: `${logoDelay + 0.3}s`,
-              filter: "drop-shadow(0 0 20px rgba(255,23,68,0.4)) drop-shadow(0 0 40px rgba(255,23,68,0.15))",
             }}
           />
         </motion.div>
@@ -559,7 +542,7 @@ export default function Hero() {
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
               </span>
               <span className="block">
-                <WordReveal words={headlineLine2} startDelay={line2Delay} className="text-gradient-vermillion text-neon-glow" />
+                <WordReveal words={headlineLine2} startDelay={line2Delay} className="text-gradient-vermillion" />
               </span>
               <span className="block font-display">
                 <WordReveal words={headlineLine3} startDelay={line3Delay} className="metallic-text" />

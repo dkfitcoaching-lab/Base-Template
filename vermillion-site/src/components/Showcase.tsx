@@ -158,7 +158,7 @@ export default function Showcase() {
             </p>
             <h2
               id="showcase-heading"
-              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary metallic-text"
             >
               Engineered for Impact
             </h2>

@@ -86,16 +86,16 @@ export default function Process() {
                 variants={stepVariants}
                 className="group flex items-start gap-4 sm:gap-6 lg:gap-8"
               >
-                {/* Step number circle — accent blue for visual variety */}
+                {/* Step number circle */}
                 <div
-                  className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-surface-2 border border-accent/40
+                  className="flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-surface-2 border border-neon/40
                     flex items-center justify-center relative z-10
-                    shadow-[0_0_20px_rgba(74,144,217,0.15)]
-                    group-hover:bg-accent/10 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(74,144,217,0.5),inset_0_0_10px_rgba(74,144,217,0.15)]
+                    shadow-[0_0_20px_rgba(255,23,68,0.15)]
+                    group-hover:bg-neon/10 group-hover:border-neon group-hover:shadow-[0_0_30px_rgba(255,23,68,0.5),inset_0_0_10px_rgba(255,23,68,0.15)]
                     transition-all duration-500"
                   aria-hidden="true"
                 >
-                  <span className="font-heading font-bold text-sm text-accent tracking-wider">
+                  <span className="font-heading font-bold text-sm text-neon tracking-wider">
                     {step.step}
                   </span>
                 </div>

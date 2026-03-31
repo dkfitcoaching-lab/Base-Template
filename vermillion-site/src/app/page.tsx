@@ -25,7 +25,7 @@ function OrnamentalDivider() {
         className="flex-1 h-px max-w-[200px] sm:max-w-[300px]"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(192,192,192,0.15) 40%, rgba(255,23,68,0.2))",
+            "linear-gradient(90deg, transparent, rgba(192,192,192,0.15) 40%, rgba(var(--neon),0.2))",
         }}
       />
       {/* Central ornament */}
@@ -47,7 +47,7 @@ function OrnamentalDivider() {
           {/* Inner diamond */}
           <path
             d="M24 10 L38 24 L24 38 L10 24 Z"
-            stroke="rgba(255,23,68,0.2)"
+            stroke="rgba(var(--neon),0.2)"
             strokeWidth="0.5"
             fill="none"
           />
@@ -69,10 +69,10 @@ function OrnamentalDivider() {
             strokeWidth="0.5"
           />
           {/* Center glow dot */}
-          <circle cx="24" cy="24" r="2" fill="rgba(255,23,68,0.35)">
+          <circle cx="24" cy="24" r="2" fill="rgba(var(--neon),0.35)">
             <animate attributeName="opacity" values="0.35;0.7;0.35" dur="3s" repeatCount="indefinite" />
           </circle>
-          <circle cx="24" cy="24" r="4" fill="none" stroke="rgba(255,23,68,0.12)" strokeWidth="0.5">
+          <circle cx="24" cy="24" r="4" fill="none" stroke="rgba(var(--neon),0.12)" strokeWidth="0.5">
             <animate attributeName="r" values="4;5;4" dur="3s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.12;0.25;0.12" dur="3s" repeatCount="indefinite" />
           </circle>
@@ -88,7 +88,7 @@ function OrnamentalDivider() {
         className="flex-1 h-px max-w-[200px] sm:max-w-[300px]"
         style={{
           background:
-            "linear-gradient(90deg, rgba(255,23,68,0.2), rgba(192,192,192,0.15) 60%, transparent)",
+            "linear-gradient(90deg, rgba(var(--neon),0.2), rgba(192,192,192,0.15) 60%, transparent)",
         }}
       />
     </div>
@@ -113,27 +113,27 @@ export default function Home() {
         <ErrorBoundary><Showcase /></ErrorBoundary>
         <OrnamentalDivider />
         <div className="relative">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(255,23,68,0.03),transparent_70%)] pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(var(--neon),0.03),transparent_70%)] pointer-events-none" aria-hidden="true" />
           <Services />
         </div>
         <MarqueeDivider text="FULL OWNERSHIP" speed={30} direction="right" />
         <Comparison />
         <OrnamentalDivider />
         <div className="relative">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_30%_50%,rgba(255,23,68,0.025),transparent_60%)] pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_30%_50%,rgba(var(--neon),0.025),transparent_60%)] pointer-events-none" aria-hidden="true" />
           <Features />
         </div>
         <Process />
         <ImpactStatement />
         <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
         <div className="relative">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_70%_50%,rgba(255,23,68,0.03),transparent_65%)] pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_70%_50%,rgba(var(--neon),0.03),transparent_65%)] pointer-events-none" aria-hidden="true" />
           <Testimonials />
         </div>
         <OrnamentalDivider />
         <FAQ />
         <div className="relative">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_40%,rgba(255,23,68,0.04),transparent_70%)] pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_40%,rgba(var(--neon),0.04),transparent_70%)] pointer-events-none" aria-hidden="true" />
           <ErrorBoundary><CTA /></ErrorBoundary>
         </div>
         <Footer />

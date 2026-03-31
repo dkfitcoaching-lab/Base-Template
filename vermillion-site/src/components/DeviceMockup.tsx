@@ -8,31 +8,6 @@ interface DeviceMockupProps {
   description?: string;
 }
 
-/* ── Shared SVG defs for premium effects ── */
-const SharedDefs = memo(function SharedDefs() {
-  return (
-    <defs>
-      <linearGradient id="g-neonV" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#FF1744" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#080808" stopOpacity="0" />
-      </linearGradient>
-      <linearGradient id="g-chrome" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#333" />
-        <stop offset="50%" stopColor="#555" />
-        <stop offset="100%" stopColor="#333" />
-      </linearGradient>
-      <linearGradient id="g-cardShine" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="rgba(255,255,255,0.03)" />
-        <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-      </linearGradient>
-      <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-      </filter>
-    </defs>
-  );
-});
-
 /* ── Abstract SVG mockup screens keyed by showcase label ── */
 
 const CoachingPlatformMockup = memo(function CoachingPlatformMockup() {
@@ -95,7 +70,7 @@ const CoachingPlatformMockup = memo(function CoachingPlatformMockup() {
           <text x={s.x + 6} y="40" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle" letterSpacing="0.6">{s.label}</text>
           <text x={s.x + 6} y="52" fill={s.color} fontSize="9" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{s.value}</text>
           {/* Sparkline */}
-          <polyline points={s.spark.split(" ").map(p => { const [px,py] = p.split(","); return `${s.x + 34 + Number(px) * 0.55},${44 + Number(py) * 1.5}`; }).join(" ")} fill="none" stroke={s.color} strokeWidth="0.8" strokeLinecap="round" opacity="0.6" />
+          <polyline points={s.spark.split(" ").map(p => { const [px,py] = p.split(","); return `${s.x + 34 + Number(px) * 0.55},${44 + Number(py) * 1.5}`; }).join(" ")} fill="none" stroke={s.color} strokeWidth="0.8" strokeLinecap="round" opacity="0.6" className="animate-line-draw" style={{ "--line-length": 150 } as React.CSSProperties} />
           {/* Trend arrow */}
           <text x={s.x + 52} y="62" fill="#4CAF50" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">▲</text>
         </g>
@@ -292,14 +267,18 @@ const MemberPortalMockup = memo(function MemberPortalMockup() {
       <circle cx="81" cy="42" r="2.5" fill="#4CAF50" stroke="#0C0C0C" strokeWidth="0.5" />
       <text x="72" y="68" fill="#E0E0E0" fontSize="3.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">James Calloway</text>
       {/* Badges */}
-      <rect x="42" y="74" width="28" height="8" rx="4" fill="rgba(255,23,68,0.1)" stroke="#FF1744" strokeWidth="0.3" />
-      <text x="56" y="78" fill="#FF1744" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">PLATINUM</text>
-      <rect x="74" y="74" width="20" height="8" rx="4" fill="rgba(192,192,192,0.08)" stroke="#888" strokeWidth="0.3" />
-      <text x="84" y="78" fill="#888" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">LV 8</text>
+      <g className="animate-kpi" style={{ animationDelay: "0.2s" }}>
+        <rect x="42" y="74" width="28" height="8" rx="4" fill="rgba(255,23,68,0.1)" stroke="#FF1744" strokeWidth="0.3" />
+        <text x="56" y="78" fill="#FF1744" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">PLATINUM</text>
+      </g>
+      <g className="animate-kpi" style={{ animationDelay: "0.35s" }}>
+        <rect x="74" y="74" width="20" height="8" rx="4" fill="rgba(192,192,192,0.08)" stroke="#888" strokeWidth="0.3" />
+        <text x="84" y="78" fill="#888" fontSize="2.5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">LV 8</text>
+      </g>
       {/* Progress */}
       <text x="24" y="92" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Course Progress</text>
       <rect x="24" y="96" width="96" height="4" rx="2" fill="#111" />
-      <rect x="24" y="96" width="72" height="4" rx="2" fill="#FF1744" opacity="0.7" />
+      <rect x="24" y="96" width="72" height="4" rx="2" fill="#FF1744" opacity="0.7" className="animate-kpi" style={{ animationDelay: "0.5s" }} />
       <text x="122" y="98" fill="#888" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="end" dominantBaseline="middle">75%</text>
       <text x="24" y="106" fill="#444" fontSize="2" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Member since Jan 2025</text>
       {/* Activity feed */}
