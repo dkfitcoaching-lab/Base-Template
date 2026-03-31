@@ -111,7 +111,7 @@ export default function Features() {
                 variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
                 role="listitem"
                 className={`group relative p-4 sm:p-6 lg:p-7 rounded-card gothic-card neon-glow-border
-                  transition-all duration-500
+                  transition-colors duration-500
                   ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}
                 whileHover={{ y: -4, transition: { duration: 0.3, ease: EASE } }}
@@ -119,7 +119,7 @@ export default function Features() {
               >
                 {/* Subtle top highlight — grows on hover */}
                 <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/[0.04] to-transparent rounded-t-card group-hover:via-neon/20 transition-all duration-500"
+                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/[0.04] to-transparent rounded-t-card group-hover:via-neon/20 transition-[background] duration-500"
                   aria-hidden="true"
                 />
 

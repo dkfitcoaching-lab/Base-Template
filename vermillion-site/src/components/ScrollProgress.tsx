@@ -34,8 +34,13 @@ export default function ScrollProgress() {
   return (
     <div
       ref={barRef}
-      className="fixed top-0 left-0 w-full h-[2px] bg-neon z-[60] origin-left pointer-events-none"
-      style={{ transform: "scaleX(0)", willChange: "transform", backfaceVisibility: "hidden" }}
+      className="fixed top-0 left-0 w-full h-[3px] z-[60] origin-left pointer-events-none"
+      style={{
+        transform: "scaleX(0)",
+        backfaceVisibility: "hidden",
+        background: "linear-gradient(90deg, #FF1744, #FF4569)",
+        boxShadow: "0 0 12px rgba(255,23,68,0.6), 0 0 30px rgba(255,23,68,0.3)",
+      }}
       aria-hidden="true"
     />
   );
