@@ -42,8 +42,13 @@ body {
 }
 
 /* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,23,68,0.35) #050505;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -51,14 +56,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,23,68,0.25);
-  border-radius: 3px;
-  box-shadow: 0 0 6px rgba(255,23,68,0.15) inset;
+  background: rgba(255,23,68,0.3);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(255,23,68,0.2) inset;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,23,68,0.5);
-  box-shadow: 0 0 10px rgba(255,23,68,0.3) inset;
+  background: rgba(255,23,68,0.55);
+  box-shadow: 0 0 12px rgba(255,23,68,0.35) inset;
 }
 
 /* Selection */
