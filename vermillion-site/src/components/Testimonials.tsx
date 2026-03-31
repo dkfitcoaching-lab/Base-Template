@@ -100,7 +100,7 @@ export default function Testimonials() {
                     {featured.name}
                   </cite>
                   <span className="text-sm text-text-secondary">
-                    {featured.title} &middot; {featured.location}
+                    {featured.title}{featured.location ? <> &middot; {featured.location}</> : null}
                   </span>
                 </div>
               </footer>
@@ -141,7 +141,7 @@ export default function Testimonials() {
                         {t.name}
                       </cite>
                       <span className="text-xs text-text-secondary">
-                        {t.title} &middot; {t.location}
+                        {t.title}{t.location ? <> &middot; {t.location}</> : null}
                       </span>
                     </div>
                   </footer>

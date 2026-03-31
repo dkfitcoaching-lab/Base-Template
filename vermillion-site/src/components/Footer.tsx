@@ -104,11 +104,6 @@ export default function Footer() {
               className="w-px h-3 bg-border/50"
               aria-hidden="true"
             />
-            <span>Las Vegas, NV</span>
-            <span
-              className="w-px h-3 bg-border/50"
-              aria-hidden="true"
-            />
             <a href="mailto:contact@vermillionaxis.tech" className="hover:text-neon transition-colors duration-300 focus-visible:outline-none focus-visible:text-neon focus-visible:underline underline-offset-4 rounded">contact@vermillionaxis.tech</a>
             <span className="w-px h-3 bg-border/50" aria-hidden="true" />
             <span>&copy; {new Date().getFullYear()}</span>

@@ -272,7 +272,7 @@ const MemberPortalMockup = memo(function MemberPortalMockup() {
       <rect x="12" y="7" width="18" height="12" rx="2" fill="#FF1744" />
       <text x="21" y="13" fill="#fff" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">V</text>
       <text x="36" y="9" fill="#E0E0E0" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">Welcome back, James</text>
-      <text x="36" y="18" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Platinum Member · Las Vegas, NV</text>
+      <text x="36" y="18" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Platinum Member · Active</text>
       {/* Nav tabs */}
       {["Overview", "Content", "Billing", "Settings"].map((t, i) => (
         <g key={`tab${i}`}>

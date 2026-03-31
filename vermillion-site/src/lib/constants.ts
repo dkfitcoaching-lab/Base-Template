@@ -3,7 +3,6 @@ export const SITE = {
   tagline: "Infrastructure-Grade Software Engineering",
   description:
     "We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. No templates. No dependencies. No compromises.",
-  location: "Las Vegas, NV",
   domain: "vermillionaxis.tech",
   email: "contact@vermillionaxis.tech",
 };
@@ -248,21 +247,20 @@ export const TESTIMONIALS = [
       "Eleven days. Full platform — scheduling, payments, branded exports. Our previous vendor quoted four months at three times the cost. My entire team runs their day out of this system now.",
     name: "Michael K.",
     title: "Founder, Coaching Lab",
-    location: "Las Vegas, NV",
   },
   {
     quote:
       "I did not need a website. I needed an operational system that mirrored how my business actually works — client intake, progress tracking, automated follow-ups. Vermillion mapped the requirements in a single call and delivered exactly that. No translation layer required.",
     name: "Rachel Chen",
     title: "Founder, Elevate Wellness",
-    location: "Scottsdale, AZ",
+    location: "Scottsdale",
   },
   {
     quote:
       "The document generation pipeline alone changed how we operate. Professionally branded deliverables generated on demand with our full identity system. Clients assume we have an entire design department. We do not. We have Vermillion.",
     name: "David Okafor",
     title: "CEO, Okafor Digital",
-    location: "Austin, TX",
+    location: "Austin",
   },
 ];
 

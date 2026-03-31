@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "premium web development",
     "enterprise software",
     "PWA development",
-    "Las Vegas software agency",
+    "custom software agency",
     "full-stack development",
     "AI software development",
   ],
@@ -86,8 +86,6 @@ export default function RootLayout({
                 "Infrastructure-grade software engineering. Engineered for load, hardened for production, delivered with the source.",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Las Vegas",
-                addressRegion: "NV",
                 addressCountry: "US",
               },
               foundingDate: "2025",
