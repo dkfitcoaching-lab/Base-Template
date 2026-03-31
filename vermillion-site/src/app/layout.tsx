@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "premium web development",
     "enterprise software",
     "PWA development",
-    "Las Vegas software agency",
+    "custom software agency",
     "full-stack development",
     "AI software development",
   ],
@@ -46,6 +46,9 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   metadataBase: new URL("https://vermillionaxis.tech"),
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
@@ -66,7 +69,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -83,8 +86,6 @@ export default function RootLayout({
                 "Infrastructure-grade software engineering. Engineered for load, hardened for production, delivered with the source.",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Las Vegas",
-                addressRegion: "NV",
                 addressCountry: "US",
               },
               foundingDate: "2025",
@@ -116,6 +117,8 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Force scroll to top on fresh page load */}
+        <script dangerouslySetInnerHTML={{ __html: `if(!location.hash){window.scrollTo(0,0);if('scrollRestoration' in history)history.scrollRestoration='manual';}` }} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:px-4 focus:py-2 focus:rounded-btn focus:bg-vermillion focus:text-white focus:font-medium focus:text-sm focus:outline-none focus:ring-2 focus:ring-neon/50"

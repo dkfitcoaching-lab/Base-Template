@@ -196,7 +196,7 @@ const AnalyticsDashboardMockup = memo(function AnalyticsDashboardMockup() {
       ].map((kpi, i) => {
         const x = 50 + i * 66;
         return (
-          <g key={`kpi${i}`}>
+          <g key={`kpi${i}`} className="animate-kpi" style={{ animationDelay: `${0.1 + i * 0.15}s` }}>
             <rect x={x} y="28" width="60" height="36" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
             <text x={x + 6} y="36" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" dominantBaseline="middle" letterSpacing="0.5">{kpi.label}</text>
             <text x={x + 6} y="48" fill={kpi.color} fontSize="8" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{kpi.value}</text>
@@ -214,16 +214,21 @@ const AnalyticsDashboardMockup = memo(function AnalyticsDashboardMockup() {
       {[88, 100, 112, 124, 136].map((y) => (
         <line key={`gl${y}`} x1="64" y1={y} x2="226" y2={y} stroke="#1A1A1A" strokeWidth="0.2" />
       ))}
-      <polyline points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86" fill="none" stroke="#FF1744" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline
+        points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86"
+        fill="none" stroke="#FF1744" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"
+        className="animate-line-draw"
+        style={{ "--line-length": 200 } as React.CSSProperties}
+      />
       <polyline points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86 222,140 68,140" fill="url(#analyticsGrad)" stroke="none" />
       {/* Donut chart panel */}
       <rect x="238" y="68" width="74" height="82" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
       <text x="246" y="78" fill="#888" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">Sources</text>
       {/* Donut arcs */}
       <circle cx="275" cy="108" r="18" fill="none" stroke="#1A1A1A" strokeWidth="6" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#FF1744" strokeWidth="6" strokeDasharray="45 68" strokeDashoffset="0" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#C0C0C0" strokeWidth="6" strokeDasharray="25 88" strokeDashoffset="-45" opacity="0.7" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#555" strokeWidth="6" strokeDasharray="18 95" strokeDashoffset="-70" opacity="0.5" />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#FF1744" strokeWidth="6" strokeDasharray="45 68" strokeDashoffset="0" className="animate-donut" style={{ "--donut-offset": 0 } as React.CSSProperties} />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#C0C0C0" strokeWidth="6" strokeDasharray="25 88" strokeDashoffset="-45" opacity="0.7" className="animate-donut" style={{ "--donut-offset": -45, animationDelay: "0.8s" } as React.CSSProperties} />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#555" strokeWidth="6" strokeDasharray="18 95" strokeDashoffset="-70" opacity="0.5" className="animate-donut" style={{ "--donut-offset": -70, animationDelay: "1.0s" } as React.CSSProperties} />
       <text x="275" y="106" fill="#E0E0E0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">62%</text>
       <text x="275" y="113" fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Direct</text>
       {/* Legend */}
@@ -272,7 +277,7 @@ const MemberPortalMockup = memo(function MemberPortalMockup() {
       <rect x="12" y="7" width="18" height="12" rx="2" fill="#FF1744" />
       <text x="21" y="13" fill="#fff" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">V</text>
       <text x="36" y="9" fill="#E0E0E0" fontSize="4" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">Welcome back, James</text>
-      <text x="36" y="18" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Platinum Member · Las Vegas, NV</text>
+      <text x="36" y="18" fill="#555" fontSize="2.5" fontFamily="system-ui, sans-serif" dominantBaseline="middle">Platinum Member · Active</text>
       {/* Nav tabs */}
       {["Overview", "Content", "Billing", "Settings"].map((t, i) => (
         <g key={`tab${i}`}>
@@ -497,6 +502,7 @@ const EnterpriseCRMMockup = memo(function EnterpriseCRMMockup() {
   );
 });
 
+/* Pure SVG mobile mockup — no external image dependencies */
 const MobileAppMockup = memo(function MobileAppMockup() {
   return (
     <div className="w-full h-full bg-[#080808] flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 py-4 relative">
@@ -505,42 +511,95 @@ const MobileAppMockup = memo(function MobileAppMockup() {
         <div className="w-48 h-48 rounded-full bg-neon/[0.06] blur-[60px]" />
       </div>
 
-      {/* Phone 1 — Forge Landing */}
+      {/* Phone 1 — Forge AI (SVG) */}
       <div className="relative flex-shrink-0 w-[100px] sm:w-[120px] md:w-[130px]">
         <div className="relative rounded-[14px] sm:rounded-[18px] overflow-hidden border border-[#333] shadow-[0_4px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(255,23,68,0.08)]">
-          {/* Dynamic Island */}
-          <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-[5px] bg-[#050505] rounded-full z-10 border border-[#222]/30" />
-          <img
-            src="/screenshots/forge-landing.jpg"
-            alt="Forge AI — Fitness coaching intelligence platform"
-            className="w-full h-auto block"
-            loading="lazy"
-            decoding="async"
-            width={390}
-            height={844}
-          />
-          {/* Home indicator */}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
+          <svg viewBox="0 0 180 390" className="w-full h-auto block" aria-hidden="true">
+            <rect width="180" height="390" fill="#0A0A0A" />
+            {/* Status bar */}
+            <rect x="55" y="8" width="70" height="12" rx="6" fill="#111" />
+            {/* Header */}
+            <rect x="16" y="36" width="60" height="6" rx="3" fill="#FF1744" opacity="0.8" />
+            <rect x="16" y="48" width="100" height="4" rx="2" fill="#333" />
+            {/* Hero card */}
+            <rect x="12" y="64" width="156" height="80" rx="8" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <rect x="22" y="74" width="80" height="5" rx="2.5" fill="#FF1744" opacity="0.5" />
+            <rect x="22" y="84" width="60" height="3" rx="1.5" fill="#333" />
+            <rect x="22" y="92" width="120" height="3" rx="1.5" fill="#222" />
+            <rect x="22" y="100" width="100" height="3" rx="1.5" fill="#222" />
+            <rect x="22" y="120" width="50" height="14" rx="4" fill="#FF1744" opacity="0.7" />
+            {/* List items */}
+            <rect x="12" y="156" width="156" height="36" rx="6" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <circle cx="30" cy="174" r="8" fill="#1A1A1A" />
+            <rect x="46" y="168" width="70" height="4" rx="2" fill="#444" />
+            <rect x="46" y="178" width="50" height="3" rx="1.5" fill="#222" />
+            <rect x="12" y="200" width="156" height="36" rx="6" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <circle cx="30" cy="218" r="8" fill="#1A1A1A" />
+            <rect x="46" y="212" width="80" height="4" rx="2" fill="#444" />
+            <rect x="46" y="222" width="60" height="3" rx="1.5" fill="#222" />
+            <rect x="12" y="244" width="156" height="36" rx="6" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <circle cx="30" cy="262" r="8" fill="#1A1A1A" />
+            <rect x="46" y="256" width="65" height="4" rx="2" fill="#444" />
+            <rect x="46" y="266" width="55" height="3" rx="1.5" fill="#222" />
+            {/* Bottom nav */}
+            <rect x="0" y="352" width="180" height="38" fill="#0C0C0C" />
+            <circle cx="36" cy="368" r="4" fill="#333" />
+            <circle cx="72" cy="368" r="4" fill="#FF1744" opacity="0.6" />
+            <circle cx="108" cy="368" r="4" fill="#333" />
+            <circle cx="144" cy="368" r="4" fill="#333" />
+            {/* Home indicator */}
+            <rect x="65" y="382" width="50" height="3" rx="1.5" fill="rgba(255,255,255,0.2)" />
+          </svg>
         </div>
         <p className="mt-2 text-[9px] sm:text-[10px] text-center text-text-caption tracking-wider uppercase font-heading">Forge AI</p>
       </div>
 
-      {/* Phone 2 — Coaching Platform */}
+      {/* Phone 2 — Coaching Lab (SVG) */}
       <div className="relative flex-shrink-0 w-[100px] sm:w-[120px] md:w-[130px]">
         <div className="relative rounded-[14px] sm:rounded-[18px] overflow-hidden border border-[#333] shadow-[0_4px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(255,23,68,0.08)]">
-          {/* Dynamic Island */}
-          <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-[5px] bg-[#050505] rounded-full z-10 border border-[#222]/30" />
-          <img
-            src="/screenshots/coaching-platform.png"
-            alt="Big Mike Ely Coaching Lab — Programs and workout templates"
-            className="w-full h-auto block"
-            loading="lazy"
-            decoding="async"
-            width={390}
-            height={844}
-          />
-          {/* Home indicator */}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-white/20 rounded-full" />
+          <svg viewBox="0 0 180 390" className="w-full h-auto block" aria-hidden="true">
+            <rect width="180" height="390" fill="#0A0A0A" />
+            {/* Status bar */}
+            <rect x="55" y="8" width="70" height="12" rx="6" fill="#111" />
+            {/* Header with tabs */}
+            <rect x="16" y="36" width="80" height="6" rx="3" fill="#E0E0E0" opacity="0.8" />
+            <rect x="16" y="52" width="44" height="16" rx="4" fill="#FF1744" opacity="0.6" />
+            <rect x="66" y="52" width="44" height="16" rx="4" fill="#1A1A1A" />
+            <rect x="116" y="52" width="44" height="16" rx="4" fill="#1A1A1A" />
+            {/* Workout cards */}
+            <rect x="12" y="80" width="156" height="60" rx="8" fill="#111" stroke="#FF1744" strokeWidth="0.5" strokeOpacity="0.2" />
+            <rect x="22" y="90" width="70" height="5" rx="2.5" fill="#E0E0E0" opacity="0.6" />
+            <rect x="22" y="100" width="50" height="3" rx="1.5" fill="#333" />
+            <rect x="22" y="110" width="90" height="3" rx="1.5" fill="#222" />
+            <rect x="22" y="120" width="30" height="10" rx="3" fill="#FF1744" opacity="0.5" />
+            <rect x="12" y="150" width="156" height="60" rx="8" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <rect x="22" y="160" width="60" height="5" rx="2.5" fill="#E0E0E0" opacity="0.6" />
+            <rect x="22" y="170" width="40" height="3" rx="1.5" fill="#333" />
+            <rect x="22" y="180" width="80" height="3" rx="1.5" fill="#222" />
+            <rect x="22" y="190" width="30" height="10" rx="3" fill="#333" />
+            <rect x="12" y="220" width="156" height="60" rx="8" fill="#111" stroke="#1A1A1A" strokeWidth="0.5" />
+            <rect x="22" y="230" width="75" height="5" rx="2.5" fill="#E0E0E0" opacity="0.6" />
+            <rect x="22" y="240" width="55" height="3" rx="1.5" fill="#333" />
+            <rect x="22" y="250" width="100" height="3" rx="1.5" fill="#222" />
+            <rect x="22" y="260" width="30" height="10" rx="3" fill="#333" />
+            {/* Stats bar */}
+            <rect x="12" y="296" width="156" height="44" rx="8" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
+            <rect x="22" y="306" width="30" height="10" rx="2" fill="#FF1744" opacity="0.3" />
+            <text x="26" y="314" fontSize="5" fill="#FF1744" fontFamily="monospace">87%</text>
+            <rect x="62" y="306" width="30" height="10" rx="2" fill="#1A1A1A" />
+            <text x="66" y="314" fontSize="5" fill="#888" fontFamily="monospace">12x</text>
+            <rect x="102" y="306" width="30" height="10" rx="2" fill="#1A1A1A" />
+            <text x="106" y="314" fontSize="5" fill="#888" fontFamily="monospace">4wk</text>
+            <rect x="22" y="322" width="80" height="3" rx="1.5" fill="#222" />
+            {/* Bottom nav */}
+            <rect x="0" y="352" width="180" height="38" fill="#0C0C0C" />
+            <circle cx="36" cy="368" r="4" fill="#FF1744" opacity="0.6" />
+            <circle cx="72" cy="368" r="4" fill="#333" />
+            <circle cx="108" cy="368" r="4" fill="#333" />
+            <circle cx="144" cy="368" r="4" fill="#333" />
+            {/* Home indicator */}
+            <rect x="65" y="382" width="50" height="3" rx="1.5" fill="rgba(255,255,255,0.2)" />
+          </svg>
         </div>
         <p className="mt-2 text-[9px] sm:text-[10px] text-center text-text-caption tracking-wider uppercase font-heading">Coaching Lab</p>
       </div>
@@ -643,10 +702,10 @@ const DeviceMockup = memo(function DeviceMockup({ label, image, description }: D
             <MockupComponent />
           )}
 
-          {/* Scan-line animation */}
+          {/* Scan-line animation — single pass */}
           <div
             className="absolute left-0 w-full h-px bg-white/[0.05] pointer-events-none animate-scan-line z-[2]"
-            style={{ top: "-2px" }}
+            style={{ top: "-2px", animationIterationCount: 1 }}
             aria-hidden="true"
           />
 

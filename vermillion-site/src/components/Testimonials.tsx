@@ -1,10 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Star } from "lucide-react";
-import { TESTIMONIALS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { TESTIMONIALS, EASE } from "@/lib/constants";
 
 const containerVariants = {
   hidden: {},
@@ -12,8 +11,8 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+  hidden: { opacity: 0, scale: 0.96, rotate: -0.5 },
+  visible: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 function StarRating() {
@@ -32,15 +31,18 @@ function StarRating() {
 
 export default function Testimonials() {
   const [featured, ...rest] = TESTIMONIALS;
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const quoteY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section id="testimonials" className="py-16 sm:py-24 lg:py-32" aria-labelledby="testimonials-heading">
+    <section ref={sectionRef} id="testimonials" className="py-16 sm:py-24 lg:py-32" aria-labelledby="testimonials-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
@@ -48,7 +50,7 @@ export default function Testimonials() {
           </p>
           <h2
             id="testimonials-heading"
-            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+            className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary metallic-text"
           >
             Trusted by Founders. Verified by Results.
           </h2>
@@ -67,13 +69,14 @@ export default function Testimonials() {
             className="relative p-6 sm:p-8 lg:p-12 rounded-card gothic-card neon-border-flow neon-glow-border overflow-hidden hover:shadow-neon-md transition-shadow duration-500"
             style={{ boxShadow: '0 0 15px rgba(255,23,68,0.05)' }}
           >
-            {/* Decorative oversized quote mark */}
-            <span
+            {/* Decorative oversized quote mark with scroll parallax */}
+            <motion.span
               className="absolute top-4 right-8 text-[8rem] leading-none font-heading font-bold text-neon/[0.06] select-none pointer-events-none"
+              style={{ y: quoteY }}
               aria-hidden="true"
             >
               &ldquo;
-            </span>
+            </motion.span>
 
             {/* Vermillion accent bar */}
             <div className="absolute left-0 top-0 bottom-0 w-[3px] holographic-shimmer rounded-l-card" aria-hidden="true" />
@@ -95,7 +98,7 @@ export default function Testimonials() {
                     {featured.name}
                   </cite>
                   <span className="text-sm text-text-secondary">
-                    {featured.title} &middot; {featured.location}
+                    {featured.title}{featured.location ? <> &middot; {featured.location}</> : null}
                   </span>
                 </div>
               </footer>
@@ -136,7 +139,7 @@ export default function Testimonials() {
                         {t.name}
                       </cite>
                       <span className="text-xs text-text-secondary">
-                        {t.title} &middot; {t.location}
+                        {t.title}{t.location ? <> &middot; {t.location}</> : null}
                       </span>
                     </div>
                   </footer>

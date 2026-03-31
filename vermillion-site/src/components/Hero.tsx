@@ -1,17 +1,29 @@
 "use client";
 
-import React, { memo, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
-
-const ease = [0.22, 1, 0.36, 1];
+import { EASE } from "@/lib/constants";
 
 const headlineLine1 = "Precision".split(" ");
 const headlineLine2 = "Engineered".split(" ");
 const headlineLine3 = "Software".split(" ");
 
+/* Orb configuration type */
+interface OrbConfig {
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  size: number;
+  duration: number;
+  delay: number;
+  color: string;
+  opacity: number[];
+}
+
 /* Breathing ambient orbs — neon crimson, using radial gradients instead of blur filters */
-const ambientOrbs = [
+const ambientOrbs: OrbConfig[] = [
   { top: "2%", left: "5%", size: 700, duration: 9, delay: 0, color: "rgba(255,23,68,0.10)", opacity: [0.04, 0.18, 0.04] },
   { top: "45%", right: "2%", size: 120, duration: 5, delay: 1.5, color: "rgba(255,23,68,0.14)", opacity: [0.06, 0.22, 0.06] },
   { bottom: "8%", left: "2%", size: 280, duration: 7, delay: 1, color: "rgba(255,23,68,0.09)", opacity: [0.04, 0.2, 0.04] },
@@ -65,7 +77,7 @@ const HeadlineBracket = memo(function HeadlineBracket({ className, style }: { cl
       xmlns="http://www.w3.org/2000/svg"
       initial={{ opacity: 0, scale: 0.3 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay: 1.8, ease }}
+      transition={{ duration: 1, delay: 1.8, ease: EASE }}
     >
       <path d="M2 50 L2 10 Q2 2 10 2 L50 2" stroke="rgba(200,200,200,0.35)" strokeWidth="1.5" fill="none" />
       <path d="M7 45 L7 12 Q7 7 12 7 L45 7" stroke="rgba(200,200,200,0.18)" strokeWidth="0.75" fill="none" />
@@ -91,12 +103,10 @@ const ScanLine = memo(function ScanLine() {
         background: "linear-gradient(90deg, transparent 0%, rgba(255,23,68,0.1) 10%, rgba(255,23,68,0.25) 30%, rgba(255,23,68,0.5) 50%, rgba(255,23,68,0.25) 70%, rgba(255,23,68,0.1) 90%, transparent 100%)",
         boxShadow: "0 0 30px rgba(255,23,68,0.4), 0 0 80px rgba(255,23,68,0.15), 0 -4px 16px rgba(255,23,68,0.1), 0 4px 16px rgba(255,23,68,0.1)",
       }}
-      initial={{ top: "-3px" }}
-      animate={{ top: ["0%", "100%"] }}
+      initial={{ top: "-3px", opacity: 1 }}
+      animate={{ top: ["0%", "100%"], opacity: [1, 1, 0] }}
       transition={{
         duration: 3.5,
-        repeat: Infinity,
-        repeatDelay: 2.5,
         ease: "linear",
       }}
     />
@@ -116,7 +126,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
         }}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 240, opacity: 1 }}
-        transition={{ duration: 1.8, delay: 0.2, ease }}
+        transition={{ duration: 1.8, delay: 0.2, ease: EASE }}
       />
       {/* Pulsing glow at the tip — centered on the 1px line */}
       <motion.div
@@ -150,6 +160,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
 const AnimatedBackground = memo(function AnimatedBackground() {
   const gridRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
+  const [showOrbs, setShowOrbs] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
@@ -165,6 +176,15 @@ const AnimatedBackground = memo(function AnimatedBackground() {
       window.removeEventListener("scroll", onScroll);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
+  }, []);
+
+  /* Disable orbs on mobile to save GPU/battery */
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setShowOrbs(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setShowOrbs(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   return (
@@ -214,7 +234,6 @@ const AnimatedBackground = memo(function AnimatedBackground() {
             linear-gradient(90deg, rgba(255,23,68,0.4) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
-          willChange: "transform",
         }}
       />
 
@@ -248,8 +267,8 @@ const AnimatedBackground = memo(function AnimatedBackground() {
         }}
       />
 
-      {/* Breathing ambient orbs — radial gradient instead of blur-[120px] */}
-      {ambientOrbs.map((orb, i) => {
+      {/* Breathing ambient orbs — radial gradient instead of blur-[120px] (disabled on mobile) */}
+      {showOrbs && ambientOrbs.map((orb, i) => {
         const { background, renderSize } = orbGradient(orb.color, orb.size);
         return (
           <motion.div
@@ -260,17 +279,16 @@ const AnimatedBackground = memo(function AnimatedBackground() {
               opacity: orb.opacity,
               scale: [1, 1.3, 1],
             }}
-            transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
+            transition={{ duration: orb.duration, repeat: Infinity, ease: EASE, delay: orb.delay }}
             className="absolute rounded-full"
             style={{
               top: orb.top,
               left: orb.left,
-              right: (orb as Record<string, unknown>).right as string | undefined,
-              bottom: (orb as Record<string, unknown>).bottom as string | undefined,
+              right: orb.right,
+              bottom: orb.bottom,
               width: renderSize,
               height: renderSize,
               background,
-              willChange: "transform, opacity",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
             }}
@@ -300,7 +318,7 @@ const WordReveal = memo(function WordReveal({
           transition={{
             duration: 0.6,
             delay: startDelay + i * 0.08,
-            ease,
+            ease: EASE,
           }}
           className={className}
           style={{ display: "inline-block", marginRight: "0.3em" }}
@@ -347,7 +365,7 @@ const ShimmerButton = memo(function ShimmerButton({ href, children }: { href: st
   return (
     <a
       href={href}
-      className="shimmer-btn relative overflow-hidden px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="shimmer-btn relative overflow-hidden px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn bg-vermillion text-white font-heading font-semibold text-sm tracking-wider uppercase hover:shadow-neon-md active:scale-[0.97] active:translate-y-[1px] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="relative z-10">{children}</span>
       <span
@@ -370,7 +388,7 @@ const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) 
     <motion.div
       initial={{ scaleX: 0, opacity: 0 }}
       animate={{ scaleX: 1, opacity: 1 }}
-      transition={{ duration: 1, delay, ease }}
+      transition={{ duration: 1, delay, ease: EASE }}
       className="flex items-center justify-center gap-3 max-w-[320px] mx-auto mb-8"
     >
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
@@ -390,6 +408,9 @@ const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) 
 });
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const logoDelay = 0.2;
   const glowDelay = logoDelay + 0.4;
   const wordBaseDelay = glowDelay + 0.7;
@@ -401,6 +422,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: "#050505" }}
       aria-labelledby="hero-heading"
@@ -421,44 +443,44 @@ export default function Hero() {
           style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.5, delay: 0.5, ease }}
+          transition={{ duration: 1.5, delay: 0.5, ease: EASE }}
         />
         <motion.div
           className="absolute bottom-4 left-[124px] right-[124px] h-px"
           style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.5, delay: 0.5, ease }}
+          transition={{ duration: 1.5, delay: 0.5, ease: EASE }}
         />
         <motion.div
           className="absolute left-4 top-[124px] bottom-[124px] w-px"
           style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease }}
+          transition={{ duration: 1.5, delay: 0.6, ease: EASE }}
         />
         <motion.div
           className="absolute right-4 top-[124px] bottom-[124px] w-px"
           style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease }}
+          transition={{ duration: 1.5, delay: 0.6, ease: EASE }}
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <motion.div className="relative z-10 max-w-5xl 2xl:max-w-6xl mx-auto px-4 sm:px-6 text-center" style={{ y: headlineY }}>
         {/* Full Logo — Dramatic Centered Reveal */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: logoDelay, ease }}
+          transition={{ duration: 1.2, delay: logoDelay, ease: EASE }}
           className="relative mx-auto mb-8 sm:mb-14 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
         >
           {/* Intense multi-layer neon underglow */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: glowDelay, ease }}
+            transition={{ duration: 1.5, delay: glowDelay, ease: EASE }}
             className="absolute -inset-20 sm:-inset-28 lg:-inset-36 pointer-events-none"
             aria-hidden="true"
           >
@@ -467,7 +489,6 @@ export default function Hero() {
               style={{
                 background: "radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(255,23,68,0.14) 25%, rgba(255,23,68,0.05) 50%, rgba(255,23,68,0.01) 70%, transparent 85%)",
                 filter: "drop-shadow(0 0 80px rgba(255,23,68,0.25)) drop-shadow(0 0 140px rgba(255,23,68,0.12))",
-                willChange: "filter",
                 backfaceVisibility: "hidden",
                 transform: "translateZ(0)",
               }}
@@ -527,11 +548,12 @@ export default function Hero() {
           <motion.div
             initial={{ scale: 1.04 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.4, ease }}
+            transition={{ duration: 1.4, ease: EASE }}
           >
             <h1
               id="hero-heading"
-              className="font-heading font-bold text-[1.6rem] sm:text-4xl md:text-5xl lg:text-[5rem] xl:text-[6rem] text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              className="font-heading font-bold text-text-primary leading-[1.05] tracking-[0.02em] mb-6"
+              style={{ fontSize: "clamp(1.8rem, 5vw + 1rem, 7rem)" }}
             >
               <span className="block">
                 <WordReveal words={headlineLine1} startDelay={wordBaseDelay} className="metallic-text" />
@@ -551,7 +573,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: subtextDelay, ease }}
+          transition={{ duration: 0.8, delay: subtextDelay, ease: EASE }}
           className="font-body text-[0.95rem] sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed"
         >
           Systems architecture for organizations that refuse to compromise. Zero templates. Zero shortcuts. Every line written with surgical precision.
@@ -560,14 +582,14 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: ctaDelay, ease }}
+          transition={{ duration: 0.8, delay: ctaDelay, ease: EASE }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <MagneticButton><ShimmerButton href="#contact">Schedule a Consultation</ShimmerButton></MagneticButton>
           <MagneticButton>
             <a
               href="#work"
-              className="px-5 py-2.5 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
+              className="px-6 py-3 sm:px-8 sm:py-3.5 rounded-btn border border-border text-text-primary font-heading font-semibold text-sm tracking-wider uppercase transition-all duration-300 hover:border-neon/50 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
             >
               View Our Work
             </a>
@@ -577,11 +599,11 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: ctaDelay + 0.5, ease }}
+          transition={{ duration: 1, delay: ctaDelay + 0.5, ease: EASE }}
         >
           <TechMarquee />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

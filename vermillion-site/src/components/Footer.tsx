@@ -2,9 +2,7 @@
 
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-import { NAV_LINKS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { NAV_LINKS, EASE } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -43,7 +41,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: 0.6, ease: EASE }}
             className="flex flex-col sm:flex-row items-center justify-between gap-6"
           >
             {/* Nav links */}
@@ -58,7 +56,7 @@ export default function Footer() {
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
+                  transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease: EASE }}
                   className="relative text-sm text-text-caption hover:text-neon transition-colors duration-300 tracking-wider uppercase font-heading group py-2 focus-visible:outline-none focus-visible:text-neon focus-visible:underline underline-offset-4 rounded"
                 >
                   {link.label}
@@ -96,15 +94,10 @@ export default function Footer() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease }}
+            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-4 text-xs text-text-caption"
           >
             <span className="metallic-text font-heading tracking-widest uppercase text-[10px]">Vermillion Axis Technologies</span>
-            <span
-              className="w-px h-3 bg-border/50"
-              aria-hidden="true"
-            />
-            <span>Las Vegas, NV</span>
             <span
               className="w-px h-3 bg-border/50"
               aria-hidden="true"

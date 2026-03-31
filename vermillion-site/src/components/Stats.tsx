@@ -2,26 +2,26 @@
 
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
-import { STATS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { STATS, EASE } from "@/lib/constants";
 
 /** Parse a stat value like "100+", "<72hr", "3–21", "100%" into parts for animation */
-function parseStatValue(value: string): { prefix: string; number: number; suffix: string } {
+function parseStatValue(value: string): { prefix: string; number: number; suffix: string; isRange: boolean } {
   const match = value.match(/^([<>]?)(\d+)(.*)/);
-  if (!match) return { prefix: "", number: 0, suffix: value };
-  return { prefix: match[1], number: parseInt(match[2], 10), suffix: match[3] };
+  if (!match) return { prefix: "", number: 0, suffix: value, isRange: false };
+  const suffix = match[3];
+  const isRange = suffix.startsWith("–") || suffix.startsWith("-");
+  return { prefix: match[1], number: parseInt(match[2], 10), suffix, isRange };
 }
 
 function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const { prefix, number, suffix } = parseStatValue(value);
+  const { prefix, number, suffix, isRange } = parseStatValue(value);
   const motionValue = useMotionValue(0);
   const rounded = useTransform(motionValue, (v) => Math.round(v));
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !isRange) {
       const controls = animate(motionValue, number, {
         duration: 1.8,
         delay,
@@ -29,7 +29,7 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       });
       return controls.stop;
     }
-  }, [isInView, motionValue, number, delay]);
+  }, [isInView, motionValue, number, delay, isRange]);
 
   return (
     <motion.div
@@ -37,14 +37,20 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.6, ease }}
+      transition={{ delay, duration: 0.6, ease: EASE }}
     >
-      <dt className="font-mono font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary mb-1 text-neon-glow metallic-text">
-        <span>{prefix}</span>
-        <motion.span>{rounded}</motion.span>
-        <span>{suffix}</span>
+      <dt className="font-mono font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary mb-1 metallic-text" aria-label={value}>
+        {isRange ? (
+          <span>{value}</span>
+        ) : (
+          <>
+            <span>{prefix}</span>
+            <motion.span>{rounded}</motion.span>
+            <span>{suffix}</span>
+          </>
+        )}
       </dt>
-      <dd className="text-sm text-neon text-neon-glow-subtle tracking-wide">
+      <dd className="text-sm text-neon tracking-wide">
         {label}
       </dd>
     </motion.div>
@@ -54,8 +60,8 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
 export default function Stats() {
   return (
     <section className="relative border-y border-neon/[0.12] shadow-[0_0_30px_rgba(255,23,68,0.06)]" aria-label="Key metrics">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
-        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3 gap-y-5 sm:gap-8 lg:gap-12">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
@@ -70,12 +76,12 @@ export default function Stats() {
       {/* Vermillion gradient accent at bottom */}
       <div
         className="absolute bottom-0 left-[10%] right-[10%] h-px animate-pulse"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", willChange: "opacity, filter", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
         aria-hidden="true"
       />
       <div
         className="absolute top-0 left-[10%] right-[10%] h-px animate-pulse"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", animationDelay: "1s", willChange: "opacity, filter", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.4), transparent)", filter: "drop-shadow(0 0 6px rgba(255,23,68,0.3))", animationDelay: "1s", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
         aria-hidden="true"
       />
     </section>

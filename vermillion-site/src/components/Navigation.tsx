@@ -2,10 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS, EASE } from "@/lib/constants";
 import MagneticButton from "@/components/MagneticButton";
-
-const ease = [0.22, 1, 0.36, 1];
 
 const sectionIds = ["work", "services", "pricing", "process", "contact"];
 
@@ -75,7 +73,7 @@ export default function Navigation() {
           }
         });
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-20% 0px -35% 0px", threshold: 0 }
     );
 
     sectionIds.forEach((id) => {
@@ -139,7 +137,7 @@ export default function Navigation() {
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease }}
+        transition={{ duration: 0.6, ease: EASE }}
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
@@ -180,7 +178,7 @@ export default function Navigation() {
               <MagneticButton strength={0.25}>
                 <a
                   href="#contact"
-                  className="ml-2 px-5 py-2 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase transition-all duration-300 hover:shadow-neon-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="ml-2 px-6 py-3 rounded-btn bg-vermillion text-white text-sm font-heading font-semibold tracking-wider uppercase transition-all duration-300 hover:shadow-neon-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   Start a Project
                 </a>
@@ -193,9 +191,9 @@ export default function Navigation() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
-              <motion.span animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
-              <motion.span animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.2, ease }} className="block w-6 h-[1.5px] bg-text-primary" />
-              <motion.span animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
+              <motion.span animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease: EASE }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
+              <motion.span animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.2, ease: EASE }} className="block w-6 h-[1.5px] bg-text-primary" />
+              <motion.span animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3, ease: EASE }} className="block w-6 h-[1.5px] bg-text-primary origin-center" />
             </button>
           </div>
         </div>
@@ -208,7 +206,7 @@ export default function Navigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease }}
+            transition={{ duration: 0.3, ease: EASE }}
             className="fixed inset-0 z-40 bg-bg/90 backdrop-blur-xl flex items-center justify-center"
             role="dialog"
             aria-modal="true"
@@ -222,8 +220,8 @@ export default function Navigation() {
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.05, ease }}
-                  className={`relative text-xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-neon group ${
+                  transition={{ delay: 0.15 + i * 0.05, ease: EASE }}
+                  className={`relative text-2xl sm:text-3xl font-heading font-light tracking-widest focus-visible:outline-none focus-visible:text-neon group ${
                     activeSection === link.href.replace("#", "")
                       ? "text-neon"
                       : "text-text-primary"
@@ -241,7 +239,7 @@ export default function Navigation() {
                 onClick={() => setMobileOpen(false)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, ease }}
+                transition={{ delay: 0.4, ease: EASE }}
                 className="mt-4 px-8 py-3 rounded-btn bg-vermillion text-white font-medium transition-all duration-300 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
                 style={{
                   boxShadow: "0 0 25px rgba(255, 23, 68, 0.3)",

@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorSpotlight from "@/components/CursorSpotlight";
@@ -6,22 +5,21 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import MarqueeDivider from "@/components/MarqueeDivider";
-
-/* Dynamic imports for below-fold sections — reduces initial JS payload */
-const Showcase = dynamic(() => import("@/components/Showcase"), { ssr: true });
-const Services = dynamic(() => import("@/components/Services"), { ssr: true });
-const Comparison = dynamic(() => import("@/components/Comparison"), { ssr: true });
-const Features = dynamic(() => import("@/components/Features"), { ssr: true });
-const Process = dynamic(() => import("@/components/Process"), { ssr: true });
-const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
-const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
-const CTA = dynamic(() => import("@/components/CTA"), { ssr: true });
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
+import Showcase from "@/components/Showcase";
+import Services from "@/components/Services";
+import Comparison from "@/components/Comparison";
+import Features from "@/components/Features";
+import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import CTA from "@/components/CTA";
+import ImpactStatement from "@/components/ImpactStatement";
+import Footer from "@/components/Footer";
 
 /* Gothic ornamental section separator — wrought iron centerpiece between key sections */
 function OrnamentalDivider() {
   return (
-    <div className="relative py-8 sm:py-12 flex items-center justify-center" aria-hidden="true">
+    <div className="relative py-5 sm:py-8 lg:py-12 flex items-center justify-center" aria-hidden="true">
       {/* Left gradient line */}
       <div
         className="flex-1 h-px max-w-[200px] sm:max-w-[300px]"
@@ -99,13 +97,13 @@ function OrnamentalDivider() {
 
 export default function Home() {
   return (
-    <div className="page-bg">
+    <div id="top" className="page-bg">
       {/* Circuit pattern overlay */}
       <div className="circuit-overlay" aria-hidden="true" />
       {/* Edge vignette for cathedral depth */}
       <div className="page-vignette" aria-hidden="true" />
 
-      <main id="main-content" className="relative">
+      <main id="main-content" className="relative" aria-label="Vermillion Axis Technologies">
         <ErrorBoundary><CursorSpotlight /></ErrorBoundary>
         <ScrollProgress />
         <Navigation />
@@ -126,7 +124,7 @@ export default function Home() {
           <Features />
         </div>
         <Process />
-        <OrnamentalDivider />
+        <ImpactStatement />
         <MarqueeDivider text="SHIPPED IN DAYS" speed={22} direction="left" />
         <div className="relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_70%_50%,rgba(255,23,68,0.03),transparent_65%)] pointer-events-none" aria-hidden="true" />

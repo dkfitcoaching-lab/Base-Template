@@ -1,10 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TIERS } from "@/lib/constants";
+import { TIERS, EASE } from "@/lib/constants";
 import { Check, ArrowRight } from "lucide-react";
-
-const ease = [0.22, 1, 0.36, 1];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -14,7 +12,7 @@ const cardVariants = {
     transition: {
       delay: i * 0.15,
       duration: 0.7,
-      ease,
+      ease: EASE,
     },
   }),
 };
@@ -27,7 +25,7 @@ const featureVariants = {
     transition: {
       delay: i * 0.04,
       duration: 0.4,
-      ease,
+      ease: EASE,
     },
   }),
 };
@@ -40,7 +38,7 @@ const checkVariants = {
     transition: {
       delay: i * 0.04 + 0.1,
       duration: 0.3,
-      ease,
+      ease: EASE,
     },
   }),
 };
@@ -61,10 +59,10 @@ export default function Services() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center"
         >
           <div className="relative inline-block px-8 py-4">
@@ -89,7 +87,7 @@ export default function Services() {
             </p>
             <h2
               id="services-heading"
-              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-text-primary text-neon-glow-subtle metallic-text"
+              className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gradient-vermillion"
             >
               Transparent Pricing. No Surprises.
             </h2>
@@ -116,7 +114,7 @@ export default function Services() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                whileHover={{ y: -8, transition: { duration: 0.35, ease } }}
+                whileHover={{ y: -8, transition: { duration: 0.35, ease: EASE } }}
                 className="relative"
               >
                 {/* RECOMMENDED badge for Professional */}
@@ -124,7 +122,7 @@ export default function Services() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5, ease }}
+                    transition={{ delay: 0.5, duration: 0.5, ease: EASE }}
                     className="flex justify-center mb-3"
                   >
                     <span className="relative inline-flex items-center bg-vermillion text-white text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full font-heading font-semibold shadow-[0_0_16px_rgba(255,23,68,0.5)]">
@@ -140,10 +138,10 @@ export default function Services() {
                     scale: isHighlighted ? 1.0 : 1,
                     opacity: 1,
                   }}
-                  transition={{ duration: 0.35, ease }}
+                  transition={{ duration: 0.35, ease: EASE }}
                   className={`relative rounded-card overflow-hidden transition-all duration-500 gothic-card ${
                     isHighlighted
-                      ? "gothic-frame border-neon/30 shadow-neon-md neon-border-flow neon-pulse-border"
+                      ? "neon-border-flow"
                       : "neon-glow-border"
                   }`}
                   style={{
@@ -200,8 +198,8 @@ export default function Services() {
                       animate={{
                         scale: isHighlighted ? 1.02 : 1,
                       }}
-                      transition={{ duration: 0.3, ease }}
-                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon text-neon-glow-subtle mb-3 origin-left"
+                      transition={{ duration: 0.3, ease: EASE }}
+                      className="relative inline-block font-mono font-bold text-2xl sm:text-3xl md:text-4xl text-neon mb-3 origin-left"
                     >
                       {isHighlighted && (
                         <span

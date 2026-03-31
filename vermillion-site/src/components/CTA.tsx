@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ContactForm from "./ContactForm";
-
-const ease = [0.22, 1, 0.36, 1];
+import { EASE } from "@/lib/constants";
 
 /* Floating particle configuration */
 const particles = [
@@ -15,8 +15,13 @@ const particles = [
 ];
 
 export default function CTA() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const formScale = useTransform(scrollYProgress, [0.1, 0.4], [0.97, 1]);
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
       className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
       aria-labelledby="cta-heading"
@@ -67,7 +72,6 @@ export default function CTA() {
             opacity: p.opacity,
             background: `radial-gradient(circle, rgba(255,23,68,0.8) 0%, rgba(255,23,68,0.3) 35%, transparent 70%)`,
             boxShadow: "0 0 16px rgba(255,23,68,0.6)",
-            willChange: "transform, opacity",
             backfaceVisibility: "hidden",
             transform: "translateZ(0)",
           }}
@@ -93,7 +97,7 @@ export default function CTA() {
           {/* Animated glow backdrop */}
           <motion.div
             className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,rgba(255,23,68,0.1),transparent_70%)] blur-[80px] pointer-events-none"
-            style={{ willChange: "opacity", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
+            style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             aria-hidden="true"
@@ -120,10 +124,10 @@ export default function CTA() {
 
             <motion.h2
               id="cta-heading"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, ease }}
+              transition={{ duration: 1, ease: EASE }}
               className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight"
             >
               <span className="text-text-primary metallic-text">
@@ -140,7 +144,7 @@ export default function CTA() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.7, ease }}
+            transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
             className="text-base sm:text-lg md:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
             Describe your vision. Within 24 hours you&apos;ll have architecture, timeline, and investment — no ambiguity, no obligation.
@@ -152,7 +156,8 @@ export default function CTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.7, ease }}
+          transition={{ delay: 0.3, duration: 0.7, ease: EASE }}
+          style={{ scale: formScale }}
         >
           <ContactForm />
         </motion.div>
