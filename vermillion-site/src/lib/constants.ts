@@ -1,3 +1,5 @@
+export const EASE = [0.22, 1, 0.36, 1] as const;
+
 export const SITE = {
   name: "Vermillion Axis Technologies",
   tagline: "Infrastructure-Grade Software Engineering",

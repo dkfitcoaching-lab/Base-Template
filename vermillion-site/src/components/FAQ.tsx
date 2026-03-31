@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { FAQ_ITEMS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { FAQ_ITEMS, EASE } from "@/lib/constants";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -18,10 +16,10 @@ export default function FAQ() {
     <section id="faq" className="py-16 sm:py-20 lg:py-24" aria-labelledby="faq-heading">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
@@ -47,7 +45,7 @@ export default function FAQ() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.5, ease }}
+                transition={{ delay: i * 0.05, duration: 0.5, ease: EASE }}
                 className={`border-b border-neon/[0.06] transition-all duration-300 ${isOpen ? "border-l-2 border-l-neon shadow-[inset_4px_0_20px_rgba(255,23,68,0.15),0_0_25px_rgba(255,23,68,0.1),0_0_50px_rgba(255,23,68,0.04)] bg-neon/[0.03]" : ""}`}
               >
                 <button
@@ -62,7 +60,7 @@ export default function FAQ() {
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease }}
+                    transition={{ duration: 0.3, ease: EASE }}
                     className="flex-shrink-0"
                   >
                     <ChevronDown className={`w-5 h-5 ${isOpen ? "text-neon" : "text-text-secondary"}`} aria-hidden="true" />
@@ -77,7 +75,7 @@ export default function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease }}
+                      transition={{ duration: 0.3, ease: EASE }}
                       className="overflow-hidden"
                     >
                       <p className="pb-5 text-text-body text-sm leading-relaxed">

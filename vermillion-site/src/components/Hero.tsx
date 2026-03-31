@@ -3,8 +3,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
-
-const ease = [0.22, 1, 0.36, 1];
+import { EASE } from "@/lib/constants";
 
 const headlineLine1 = "Precision".split(" ");
 const headlineLine2 = "Engineered".split(" ");
@@ -78,7 +77,7 @@ const HeadlineBracket = memo(function HeadlineBracket({ className, style }: { cl
       xmlns="http://www.w3.org/2000/svg"
       initial={{ opacity: 0, scale: 0.3 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay: 1.8, ease }}
+      transition={{ duration: 1, delay: 1.8, ease: EASE }}
     >
       <path d="M2 50 L2 10 Q2 2 10 2 L50 2" stroke="rgba(200,200,200,0.35)" strokeWidth="1.5" fill="none" />
       <path d="M7 45 L7 12 Q7 7 12 7 L45 7" stroke="rgba(200,200,200,0.18)" strokeWidth="0.75" fill="none" />
@@ -127,7 +126,7 @@ const VerticalNeonLine = memo(function VerticalNeonLine() {
         }}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 240, opacity: 1 }}
-        transition={{ duration: 1.8, delay: 0.2, ease }}
+        transition={{ duration: 1.8, delay: 0.2, ease: EASE }}
       />
       {/* Pulsing glow at the tip — centered on the 1px line */}
       <motion.div
@@ -280,7 +279,7 @@ const AnimatedBackground = memo(function AnimatedBackground() {
               opacity: orb.opacity,
               scale: [1, 1.3, 1],
             }}
-            transition={{ duration: orb.duration, repeat: Infinity, ease, delay: orb.delay }}
+            transition={{ duration: orb.duration, repeat: Infinity, ease: EASE, delay: orb.delay }}
             className="absolute rounded-full"
             style={{
               top: orb.top,
@@ -319,7 +318,7 @@ const WordReveal = memo(function WordReveal({
           transition={{
             duration: 0.6,
             delay: startDelay + i * 0.08,
-            ease,
+            ease: EASE,
           }}
           className={className}
           style={{ display: "inline-block", marginRight: "0.3em" }}
@@ -389,7 +388,7 @@ const GothicDivider = memo(function GothicDivider({ delay }: { delay: number }) 
     <motion.div
       initial={{ scaleX: 0, opacity: 0 }}
       animate={{ scaleX: 1, opacity: 1 }}
-      transition={{ duration: 1, delay, ease }}
+      transition={{ duration: 1, delay, ease: EASE }}
       className="flex items-center justify-center gap-3 max-w-[320px] mx-auto mb-8"
     >
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neon/40 to-neon/60 shadow-[0_0_10px_rgba(255,23,68,0.3)]" />
@@ -444,28 +443,28 @@ export default function Hero() {
           style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.5, delay: 0.5, ease }}
+          transition={{ duration: 1.5, delay: 0.5, ease: EASE }}
         />
         <motion.div
           className="absolute bottom-4 left-[124px] right-[124px] h-px"
           style={{ background: "linear-gradient(90deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.5, delay: 0.5, ease }}
+          transition={{ duration: 1.5, delay: 0.5, ease: EASE }}
         />
         <motion.div
           className="absolute left-4 top-[124px] bottom-[124px] w-px"
           style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease }}
+          transition={{ duration: 1.5, delay: 0.6, ease: EASE }}
         />
         <motion.div
           className="absolute right-4 top-[124px] bottom-[124px] w-px"
           style={{ background: "linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05) 30%, rgba(192,192,192,0.05) 70%, rgba(192,192,192,0.15))" }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease }}
+          transition={{ duration: 1.5, delay: 0.6, ease: EASE }}
         />
       </div>
 
@@ -474,14 +473,14 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: logoDelay, ease }}
+          transition={{ duration: 1.2, delay: logoDelay, ease: EASE }}
           className="relative mx-auto mb-8 sm:mb-14 w-[260px] sm:w-[420px] md:w-[480px] lg:w-[580px]"
         >
           {/* Intense multi-layer neon underglow */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: glowDelay, ease }}
+            transition={{ duration: 1.5, delay: glowDelay, ease: EASE }}
             className="absolute -inset-20 sm:-inset-28 lg:-inset-36 pointer-events-none"
             aria-hidden="true"
           >
@@ -549,7 +548,7 @@ export default function Hero() {
           <motion.div
             initial={{ scale: 1.04 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.4, ease }}
+            transition={{ duration: 1.4, ease: EASE }}
           >
             <h1
               id="hero-heading"
@@ -574,7 +573,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: subtextDelay, ease }}
+          transition={{ duration: 0.8, delay: subtextDelay, ease: EASE }}
           className="font-body text-[0.95rem] sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed"
         >
           Systems architecture for organizations that refuse to compromise. Zero templates. Zero shortcuts. Every line written with surgical precision.
@@ -583,7 +582,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: ctaDelay, ease }}
+          transition={{ duration: 0.8, delay: ctaDelay, ease: EASE }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <MagneticButton><ShimmerButton href="#contact">Schedule a Consultation</ShimmerButton></MagneticButton>
@@ -600,7 +599,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: ctaDelay + 0.5, ease }}
+          transition={{ duration: 1, delay: ctaDelay + 0.5, ease: EASE }}
         >
           <TechMarquee />
         </motion.div>

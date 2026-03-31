@@ -2,9 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { PROCESS_STEPS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { PROCESS_STEPS, EASE } from "@/lib/constants";
 
 const containerVariants = {
   hidden: {},
@@ -20,7 +18,7 @@ const stepVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease },
+    transition: { duration: 0.7, ease: EASE },
   },
 };
 
@@ -48,7 +46,7 @@ export default function Process() {
           initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
           whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.9, ease }}
+          transition={{ duration: 0.9, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">

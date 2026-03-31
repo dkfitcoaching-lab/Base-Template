@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FEATURES } from "@/lib/constants";
+import { FEATURES, EASE } from "@/lib/constants";
 import {
   Layers,
   Zap,
@@ -24,8 +24,6 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   BarChart3,
 };
 
-const ease = [0.22, 1, 0.36, 1];
-
 const containerVariants = {
   hidden: {},
   visible: {
@@ -40,7 +38,7 @@ const itemVariantsLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -49,7 +47,7 @@ const itemVariantsRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -62,7 +60,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
         >
           <div className="relative inline-block px-8 py-4">
@@ -116,13 +114,12 @@ export default function Features() {
                   transition-all duration-500
                   ${isLarge ? "sm:col-span-2 lg:col-span-2 border-l-2 border-l-neon/40" : "border-l border-l-neon/[0.08] hover:border-l-neon/25"}
                 `}
-                style={{ willChange: "transform" }}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.5, ease }}
+                whileHover={{ y: -4, transition: { duration: 0.3, ease: EASE } }}
+                transition={{ duration: 0.5, ease: EASE }}
               >
-                {/* Subtle top highlight */}
+                {/* Subtle top highlight — grows on hover */}
                 <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/[0.04] to-transparent rounded-t-card"
+                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/[0.04] to-transparent rounded-t-card group-hover:via-neon/20 transition-all duration-500"
                   aria-hidden="true"
                 />
 
@@ -145,8 +142,11 @@ export default function Features() {
                   aria-hidden="true"
                 >
                   {Icon && (
-                    <span style={{ filter: isLarge ? 'drop-shadow(0 0 8px rgba(74,144,217,0.3))' : 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}>
-                      <Icon className={`w-5 h-5 transition-colors duration-500 ${isLarge ? "text-accent group-hover:text-accent" : "text-neon group-hover:text-neon"}`} />
+                    <span
+                      className="inline-flex transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+                      style={{ filter: isLarge ? 'drop-shadow(0 0 8px rgba(74,144,217,0.3))' : 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}
+                    >
+                      <Icon className={`w-5 h-5 transition-colors duration-500 ${isLarge ? "text-accent" : "text-neon"}`} />
                     </span>
                   )}
                 </div>

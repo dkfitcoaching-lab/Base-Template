@@ -196,7 +196,7 @@ const AnalyticsDashboardMockup = memo(function AnalyticsDashboardMockup() {
       ].map((kpi, i) => {
         const x = 50 + i * 66;
         return (
-          <g key={`kpi${i}`}>
+          <g key={`kpi${i}`} className="animate-kpi" style={{ animationDelay: `${0.1 + i * 0.15}s` }}>
             <rect x={x} y="28" width="60" height="36" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
             <text x={x + 6} y="36" fill="#555" fontSize="2.2" fontFamily="system-ui, sans-serif" dominantBaseline="middle" letterSpacing="0.5">{kpi.label}</text>
             <text x={x + 6} y="48" fill={kpi.color} fontSize="8" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="bold">{kpi.value}</text>
@@ -214,16 +214,21 @@ const AnalyticsDashboardMockup = memo(function AnalyticsDashboardMockup() {
       {[88, 100, 112, 124, 136].map((y) => (
         <line key={`gl${y}`} x1="64" y1={y} x2="226" y2={y} stroke="#1A1A1A" strokeWidth="0.2" />
       ))}
-      <polyline points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86" fill="none" stroke="#FF1744" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline
+        points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86"
+        fill="none" stroke="#FF1744" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"
+        className="animate-line-draw"
+        style={{ "--line-length": 200 } as React.CSSProperties}
+      />
       <polyline points="68,130 82,126 96,127 110,118 124,112 138,115 152,108 166,103 180,99 194,95 208,92 222,86 222,140 68,140" fill="url(#analyticsGrad)" stroke="none" />
       {/* Donut chart panel */}
       <rect x="238" y="68" width="74" height="82" rx="4" fill="#0C0C0C" stroke="#1A1A1A" strokeWidth="0.5" />
       <text x="246" y="78" fill="#888" fontSize="3" fontFamily="system-ui, sans-serif" dominantBaseline="middle" fontWeight="600">Sources</text>
       {/* Donut arcs */}
       <circle cx="275" cy="108" r="18" fill="none" stroke="#1A1A1A" strokeWidth="6" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#FF1744" strokeWidth="6" strokeDasharray="45 68" strokeDashoffset="0" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#C0C0C0" strokeWidth="6" strokeDasharray="25 88" strokeDashoffset="-45" opacity="0.7" />
-      <circle cx="275" cy="108" r="18" fill="none" stroke="#555" strokeWidth="6" strokeDasharray="18 95" strokeDashoffset="-70" opacity="0.5" />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#FF1744" strokeWidth="6" strokeDasharray="45 68" strokeDashoffset="0" className="animate-donut" style={{ "--donut-offset": 0 } as React.CSSProperties} />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#C0C0C0" strokeWidth="6" strokeDasharray="25 88" strokeDashoffset="-45" opacity="0.7" className="animate-donut" style={{ "--donut-offset": -45, animationDelay: "0.8s" } as React.CSSProperties} />
+      <circle cx="275" cy="108" r="18" fill="none" stroke="#555" strokeWidth="6" strokeDasharray="18 95" strokeDashoffset="-70" opacity="0.5" className="animate-donut" style={{ "--donut-offset": -70, animationDelay: "1.0s" } as React.CSSProperties} />
       <text x="275" y="106" fill="#E0E0E0" fontSize="5" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">62%</text>
       <text x="275" y="113" fill="#555" fontSize="2" fontFamily="system-ui, sans-serif" textAnchor="middle" dominantBaseline="middle">Direct</text>
       {/* Legend */}

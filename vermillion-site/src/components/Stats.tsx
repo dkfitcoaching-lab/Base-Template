@@ -2,9 +2,7 @@
 
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
-import { STATS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { STATS, EASE } from "@/lib/constants";
 
 /** Parse a stat value like "100+", "<72hr", "3–21", "100%" into parts for animation */
 function parseStatValue(value: string): { prefix: string; number: number; suffix: string; isRange: boolean } {
@@ -39,7 +37,7 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.6, ease }}
+      transition={{ delay, duration: 0.6, ease: EASE }}
     >
       <dt className="font-mono font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-primary mb-1 metallic-text" aria-label={value}>
         {isRange ? (
@@ -62,8 +60,8 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
 export default function Stats() {
   return (
     <section className="relative border-y border-neon/[0.12] shadow-[0_0_30px_rgba(255,23,68,0.06)]" aria-label="Key metrics">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
-        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3 gap-y-5 sm:gap-8 lg:gap-12">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}

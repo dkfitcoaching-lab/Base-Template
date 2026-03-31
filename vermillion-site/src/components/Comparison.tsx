@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { COMPARISON } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { COMPARISON, EASE } from "@/lib/constants";
 
 const containerVariants = {
   hidden: {},
@@ -19,7 +17,7 @@ const rowVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -28,7 +26,7 @@ const rowVariantsRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -37,7 +35,7 @@ const mobileCardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -50,7 +48,7 @@ export default function Comparison() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">

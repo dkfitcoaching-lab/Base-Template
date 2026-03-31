@@ -3,9 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Star } from "lucide-react";
-import { TESTIMONIALS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { TESTIMONIALS, EASE } from "@/lib/constants";
 
 const containerVariants = {
   hidden: {},
@@ -14,7 +12,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, scale: 0.96, rotate: -0.5 },
-  visible: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 0.6, ease } },
+  visible: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 function StarRating() {
@@ -44,7 +42,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16"
         >
           <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">

@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { SERVICE_OPTIONS, WEB3FORMS_KEY } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { SERVICE_OPTIONS, WEB3FORMS_KEY, EASE } from "@/lib/constants";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -37,7 +35,7 @@ function fieldVariants(delay: number) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, delay, ease },
+      transition: { duration: 0.5, delay, ease: EASE },
     },
   };
 }
@@ -101,15 +99,17 @@ export default function ContactForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease }}
+        transition={{ duration: 0.6, ease: EASE }}
         className="gothic-card neon-glow-border rounded-hero p-6 sm:p-8 lg:p-12 text-center"
+        aria-live="polite"
+        role="status"
       >
         {/* Animated checkmark with ring draw-in */}
         <motion.div
           className="w-20 h-20 mx-auto mb-8 relative"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1, ease }}
+          transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
         >
           <svg
             className="w-20 h-20"
@@ -128,7 +128,7 @@ export default function ContactForm() {
               strokeLinecap="round"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
+              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
             />
             {/* Inner glow circle */}
             <circle
@@ -147,7 +147,7 @@ export default function ContactForm() {
               fill="none"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 0.4, delay: 0.7, ease }}
+              transition={{ duration: 0.4, delay: 0.7, ease: EASE }}
             />
           </svg>
         </motion.div>
@@ -155,7 +155,7 @@ export default function ContactForm() {
         <motion.h3
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5, ease }}
+          transition={{ delay: 0.5, duration: 0.5, ease: EASE }}
           className="font-heading font-semibold text-2xl text-text-primary mb-3 text-neon-glow-subtle"
         >
           Transmission received.
@@ -163,7 +163,7 @@ export default function ContactForm() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5, ease }}
+          transition={{ delay: 0.6, duration: 0.5, ease: EASE }}
           className="text-text-secondary mb-10 text-lg"
         >
           Our engineering team will respond within 24 hours with a detailed assessment.
@@ -172,7 +172,7 @@ export default function ContactForm() {
           onClick={handleReset}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5, ease }}
+          transition={{ delay: 0.7, duration: 0.5, ease: EASE }}
           className="px-8 py-3 rounded-btn border border-neon/[0.12] text-text-secondary font-heading text-sm tracking-wide hover:border-neon/30 hover:text-neon hover:shadow-neon-sm active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
           Send another message
@@ -294,7 +294,7 @@ export default function ContactForm() {
             id="cf-message"
             name="message"
             required
-            rows={3}
+            rows={4}
             value={formData.message}
             onChange={handleChange}
             placeholder="Tell us about your project and what you need..."
@@ -326,16 +326,18 @@ export default function ContactForm() {
             ) : "Get Started"}
           </button>
 
-          {status === "error" && (
-            <motion.p
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-4 text-sm text-red-400"
-            >
-              Unable to send your message. Please try again or email us directly at contact@vermillionaxis.tech.
-            </motion.p>
-          )}
+          <div aria-live="polite" role="status">
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4 text-sm text-red-400"
+              >
+                Unable to send your message. Please try again or email us directly at contact@vermillionaxis.tech.
+              </motion.p>
+            )}
+          </div>
         </motion.div>
       </form>
     </div>

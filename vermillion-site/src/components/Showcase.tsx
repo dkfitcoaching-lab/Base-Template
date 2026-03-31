@@ -3,9 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import DeviceMockup from "./DeviceMockup";
-import { SHOWCASE_ITEMS } from "@/lib/constants";
-
-const ease = [0.22, 1, 0.36, 1];
+import { SHOWCASE_ITEMS, EASE } from "@/lib/constants";
 
 const containerVariants = {
   hidden: {},
@@ -21,7 +19,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease },
+    transition: { duration: 0.7, ease: EASE },
   },
 };
 
@@ -53,7 +51,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     cardRef.current.style.transition = "transform 0.1s ease-out";
     if (glowRef.current) {
       glowRef.current.style.background =
-        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)`;
+        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255, 23, 68, 0.5) 0%, rgba(255, 23, 68, 0.18) 30%, rgba(255, 23, 68, 0.05) 55%, transparent 75%)`;
     }
   }
 
@@ -65,7 +63,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     }
     if (glowRef.current) {
       glowRef.current.style.background =
-        "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 1), rgba(255, 23, 68, 0.38) 40%, transparent 65%)";
+        "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 0.35) 0%, rgba(255, 23, 68, 0.12) 30%, rgba(255, 23, 68, 0.04) 55%, transparent 75%)";
     }
   }
 
@@ -83,7 +81,6 @@ function TiltCard({ children }: { children: React.ReactNode }) {
       style={{
         transform: "perspective(800px) rotateX(0deg) rotateY(0deg)",
         transition: "transform 0.4s ease-out",
-        willChange: "transform",
       }}
     >
       {/* Dynamic glow that follows cursor — ref-based, no re-renders */}
@@ -91,10 +88,10 @@ function TiltCard({ children }: { children: React.ReactNode }) {
         ref={glowRef}
         className="absolute -inset-2 rounded-hero opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 0.6), rgba(255, 23, 68, 0.25) 40%, transparent 65%)",
-          filter: "blur(80px)",
+          background: "radial-gradient(circle at 50% 50%, rgba(255, 23, 68, 0.35) 0%, rgba(255, 23, 68, 0.12) 30%, rgba(255, 23, 68, 0.04) 55%, transparent 75%)",
           backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
+          transform: "translateZ(0) scale(1.5)",
+          transition: "background 0.4s ease-out",
         }}
         aria-hidden="true"
       />
@@ -119,14 +116,14 @@ export default function Showcase() {
     offset: ["start end", "end start"],
   });
 
-  const yTransform0 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[0]);
-  const yTransform1 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[1]);
-  const yTransform2 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[2]);
-  const yTransform3 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[3]);
-  const yTransform4 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[4]);
-  const yTransform5 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[5]);
-
-  const transforms = [yTransform0, yTransform1, yTransform2, yTransform3, yTransform4, yTransform5];
+  // Each hook must be called unconditionally (Rules of Hooks), but we can keep them DRY
+  const t0 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[0]);
+  const t1 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[1]);
+  const t2 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[2]);
+  const t3 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[3]);
+  const t4 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[4]);
+  const t5 = useTransform(scrollYProgress, [0, 1], parallaxOffsets[5]);
+  const transforms = [t0, t1, t2, t3, t4, t5];
 
   return (
     <section ref={sectionRef} id="work" className="py-16 sm:py-24 lg:py-32" aria-labelledby="showcase-heading">
@@ -136,7 +133,7 @@ export default function Showcase() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16"
         >
           <div className="relative inline-block px-8 py-4">

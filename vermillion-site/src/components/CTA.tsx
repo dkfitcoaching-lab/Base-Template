@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ContactForm from "./ContactForm";
-
-const ease = [0.22, 1, 0.36, 1];
+import { EASE } from "@/lib/constants";
 
 /* Floating particle configuration */
 const particles = [
@@ -128,7 +127,7 @@ export default function CTA() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease }}
+              transition={{ duration: 1, ease: EASE }}
               className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight"
             >
               <span className="text-text-primary metallic-text">
@@ -145,7 +144,7 @@ export default function CTA() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.7, ease }}
+            transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
             className="text-base sm:text-lg md:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
           >
             Describe your vision. Within 24 hours you&apos;ll have architecture, timeline, and investment — no ambiguity, no obligation.
@@ -157,7 +156,7 @@ export default function CTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.7, ease }}
+          transition={{ delay: 0.3, duration: 0.7, ease: EASE }}
           style={{ scale: formScale }}
         >
           <ContactForm />

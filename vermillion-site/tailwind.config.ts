@@ -48,7 +48,7 @@ const config: Config = {
           primary: "#F0F0F0",
           body: "#C0C0C0",
           secondary: "#888888",
-          caption: "#8A8A8A",
+          caption: "#999999",
         },
       },
       fontSize: {
