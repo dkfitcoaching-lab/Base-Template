@@ -39,8 +39,8 @@ export default function Testimonials() {
     <section ref={sectionRef} id="testimonials" className="py-16 sm:py-24 lg:py-32" aria-labelledby="testimonials-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+          whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16"

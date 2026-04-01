@@ -38,11 +38,6 @@ const config: Config = {
           light: "#E0E0E0",
           dark: "#888888",
         },
-        accent: {
-          DEFAULT: "#4A90D9",
-          glow: "rgba(74, 144, 217, 0.15)",
-          soft: "rgba(74, 144, 217, 0.06)",
-        },
         border: "#252525",
         text: {
           primary: "#F0F0F0",

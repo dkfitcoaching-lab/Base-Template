@@ -57,8 +57,8 @@ export default function Features() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
@@ -80,7 +80,7 @@ export default function Features() {
             <svg className="absolute bottom-0 right-0 w-5 h-5 text-neon/25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M22 16v6h-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <p className="text-xs tracking-[0.3em] text-accent uppercase font-heading mb-3">
+            <p className="text-xs tracking-[0.3em] text-neon uppercase font-heading mb-3">
               Capabilities
             </p>
             <h2
@@ -134,19 +134,15 @@ export default function Features() {
 
                 {/* Icon with glow */}
                 <div
-                  className={`relative w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 ${
-                    isLarge
-                      ? "bg-accent/10 shadow-[0_0_20px_rgba(74,144,217,0.15)] group-hover:shadow-[0_0_30px_rgba(74,144,217,0.25)] group-hover:bg-accent/15"
-                      : "bg-neon/10 shadow-[0_0_20px_rgba(255,23,68,0.15)] group-hover:shadow-[0_0_30px_rgba(255,23,68,0.25)] group-hover:bg-neon/15"
-                  }`}
+                  className="relative w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 bg-neon/10 shadow-[0_0_20px_rgba(255,23,68,0.15)] group-hover:shadow-[0_0_30px_rgba(255,23,68,0.25)] group-hover:bg-neon/15"
                   aria-hidden="true"
                 >
                   {Icon && (
                     <span
                       className="inline-flex transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-                      style={{ filter: isLarge ? 'drop-shadow(0 0 8px rgba(74,144,217,0.3))' : 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}
+                      style={{ filter: 'drop-shadow(0 0 8px rgba(255,23,68,0.3))' }}
                     >
-                      <Icon className={`w-5 h-5 transition-colors duration-500 ${isLarge ? "text-accent" : "text-neon"}`} />
+                      <Icon className="w-5 h-5 transition-colors duration-500 text-neon" />
                     </span>
                   )}
                 </div>

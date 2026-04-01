@@ -84,6 +84,14 @@ export default function Navigation() {
     return () => observer.disconnect();
   }, []);
 
+  /* Sync active section from URL hash on mount */
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sectionIds.includes(hash)) {
+      setActiveSection(hash);
+    }
+  }, []);
+
   /* Lock body scroll when mobile menu is open */
   useEffect(() => {
     if (mobileOpen) {

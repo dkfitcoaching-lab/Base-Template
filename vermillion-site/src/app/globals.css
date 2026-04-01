@@ -5,7 +5,6 @@
 /* ── Design tokens as CSS custom properties ── */
 :root {
   --neon: 255, 23, 68;
-  --accent: 74, 144, 217;
   --surface: 12, 12, 12;
 }
 
@@ -297,7 +296,6 @@ section {
     transparent 85%,
     transparent 100%
   );
-  filter: drop-shadow(0 0 4px rgba(255,23,68,0.2));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
@@ -539,17 +537,6 @@ body {
   .page-vignette {
     display: none;
   }
-}
-
-/* ═══════════════════════════════════════════════════
-   SECONDARY ACCENT — Steel blue for visual variety
-   ═══════════════════════════════════════════════════ */
-.text-gradient-steel {
-  background: linear-gradient(135deg, #4A90D9, #7BB3E8, #4A90D9);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-silver {
