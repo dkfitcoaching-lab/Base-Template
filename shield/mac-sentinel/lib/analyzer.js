@@ -273,13 +273,116 @@ function analyze(snapshot, previous, state) {
         payload: { prev: prevNet.gateway, curr: net.gateway, message: 'Default gateway changed. Possible network hijack or rogue AP.' },
       });
     }
-    // DNS resolver change
+    // DNS resolver change — HIGH severity. Controlling DNS = controlling
+    // where every HTTPS connection actually lands. Baseline is locked
+    // at first run (stored in state.dnsBaseline) and any drift from
+    // THAT baseline stays HIGH until the user explicitly re-baselines.
+    if (!state.dnsBaseline && net.dnsServers?.length) {
+      state.dnsBaseline = [...net.dnsServers].sort();
+    }
+    if (state.dnsBaseline && net.dnsServers) {
+      const baselineStr = JSON.stringify(state.dnsBaseline);
+      const currStr = JSON.stringify([...net.dnsServers].sort());
+      if (baselineStr !== currStr) {
+        events.push({
+          type: 'DNS_BASELINE_DRIFT',
+          severity: 'HIGH',
+          payload: {
+            baseline: state.dnsBaseline,
+            curr: net.dnsServers,
+            message: 'DNS resolvers have drifted from the locked baseline. Every HTTPS connection starts with a DNS lookup — control DNS, control destination.',
+          },
+        });
+      }
+    }
+    // Also alert on transient change between two adjacent scans (catches
+    // brief hijacks that revert before baseline re-lock).
     if (prevNet.dnsServers && net.dnsServers) {
       const prevDns = JSON.stringify([...prevNet.dnsServers].sort());
       const currDns = JSON.stringify([...net.dnsServers].sort());
       if (prevDns !== currDns) {
-        events.push({ type: 'DNS_CHANGE', severity: 'MEDIUM', payload: { prev: prevNet.dnsServers, curr: net.dnsServers } });
+        events.push({ type: 'DNS_CHANGE', severity: 'HIGH', payload: { prev: prevNet.dnsServers, curr: net.dnsServers } });
       }
+    }
+
+    // Rogue AP / evil-twin detection: if the current SSID we're on
+    // appears in the nearby-AP scan with a BSSID that does not match
+    // the one we're connected to, that's an evil twin. Also lock a
+    // BSSID baseline per SSID so we detect impersonation even off-home.
+    if (net.wifi?.ssid && net.wifi?.bssid && net.nearbyAps?.length) {
+      const ourSsid = net.wifi.ssid;
+      const ourBssid = (net.wifi.bssid || '').toLowerCase();
+      state.apBaseline = state.apBaseline || {};
+      if (!state.apBaseline[ourSsid]) state.apBaseline[ourSsid] = ourBssid;
+      const baseline = state.apBaseline[ourSsid];
+      // Anyone else advertising our SSID on a different BSSID?
+      for (const ap of net.nearbyAps) {
+        if (ap.ssid === ourSsid && ap.bssid && ap.bssid !== ourBssid) {
+          events.push({
+            type: 'EVIL_TWIN_AP',
+            severity: 'CRITICAL',
+            payload: { ssid: ourSsid, ourBssid, rogueBssid: ap.bssid, rogueRssi: ap.rssi, rogueChannel: ap.channel, rogueSecurity: ap.security, message: `Another access point is advertising your SSID "${ourSsid}" with a different BSSID. This is an evil-twin attack.` },
+          });
+        }
+      }
+      if (baseline && baseline !== ourBssid) {
+        events.push({
+          type: 'BSSID_DRIFT',
+          severity: 'HIGH',
+          payload: { ssid: ourSsid, baselineBssid: baseline, currentBssid: ourBssid, message: `BSSID for "${ourSsid}" changed from the baseline. Either your router was replaced or you are on an impersonator AP.` },
+        });
+      }
+    }
+
+    // mDNS service drift — a raspberry pi on your network suddenly
+    // advertising new services is a very high-signal LAN implant.
+    if (net.mdnsServices && previous?.network?.mdnsServices) {
+      const prevTypes = new Set(previous.network.mdnsServices.map(s => `${s.type}@${s.iface}`));
+      const novel = (net.mdnsServices || []).filter(s => !prevTypes.has(`${s.type}@${s.iface}`));
+      for (const svc of novel) {
+        events.push({
+          type: 'MDNS_SERVICE_NEW',
+          severity: 'MEDIUM',
+          payload: { service: svc, message: `New Bonjour/mDNS service advertised on local link: ${svc.type}` },
+        });
+      }
+    }
+
+    // Egress baseline — process-level outbound connection fingerprinting.
+    if (net.connections && state.egressBaseline !== undefined) {
+      const baseline = state.egressBaseline || {};
+      // Consider only ESTABLISHED or CONNECTED sockets with a remote ->
+      const outbound = net.connections.filter(c => c.state === 'ESTABLISHED' || c.state === 'CONNECTED');
+      const outboundByProc = {};
+      for (const c of outbound) {
+        const proc = c.command || 'unknown';
+        if (!outboundByProc[proc]) outboundByProc[proc] = 0;
+        outboundByProc[proc]++;
+      }
+      for (const proc of Object.keys(outboundByProc)) {
+        if (!(proc in baseline)) {
+          // Cross-reference with processes.unsigned to grade severity.
+          const unsigned = snapshot.processes?.unsigned?.find(u => u.path?.endsWith('/' + proc) || u.path?.includes(proc));
+          const sev = unsigned ? 'HIGH' : 'MEDIUM';
+          events.push({
+            type: 'EGRESS_PROCESS_NEW',
+            severity: sev,
+            payload: { process: proc, connections: outboundByProc[proc], unsigned: !!unsigned, message: `New process making outbound connections: ${proc}` },
+          });
+        }
+      }
+      // Add newly-seen processes to the baseline so we don't re-alert.
+      state.egressBaseline = { ...baseline, ...outboundByProc };
+    } else if (net.connections && state.egressBaseline === undefined) {
+      // First run: lock the baseline silently.
+      const outbound = net.connections.filter(c => c.state === 'ESTABLISHED' || c.state === 'CONNECTED');
+      const outboundByProc = {};
+      for (const c of outbound) {
+        const proc = c.command || 'unknown';
+        if (!outboundByProc[proc]) outboundByProc[proc] = 0;
+        outboundByProc[proc]++;
+      }
+      state.egressBaseline = outboundByProc;
     }
     // ARP: new devices on LAN
     if (net.arp) {
@@ -456,6 +559,149 @@ function analyze(snapshot, previous, state) {
           type: 'VPN_PROCESS_NEW',
           severity: 'MEDIUM',
           payload: { process: p, message: `New VPN-speaking process: ${p.command}. If you did not start a VPN client, this may be a reverse tunnel.` },
+        });
+      }
+    }
+  }
+
+  // ─── Wi-Fi deauth / disassoc ──────────────────────────────────────
+  if (snapshot.wifiDeauth?.available) {
+    const wd = snapshot.wifiDeauth;
+    if (wd.disassocCount >= 3) {
+      events.push({
+        type: 'WIFI_DEAUTH_STORM',
+        severity: 'HIGH',
+        payload: {
+          count: wd.disassocCount,
+          samples: wd.disassocLines?.slice(-10),
+          message: `${wd.disassocCount} disassociation events in the last 5 minutes. Textbook WPA handshake capture pattern — someone may be deauth-ing you to crack your Wi-Fi PSK.`,
+        },
+      });
+    }
+    if (wd.authFailCount >= 2) {
+      events.push({
+        type: 'WIFI_AUTH_FAIL',
+        severity: 'MEDIUM',
+        payload: { count: wd.authFailCount, samples: wd.authFailLines?.slice(-5) },
+      });
+    }
+  }
+
+  // ─── Boot persistence audit ───────────────────────────────────────
+  if (snapshot.bootPersistence?.targets) {
+    const currTargets = snapshot.bootPersistence.targets;
+    const prevTargets = previous?.bootPersistence?.targets || {};
+    for (const [target, curr] of Object.entries(currTargets)) {
+      const prev = prevTargets[target];
+      if (!prev) continue; // first run — baseline only
+      if (curr.kind === 'file') {
+        if (prev.exists && !curr.exists) {
+          events.push({
+            type: 'BOOT_FILE_REMOVED',
+            severity: curr.severity || 'HIGH',
+            payload: { target, message: `Boot-persistence file removed: ${target}` },
+          });
+        } else if (!prev.exists && curr.exists) {
+          events.push({
+            type: 'BOOT_FILE_CREATED',
+            severity: curr.severity || 'HIGH',
+            payload: { target, hash: curr.hash, message: `Boot-persistence file created: ${target}. Review contents.` },
+          });
+        } else if (prev.exists && curr.exists && prev.hash !== curr.hash) {
+          events.push({
+            type: 'BOOT_FILE_MODIFIED',
+            severity: curr.severity || 'HIGH',
+            payload: { target, prevHash: prev.hash, newHash: curr.hash, message: `Boot-persistence file modified: ${target}. Diff manually.` },
+          });
+        }
+      } else if (curr.kind === 'dir' && prev.entries && curr.entries) {
+        const prevByName = new Map(prev.entries.map(e => [e.name, e]));
+        const currByName = new Map(curr.entries.map(e => [e.name, e]));
+        for (const [name, e] of currByName) {
+          const p = prevByName.get(name);
+          if (!p) {
+            events.push({
+              type: 'BOOT_DIR_NEW_ENTRY',
+              severity: curr.severity || 'HIGH',
+              payload: { target, name, entry: e, message: `New entry in boot-persistence dir ${target}: ${name}` },
+            });
+          } else if (p.hash && e.hash && p.hash !== e.hash) {
+            events.push({
+              type: 'BOOT_DIR_MODIFIED',
+              severity: curr.severity || 'HIGH',
+              payload: { target, name, prevHash: p.hash, newHash: e.hash, message: `Modified entry in ${target}: ${name}` },
+            });
+          }
+        }
+        for (const [name] of prevByName) {
+          if (!currByName.has(name)) {
+            events.push({
+              type: 'BOOT_DIR_REMOVED',
+              severity: 'MEDIUM',
+              payload: { target, name, message: `Entry removed from ${target}: ${name}` },
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // ─── Clipboard exfiltration ───────────────────────────────────────
+  if (snapshot.clipboard?.available) {
+    const clip = snapshot.clipboard;
+    const prev = previous?.clipboard;
+    if (prev?.available && prev.hash && clip.hash && prev.hash !== clip.hash) {
+      // Clipboard changed. Was the foreground app stable?
+      const frontChanged = prev.frontmost && clip.frontmost && prev.frontmost !== clip.frontmost;
+      if (!frontChanged) {
+        events.push({
+          type: 'CLIPBOARD_CHANGED_IDLE',
+          severity: 'MEDIUM',
+          payload: { frontmost: clip.frontmost, message: `Clipboard changed with no foreground-app context change. Possible silent exfiltration or injection.` },
+        });
+      }
+    }
+  }
+
+  // ─── Camera / microphone activation ───────────────────────────────
+  if (snapshot.avDevices?.available) {
+    const av = snapshot.avDevices;
+    const whitelist = new Set([...(av.defaultWhitelist || []), ...((state.whitelist?.avApps) || [])]);
+    const activeCount = (av.camActive?.length || 0) + (av.micActive?.length || 0);
+    if (activeCount > 0) {
+      const frontmost = av.frontmost || 'unknown';
+      const legitimate = whitelist.has(frontmost);
+      if (!legitimate) {
+        events.push({
+          type: 'AV_ACTIVE_UNKNOWN_APP',
+          severity: 'CRITICAL',
+          payload: {
+            frontmost,
+            cam: av.camActive?.length || 0,
+            mic: av.micActive?.length || 0,
+            message: `Camera or microphone is active while frontmost app "${frontmost}" is not on the AV whitelist.`,
+          },
+        });
+      }
+    }
+  }
+
+  // ─── sudo / privilege escalation ──────────────────────────────────
+  if (snapshot.logins?.sudoEvents) {
+    const prevSudo = new Set((previous?.logins?.sudoEvents || []).map(e => e.raw));
+    for (const ev of snapshot.logins.sudoEvents) {
+      if (prevSudo.has(ev.raw)) continue;
+      if (ev.kind === 'fail') {
+        events.push({
+          type: 'SUDO_FAIL',
+          severity: 'CRITICAL',
+          payload: { user: ev.user, reason: ev.reason, raw: ev.raw, message: `Failed sudo attempt by ${ev.user}: ${ev.reason}` },
+        });
+      } else if (ev.kind === 'success') {
+        events.push({
+          type: 'SUDO_RUN',
+          severity: 'HIGH',
+          payload: { user: ev.user, asUser: ev.asUser, command: ev.command, tty: ev.tty, pwd: ev.pwd, message: `sudo: ${ev.user} → ${ev.asUser} ran ${ev.command}` },
         });
       }
     }

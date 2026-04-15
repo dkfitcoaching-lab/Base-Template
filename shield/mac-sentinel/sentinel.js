@@ -28,17 +28,21 @@ const { applyRules, DEFAULTS: DEFAULT_RULES } = require('./lib/rules');
 const selfIntegrity = require('./lib/self_integrity');
 
 const collectors = {
-  network:       require('./lib/collectors/network'),
-  bluetooth:     require('./lib/collectors/bluetooth'),
-  profiles:      require('./lib/collectors/profiles'),
-  launchAgents:  require('./lib/collectors/launch_agents'),
-  loginItems:    require('./lib/collectors/login_items'),
-  integrity:     require('./lib/collectors/integrity'),
-  processes:     require('./lib/collectors/processes'),
-  logins:        require('./lib/collectors/logins'),
-  sharing:       require('./lib/collectors/sharing'),
-  canaries:      require('./lib/collectors/canaries'),
-  usb:           require('./lib/collectors/usb'),
+  network:         require('./lib/collectors/network'),
+  bluetooth:       require('./lib/collectors/bluetooth'),
+  profiles:        require('./lib/collectors/profiles'),
+  launchAgents:    require('./lib/collectors/launch_agents'),
+  loginItems:      require('./lib/collectors/login_items'),
+  integrity:       require('./lib/collectors/integrity'),
+  processes:       require('./lib/collectors/processes'),
+  logins:          require('./lib/collectors/logins'),
+  sharing:         require('./lib/collectors/sharing'),
+  canaries:        require('./lib/collectors/canaries'),
+  usb:             require('./lib/collectors/usb'),
+  wifiDeauth:      require('./lib/collectors/wifi_deauth'),
+  bootPersistence: require('./lib/collectors/boot_persistence'),
+  clipboard:       require('./lib/collectors/clipboard'),
+  avDevices:       require('./lib/collectors/av_devices'),
 };
 
 // ─── Heartbeat ─────────────────────────────────────────────────────────────
@@ -192,7 +196,11 @@ function saveState(key, state) {
 
 // ─── Collector orchestration ──────────────────────────────────────────────
 async function runCollectors() {
-  const [network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing, canaries, usb] = await Promise.all([
+  const [
+    network, bluetooth, profiles, launchAgents, loginItems,
+    integrity, processes, logins, sharing, canaries, usb,
+    wifiDeauth, bootPersistence, clipboard, avDevices,
+  ] = await Promise.all([
     collectors.network.collect(),
     collectors.bluetooth.collect(),
     collectors.profiles.collect(),
@@ -204,8 +212,16 @@ async function runCollectors() {
     collectors.sharing.collect(),
     collectors.canaries.collect(),
     collectors.usb.collect(),
+    collectors.wifiDeauth.collect(),
+    collectors.bootPersistence.collect(),
+    collectors.clipboard.collect(),
+    collectors.avDevices.collect(),
   ]);
-  return { network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing, canaries, usb };
+  return {
+    network, bluetooth, profiles, launchAgents, loginItems,
+    integrity, processes, logins, sharing, canaries, usb,
+    wifiDeauth, bootPersistence, clipboard, avDevices,
+  };
 }
 
 // ─── Scan loop ────────────────────────────────────────────────────────────

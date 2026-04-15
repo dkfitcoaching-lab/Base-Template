@@ -153,6 +153,65 @@ function detectVpn(ifaces, connections) {
   };
 }
 
+/**
+ * Scan nearby Wi-Fi APs via `airport -s`. Returns an array of
+ * { ssid, bssid, rssi, channel, security } records. Used to detect
+ * evil-twin access points — a rogue AP advertising your home SSID
+ * with a different BSSID.
+ *
+ * Note: Apple has deprecated `airport -s` in recent macOS — the binary
+ * still exists but the scan function may return an empty list without
+ * Location Services permission. We handle both cases gracefully.
+ */
+async function scanNearbyAps() {
+  const res = await run(AIRPORT_BIN, ['-s'], { timeout: 10000 });
+  if (res.code !== 0 || !res.stdout) return { available: false, aps: [] };
+  const lines = res.stdout.split('\n').slice(1); // drop header
+  const aps = [];
+  for (const raw of lines) {
+    const line = raw.replace(/\r$/, '');
+    if (!line.trim()) continue;
+    // airport -s columns: SSID BSSID RSSI CHANNEL HT CC SECURITY
+    const m = line.match(/^\s*(.{1,32}?)\s+([0-9a-f:]{17})\s+(-?\d+)\s+(\S+)\s+\S+\s+(\S+)\s+(.+)$/i);
+    if (!m) continue;
+    aps.push({
+      ssid: m[1].trim(),
+      bssid: m[2].toLowerCase(),
+      rssi: parseInt(m[3], 10),
+      channel: m[4],
+      cc: m[5],
+      security: m[6].trim(),
+    });
+  }
+  return { available: true, aps };
+}
+
+/**
+ * Enumerate mDNS/Bonjour services broadcasting on the local link via
+ * `dns-sd -B _services._dns-sd._udp local.`. We run it with a short
+ * timeout and kill it — dns-sd is long-running by default.
+ */
+async function enumerateMdns() {
+  const res = await run('/usr/bin/dns-sd', ['-t', '1', '-B', '_services._dns-sd._udp', 'local'], { timeout: 3500 });
+  if (res.code !== 0 && !res.stdout) return { available: false, services: [] };
+  const services = [];
+  for (const raw of res.stdout.split('\n')) {
+    const line = raw.trim();
+    if (!line || /^Browsing for/.test(line) || /^DATE:/.test(line) || /^Timestamp/.test(line)) continue;
+    const parts = line.split(/\s+/);
+    // format: <Timestamp> Add/Rmv <Flags> <If> <Domain> <Type> <Instance>
+    if (parts.length < 6) continue;
+    services.push({
+      op: parts[1],
+      iface: parts[3],
+      domain: parts[4],
+      type: parts[5],
+      instance: parts.slice(6).join(' ') || null,
+    });
+  }
+  return { available: true, services };
+}
+
 async function collect() {
   const [arpRes, ifconfigRes, lsofRes, hwRes, routeRes, dnsRes] = await Promise.all([
     run('/usr/sbin/arp', ['-an']),
@@ -205,6 +264,13 @@ async function collect() {
   // VPN / tunnel interfaces (utun, tun, ppp, ipsec) + suspicious processes.
   const vpn = detectVpn(ifaces, connections);
 
+  // Rogue AP / evil-twin scan + mDNS enumeration (best-effort; depends
+  // on macOS version and Location Services permission).
+  const [nearbyScan, mdns] = await Promise.all([
+    scanNearbyAps().catch(() => ({ available: false, aps: [] })),
+    enumerateMdns().catch(() => ({ available: false, services: [] })),
+  ]);
+
   return {
     arp: arpDevices,
     interfaces: ifaces,
@@ -218,8 +284,10 @@ async function collect() {
     listenerCount: listeners.length,
     connectionCount: connections.length,
     vpn,
+    nearbyAps: nearbyScan.aps || [],
+    mdnsServices: mdns.services || [],
     collectedAt: new Date().toISOString(),
   };
 }
 
-module.exports = { collect, parseArp, parseIfconfig, parseAirport, parseLsof, parseHardwarePorts, detectVpn };
+module.exports = { collect, parseArp, parseIfconfig, parseAirport, parseLsof, parseHardwarePorts, detectVpn, scanNearbyAps, enumerateMdns };

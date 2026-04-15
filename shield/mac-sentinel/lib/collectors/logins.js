@@ -45,16 +45,54 @@ async function collectAuthLog(minutes = 60) {
   );
   if (res.code !== 0) return { available: false, events: [], error: res.stderr?.trim() || res.error };
   const events = [];
+  const sudoEvents = [];   // structured per-sudo records
+  const authFailEvents = [];
   let failures = 0;
   let sudoCount = 0;
+  // Regex against common sudo log line shapes:
+  //   "sudo[12345]: user : TTY=ttys000 ; PWD=/ ; USER=root ; COMMAND=/bin/ls"
+  //   "sudo[12345]: user : 3 incorrect password attempts ; TTY=..."
+  //   "sudo[12345]: user : command not allowed ; ..."
+  const sudoSuccessRe = /sudo\[?\d*\]?:\s*(\S+)\s*:\s*TTY=(\S+)\s*;\s*PWD=(\S+)\s*;\s*USER=(\S+)\s*;\s*COMMAND=(.+?)(?:\s*$|\s*\|)/i;
+  const sudoFailRe    = /sudo\[?\d*\]?:\s*(\S+)\s*:\s*(.*incorrect password|.*command not allowed|.*not in the sudoers|.*a password is required|.*authentication failure)/i;
   for (const line of res.stdout.split('\n')) {
     if (!line.trim()) continue;
-    if (/fail/i.test(line)) failures++;
-    if (/sudo/i.test(line)) sudoCount++;
-    // We keep the raw line; downstream UI can pretty-print.
+    if (/fail/i.test(line) && /auth|login|authent/i.test(line)) { failures++; authFailEvents.push(line); }
+    if (/sudo/i.test(line)) {
+      sudoCount++;
+      const ok = line.match(sudoSuccessRe);
+      const bad = line.match(sudoFailRe);
+      if (bad) {
+        sudoEvents.push({
+          kind: 'fail',
+          user: bad[1],
+          reason: bad[2].trim(),
+          raw: line,
+        });
+      } else if (ok) {
+        sudoEvents.push({
+          kind: 'success',
+          user: ok[1],
+          tty: ok[2],
+          pwd: ok[3],
+          asUser: ok[4],
+          command: ok[5].trim(),
+          raw: line,
+        });
+      }
+    }
     if (events.length < 200) events.push(line);
   }
-  return { available: true, events, failures, sudoCount };
+  return {
+    available: true,
+    events,
+    failures,
+    sudoCount,
+    sudoEvents,
+    sudoFailureCount: sudoEvents.filter(e => e.kind === 'fail').length,
+    sudoSuccessCount: sudoEvents.filter(e => e.kind === 'success').length,
+    authFailEvents: authFailEvents.slice(-30),
+  };
 }
 
 async function collect() {
