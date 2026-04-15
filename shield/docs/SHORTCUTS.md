@@ -2,7 +2,9 @@
 
 The SHIELD PWA on iPhone cannot toggle Wi-Fi, Bluetooth, or Airplane Mode directly — iOS does not expose those controls to the web platform. iOS Shortcuts can. These Shortcuts are the bridge: SHIELD opens `shortcuts://run-shortcut?name=…` and iOS routes it to the Shortcut of the same name. First run asks you to confirm; after that, iOS remembers.
 
-You will create four Shortcuts. Do them once, on your iPhone, in the Shortcuts app.
+You will create five Shortcuts. Do them once, on your iPhone, in the Shortcuts app.
+
+*(v1.3 added `SHIELD Hourly Check` for passive mobile observation while you are off-network. See [`MOBILE_USE.md`](MOBILE_USE.md) for the full mobile workflow.)*
 
 ---
 
@@ -10,7 +12,7 @@ You will create four Shortcuts. Do them once, on your iPhone, in the Shortcuts a
 
 1. Open the **Shortcuts** app.
 2. Tap **Shortcuts** tab at the bottom (not Automation).
-3. We will create four shortcuts: **SHIELD Kill Switch**, **SHIELD Night Mode**, **SHIELD Morning Check**, **SHIELD Log Snapshot**.
+3. We will create five shortcuts: **SHIELD Kill Switch**, **SHIELD Night Mode**, **SHIELD Morning Check**, **SHIELD Log Snapshot**, and **SHIELD Hourly Check**.
 4. The names MUST match exactly. SHIELD looks them up by name.
 
 After creating them, you will also set two Automations (Night Mode at bedtime, Morning Check after wake). Those are optional but recommended.
@@ -92,6 +94,45 @@ After creating them, you will also set two Automations (Night Mode at bedtime, M
 8. Done.
 
 Use this before or after using the SHIELD PWA journal so the iOS-only data (like SSID) ends up in your record.
+
+---
+
+---
+
+## Shortcut 5 — SHIELD Hourly Check (v1.3, mobile observer)
+
+**Purpose:** passive, hourly iPhone state snapshot for when you are off the Mac's network. iOS will not run a PWA in the background, but it WILL run a Shortcut on a time automation. This is how SHIELD gets any passive iPhone observation at all while you are mobile.
+
+**Steps:**
+
+1. Create a new Shortcut. Rename to exactly `SHIELD Hourly Check`.
+2. Add **Current Date** → output variable `Now`.
+3. Add **Get Battery Level** → output variable `Battery`.
+4. Add **Get Network Details → Network Name (SSID)** → output `SSID`.
+5. Add **Get Network Details → BSSID** if your iOS version exposes it → output `BSSID`.
+6. Add **Get Current Focus** (iOS 16+) → output `Focus`.
+7. Add **Get Device Details → Device Model** → output `Model`.
+8. Add a **Text** action with body:
+   ```
+   SHIELD hourly check
+   time:    [Now]
+   model:   [Model]
+   ssid:    [SSID]
+   bssid:   [BSSID]
+   battery: [Battery]%
+   focus:   [Focus]
+   ```
+9. Add **Append to Note** → pick or create a note called `SHIELD Log` that lives **On My iPhone** (local only, not in iCloud).
+10. Tap **Done**.
+
+**Automation setup:**
+
+1. Shortcuts app → **Automation** tab → **+** → **Create Personal Automation** → **Time of Day**.
+2. Set a 5-minute-past-the-hour offset (e.g., 10:05 AM), **Repeat: Hourly**.
+3. **Ask Before Running: OFF.** **Notify When Run: OFF.** (Optional during setup — turn these off after verifying it works.)
+4. Action → **Run Shortcut** → **SHIELD Hourly Check** → Done.
+
+Now every hour, while you are mobile, the iPhone appends a passive snapshot to `SHIELD Log`. Review it on a weekly basis; import anomalies into the SHIELD PWA journal as needed. Full mobile workflow in [`MOBILE_USE.md`](MOBILE_USE.md).
 
 ---
 

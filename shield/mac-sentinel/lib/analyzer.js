@@ -348,41 +348,57 @@ function analyze(snapshot, previous, state) {
       }
     }
 
-    // Egress baseline — process-level outbound connection fingerprinting.
-    if (net.connections && state.egressBaseline !== undefined) {
-      const baseline = state.egressBaseline || {};
-      // Consider only ESTABLISHED or CONNECTED sockets with a remote ->
-      const outbound = net.connections.filter(c => c.state === 'ESTABLISHED' || c.state === 'CONNECTED');
-      const outboundByProc = {};
-      for (const c of outbound) {
-        const proc = c.command || 'unknown';
-        if (!outboundByProc[proc]) outboundByProc[proc] = 0;
-        outboundByProc[proc]++;
-      }
-      for (const proc of Object.keys(outboundByProc)) {
-        if (!(proc in baseline)) {
-          // Cross-reference with processes.unsigned to grade severity.
-          const unsigned = snapshot.processes?.unsigned?.find(u => u.path?.endsWith('/' + proc) || u.path?.includes(proc));
-          const sev = unsigned ? 'HIGH' : 'MEDIUM';
-          events.push({
-            type: 'EGRESS_PROCESS_NEW',
-            severity: sev,
-            payload: { process: proc, connections: outboundByProc[proc], unsigned: !!unsigned, message: `New process making outbound connections: ${proc}` },
-          });
+    // Egress baseline — now driven by the dedicated egress collector
+    // which carries richer per-process data (codesign verdicts, remote
+    // IP/port samples). The baseline is a map of command -> { first
+    // seen timestamp, signed/adhoc/apple verdict }. Diffing fires
+    // EGRESS_PROCESS_NEW HIGH for unsigned/adhoc and MEDIUM for signed.
+    // Legacy path: if we have snapshot.network.connections but no
+    // dedicated egress collector, we fall through to the old logic.
+    const eg = snapshot.egress;
+    if (eg && eg.available && eg.byProcess) {
+      state.egressBaseline = state.egressBaseline || null;
+      if (state.egressBaseline === null) {
+        // First run: lock baseline silently. Includes codesign verdict.
+        const baseline = {};
+        for (const [proc, info] of Object.entries(eg.byProcess)) {
+          baseline[proc] = {
+            firstSeen: now,
+            signed: info.signed,
+            adhoc: info.adhoc,
+            apple: info.apple,
+            count: info.count,
+          };
+        }
+        state.egressBaseline = baseline;
+      } else {
+        for (const [proc, info] of Object.entries(eg.byProcess)) {
+          if (!(proc in state.egressBaseline)) {
+            const suspicious = info.signed === false || info.adhoc === true;
+            const severity = suspicious ? 'HIGH' : 'MEDIUM';
+            events.push({
+              type: 'EGRESS_PROCESS_NEW',
+              severity,
+              payload: {
+                process: proc,
+                count: info.count,
+                signed: info.signed,
+                adhoc: info.adhoc,
+                apple: info.apple,
+                samples: info.samples,
+                message: `New process making outbound connections: ${proc}${suspicious ? ' (unsigned/adhoc-signed)' : ''}`,
+              },
+            });
+            state.egressBaseline[proc] = {
+              firstSeen: now,
+              signed: info.signed,
+              adhoc: info.adhoc,
+              apple: info.apple,
+              count: info.count,
+            };
+          }
         }
       }
-      // Add newly-seen processes to the baseline so we don't re-alert.
-      state.egressBaseline = { ...baseline, ...outboundByProc };
-    } else if (net.connections && state.egressBaseline === undefined) {
-      // First run: lock the baseline silently.
-      const outbound = net.connections.filter(c => c.state === 'ESTABLISHED' || c.state === 'CONNECTED');
-      const outboundByProc = {};
-      for (const c of outbound) {
-        const proc = c.command || 'unknown';
-        if (!outboundByProc[proc]) outboundByProc[proc] = 0;
-        outboundByProc[proc]++;
-      }
-      state.egressBaseline = outboundByProc;
     }
     // ARP: new devices on LAN
     if (net.arp) {

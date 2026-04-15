@@ -18,13 +18,17 @@
 
 (function (window) {
   const DB_NAME = 'shield';
-  const DB_VERSION = 1;
+  const DB_VERSION = 2;
   const STORES = {
     settings: { keyPath: 'key' },
     journal:  { keyPath: 'id' },
     alerts:   { keyPath: 'id' },
     checklist:{ keyPath: 'id' },
     photos:   { keyPath: 'id' },
+    // settings_cache holds encrypted cached Sentinel state so the
+    // dashboard shows a last-known posture when the phone is off the
+    // local network. Added in v1.3.
+    settings_cache: { keyPath: 'id' },
   };
 
   let dbPromise = null;

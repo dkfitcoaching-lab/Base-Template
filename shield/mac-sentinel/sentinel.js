@@ -43,7 +43,14 @@ const collectors = {
   bootPersistence: require('./lib/collectors/boot_persistence'),
   clipboard:       require('./lib/collectors/clipboard'),
   avDevices:       require('./lib/collectors/av_devices'),
+  egress:          require('./lib/collectors/egress'),
+  timeDrift:       require('./lib/collectors/time_drift'),
 };
+
+// Time drift runs on its own schedule (default 10 min) — NTP queries
+// are slow and rate-limited, so we do NOT call this collector from
+// every scan. Each run writes its own events directly to the ledger.
+const TIME_DRIFT_INTERVAL_MS = 10 * 60 * 1000;
 
 // ─── Heartbeat ─────────────────────────────────────────────────────────────
 function heartbeatPath() { return path.join(CFG.paths.stateDir, 'heartbeat.json'); }
@@ -199,7 +206,7 @@ async function runCollectors() {
   const [
     network, bluetooth, profiles, launchAgents, loginItems,
     integrity, processes, logins, sharing, canaries, usb,
-    wifiDeauth, bootPersistence, clipboard, avDevices,
+    wifiDeauth, bootPersistence, clipboard, avDevices, egress,
   ] = await Promise.all([
     collectors.network.collect(),
     collectors.bluetooth.collect(),
@@ -216,11 +223,12 @@ async function runCollectors() {
     collectors.bootPersistence.collect(),
     collectors.clipboard.collect(),
     collectors.avDevices.collect(),
+    collectors.egress.collect(),
   ]);
   return {
     network, bluetooth, profiles, launchAgents, loginItems,
     integrity, processes, logins, sharing, canaries, usb,
-    wifiDeauth, bootPersistence, clipboard, avDevices,
+    wifiDeauth, bootPersistence, clipboard, avDevices, egress,
   };
 }
 
@@ -482,6 +490,39 @@ async function modeRun() {
   runner.start();
   console.log(`SHIELD Sentinel listening on https://${CFG.server.host}:${CFG.server.port}`);
   console.log(`Cert fingerprint: ${server.certFingerprint}`);
+
+  // ─── Time drift timer (separate from main scan loop) ──────────────
+  const runTimeDrift = async () => {
+    try {
+      const td = await collectors.timeDrift.collect();
+      if (!td.available) {
+        // NTP unreachable — network issue or sntp unavailable; LOW noise
+        ledger.append('TIME_DRIFT_UNAVAILABLE', 'LOW', { error: td.error || 'unknown' });
+        return;
+      }
+      if (td.drifted) {
+        ledger.append('CLOCK_DRIFT', 'CRITICAL', {
+          offsetSec: td.offsetSec,
+          absOffsetSec: td.absOffsetSec,
+          threshold: td.driftThresholdSec,
+          server: td.server,
+          message: `System clock is off by ${td.absOffsetSec.toFixed(2)}s from ${td.server}. An attacker who shifts your clock corrupts every timestamp in your evidence ledger.`,
+        });
+      }
+      if (td.timed && td.timed.running === false) {
+        ledger.append('TIMED_KILLED', 'CRITICAL', {
+          error: td.timed.error,
+          message: "Apple's time daemon (com.apple.timed) is not running. Without it, automatic clock sync stops. This is a classic anti-forensics move.",
+        });
+      }
+    } catch (err) {
+      try { ledger.append('TIME_DRIFT_ERROR', 'LOW', { message: err.message }); } catch {}
+    }
+  };
+  // Run once shortly after startup, then every 10 minutes.
+  setTimeout(runTimeDrift, 15_000);
+  setInterval(runTimeDrift, TIME_DRIFT_INTERVAL_MS);
+
   // Graceful shutdown
   const shutdown = (sig) => async () => {
     ledger.append('APP_LOCK', 'INFO', { signal: sig });

@@ -121,12 +121,15 @@
         pin,
       });
     }
+    // Hydrate any cached Sentinel state from previous sessions so the
+    // dashboard shows something even if we're currently off-network.
+    await hydrateFromCache();
     state.locked = false;
     UI.showLock(false);
     UI.showView('dashboard');
-    startPolling();
+    refreshAll();        // render cached state immediately
+    startPolling();      // then try to refresh live
     armAutoLock();
-    refreshAll();
   }
 
   function lockNow() {
@@ -196,21 +199,67 @@
       if (status) {
         state.sentinelStatus = status;
         state.sentinelTamper = !!status.ledgerTampered;
+        state.lastSentinelSyncAt = new Date().toISOString();
+        // Cache the latest Sentinel state encrypted so it is available
+        // the next time the PWA opens when off-network (driving, at
+        // work, on cellular). We also cache alerts separately.
+        try {
+          await window.ShieldStorage.putEncrypted('settings_cache', state.key, 'sentinelStatus', {
+            status,
+            cachedAt: state.lastSentinelSyncAt,
+          });
+        } catch (err) { console.warn('cache write failed:', err.message); }
       }
       const alerts = await state.sentinel.getAlerts();
-      if (Array.isArray(alerts)) state.sentinelAlerts = alerts;
+      if (Array.isArray(alerts)) {
+        state.sentinelAlerts = alerts;
+        try {
+          await window.ShieldStorage.putEncrypted('settings_cache', state.key, 'sentinelAlerts', {
+            alerts,
+            cachedAt: state.lastSentinelSyncAt,
+          });
+        } catch {}
+      }
+      // Also persist the lastSync as a plaintext setting so we can
+      // render "Last sync 3h ago" even before the user unlocks the key.
+      try { await window.ShieldStorage.setSetting('lastSentinelSyncAt', state.lastSentinelSyncAt); } catch {}
     }
     refreshAll();
+  }
+
+  // Load any cached Sentinel state that was captured while on-network,
+  // so when the user opens the PWA off-network the dashboard shows the
+  // last-known posture rather than a blank card.
+  async function hydrateFromCache() {
+    try {
+      const settings = await window.ShieldStorage.getAllSettings();
+      if (settings.lastSentinelSyncAt) state.lastSentinelSyncAt = settings.lastSentinelSyncAt;
+      const cached = await window.ShieldStorage.getEncrypted('settings_cache', state.key, 'sentinelStatus');
+      if (cached && cached.status) {
+        state.sentinelStatus = cached.status;
+        state.sentinelTamper = !!cached.status.ledgerTampered;
+      }
+      const cachedAlerts = await window.ShieldStorage.getEncrypted('settings_cache', state.key, 'sentinelAlerts');
+      if (cachedAlerts && Array.isArray(cachedAlerts.alerts)) state.sentinelAlerts = cachedAlerts.alerts;
+    } catch (err) {
+      // Cache store may not exist yet (first run) — ignore silently.
+    }
   }
 
   // ─── Refresh ─────────────────────────────────────────────────────────
   function refreshAll() {
     const status = state.sentinelStatus;
     const topSev = status ? status.topSeverity : 'INFO';
+    // "Live" if we have a sync within the last 30s AND we're currently
+    // able to reach the Sentinel (last pollOnce succeeded with no error).
+    const lastSyncMs = state.lastSentinelSyncAt ? Date.now() - new Date(state.lastSentinelSyncAt).getTime() : null;
+    const isLive = lastSyncMs != null && lastSyncMs < 30_000 && !state.sentinel?.lastError;
     UI.renderStatusCard({
       topSeverity: topSev,
       ts: status?.ts,
       summary: status?.summary,
+      lastSyncAt: state.lastSentinelSyncAt,
+      isLive,
     });
     UI.renderPosture(status?.summary);
     // Alerts: merge sentinel alerts with local ledger entries.

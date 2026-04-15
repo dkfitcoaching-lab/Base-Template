@@ -47,7 +47,7 @@
     }
   }
 
-  function renderStatusCard({ topSeverity, ts, summary }) {
+  function renderStatusCard({ topSeverity, ts, summary, lastSyncAt, isLive }) {
     const headline = $('#status-headline');
     const dot = $('#threat-dot');
     const level = threatLevelFromSeverity(topSeverity || 'INFO');
@@ -59,6 +59,27 @@
     $('#status-devices').textContent = summary?.arpCount != null
       ? `${summary.arpCount} LAN · ${summary.btDevices ?? 0} BT`
       : '—';
+
+    // Sync indicator: classifies the Mac Sentinel link's freshness.
+    const syncRow = $('#sync-row');
+    const syncLabel = $('#sync-label');
+    if (!syncRow || !syncLabel) return;
+    if (!lastSyncAt) {
+      syncRow.className = 'sync-row offline';
+      syncLabel.textContent = 'Sentinel link: never synced (pair in Settings)';
+      return;
+    }
+    const ageMs = Date.now() - new Date(lastSyncAt).getTime();
+    const ageMin = ageMs / 60000;
+    let klass = 'offline';
+    let text = `Sentinel link: last sync ${formatRelativeTime(lastSyncAt)}`;
+    if (isLive) { klass = 'live'; text = `Sentinel link: LIVE (${formatRelativeTime(lastSyncAt)})`; }
+    else if (ageMin < 5)   klass = 'fresh';
+    else if (ageMin < 60)  klass = 'stale-1h';
+    else if (ageMin < 360) klass = 'stale-6h';
+    else                   klass = 'stale-24h';
+    syncRow.className = 'sync-row ' + klass;
+    syncLabel.textContent = text;
   }
 
   function renderPosture(summary) {

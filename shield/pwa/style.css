@@ -183,6 +183,15 @@ label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-botto
 .status-card .headline.critical { color: var(--accent-hi); }
 .status-card .meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--text-dim); font-size: 0.85rem; }
 .status-card .meta span strong { color: var(--text); font-weight: 500; }
+.sync-row { margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-dim); }
+.sync-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-muted); display: inline-block; flex-shrink: 0; }
+.sync-row.live      .sync-dot { background: var(--safe);   box-shadow: 0 0 8px rgba(46,125,50,0.6); }
+.sync-row.fresh     .sync-dot { background: var(--safe); }
+.sync-row.stale-1h  .sync-dot { background: var(--warn); }
+.sync-row.stale-6h  .sync-dot { background: var(--sev-high); }
+.sync-row.stale-24h .sync-dot { background: var(--danger); }
+.sync-row.offline   .sync-dot { background: var(--text-muted); }
+.sync-row.offline   { color: var(--text-muted); }
 
 /* Posture grid */
 .posture-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
