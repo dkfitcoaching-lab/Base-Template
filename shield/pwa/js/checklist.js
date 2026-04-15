@@ -60,6 +60,43 @@
     { id: 'p4-email',               phase: 'Phase 4 — other accounts', title: 'Rotate email providers',       desc: '' },
     { id: 'p4-registrar',           phase: 'Phase 4 — other accounts', title: 'Rotate domain registrar',      desc: '' },
     { id: 'p4-oauth-audit',         phase: 'Phase 4 — other accounts', title: 'Revoke unknown OAuth apps',    desc: 'Google, GitHub, Apple, etc.' },
+
+    // Phase 5 — iPhone Exorcism (the "new phone without DFU" sequence)
+    { id: 'p5-local-backup',        phase: 'Phase 5 — iPhone Exorcism', title: 'Local encrypted Finder backup first', desc: 'Plug into Mac, Finder, Encrypt Local Backup, Back Up Now. Rollback point; not iCloud.' },
+    { id: 'p5-purge-profiles',      phase: 'Phase 5 — iPhone Exorcism', title: 'Remove every Configuration Profile', desc: 'Settings → General → VPN & Device Management. Anything you did not install → remove.' },
+    { id: 'p5-purge-calendars',     phase: 'Phase 5 — iPhone Exorcism', title: 'Remove unknown subscribed calendars', desc: 'Settings → Calendar → Accounts.' },
+    { id: 'p5-purge-keyboards',     phase: 'Phase 5 — iPhone Exorcism', title: 'Remove every third-party keyboard',  desc: 'Settings → General → Keyboard → Keyboards → Edit.' },
+    { id: 'p5-purge-safari-ext',    phase: 'Phase 5 — iPhone Exorcism', title: 'Remove every Safari extension',      desc: 'Settings → Safari → Extensions.' },
+    { id: 'p5-purge-shortcuts',     phase: 'Phase 5 — iPhone Exorcism', title: 'Remove Shortcuts you did not create', desc: 'Shortcuts app → review every shortcut and automation.' },
+    { id: 'p5-purge-widgets',       phase: 'Phase 5 — iPhone Exorcism', title: 'Remove unknown widgets',             desc: 'Long-press Home Screen → +.' },
+    { id: 'p5-purge-shares',        phase: 'Phase 5 — iPhone Exorcism', title: 'Leave shared albums/notes/reminders you did not create', desc: 'Photos, Notes, Reminders, Files.' },
+    { id: 'p5-purge-bt',            phase: 'Phase 5 — iPhone Exorcism', title: 'Forget all unknown Bluetooth devices', desc: 'Settings → Bluetooth → (i) → Forget.' },
+    { id: 'p5-airdrop',             phase: 'Phase 5 — iPhone Exorcism', title: 'AirDrop / Handoff / AirPlay off',   desc: 'Settings → General → AirDrop + AirPlay & Handoff.' },
+    { id: 'p5-screen-time',         phase: 'Phase 5 — iPhone Exorcism', title: 'Screen Time passcode cleared/rotated', desc: 'Settings → Screen Time → Change Screen Time Passcode.' },
+    { id: 'p5-face-id-reset',       phase: 'Phase 5 — iPhone Exorcism', title: 'Reset Face ID / audit enrolled fingers', desc: 'Settings → Face ID & Passcode → Reset → re-enroll only you.' },
+    { id: 'p5-alphanum-passcode',   phase: 'Phase 5 — iPhone Exorcism', title: 'Passcode → 14+ char alphanumeric',  desc: 'Settings → Face ID & Passcode → Change Passcode → Passcode Options.' },
+    { id: 'p5-unknown-apps',        phase: 'Phase 5 — iPhone Exorcism', title: 'Delete every app you do not recognize', desc: 'Settings → General → iPhone Storage.' },
+    { id: 'p5-clear-safari',        phase: 'Phase 5 — iPhone Exorcism', title: 'Safari → Clear History and Website Data', desc: 'Purges all Safari session tokens.' },
+    { id: 'p5-forget-wifi',         phase: 'Phase 5 — iPhone Exorcism', title: 'Forget all saved Wi-Fi except home', desc: 'Settings → Wi-Fi → Edit → Known Networks.' },
+    { id: 'p5-imessage-toggle',     phase: 'Phase 5 — iPhone Exorcism', title: 'iMessage off → wait 10s → back on', desc: 'Forces iMessage re-registration.' },
+    { id: 'p5-facetime-toggle',     phase: 'Phase 5 — iPhone Exorcism', title: 'FaceTime off → wait 10s → back on', desc: 'Forces FaceTime re-registration.' },
+    { id: 'p5-mail-readd',          phase: 'Phase 5 — iPhone Exorcism', title: 'Delete and re-add every Mail account', desc: 'Settings → Mail → Accounts. Rotate OAuth/IMAP tokens on each provider first.' },
+    { id: 'p5-app-sessions',        phase: 'Phase 5 — iPhone Exorcism', title: 'Sign out of every third-party app',  desc: 'Banking, social, dev tools, password manager — each one individually.' },
+    { id: 'p5-rev-app-pw',          phase: 'Phase 5 — iPhone Exorcism', title: 'Revoke all App-Specific Passwords',  desc: 'appleid.apple.com → Sign-In and Security.' },
+    { id: 'p5-icloud-signout',      phase: 'Phase 5 — iPhone Exorcism', title: 'Full iCloud sign-out and re-sign-in', desc: 'Keep on-device copies of what you need. Then sign in fresh, add both YubiKeys, ADP on, iMessage Contact Key Verification on. Closest thing to new phone without DFU.' },
+    { id: 'p5-wallet-reprovision', phase: 'Phase 5 — iPhone Exorcism', title: 'Wallet: remove and re-add every card', desc: 'Rotates the device-specific token with each bank.' },
+    { id: 'p5-baseline-snapshots', phase: 'Phase 5 — iPhone Exorcism', title: 'Record post-exorcism baseline',      desc: 'Screenshot profile list, keyboard list, BT list, Wi-Fi list, app list, Shortcuts list → attach to SHIELD journal.' },
+    { id: 'p5-accessories-off',    phase: 'Phase 5 — iPhone Exorcism', title: 'Allow Accessories when locked → Off', desc: 'Settings → Face ID & Passcode → Accessories → Off.' },
+    { id: 'p5-siri-lockscreen',    phase: 'Phase 5 — iPhone Exorcism', title: 'Siri / Notification Center / Today View off on lock screen', desc: 'Settings → Face ID & Passcode → Allow Access When Locked.' },
+
+    // Phase 6 — ongoing OPSEC
+    { id: 'p6-notifications',       phase: 'Phase 6 — OPSEC', title: 'Lock-screen notification previews → Never', desc: 'Settings → Notifications → Show Previews → When Unlocked or Never.' },
+    { id: 'p6-back-tap',            phase: 'Phase 6 — OPSEC', title: 'Back Tap runs Kill Switch Shortcut',  desc: 'Settings → Accessibility → Touch → Back Tap → Triple Tap → Run Shortcut → Kill Switch.' },
+    { id: 'p6-pwa-rename',          phase: 'Phase 6 — OPSEC', title: 'PWA display name is generic',          desc: 'Rename in Add to Home Screen dialog. Default "SHIELD" is identifying.' },
+    { id: 'p6-shortcut-labels',     phase: 'Phase 6 — OPSEC', title: 'Home-screen Shortcut icons have neutral labels', desc: 'When adding to Home Screen, use generic titles. Internal Shortcut names stay the same.' },
+    { id: 'p6-long-passphrase',     phase: 'Phase 6 — OPSEC', title: 'SHIELD PIN is a 12+ char passphrase', desc: 'Makes PBKDF2 brute-force math infeasible. See docs/CRYPTO_REVIEW.md.' },
+    { id: 'p6-vpn',                 phase: 'Phase 6 — OPSEC', title: 'Reputable VPN on iPhone + Mac 24/7', desc: 'Mullvad or Proton. Kill-switch on. Allow LAN for Sentinel if needed. See docs/VPN_GUIDANCE.md.' },
+    { id: 'p6-private-discussion',  phase: 'Phase 6 — OPSEC', title: 'Do not discuss SHIELD publicly',      desc: 'No tweets, no public GitHub, no Slack DMs unless E2EE. An informed attacker adjusts.' },
   ];
 
   window.SHIELD_CHECKLIST = ITEMS;

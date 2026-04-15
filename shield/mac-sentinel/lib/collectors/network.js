@@ -133,6 +133,26 @@ function parseHardwarePorts(stdout) {
   return ports;
 }
 
+/**
+ * Detect VPN clients and tunnel interfaces.
+ * macOS VPN clients typically create a `utun<N>` or `tun<N>` interface.
+ * Presence of one and an outbound route through it = a VPN is active.
+ */
+function detectVpn(ifaces, connections) {
+  const tunnels = Object.values(ifaces).filter(i => /^(utun|tun|ppp|ipsec)/i.test(i.name) && i.status !== 'inactive');
+  const active = tunnels.filter(t => t.ipv4.length > 0);
+  // Known VPN / tunneling process names and ports (best-effort fingerprints).
+  const vpnProcessHints = /\b(openvpn|wireguard|tailscaled|tailscale|mullvad|protonvpn|nordvpn|expressvpn|cisco|globalprotect|ipsec|racoon|strongswan)\b/i;
+  const vpnProcs = connections.filter(c => vpnProcessHints.test(c.command || ''));
+  const vpnPorts = connections.filter(c => /:(1194|500|4500|51820|1701|443)\b/.test(c.name || ''));
+  return {
+    tunnelInterfaces: tunnels.map(t => ({ name: t.name, ipv4: t.ipv4, status: t.status })),
+    activeTunnel: active.length > 0,
+    vpnProcesses: vpnProcs.slice(0, 20),
+    knownVpnPortMatches: vpnPorts.slice(0, 50),
+  };
+}
+
 async function collect() {
   const [arpRes, ifconfigRes, lsofRes, hwRes, routeRes, dnsRes] = await Promise.all([
     run('/usr/sbin/arp', ['-an']),
@@ -182,6 +202,9 @@ async function collect() {
   // Count LISTEN sockets for quick alerting.
   const listeners = connections.filter(c => c.state === 'LISTEN');
 
+  // VPN / tunnel interfaces (utun, tun, ppp, ipsec) + suspicious processes.
+  const vpn = detectVpn(ifaces, connections);
+
   return {
     arp: arpDevices,
     interfaces: ifaces,
@@ -194,8 +217,9 @@ async function collect() {
     listeners,
     listenerCount: listeners.length,
     connectionCount: connections.length,
+    vpn,
     collectedAt: new Date().toISOString(),
   };
 }
 
-module.exports = { collect, parseArp, parseIfconfig, parseAirport, parseLsof, parseHardwarePorts };
+module.exports = { collect, parseArp, parseIfconfig, parseAirport, parseLsof, parseHardwarePorts, detectVpn };

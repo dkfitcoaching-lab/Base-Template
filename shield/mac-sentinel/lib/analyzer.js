@@ -34,6 +34,26 @@ function diffKeyed(prev, curr, keyFn) {
   return { added, removed };
 }
 
+// Rate-limit signature: type + canonicalJSON(payload without volatile fields).
+// If the same signature fires within the window, we suppress non-CRITICAL
+// re-emission so the alert feed stays useful.
+const RATE_LIMIT_MS = 60 * 60 * 1000; // 1 hour
+function signatureFor(e) {
+  const payload = { ...(e.payload || {}) };
+  // Drop volatile fields that would defeat dedup
+  delete payload.collectedAt;
+  delete payload.ts;
+  return e.type + '|' + JSON.stringify(payload, Object.keys(payload).sort());
+}
+function shouldEmit(e, rateLimiter) {
+  if (e.severity === 'CRITICAL') return true;
+  const sig = signatureFor(e);
+  const last = rateLimiter.get(sig);
+  if (last && Date.now() - last < RATE_LIMIT_MS) return false;
+  rateLimiter.set(sig, Date.now());
+  return true;
+}
+
 function analyze(snapshot, previous, state) {
   const events = [];
   const now = new Date().toISOString();
@@ -360,7 +380,104 @@ function analyze(snapshot, previous, state) {
     }
   }
 
+  // ─── Canary files ─────────────────────────────────────────────────
+  if (snapshot.canaries?.canaries) {
+    const prev = previous?.canaries?.canaries || [];
+    const prevById = new Map(prev.map(c => [c.id, c]));
+    for (const c of snapshot.canaries.canaries) {
+      if (!c.exists) {
+        events.push({
+          type: 'CANARY_REMOVED',
+          severity: 'CRITICAL',
+          payload: { id: c.id, label: c.label, path: c.path, message: `Canary file removed: ${c.label}. Nothing legitimate touches this file. An adversary was in the filesystem.` },
+        });
+        continue;
+      }
+      const p = prevById.get(c.id);
+      if (p && p.exists && p.hash && c.hash && p.hash !== c.hash) {
+        events.push({
+          type: 'CANARY_MODIFIED',
+          severity: 'CRITICAL',
+          payload: { id: c.id, label: c.label, path: c.path, prevHash: p.hash, newHash: c.hash, message: `Canary file modified: ${c.label}.` },
+        });
+      } else if (p && p.exists && p.atime && c.atime && p.atime !== c.atime && p.mtime === c.mtime) {
+        // Access time advanced without modification — someone opened it.
+        // Only emit if we trust atime (APFS with relatime does track it).
+        events.push({
+          type: 'CANARY_ACCESSED',
+          severity: 'MEDIUM',
+          payload: { id: c.id, label: c.label, path: c.path, prevAtime: p.atime, newAtime: c.atime, message: `Canary file was read-accessed.` },
+        });
+      }
+    }
+  }
+
+  // ─── USB devices ──────────────────────────────────────────────────
+  if (snapshot.usb?.available) {
+    const prev = previous?.usb?.devices || [];
+    const prevFp = new Set(prev.map(d => d.fingerprint).filter(Boolean));
+    const whitelist = new Set((state.whitelist?.usb || []).map(d => d.fingerprint || ''));
+    for (const d of snapshot.usb.devices || []) {
+      if (!d.fingerprint) continue;
+      if (whitelist.has(d.fingerprint)) continue;
+      if (!prevFp.has(d.fingerprint)) {
+        events.push({
+          type: 'USB_DEVICE_NEW',
+          severity: 'MEDIUM',
+          payload: { device: d, message: `New USB device: ${d.name || 'unknown'} (${d.vendorId || '?'}:${d.productId || '?'})` },
+        });
+      }
+    }
+  }
+
+  // ─── VPN / tunnel state ───────────────────────────────────────────
+  if (snapshot.network?.vpn) {
+    const vpn = snapshot.network.vpn;
+    const prevVpn = previous?.network?.vpn;
+    if (vpn.activeTunnel && (!prevVpn || !prevVpn.activeTunnel)) {
+      events.push({
+        type: 'VPN_TUNNEL_UP',
+        severity: 'LOW',
+        payload: { interfaces: vpn.tunnelInterfaces, message: 'A tunnel interface became active. If you started a VPN client, this is expected.' },
+      });
+    }
+    if (!vpn.activeTunnel && prevVpn?.activeTunnel) {
+      events.push({
+        type: 'VPN_TUNNEL_DOWN',
+        severity: 'LOW',
+        payload: { message: 'Tunnel interface went away.' },
+      });
+    }
+    // New VPN/tunnel-speaking process you didn't have before
+    const prevProcNames = new Set((prevVpn?.vpnProcesses || []).map(p => p.command));
+    for (const p of vpn.vpnProcesses || []) {
+      if (!prevProcNames.has(p.command)) {
+        events.push({
+          type: 'VPN_PROCESS_NEW',
+          severity: 'MEDIUM',
+          payload: { process: p, message: `New VPN-speaking process: ${p.command}. If you did not start a VPN client, this may be a reverse tunnel.` },
+        });
+      }
+    }
+  }
+
+  // ─── Self-integrity / heartbeat (set from sentinel.js) ────────────
+  if (snapshot._selfIntegrity && snapshot._selfIntegrity.ok === false) {
+    events.push({
+      type: 'SELF_INTEGRITY_FAIL',
+      severity: 'CRITICAL',
+      payload: { ...snapshot._selfIntegrity, message: 'Sentinel self-integrity check failed. The Sentinel source files have been modified since install.' },
+    });
+  }
+  if (snapshot._heartbeat && snapshot._heartbeat.gapMs && snapshot._heartbeat.gapMs > snapshot._heartbeat.expectedMs * 3) {
+    events.push({
+      type: 'HEARTBEAT_GAP',
+      severity: 'HIGH',
+      payload: { ...snapshot._heartbeat, message: `Sentinel was not running for ${Math.round(snapshot._heartbeat.gapMs / 1000)}s. It may have been killed.` },
+    });
+  }
+
   return events;
 }
 
-module.exports = { analyze };
+module.exports = { analyze, shouldEmit, signatureFor, RATE_LIMIT_MS };

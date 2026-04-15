@@ -23,8 +23,9 @@ const crypto = require('crypto');
 const { deriveKey, randomSalt, encrypt, decrypt, sha256, makeVerifier, canonicalJSON, uuidv4, nowIso } = require('./lib/crypto');
 const Ledger = require('./lib/ledger');
 const { Server } = require('./lib/server');
-const { analyze } = require('./lib/analyzer');
+const { analyze, shouldEmit } = require('./lib/analyzer');
 const { applyRules, DEFAULTS: DEFAULT_RULES } = require('./lib/rules');
+const selfIntegrity = require('./lib/self_integrity');
 
 const collectors = {
   network:       require('./lib/collectors/network'),
@@ -36,7 +37,25 @@ const collectors = {
   processes:     require('./lib/collectors/processes'),
   logins:        require('./lib/collectors/logins'),
   sharing:       require('./lib/collectors/sharing'),
+  canaries:      require('./lib/collectors/canaries'),
+  usb:           require('./lib/collectors/usb'),
 };
+
+// ─── Heartbeat ─────────────────────────────────────────────────────────────
+function heartbeatPath() { return path.join(CFG.paths.stateDir, 'heartbeat.json'); }
+function readHeartbeat() {
+  try {
+    const raw = fs.readFileSync(heartbeatPath(), 'utf8');
+    return JSON.parse(raw);
+  } catch { return null; }
+}
+function writeHeartbeat(extra = {}) {
+  const data = { ts: nowIso(), pid: process.pid, ...extra };
+  try {
+    fs.writeFileSync(heartbeatPath(), JSON.stringify(data), { mode: 0o600 });
+  } catch {}
+  return data;
+}
 
 // ─── Config ────────────────────────────────────────────────────────────────
 const CONFIG_PATH = path.join(__dirname, 'config', 'defaults.json');
@@ -115,22 +134,35 @@ async function setupPin() {
   if (a !== b) { console.error('PINs do not match. Exiting.'); process.exit(1); }
   const verifierSalt = randomSalt();
   const keySalt      = randomSalt();
+  const manifestSalt = randomSalt();
   const verifier     = makeVerifier(a, verifierSalt);
   saveVerifier({
     salt: verifierSalt.toString('hex'),
     keySalt: keySalt.toString('hex'),
+    manifestSalt: manifestSalt.toString('hex'),
     verifier,
     createdAt: nowIso(),
   });
+
+  // Write the signed self-integrity manifest at install time.
+  ensureDirs();
+  const sentinelRoot = __dirname;
+  const manifest = selfIntegrity.buildManifest(sentinelRoot);
+  const manifestKey = selfIntegrity.deriveManifestKey(a, manifestSalt);
+  const signed = selfIntegrity.signManifest(manifest, manifestKey);
+  const manifestPath = path.join(CFG.paths.stateDir, 'selfintegrity.json');
+  selfIntegrity.writeManifest(manifestPath, signed);
+  console.log(`Self-integrity manifest written: ${manifestPath}`);
+
   console.log('PIN saved. You can now start the Sentinel normally.');
   console.log('');
   console.log('Pairing information for the PWA:');
-  // Start the server briefly just to generate the cert and print the fingerprint.
-  ensureDirs();
   const key = deriveKey(a, keySalt);
   const ledger = new Ledger(CFG.paths.ledgerFile, key);
   ledger.verify();
   ledger.append('APP_OPEN', 'INFO', { stage: 'setup', hostname: os.hostname() });
+  // Ensure canaries exist from the very beginning so their baseline is set.
+  try { collectors.canaries.ensureCanariesExist(); } catch {}
   const serverCtx = buildServerCtx({ key, ledger, verifier, verifierSalt, keySalt });
   const server = new Server(serverCtx);
   console.log(`  Host:        ${CFG.server.host}`);
@@ -160,7 +192,7 @@ function saveState(key, state) {
 
 // ─── Collector orchestration ──────────────────────────────────────────────
 async function runCollectors() {
-  const [network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing] = await Promise.all([
+  const [network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing, canaries, usb] = await Promise.all([
     collectors.network.collect(),
     collectors.bluetooth.collect(),
     collectors.profiles.collect(),
@@ -170,36 +202,65 @@ async function runCollectors() {
     collectors.processes.collect(),
     collectors.logins.collect(),
     collectors.sharing.collect(),
+    collectors.canaries.collect(),
+    collectors.usb.collect(),
   ]);
-  return { network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing };
+  return { network, bluetooth, profiles, launchAgents, loginItems, integrity, processes, logins, sharing, canaries, usb };
 }
 
 // ─── Scan loop ────────────────────────────────────────────────────────────
-function makeRunner({ key, ledger, state }) {
+function makeRunner({ key, ledger, state, selfIntegrityResult }) {
   let previous = state.snapshots[state.snapshots.length - 1] || null;
   let lastStatus = null;
   let latestEvents = [];
   let scanRunning = false;
   let aggressiveUntil = 0;
   let intervalHandle = null;
+  const rateLimiter = new Map(); // signature → lastEmittedTs
 
   async function tick() {
     if (scanRunning) return;
     scanRunning = true;
     try {
+      // Read and update heartbeat. If there's a gap, inject a synthetic
+      // _heartbeat sub-object into the snapshot so the analyzer can raise
+      // a HEARTBEAT_GAP event.
+      const prevHb = readHeartbeat();
+      const expectedMs = (Date.now() < aggressiveUntil ? CFG.aggressiveIntervalMs : CFG.scanIntervalMs);
+      const now = Date.now();
+      const gapMs = prevHb ? now - new Date(prevHb.ts).getTime() : 0;
+      writeHeartbeat({ interval: expectedMs });
+
       const snapshot = await runCollectors();
+      // Attach meta from this runner's perspective for the analyzer.
+      snapshot._heartbeat = { gapMs, expectedMs, prev: prevHb };
+      snapshot._selfIntegrity = selfIntegrityResult || { ok: true };
+
       const raw = analyze(snapshot, previous, state);
-      const events = applyRules(raw, state.rules || DEFAULT_RULES, new Date());
+      // Rate-limit dedup before rules (CRITICAL always passes).
+      const deduped = raw.filter(e => shouldEmit(e, rateLimiter));
+      const events = applyRules(deduped, state.rules || DEFAULT_RULES, new Date());
+
+      // Persist to ledger.
       for (const e of events) ledger.append(e.type, e.severity, e.payload);
       latestEvents = events;
       lastStatus = buildStatus(snapshot, events);
+
+      // Aggressive-mode auto-trigger: any HIGH or CRITICAL event flips
+      // the Sentinel into fast-polling for 10 minutes so we catch the
+      // next stage quickly.
+      const topRank = events.reduce((acc, e) => Math.max(acc, { INFO:0, LOW:1, MEDIUM:2, HIGH:3, CRITICAL:4 }[e.severity] || 0), 0);
+      if (topRank >= 3 && Date.now() >= aggressiveUntil) {
+        aggressiveUntil = Date.now() + 10 * 60 * 1000;
+        ledger.append('AGGRESSIVE_ON', 'INFO', { reason: 'auto-trigger on HIGH/CRITICAL', until: new Date(aggressiveUntil).toISOString() });
+      }
+
       previous = snapshot;
-      // Keep only the last 5 snapshots in memory-persisted state to bound size.
       state.snapshots = [...(state.snapshots || []).slice(-4), snapshot];
       saveState(key, state);
     } catch (err) {
       console.error('[scan] error:', err.message);
-      ledger.append('SCAN_ERROR', 'LOW', { message: err.message });
+      try { ledger.append('SCAN_ERROR', 'LOW', { message: err.message }); } catch {}
     } finally {
       scanRunning = false;
     }
@@ -207,7 +268,11 @@ function makeRunner({ key, ledger, state }) {
 
   function schedule() {
     const mode = Date.now() < aggressiveUntil ? 'aggressive' : 'normal';
-    const interval = mode === 'aggressive' ? CFG.aggressiveIntervalMs : CFG.scanIntervalMs;
+    const base = mode === 'aggressive' ? CFG.aggressiveIntervalMs : CFG.scanIntervalMs;
+    // Add ±20% jitter so a LAN observer cannot fingerprint SHIELD by the
+    // exact packet-timing cadence of its internal polling.
+    const jitter = Math.floor((Math.random() - 0.5) * 0.4 * base);
+    const interval = Math.max(1000, base + jitter);
     if (intervalHandle) clearTimeout(intervalHandle);
     intervalHandle = setTimeout(async () => { await tick(); schedule(); }, interval);
   }
@@ -360,15 +425,41 @@ async function modeRun() {
   if (candidate !== v.verifier) { console.error('Wrong PIN.'); process.exit(1); }
   const key = deriveKey(pin, keySalt);
   ensureDirs();
+
+  // ─── Self-integrity check (before we trust anything else) ──────────
+  let selfIntegrityResult = { ok: true, reason: 'no_manifest' };
+  if (v.manifestSalt) {
+    const manifestKey = selfIntegrity.deriveManifestKey(pin, Buffer.from(v.manifestSalt, 'hex'));
+    const manifestPath = path.join(CFG.paths.stateDir, 'selfintegrity.json');
+    selfIntegrityResult = selfIntegrity.verifyManifest(manifestPath, __dirname, manifestKey);
+    if (!selfIntegrityResult.ok) {
+      console.error('SHIELD SELF-INTEGRITY FAIL:', selfIntegrityResult);
+      console.error('Sentinel source files have been modified since install.');
+      console.error('This is logged as CRITICAL and the Sentinel refuses to run.');
+      // We still write to the ledger so there is a record of the attempt.
+      try {
+        const ledger = new Ledger(CFG.paths.ledgerFile, key);
+        ledger.verify();
+        ledger.append('SELF_INTEGRITY_FAIL', 'CRITICAL', selfIntegrityResult);
+      } catch {}
+      process.exit(2);
+    }
+  } else {
+    console.warn('No manifestSalt in verifier — running without self-integrity check.');
+    console.warn('Re-run `node sentinel.js --setup` to enable it.');
+  }
+
   const ledger = new Ledger(CFG.paths.ledgerFile, key);
   const v2 = ledger.verify();
   if (!v2.ok) {
     ledger.append('LEDGER_TAMPER', 'CRITICAL', v2);
     console.error('LEDGER TAMPER DETECTED — continuing but flag logged.');
   }
-  ledger.append('APP_OPEN', 'INFO', { stage: 'run', hostname: os.hostname(), pid: process.pid });
+  ledger.append('APP_OPEN', 'INFO', { stage: 'run', hostname: os.hostname(), pid: process.pid, selfIntegrity: selfIntegrityResult });
   const state = loadState(key);
-  const runner = makeRunner({ key, ledger, state });
+  // Make sure canaries exist (no-op if they already do).
+  try { collectors.canaries.ensureCanariesExist(); } catch {}
+  const runner = makeRunner({ key, ledger, state, selfIntegrityResult });
   const ctx = buildServerCtx({ key, ledger, keySalt, runner, state });
   const server = new Server(ctx);
   await server.start();

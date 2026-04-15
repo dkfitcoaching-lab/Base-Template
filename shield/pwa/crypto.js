@@ -14,7 +14,10 @@
   const enc = new TextEncoder();
   const dec = new TextDecoder();
 
-  const PBKDF2_ITERATIONS = 100_000;
+  // OWASP 2023 minimum for PBKDF2-HMAC-SHA256 is 600,000 iterations.
+  // Apple (1Password) uses 650,000. Bitwarden defaults to 600,000.
+  // Bumped from the 2018-era 100,000 after security review.
+  const PBKDF2_ITERATIONS = 600_000;
   const KEY_LENGTH_BITS = 256;
   const SALT_BYTES = 32;
   const IV_BYTES = 12;

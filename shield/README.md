@@ -17,11 +17,15 @@ Read [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) first. It is a brutally hone
 
 1. Read [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md).
 2. Read [`docs/HARDENING.md`](docs/HARDENING.md) and do every step. This matters more than any code in this repo.
-3. Read [`docs/INCIDENT_RESPONSE.md`](docs/INCIDENT_RESPONSE.md) and keep it bookmarked.
-4. Install the Mac Sentinel: [`docs/DEPLOY.md`](docs/DEPLOY.md).
-5. Install the PWA on iPhone and Mac: [`docs/DEPLOY.md`](docs/DEPLOY.md).
-6. Set up the iOS Shortcuts: [`docs/SHORTCUTS.md`](docs/SHORTCUTS.md).
-7. Read [`docs/LEGAL.md`](docs/LEGAL.md) so you know the line.
+3. If you cannot factory-reset the iPhone, read [`docs/IPHONE_EXORCISM.md`](docs/IPHONE_EXORCISM.md) — the "make it act like a new phone without DFU" runbook.
+4. Read [`docs/INCIDENT_RESPONSE.md`](docs/INCIDENT_RESPONSE.md) and keep it bookmarked.
+5. Install the Mac Sentinel: [`docs/DEPLOY.md`](docs/DEPLOY.md).
+6. Install the PWA on iPhone and Mac: [`docs/DEPLOY.md`](docs/DEPLOY.md).
+7. Set up the iOS Shortcuts: [`docs/SHORTCUTS.md`](docs/SHORTCUTS.md).
+8. Read [`docs/OPSEC.md`](docs/OPSEC.md) — don't broadcast what you're running.
+9. Read [`docs/VPN_GUIDANCE.md`](docs/VPN_GUIDANCE.md) — should you run one, what breaks if someone else does.
+10. Read [`docs/CRYPTO_REVIEW.md`](docs/CRYPTO_REVIEW.md) — honest assessment of what SHIELD's crypto is and isn't.
+11. Read [`docs/LEGAL.md`](docs/LEGAL.md) so you know the line.
 
 ## Design principles
 
