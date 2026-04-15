@@ -1,0 +1,23 @@
+{
+  "scanIntervalMs": 30000,
+  "aggressiveIntervalMs": 5000,
+  "idleIntervalMs": 120000,
+  "server": {
+    "host": "127.0.0.1",
+    "port": 17333,
+    "allowedOrigins": [
+      "https://dkfitcoaching-lab.github.io",
+      "http://localhost:4173",
+      "http://localhost:8000",
+      "null"
+    ]
+  },
+  "paths": {
+    "stateDir": "~/Library/Application Support/SHIELD",
+    "certDir": "~/Library/Application Support/SHIELD/certs",
+    "ledgerFile": "~/Library/Application Support/SHIELD/ledger.jsonl.enc",
+    "stateFile": "~/Library/Application Support/SHIELD/state.json.enc",
+    "verifierFile": "~/Library/Application Support/SHIELD/verifier.json"
+  },
+  "rules": []
+}

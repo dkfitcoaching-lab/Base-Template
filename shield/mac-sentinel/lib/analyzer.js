@@ -1,0 +1,366 @@
+// SHIELD Mac Sentinel — analyzer.
+//
+// Takes a snapshot from all collectors, compares it against the previous
+// snapshot and a rolling baseline, and emits an array of events to be
+// appended to the ledger.
+//
+// Event shape (before ledger wraps it):
+//   { type, severity, payload }
+
+'use strict';
+
+/**
+ * Shallow-safe array dedup by a key function.
+ */
+function uniqBy(arr, keyFn) {
+  const seen = new Set();
+  const out = [];
+  for (const item of arr) {
+    const k = keyFn(item);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(item);
+  }
+  return out;
+}
+
+function diffKeyed(prev, curr, keyFn) {
+  const prevMap = new Map((prev || []).map(i => [keyFn(i), i]));
+  const currMap = new Map((curr || []).map(i => [keyFn(i), i]));
+  const added = [];
+  const removed = [];
+  for (const [k, v] of currMap) if (!prevMap.has(k)) added.push(v);
+  for (const [k, v] of prevMap) if (!currMap.has(k)) removed.push(v);
+  return { added, removed };
+}
+
+function analyze(snapshot, previous, state) {
+  const events = [];
+  const now = new Date().toISOString();
+
+  // The scan itself.
+  events.push({
+    type: 'SCAN',
+    severity: 'INFO',
+    payload: {
+      collectedAt: now,
+      wifiSsid: snapshot.network?.wifi?.ssid || null,
+      arpDeviceCount: snapshot.network?.arp?.length || 0,
+      btDeviceCount: snapshot.bluetooth?.deviceCount ?? 0,
+      processCount: snapshot.processes?.processCount ?? 0,
+      unsignedCount: snapshot.processes?.unsignedCount ?? 0,
+    },
+  });
+
+  // ─── Integrity posture ─────────────────────────────────────────────
+  if (snapshot.integrity) {
+    const ig = snapshot.integrity;
+    if (ig.lockdownMode && ig.lockdownMode.enabled === false) {
+      events.push({ type: 'LOCKDOWN_OFF', severity: 'HIGH', payload: { message: 'Lockdown Mode is OFF on this Mac.' } });
+    }
+    if (ig.fileVault && ig.fileVault.enabled === false) {
+      events.push({ type: 'FILEVAULT_OFF', severity: 'CRITICAL', payload: { message: 'FileVault is OFF — disk contents unencrypted at rest.', raw: ig.fileVault.raw } });
+    }
+    if (ig.sip && ig.sip.enabled === false) {
+      events.push({ type: 'SIP_OFF', severity: 'CRITICAL', payload: { message: 'System Integrity Protection is DISABLED.', raw: ig.sip.raw } });
+    }
+    if (ig.gatekeeper && ig.gatekeeper.enabled === false) {
+      events.push({ type: 'GATEKEEPER_OFF', severity: 'HIGH', payload: { message: 'Gatekeeper assessments are disabled.', raw: ig.gatekeeper.raw } });
+    }
+    if (ig.firewall && ig.firewall.enabled === false) {
+      events.push({ type: 'FIREWALL_OFF', severity: 'HIGH', payload: { message: 'Application firewall is OFF.', raw: ig.firewall.raw } });
+    }
+    // TCC database change — possible privacy permission grant.
+    if (previous?.integrity?.tcc?.userHash && ig.tcc?.userHash && previous.integrity.tcc.userHash !== ig.tcc.userHash) {
+      events.push({
+        type: 'TCC_CHANGE',
+        severity: 'MEDIUM',
+        payload: { message: 'TCC privacy database changed — a new app may have been granted Full Disk Access, Screen Recording, or similar.', prevMtime: previous.integrity.tcc.userMtime, currMtime: ig.tcc.userMtime },
+      });
+    }
+  }
+
+  // ─── Configuration Profiles ────────────────────────────────────────
+  if (snapshot.profiles) {
+    const pf = snapshot.profiles;
+    if (pf.anyInstalled) {
+      events.push({
+        type: 'PROFILE_PRESENT',
+        severity: 'CRITICAL',
+        payload: {
+          message: 'Configuration Profile(s) installed on this Mac. If you did not install these yourself, this is a persistence foothold. Review System Settings → Privacy & Security → Profiles.',
+          userCount: pf.userProfileCount,
+          allCount: pf.allProfileCount,
+          profiles: pf.allProfiles,
+        },
+      });
+    }
+    if (previous?.profiles) {
+      const prevCount = previous.profiles.allProfileCount || 0;
+      const currCount = pf.allProfileCount || 0;
+      if (currCount > prevCount) {
+        events.push({
+          type: 'PROFILE_CHANGE',
+          severity: 'CRITICAL',
+          payload: { message: `Profile count increased from ${prevCount} to ${currCount}.`, profiles: pf.allProfiles },
+        });
+      } else if (currCount < prevCount) {
+        events.push({
+          type: 'PROFILE_CHANGE',
+          severity: 'MEDIUM',
+          payload: { message: `Profile count decreased from ${prevCount} to ${currCount}.`, profiles: pf.allProfiles },
+        });
+      }
+    }
+    // Managed Preferences directory change
+    if (previous?.profiles?.managedPrefs && pf.managedPrefs) {
+      const prevFiles = (previous.profiles.managedPrefs.files || []).map(f => f.name + ':' + (f.hash || ''));
+      const currFiles = (pf.managedPrefs.files || []).map(f => f.name + ':' + (f.hash || ''));
+      const prevSet = new Set(prevFiles);
+      const currSet = new Set(currFiles);
+      const newOrChanged = currFiles.filter(f => !prevSet.has(f));
+      const removed = prevFiles.filter(f => !currSet.has(f));
+      if (newOrChanged.length || removed.length) {
+        events.push({
+          type: 'MANAGED_PREFS_CHANGE',
+          severity: 'HIGH',
+          payload: { newOrChanged, removed },
+        });
+      }
+    }
+  }
+
+  // ─── LaunchAgents / LaunchDaemons ──────────────────────────────────
+  if (snapshot.launchAgents?.paths) {
+    const currPaths = snapshot.launchAgents.paths;
+    const prevPaths = previous?.launchAgents?.paths || {};
+    for (const [dir, info] of Object.entries(currPaths)) {
+      if (!info.critical) continue; // Skip Apple-owned read-only dirs for add/remove events; still hash-watched below.
+      const prev = prevPaths[dir]?.entries || [];
+      const curr = info.entries || [];
+      const { added, removed } = diffKeyed(prev, curr, e => e.file);
+      for (const a of added) {
+        events.push({
+          type: 'LAUNCHAGENT_NEW',
+          severity: 'CRITICAL',
+          payload: {
+            message: `New LaunchAgent/Daemon created: ${a.file}`,
+            entry: a,
+            dir,
+          },
+        });
+      }
+      for (const r of removed) {
+        events.push({
+          type: 'LAUNCHAGENT_REMOVED',
+          severity: 'MEDIUM',
+          payload: { message: `LaunchAgent/Daemon removed: ${r.file}`, entry: r, dir },
+        });
+      }
+      // Hash drift for unchanged entries
+      const prevByFile = new Map(prev.map(e => [e.file, e]));
+      for (const c of curr) {
+        const p = prevByFile.get(c.file);
+        if (p && p.hash && c.hash && p.hash !== c.hash) {
+          events.push({
+            type: 'LAUNCHAGENT_MODIFIED',
+            severity: 'HIGH',
+            payload: { message: `LaunchAgent/Daemon modified in place: ${c.file}`, prevHash: p.hash, newHash: c.hash, entry: c, dir },
+          });
+        }
+      }
+    }
+    // Apple-signed dirs: surface any drift as MEDIUM (could be legit update)
+    for (const [dir, info] of Object.entries(currPaths)) {
+      if (info.critical) continue;
+      const prev = prevPaths[dir]?.entries || [];
+      const curr = info.entries || [];
+      const { added, removed } = diffKeyed(prev, curr, e => e.file);
+      if (added.length || removed.length) {
+        events.push({
+          type: 'APPLE_LAUNCHAGENT_DRIFT',
+          severity: 'LOW',
+          payload: { dir, addedCount: added.length, removedCount: removed.length },
+        });
+      }
+    }
+  }
+
+  // ─── Login Items ───────────────────────────────────────────────────
+  if (snapshot.loginItems) {
+    const prev = previous?.loginItems?.classic?.items || [];
+    const curr = snapshot.loginItems.classic?.items || [];
+    const { added, removed } = diffKeyed(prev, curr, i => i.path || i.name);
+    for (const a of added) {
+      events.push({ type: 'LOGIN_ITEM_NEW', severity: 'HIGH', payload: { item: a } });
+    }
+    for (const r of removed) {
+      events.push({ type: 'LOGIN_ITEM_REMOVED', severity: 'LOW', payload: { item: r } });
+    }
+    // Background items database change
+    const prevDb = previous?.loginItems?.backgroundDb?.files || [];
+    const currDb = snapshot.loginItems.backgroundDb?.files || [];
+    const prevHashes = new Set(prevDb.map(f => f.name + ':' + f.hash));
+    const currHashes = currDb.map(f => f.name + ':' + f.hash);
+    const newDbEntries = currHashes.filter(h => !prevHashes.has(h));
+    if (newDbEntries.length) {
+      events.push({
+        type: 'BG_ITEM_DB_CHANGE',
+        severity: 'MEDIUM',
+        payload: { message: 'Background items database changed — a login item was added or modified.', entries: newDbEntries },
+      });
+    }
+  }
+
+  // ─── Sharing services ──────────────────────────────────────────────
+  if (snapshot.sharing) {
+    const active = snapshot.sharing.active || [];
+    for (const svc of active) {
+      events.push({
+        type: 'SHARING_ACTIVE',
+        severity: 'MEDIUM',
+        payload: { service: svc.label, underlying: svc.svc, scope: svc.scope, message: `${svc.label} is running. If you did not enable it, this may be a backdoor.` },
+      });
+    }
+    // Newly active sharing service
+    if (previous?.sharing) {
+      const prevActive = new Set((previous.sharing.active || []).map(s => s.svc));
+      const newlyActive = active.filter(s => !prevActive.has(s.svc));
+      for (const svc of newlyActive) {
+        events.push({ type: 'SHARING_ENABLED', severity: 'HIGH', payload: { service: svc.label, underlying: svc.svc } });
+      }
+    }
+  }
+
+  // ─── Network anomalies ─────────────────────────────────────────────
+  if (snapshot.network) {
+    const net = snapshot.network;
+    const prevNet = previous?.network || {};
+
+    // SSID change
+    if (prevNet.wifi?.ssid && net.wifi?.ssid && prevNet.wifi.ssid !== net.wifi.ssid) {
+      events.push({
+        type: 'SSID_CHANGE',
+        severity: 'MEDIUM',
+        payload: { prev: prevNet.wifi.ssid, curr: net.wifi.ssid },
+      });
+    }
+    // Gateway change
+    if (prevNet.gateway && net.gateway && prevNet.gateway !== net.gateway) {
+      events.push({
+        type: 'GATEWAY_CHANGE',
+        severity: 'HIGH',
+        payload: { prev: prevNet.gateway, curr: net.gateway, message: 'Default gateway changed. Possible network hijack or rogue AP.' },
+      });
+    }
+    // DNS resolver change
+    if (prevNet.dnsServers && net.dnsServers) {
+      const prevDns = JSON.stringify([...prevNet.dnsServers].sort());
+      const currDns = JSON.stringify([...net.dnsServers].sort());
+      if (prevDns !== currDns) {
+        events.push({ type: 'DNS_CHANGE', severity: 'MEDIUM', payload: { prev: prevNet.dnsServers, curr: net.dnsServers } });
+      }
+    }
+    // ARP: new devices on LAN
+    if (net.arp) {
+      const whitelist = new Set((state.whitelist?.network || []).map(d => d.fingerprint || d.mac));
+      const prevFp = new Set((prevNet.arp || []).map(d => d.fingerprint));
+      const currFp = uniqBy(net.arp, d => d.fingerprint);
+      for (const d of currFp) {
+        if (whitelist.has(d.fingerprint) || whitelist.has(d.mac)) continue;
+        if (!prevFp.has(d.fingerprint)) {
+          events.push({
+            type: 'DEVICE_NEW',
+            severity: 'LOW',
+            payload: { device: d, scope: 'network', message: 'New device seen on LAN' },
+          });
+        }
+      }
+      // MAC-IP binding changes (possible ARP spoof)
+      const prevByIp = new Map((prevNet.arp || []).map(d => [d.ip, d.mac]));
+      for (const d of net.arp) {
+        const prevMac = prevByIp.get(d.ip);
+        if (prevMac && prevMac !== d.mac) {
+          events.push({
+            type: 'ARP_ANOMALY',
+            severity: 'HIGH',
+            payload: { ip: d.ip, prevMac, newMac: d.mac, message: 'MAC address changed for IP — possible ARP spoofing.' },
+          });
+        }
+      }
+    }
+    // New listening sockets
+    if (net.listeners && prevNet.listeners) {
+      const key = l => `${l.proto}:${l.name}:${l.command}`;
+      const prevKeys = new Set(prevNet.listeners.map(key));
+      const newListeners = net.listeners.filter(l => !prevKeys.has(key(l)));
+      for (const l of newListeners) {
+        events.push({
+          type: 'LISTENER_NEW',
+          severity: 'MEDIUM',
+          payload: { listener: l, message: `New listening socket: ${l.command} on ${l.name}` },
+        });
+      }
+    }
+  }
+
+  // ─── Bluetooth anomalies ───────────────────────────────────────────
+  if (snapshot.bluetooth?.available) {
+    const bt = snapshot.bluetooth;
+    const prevBt = previous?.bluetooth || {};
+    const whitelist = new Set((state.whitelist?.bluetooth || []).map(d => (d.address || '').toLowerCase()));
+
+    if (bt.discoverable) {
+      events.push({
+        type: 'BT_DISCOVERABLE',
+        severity: 'MEDIUM',
+        payload: { message: 'Bluetooth controller is in discoverable mode. Disable from System Settings.' },
+      });
+    }
+
+    const prevAddrs = new Set((prevBt.devices || []).map(d => d.address));
+    for (const d of bt.devices || []) {
+      if (whitelist.has(d.address)) continue;
+      if (!prevAddrs.has(d.address)) {
+        const severity = d.connected ? 'HIGH' : 'LOW';
+        events.push({
+          type: 'BT_DEVICE_NEW',
+          severity,
+          payload: { device: d, message: d.connected ? 'New Bluetooth device is CONNECTED right now.' : 'New Bluetooth device seen.' },
+        });
+      }
+    }
+  }
+
+  // ─── Process integrity ────────────────────────────────────────────
+  if (snapshot.processes) {
+    const unsigned = snapshot.processes.unsigned || [];
+    if (unsigned.length > 0) {
+      events.push({
+        type: 'PROCESS_UNSIGNED',
+        severity: 'HIGH',
+        payload: {
+          count: unsigned.length,
+          paths: unsigned.map(u => u.path),
+          message: `${unsigned.length} unsigned binary(ies) running. Review each — unsigned code running with Gatekeeper enabled is suspicious.`,
+        },
+      });
+    }
+  }
+
+  // ─── Auth / login anomalies ───────────────────────────────────────
+  if (snapshot.logins) {
+    const fails = snapshot.logins.authFailureCount || 0;
+    if (fails >= 5) {
+      events.push({
+        type: 'AUTH_FAILURES',
+        severity: 'HIGH',
+        payload: { count: fails, message: `${fails} authentication failure(s) in the last hour.` },
+      });
+    }
+  }
+
+  return events;
+}
+
+module.exports = { analyze };
