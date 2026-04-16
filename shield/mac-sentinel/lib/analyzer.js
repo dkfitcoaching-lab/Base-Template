@@ -616,6 +616,102 @@ function analyze(snapshot, previous, state) {
     }
   }
 
+  // ─── App bundle integrity (v2.2) ──────────────────────────────────
+  if (snapshot.appBundles?.bundles) {
+    const prevMap = new Map((previous?.appBundles?.bundles || []).map(b => [b.path, b]));
+    for (const curr of snapshot.appBundles.bundles) {
+      const p = prevMap.get(curr.path);
+      if (!p) continue; // first-run baseline only
+      // Executable hash change — the most important signal. App updates
+      // normally change the executable hash, but they should ALSO change
+      // the signing identity or team ID to the vendor's new signing cert
+      // at the very least, and the mtime. We fire HIGH on any exec hash
+      // drift and let the user review.
+      if (p.execHash && curr.execHash && p.execHash !== curr.execHash && curr.execHash !== 'SKIPPED_TOO_LARGE') {
+        const identityChanged = p.identity !== curr.identity || p.teamId !== curr.teamId;
+        events.push({
+          type: 'APP_BUNDLE_MODIFIED',
+          severity: identityChanged ? 'CRITICAL' : 'HIGH',
+          payload: {
+            app: curr.name,
+            path: curr.path,
+            prevHash: p.execHash,
+            newHash: curr.execHash,
+            prevIdentity: p.identity,
+            newIdentity: curr.identity,
+            prevTeamId: p.teamId,
+            newTeamId: curr.teamId,
+            identityChanged,
+            message: identityChanged
+              ? `App executable AND signing identity both changed for ${curr.name}. This is the fingerprint of a replaced bundle, not a legitimate update.`
+              : `App executable hash changed for ${curr.name}. Verify this was a legitimate update by checking the vendor's release notes and the app's About menu.`,
+          },
+        });
+      }
+      // Info.plist-only changes are lower severity — common for version bumps.
+      if (p.infoPlistHash && curr.infoPlistHash && p.infoPlistHash !== curr.infoPlistHash && p.execHash === curr.execHash) {
+        events.push({
+          type: 'APP_BUNDLE_METADATA_CHANGED',
+          severity: 'LOW',
+          payload: { app: curr.name, path: curr.path },
+        });
+      }
+    }
+  }
+
+  // ─── Input methods / keyboards (v2.2) ─────────────────────────────
+  if (snapshot.inputSources?.paths) {
+    const prevPaths = previous?.inputSources?.paths || {};
+    for (const [dir, info] of Object.entries(snapshot.inputSources.paths)) {
+      const prev = prevPaths[dir]?.entries || [];
+      const prevByName = new Map(prev.map(e => [e.name, e]));
+      for (const entry of info.entries || []) {
+        const p = prevByName.get(entry.name);
+        if (!p) {
+          events.push({
+            type: 'INPUT_METHOD_NEW',
+            severity: 'HIGH',
+            payload: { dir, entry, message: `New input method/keyboard installed at ${entry.path}. A malicious IME sees every keystroke on the entire system.` },
+          });
+        } else if (p.infoHash && entry.infoHash && p.infoHash !== entry.infoHash) {
+          events.push({
+            type: 'INPUT_METHOD_MODIFIED',
+            severity: 'HIGH',
+            payload: { dir, entry, prevHash: p.infoHash, newHash: entry.infoHash },
+          });
+        }
+      }
+    }
+  }
+
+  // ─── Secure Boot policy (Apple Silicon, v2.2) ─────────────────────
+  if (snapshot.secureBoot?.isAppleSilicon && snapshot.secureBoot?.available) {
+    if (snapshot.secureBoot.fullSecurity === false) {
+      events.push({
+        type: 'SECUREBOOT_REDUCED',
+        severity: 'CRITICAL',
+        payload: {
+          securityMode: snapshot.secureBoot.securityMode,
+          kextPolicy: snapshot.secureBoot.kextPolicy,
+          bootPolicy: snapshot.secureBoot.bootPolicy,
+          message: `Apple Silicon Secure Boot is NOT in Full Security mode (current: ${snapshot.secureBoot.securityMode}). This permits unsigned kexts and custom kernel collections. An attacker who can lower secureboot policy owns the boot chain.`,
+        },
+      });
+    }
+    // Drift from previous scan is also CRITICAL.
+    if (previous?.secureBoot?.fullSecurity === true && snapshot.secureBoot.fullSecurity === false) {
+      events.push({
+        type: 'SECUREBOOT_LOWERED',
+        severity: 'CRITICAL',
+        payload: {
+          prevMode: previous.secureBoot.securityMode,
+          curMode: snapshot.secureBoot.securityMode,
+          message: 'Secure Boot policy was just lowered. This requires recovery mode and an admin password. Either you did it, or someone has physical access to your Mac.',
+        },
+      });
+    }
+  }
+
   // ─── VPN / tunnel state ───────────────────────────────────────────
   if (snapshot.network?.vpn) {
     const vpn = snapshot.network.vpn;

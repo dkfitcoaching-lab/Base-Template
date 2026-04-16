@@ -29,13 +29,37 @@
     "enabled": true,
     "restartBackoffMs": 5000
   },
+  "enforcement": {
+    "enabled": true,
+    "mode": "auto",
+    "gracePeriodSeconds": 259200
+  },
+  "selfHeal": {
+    "enabled": true,
+    "intervalMs": 300000,
+    "baseline": {
+      "lockdownMode": true,
+      "fileVault": true,
+      "sip": true,
+      "gatekeeper": true,
+      "firewall": true,
+      "firewallStealth": true,
+      "sharingServicesOff": true
+    }
+  },
+  "blocklist": {
+    "enabled": true,
+    "tableName": "shield_block"
+  },
   "paths": {
     "stateDir": "~/Library/Application Support/SHIELD",
     "certDir": "~/Library/Application Support/SHIELD/certs",
     "ledgerFile": "~/Library/Application Support/SHIELD/ledger.jsonl.enc",
     "stateFile": "~/Library/Application Support/SHIELD/state.json.enc",
     "verifierFile": "~/Library/Application Support/SHIELD/verifier.json",
-    "autoResponseFile": "~/Library/Application Support/SHIELD/autoresponse.json"
+    "autoResponseFile": "~/Library/Application Support/SHIELD/autoresponse.json",
+    "blocklistFile": "~/Library/Application Support/SHIELD/blocklist.json",
+    "startupBeaconFile": "~/Library/Application Support/SHIELD/boot.json"
   },
   "rules": []
 }

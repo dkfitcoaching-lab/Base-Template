@@ -31,6 +31,10 @@ const BannerServer = require('./lib/banner_server');
 const { LogStream } = require('./lib/log_stream');
 const forensic = require('./lib/forensic');
 const counterRecon = require('./lib/counter_recon');
+const Enforcer = require('./lib/enforcer');
+const SelfHeal = require('./lib/self_heal');
+const Blocklist = require('./lib/blocklist');
+const startupBeacon = require('./lib/startup_beacon');
 
 const collectors = {
   network:           require('./lib/collectors/network'),
@@ -53,6 +57,9 @@ const collectors = {
   honeypots:         require('./lib/collectors/honeypots'),
   shellRc:           require('./lib/collectors/shell_rc'),
   installerReceipts: require('./lib/collectors/installer_receipts'),
+  appBundles:        require('./lib/collectors/app_bundles'),
+  inputSources:      require('./lib/collectors/input_sources'),
+  secureBoot:        require('./lib/collectors/secureboot'),
 };
 
 // Time drift runs on its own schedule (default 10 min) — NTP queries
@@ -217,6 +224,7 @@ async function runCollectors() {
     integrity, processes, logins, sharing, canaries, usb,
     wifiDeauth, bootPersistence, clipboard, avDevices, egress,
     honeypots, shellRc, installerReceipts,
+    appBundles, inputSources, secureBoot,
   ] = await Promise.all([
     collectors.network.collect(),
     collectors.bluetooth.collect(),
@@ -237,17 +245,21 @@ async function runCollectors() {
     collectors.honeypots.collect(canaryUrl),
     collectors.shellRc.collect(),
     collectors.installerReceipts.collect(),
+    collectors.appBundles.collect(),
+    collectors.inputSources.collect(),
+    collectors.secureBoot.collect(),
   ]);
   return {
     network, bluetooth, profiles, launchAgents, loginItems,
     integrity, processes, logins, sharing, canaries, usb,
     wifiDeauth, bootPersistence, clipboard, avDevices, egress,
     honeypots, shellRc, installerReceipts,
+    appBundles, inputSources, secureBoot,
   };
 }
 
 // ─── Scan loop ────────────────────────────────────────────────────────────
-function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef }) {
+function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef, enforcer, blocklist }) {
   let previous = state.snapshots[state.snapshots.length - 1] || null;
   let lastStatus = null;
   let latestEvents = [];
@@ -307,6 +319,20 @@ function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwa
             ledger.append('AUTO_RESPONSE_ERROR', 'HIGH', { error: err.message });
           }
           break; // fire once per tick max
+        }
+      }
+
+      // Enforcement engine: take corrective action on every event
+      // that maps to a known enforcement handler. Runs regardless of
+      // severity — the engine has its own dispatch logic and its
+      // own grace-period gating.
+      if (enforcer) {
+        for (const ev of events) {
+          try {
+            await enforcer.handleEvent(ev, snapshot);
+          } catch (err) {
+            ledger.append('ENFORCEMENT_ERROR', 'HIGH', { event: ev.type, error: err.message });
+          }
         }
       }
 
@@ -376,6 +402,16 @@ function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwa
                 ? `Unknown LAN device at ${ip} has remote-access ports open (${result.remoteAccessOpen.join(', ')}). This is what an attacker control machine looks like.`
                 : `Probed unknown LAN device at ${ip}. Open ports: ${(result.openPorts || []).join(', ') || 'none'}.`,
             });
+            // If the probed device has remote-access ports open AND
+            // blocklist is enabled, block it at the pf firewall layer
+            // so that no traffic to or from it traverses this Mac.
+            if (severity === 'HIGH' && blocklist) {
+              try {
+                await blocklist.add(ip, 'remote-access-ports-open', { openPorts: result.openPorts });
+              } catch (err) {
+                ledger.append('BLOCKLIST_ADD_ERROR', 'HIGH', { ip, error: err.message });
+              }
+            }
           } catch (err) {
             ledger.append('COUNTER_RECON_ERROR', 'LOW', { ip, error: err.message });
           }
@@ -628,6 +664,37 @@ async function modeRun() {
   // Make sure canaries exist (no-op if they already do).
   try { collectors.canaries.ensureCanariesExist(); } catch {}
 
+  // ─── Startup beacon (unexpected-reboot detection) ─────────────────
+  try {
+    await startupBeacon.record({
+      append: (type, sev, payload) => ledger.append(type, sev, payload),
+      stateFile: CFG.paths.startupBeaconFile,
+      heartbeatFile: heartbeatPath(),
+    });
+  } catch (err) {
+    ledger.append('STARTUP_BEACON_ERROR', 'LOW', { error: err.message });
+  }
+
+  // ─── Enforcement engine (v2.2) ────────────────────────────────────
+  // Active enforcement — executes real actions on real events once the
+  // 72-hour grace period has elapsed. See docs/ENFORCEMENT.md.
+  const enforcer = new Enforcer({
+    config: CFG.enforcement || {},
+    append: (type, sev, payload) => ledger.append(type, sev, payload, { pwaAnchor: pwaAnchorRef.value }),
+    installedAt: (v.createdAt ? Date.parse(v.createdAt) : Date.now()),
+    stateDir: CFG.paths.stateDir,
+  });
+  // Seed baselines (etc-hosts, shell RCs) if they don't exist yet.
+  enforcer.seedBaselines();
+
+  // ─── Blocklist (pf firewall integration) ──────────────────────────
+  const blocklist = new Blocklist({
+    config: CFG.blocklist || {},
+    append: (type, sev, payload) => ledger.append(type, sev, payload),
+    stateFile: CFG.paths.blocklistFile,
+  });
+  await blocklist.start();
+
   // ─── Auto-response engine ─────────────────────────────────────────
   // Reads screen lock state, kills Wi-Fi, plays audible alarm, shows
   // alert dialog on CRITICAL events while the Mac is locked. 72-hour
@@ -645,7 +712,7 @@ async function modeRun() {
   // in every Sentinel ledger entry written during the main scan loop.
   const pwaAnchorRef = { value: null };
 
-  const runner = makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef });
+  const runner = makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef, enforcer, blocklist });
   const ctx = buildServerCtx({ key, ledger, keySalt, runner, state, autoResponse, pwaAnchorRef });
   const server = new Server(ctx);
   await server.start();
@@ -721,9 +788,23 @@ async function modeRun() {
   setTimeout(runTimeDrift, 15_000);
   setInterval(runTimeDrift, TIME_DRIFT_INTERVAL_MS);
 
+  // ─── Self-heal module (v2.2) ───────────────────────────────────────
+  // Runs independently on its own 5-minute timer. Verifies the
+  // declared hardening baseline and attempts to restore drift on
+  // items that can be restored programmatically.
+  const selfHeal = new SelfHeal({
+    append: (type, sev, payload) => ledger.append(type, sev, payload, { pwaAnchor: pwaAnchorRef.value }),
+    integrityCollector: collectors.integrity,
+    sharingCollector: collectors.sharing,
+    fireAutoResponse: async (ev) => autoResponse.fire(ev).catch(() => {}),
+    config: CFG.selfHeal || {},
+  });
+  selfHeal.start();
+
   // Graceful shutdown
   const shutdown = (sig) => async () => {
     ledger.append('APP_LOCK', 'INFO', { signal: sig });
+    try { selfHeal.stop(); } catch {}
     try { logStream.stop(); } catch {}
     try { await bannerServer.stop(); } catch {}
     await server.stop();
