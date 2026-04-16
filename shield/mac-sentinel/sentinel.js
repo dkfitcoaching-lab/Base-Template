@@ -29,25 +29,30 @@ const selfIntegrity = require('./lib/self_integrity');
 const AutoResponseEngine = require('./lib/auto_response');
 const BannerServer = require('./lib/banner_server');
 const { LogStream } = require('./lib/log_stream');
+const forensic = require('./lib/forensic');
+const counterRecon = require('./lib/counter_recon');
 
 const collectors = {
-  network:         require('./lib/collectors/network'),
-  bluetooth:       require('./lib/collectors/bluetooth'),
-  profiles:        require('./lib/collectors/profiles'),
-  launchAgents:    require('./lib/collectors/launch_agents'),
-  loginItems:      require('./lib/collectors/login_items'),
-  integrity:       require('./lib/collectors/integrity'),
-  processes:       require('./lib/collectors/processes'),
-  logins:          require('./lib/collectors/logins'),
-  sharing:         require('./lib/collectors/sharing'),
-  canaries:        require('./lib/collectors/canaries'),
-  usb:             require('./lib/collectors/usb'),
-  wifiDeauth:      require('./lib/collectors/wifi_deauth'),
-  bootPersistence: require('./lib/collectors/boot_persistence'),
-  clipboard:       require('./lib/collectors/clipboard'),
-  avDevices:       require('./lib/collectors/av_devices'),
-  egress:          require('./lib/collectors/egress'),
-  timeDrift:       require('./lib/collectors/time_drift'),
+  network:           require('./lib/collectors/network'),
+  bluetooth:         require('./lib/collectors/bluetooth'),
+  profiles:          require('./lib/collectors/profiles'),
+  launchAgents:      require('./lib/collectors/launch_agents'),
+  loginItems:        require('./lib/collectors/login_items'),
+  integrity:         require('./lib/collectors/integrity'),
+  processes:         require('./lib/collectors/processes'),
+  logins:            require('./lib/collectors/logins'),
+  sharing:           require('./lib/collectors/sharing'),
+  canaries:          require('./lib/collectors/canaries'),
+  usb:               require('./lib/collectors/usb'),
+  wifiDeauth:        require('./lib/collectors/wifi_deauth'),
+  bootPersistence:   require('./lib/collectors/boot_persistence'),
+  clipboard:         require('./lib/collectors/clipboard'),
+  avDevices:         require('./lib/collectors/av_devices'),
+  egress:            require('./lib/collectors/egress'),
+  timeDrift:         require('./lib/collectors/time_drift'),
+  honeypots:         require('./lib/collectors/honeypots'),
+  shellRc:           require('./lib/collectors/shell_rc'),
+  installerReceipts: require('./lib/collectors/installer_receipts'),
 };
 
 // Time drift runs on its own schedule (default 10 min) — NTP queries
@@ -206,10 +211,12 @@ function saveState(key, state) {
 
 // ─── Collector orchestration ──────────────────────────────────────────────
 async function runCollectors() {
+  const canaryUrl = (CFG.honeypots && CFG.honeypots.canaryUrl) || undefined;
   const [
     network, bluetooth, profiles, launchAgents, loginItems,
     integrity, processes, logins, sharing, canaries, usb,
     wifiDeauth, bootPersistence, clipboard, avDevices, egress,
+    honeypots, shellRc, installerReceipts,
   ] = await Promise.all([
     collectors.network.collect(),
     collectors.bluetooth.collect(),
@@ -227,11 +234,15 @@ async function runCollectors() {
     collectors.clipboard.collect(),
     collectors.avDevices.collect(),
     collectors.egress.collect(),
+    collectors.honeypots.collect(canaryUrl),
+    collectors.shellRc.collect(),
+    collectors.installerReceipts.collect(),
   ]);
   return {
     network, bluetooth, profiles, launchAgents, loginItems,
     integrity, processes, logins, sharing, canaries, usb,
     wifiDeauth, bootPersistence, clipboard, avDevices, egress,
+    honeypots, shellRc, installerReceipts,
   };
 }
 
@@ -297,6 +308,78 @@ function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwa
           }
           break; // fire once per tick max
         }
+      }
+
+      // iPhone cross-infection watch: any IPHONE_CONNECTED event starts
+      // a 60-second watch timer. After the window, we re-run the
+      // persistence-adjacent collectors and diff against the snapshot
+      // captured at the moment of the USB connection. Any drift = a
+      // possible cross-device payload delivery.
+      for (const ev of events) {
+        if (ev.type !== 'IPHONE_CONNECTED') continue;
+        const baselineSnapshot = {
+          launchAgents: snapshot.launchAgents,
+          profiles: snapshot.profiles,
+          loginItems: snapshot.loginItems,
+          bootPersistence: snapshot.bootPersistence,
+        };
+        runner.goAggressive(10 * 60 * 1000);
+        setTimeout(async () => {
+          try {
+            const [la2, pr2, li2, bp2] = await Promise.all([
+              collectors.launchAgents.collect(),
+              collectors.profiles.collect(),
+              collectors.loginItems.collect(),
+              collectors.bootPersistence.collect(),
+            ]);
+            // Cheap canonical-JSON comparison to flag any drift.
+            const before = canonicalJSON(baselineSnapshot);
+            const after = canonicalJSON({ launchAgents: la2, profiles: pr2, loginItems: li2, bootPersistence: bp2 });
+            if (before !== after) {
+              ledger.append('IPHONE_CROSS_INFECTION_SUSPECTED', 'CRITICAL', {
+                device: ev.payload.device,
+                window: '60s after USB connection',
+                drift: {
+                  launchAgentsChanged: canonicalJSON(baselineSnapshot.launchAgents) !== canonicalJSON(la2),
+                  profilesChanged: canonicalJSON(baselineSnapshot.profiles) !== canonicalJSON(pr2),
+                  loginItemsChanged: canonicalJSON(baselineSnapshot.loginItems) !== canonicalJSON(li2),
+                  bootPersistenceChanged: canonicalJSON(baselineSnapshot.bootPersistence) !== canonicalJSON(bp2),
+                },
+                message: 'Persistence surface changed within 60 seconds of an iPhone USB connection. Possible cross-device payload delivery. Review the launch_agents / profiles / login_items / boot_persistence events written around this timestamp.',
+              });
+            } else {
+              ledger.append('IPHONE_CROSS_INFECTION_CLEAN', 'INFO', { device: ev.payload.device, window: '60s' });
+            }
+          } catch (err) {
+            ledger.append('IPHONE_CROSS_INFECTION_ERROR', 'LOW', { error: err.message });
+          }
+        }, 60_000);
+        break; // only one watch per tick
+      }
+
+      // Counter-reconnaissance: for each new LAN device detected in this
+      // tick, run a TCP connect probe on remote-access ports. Any
+      // remote-access port open on the unknown device escalates the
+      // event severity retroactively via a follow-up COUNTER_RECON event.
+      for (const ev of events) {
+        if (ev.type !== 'DEVICE_NEW' || ev.payload?.scope !== 'network') continue;
+        const ip = ev.payload?.device?.ip;
+        if (!ip) continue;
+        // Fire and forget — probing takes up to ~10s total.
+        (async () => {
+          try {
+            const result = await counterRecon.probeDevice(ip);
+            const severity = result.remoteAccessOpen && result.remoteAccessOpen.length > 0 ? 'HIGH' : 'INFO';
+            ledger.append('COUNTER_RECON_RESULT', severity, {
+              result,
+              message: severity === 'HIGH'
+                ? `Unknown LAN device at ${ip} has remote-access ports open (${result.remoteAccessOpen.join(', ')}). This is what an attacker control machine looks like.`
+                : `Probed unknown LAN device at ${ip}. Open ports: ${(result.openPorts || []).join(', ') || 'none'}.`,
+            });
+          } catch (err) {
+            ledger.append('COUNTER_RECON_ERROR', 'LOW', { ip, error: err.message });
+          }
+        })();
       }
 
       previous = snapshot;
@@ -422,6 +505,35 @@ function buildServerCtx({ key, ledger, verifierSalt, verifierHex, keySalt, runne
 }
 
 // ─── Modes ────────────────────────────────────────────────────────────────
+async function modeForensic() {
+  // First-run forensic sweep. Runs BEFORE --setup. Assumes the Mac
+  // may already be compromised and prints a human-readable summary
+  // with color coding. If a verifier exists (SHIELD is already set
+  // up), we also write the findings to the ledger as a single
+  // INITIAL_FORENSIC_SWEEP entry. Otherwise we just print.
+  const result = await forensic.runSweep();
+  const v = loadVerifier();
+  if (v) {
+    const pin = process.env.SHIELD_PIN || await promptPin('PIN (to write findings to ledger): ');
+    const candidate = makeVerifier(pin, Buffer.from(v.salt, 'hex'));
+    if (candidate === v.verifier) {
+      const key = deriveKey(pin, Buffer.from(v.keySalt, 'hex'));
+      ensureDirs();
+      const ledger = new Ledger(CFG.paths.ledgerFile, key);
+      ledger.verify();
+      const severity = result.criticals > 0 ? 'CRITICAL' : result.highs > 0 ? 'HIGH' : 'INFO';
+      ledger.append('INITIAL_FORENSIC_SWEEP', severity, result);
+      console.log(`\nFindings written to ledger as INITIAL_FORENSIC_SWEEP (${severity}).`);
+    } else {
+      console.log('\nWrong PIN — findings NOT written to ledger. Console output above is the only record of this sweep.');
+    }
+  } else {
+    console.log('\nSHIELD not yet set up (no verifier found). This sweep is for triage only.');
+    console.log('After reviewing the findings above, run: node sentinel.js --setup');
+  }
+  process.exit(result.criticals > 0 ? 2 : 0);
+}
+
 async function modeSelfTest() {
   console.log('SHIELD self-test — running collectors once, no ledger writes…');
   const started = Date.now();
@@ -626,4 +738,5 @@ const args = process.argv.slice(2);
 if (args.includes('--self-test')) modeSelfTest();
 else if (args.includes('--setup')) setupPin();
 else if (args.includes('--pair')) modePair();
+else if (args.includes('--forensic')) modeForensic();
 else modeRun();

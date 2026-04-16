@@ -540,12 +540,79 @@ function analyze(snapshot, previous, state) {
       if (!d.fingerprint) continue;
       if (whitelist.has(d.fingerprint)) continue;
       if (!prevFp.has(d.fingerprint)) {
+        // iPhone connections get a dedicated event type so the runner
+        // can start a cross-infection watch timer.
+        if (d.isIphone) {
+          events.push({
+            type: 'IPHONE_CONNECTED',
+            severity: 'MEDIUM',
+            payload: { device: d, message: `iPhone connected via USB: ${d.name}. Starting 60-second cross-infection watch.` },
+          });
+        } else {
+          events.push({
+            type: 'USB_DEVICE_NEW',
+            severity: 'MEDIUM',
+            payload: { device: d, message: `New USB device: ${d.name || 'unknown'} (${d.vendorId || '?'}:${d.productId || '?'})` },
+          });
+        }
+      }
+    }
+  }
+
+  // ─── Honeypots (Part 3) ───────────────────────────────────────────
+  if (snapshot.honeypots?.honeypots) {
+    const prevMap = new Map((previous?.honeypots?.honeypots || []).map(h => [h.id, h]));
+    for (const hp of snapshot.honeypots.honeypots) {
+      const p = prevMap.get(hp.id);
+      if (!p) continue; // first-run baseline only
+      if (p.exists && !hp.exists) {
         events.push({
-          type: 'USB_DEVICE_NEW',
-          severity: 'MEDIUM',
-          payload: { device: d, message: `New USB device: ${d.name || 'unknown'} (${d.vendorId || '?'}:${d.productId || '?'})` },
+          type: 'HONEYPOT_REMOVED',
+          severity: 'CRITICAL',
+          payload: { id: hp.id, label: hp.label, path: hp.path, message: `Honeypot removed: ${hp.label}. Nothing legitimate touches this file.` },
+        });
+      } else if (p.exists && hp.exists && p.hash && hp.hash && p.hash !== hp.hash) {
+        events.push({
+          type: 'HONEYPOT_MODIFIED',
+          severity: 'CRITICAL',
+          payload: { id: hp.id, label: hp.label, path: hp.path, message: `Honeypot file content changed: ${hp.label}. Someone wrote to a file they have no reason to know exists.` },
+        });
+      } else if (p.exists && hp.exists && p.atime && hp.atime && p.atime !== hp.atime && p.mtime === hp.mtime) {
+        events.push({
+          type: 'HONEYPOT_ACCESSED',
+          severity: 'CRITICAL',
+          payload: { id: hp.id, label: hp.label, path: hp.path, prevAtime: p.atime, newAtime: hp.atime, message: `Honeypot file READ: ${hp.label}. An unknown process opened a decoy.` },
         });
       }
+    }
+  }
+
+  // ─── Shell RC files (bonus collector) ─────────────────────────────
+  if (snapshot.shellRc?.files) {
+    const prevMap = new Map((previous?.shellRc?.files || []).map(f => [f.path, f]));
+    for (const curr of snapshot.shellRc.files) {
+      const p = prevMap.get(curr.path);
+      if (!p) continue;
+      if (p.hash && curr.hash && p.hash !== curr.hash) {
+        events.push({
+          type: 'SHELL_RC_MODIFIED',
+          severity: 'HIGH',
+          payload: { path: curr.path, prevHash: p.hash, newHash: curr.hash, firstLines: curr.firstLines, lastLines: curr.lastLines, message: `Shell startup file modified: ${curr.path}. A single added line can re-establish attacker access every time you open a terminal.` },
+        });
+      }
+    }
+  }
+
+  // ─── Installer receipts (bonus collector) ─────────────────────────
+  if (snapshot.installerReceipts?.available) {
+    const p = previous?.installerReceipts;
+    if (p && p.available && p.count != null && snapshot.installerReceipts.count > p.count) {
+      const newEntries = (snapshot.installerReceipts.receipts || []).slice(-(snapshot.installerReceipts.count - p.count));
+      events.push({
+        type: 'INSTALLER_RECEIPT_NEW',
+        severity: 'HIGH',
+        payload: { count: snapshot.installerReceipts.count - p.count, newEntries, message: `${snapshot.installerReceipts.count - p.count} new macOS installer receipt(s). Someone ran a .pkg. Verify it was you.` },
+      });
     }
   }
 

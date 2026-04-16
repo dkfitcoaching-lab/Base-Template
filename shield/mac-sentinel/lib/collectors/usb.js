@@ -9,6 +9,18 @@
 
 const { run } = require('../shell');
 
+// Apple USB vendor ID is 0x05ac. iPhone family uses product IDs
+// 0x1290..0x12ab and 0x12a0..0x12ff historically. A cleaner heuristic:
+// vendor 0x05ac AND name contains "iPhone". Keep both for robustness.
+function isIphone(dev) {
+  const vendor = (dev.vendorId || '').toLowerCase();
+  const name = (dev.name || '').toLowerCase();
+  const mfr = (dev.manufacturer || '').toLowerCase();
+  const appleVendor = vendor.includes('0x05ac') || mfr.includes('apple');
+  const isIphoneName = name.includes('iphone');
+  return appleVendor && isIphoneName;
+}
+
 function walkUsb(tree, out, depth = 0) {
   if (!tree) return;
   if (Array.isArray(tree)) {
@@ -17,7 +29,7 @@ function walkUsb(tree, out, depth = 0) {
   }
   if (typeof tree !== 'object') return;
   if (tree._name) {
-    out.push({
+    const dev = {
       name: tree._name,
       manufacturer: tree.manufacturer || null,
       vendorId: tree.vendor_id || null,
@@ -27,7 +39,9 @@ function walkUsb(tree, out, depth = 0) {
       speed: tree.device_speed || null,
       bcdDevice: tree.bcd_device || null,
       fingerprint: [tree.vendor_id, tree.product_id, tree.serial_num, tree.location_id].filter(Boolean).join('/'),
-    });
+    };
+    dev.isIphone = isIphone(dev);
+    out.push(dev);
   }
   if (tree._items) walkUsb(tree._items, out, depth + 1);
 }
@@ -44,12 +58,15 @@ async function collect() {
   const root = parsed?.SPUSBDataType || [];
   const devices = [];
   walkUsb(root, devices);
+  const iphones = devices.filter(d => d.isIphone);
   return {
     available: true,
     devices,
+    iphones,
+    iphoneCount: iphones.length,
     count: devices.length,
     collectedAt: new Date().toISOString(),
   };
 }
 
-module.exports = { collect };
+module.exports = { collect, isIphone };
