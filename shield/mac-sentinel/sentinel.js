@@ -26,6 +26,9 @@ const { Server } = require('./lib/server');
 const { analyze, shouldEmit } = require('./lib/analyzer');
 const { applyRules, DEFAULTS: DEFAULT_RULES } = require('./lib/rules');
 const selfIntegrity = require('./lib/self_integrity');
+const AutoResponseEngine = require('./lib/auto_response');
+const BannerServer = require('./lib/banner_server');
+const { LogStream } = require('./lib/log_stream');
 
 const collectors = {
   network:         require('./lib/collectors/network'),
@@ -233,7 +236,7 @@ async function runCollectors() {
 }
 
 // ─── Scan loop ────────────────────────────────────────────────────────────
-function makeRunner({ key, ledger, state, selfIntegrityResult }) {
+function makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef }) {
   let previous = state.snapshots[state.snapshots.length - 1] || null;
   let lastStatus = null;
   let latestEvents = [];
@@ -265,8 +268,11 @@ function makeRunner({ key, ledger, state, selfIntegrityResult }) {
       const deduped = raw.filter(e => shouldEmit(e, rateLimiter));
       const events = applyRules(deduped, state.rules || DEFAULT_RULES, new Date());
 
-      // Persist to ledger.
-      for (const e of events) ledger.append(e.type, e.severity, e.payload);
+      // Persist to ledger — attach the current PWA anchor to each
+      // entry if one was provided by the last /journal POST. This is
+      // the outbound half of bidirectional ledger cross-sealing.
+      const currentPwaAnchor = pwaAnchorRef && pwaAnchorRef.value ? pwaAnchorRef.value : null;
+      for (const e of events) ledger.append(e.type, e.severity, e.payload, { pwaAnchor: currentPwaAnchor });
       latestEvents = events;
       lastStatus = buildStatus(snapshot, events);
 
@@ -277,6 +283,20 @@ function makeRunner({ key, ledger, state, selfIntegrityResult }) {
       if (topRank >= 3 && Date.now() >= aggressiveUntil) {
         aggressiveUntil = Date.now() + 10 * 60 * 1000;
         ledger.append('AGGRESSIVE_ON', 'INFO', { reason: 'auto-trigger on HIGH/CRITICAL', until: new Date(aggressiveUntil).toISOString() });
+      }
+
+      // Auto-response engine: fire for any CRITICAL event if the Mac
+      // is screen-locked and auto-response is enabled in config.
+      if (autoResponse) {
+        const criticals = events.filter(e => e.severity === 'CRITICAL');
+        for (const critical of criticals) {
+          try {
+            await autoResponse.fire(critical);
+          } catch (err) {
+            ledger.append('AUTO_RESPONSE_ERROR', 'HIGH', { error: err.message });
+          }
+          break; // fire once per tick max
+        }
       }
 
       previous = snapshot;
@@ -341,7 +361,7 @@ function buildStatus(snapshot, events) {
 }
 
 // ─── Server context ───────────────────────────────────────────────────────
-function buildServerCtx({ key, ledger, verifierSalt, verifierHex, keySalt, runner, state }) {
+function buildServerCtx({ key, ledger, verifierSalt, verifierHex, keySalt, runner, state, autoResponse, pwaAnchorRef }) {
   const v = loadVerifier();
   const certDir = CFG.paths.certDir;
   return {
@@ -354,6 +374,12 @@ function buildServerCtx({ key, ledger, verifierSalt, verifierHex, keySalt, runne
       return candidate === v.verifier;
     },
     getStatus: () => (runner ? runner.getStatus() : { ready: false }),
+    getLedgerLastHash: () => ledger.lastHash,
+    getAutoResponseState: () => (autoResponse ? { pending: autoResponse.isPending, state: autoResponse.state } : null),
+    acknowledgeAutoResponse: async () => {
+      if (!autoResponse) return { acknowledged: false, reason: 'disabled' };
+      return autoResponse.acknowledge();
+    },
     getAlerts: (since) => ledger.readSince(since).filter(e => e.severity !== 'INFO'),
     getLedger: (since) => ledger.readSince(since),
     getExport: () => ({
@@ -378,7 +404,13 @@ function buildServerCtx({ key, ledger, verifierSalt, verifierHex, keySalt, runne
       return state.whitelist;
     },
     recordJournal: (entry) => {
-      const written = ledger.append('JOURNAL_ENTRY', entry.severity || 'INFO', { ...entry, source: 'pwa' });
+      // Bidirectional cross-sealing inbound half: PWA sends its latest
+      // journal entry hash. We remember it so the NEXT Sentinel ledger
+      // entry can embed it in `pwaAnchor`.
+      if (entry && typeof entry.hash === 'string' && /^[0-9a-f]{64}$/.test(entry.hash)) {
+        if (pwaAnchorRef) pwaAnchorRef.value = entry.hash;
+      }
+      const written = ledger.append('JOURNAL_ENTRY', entry.severity || 'INFO', { ...entry, source: 'pwa' }, { pwaAnchor: entry?.hash || null });
       return written.id;
     },
     recordKillSwitch: (context) => {
@@ -483,13 +515,67 @@ async function modeRun() {
   const state = loadState(key);
   // Make sure canaries exist (no-op if they already do).
   try { collectors.canaries.ensureCanariesExist(); } catch {}
-  const runner = makeRunner({ key, ledger, state, selfIntegrityResult });
-  const ctx = buildServerCtx({ key, ledger, keySalt, runner, state });
+
+  // ─── Auto-response engine ─────────────────────────────────────────
+  // Reads screen lock state, kills Wi-Fi, plays audible alarm, shows
+  // alert dialog on CRITICAL events while the Mac is locked. 72-hour
+  // grace period after install so first-run false positives don't
+  // disrupt the user.
+  const autoResponse = new AutoResponseEngine({
+    config: CFG.autoResponse || {},
+    stateFile: CFG.paths.autoResponseFile,
+    append: (type, sev, payload) => ledger.append(type, sev, payload),
+    installedAt: (v.createdAt ? Date.parse(v.createdAt) : Date.now()),
+  });
+
+  // Mutable anchor reference for bidirectional cross-sealing. The
+  // most recent PWA journal entry hash is stored here and embedded
+  // in every Sentinel ledger entry written during the main scan loop.
+  const pwaAnchorRef = { value: null };
+
+  const runner = makeRunner({ key, ledger, state, selfIntegrityResult, autoResponse, pwaAnchorRef });
+  const ctx = buildServerCtx({ key, ledger, keySalt, runner, state, autoResponse, pwaAnchorRef });
   const server = new Server(ctx);
   await server.start();
   runner.start();
   console.log(`SHIELD Sentinel listening on https://${CFG.server.host}:${CFG.server.port}`);
   console.log(`Cert fingerprint: ${server.certFingerprint}`);
+
+  // ─── Banner server (deterrent notice on port 80) ──────────────────
+  // Disabled by default; requires root to bind port 80. Documented in
+  // docs/DEPLOY.md under "Advanced: deterrent banner."
+  const bannerServer = new BannerServer({
+    config: CFG.bannerServer || {},
+    append: (type, sev, payload) => ledger.append(type, sev, payload),
+    observedSince: v.createdAt || nowIso(),
+  });
+  await bannerServer.start();
+
+  // ─── Real-time log stream subscriber ──────────────────────────────
+  // Single persistent `log stream --predicate` subprocess fanning
+  // parsed events (wifi deauth, camera/mic activation, sudo,
+  // remote session) into the ledger. Replaces the 30-second polling
+  // latency of the individual collectors with sub-second real time.
+  const logStream = new LogStream({
+    config: CFG.logStream || {},
+    onEvent: (event) => {
+      try {
+        ledger.append(event.type, event.severity, { ...event.payload, source: 'log-stream' }, { pwaAnchor: pwaAnchorRef.value });
+        // Any HIGH/CRITICAL log-stream event should also fire the
+        // auto-response engine and flip aggressive mode.
+        if (event.severity === 'CRITICAL' || event.severity === 'HIGH') {
+          runner.goAggressive();
+        }
+        if (event.severity === 'CRITICAL') {
+          autoResponse.fire({ id: null, type: event.type, severity: 'CRITICAL', payload: event.payload }).catch(() => {});
+        }
+      } catch (err) {
+        try { ledger.append('LOG_STREAM_ERROR', 'LOW', { message: err.message }); } catch {}
+      }
+    },
+    onError: (err) => { try { ledger.append('LOG_STREAM_ERROR', 'LOW', { message: err.message }); } catch {} },
+  });
+  logStream.start();
 
   // ─── Time drift timer (separate from main scan loop) ──────────────
   const runTimeDrift = async () => {
@@ -526,6 +612,8 @@ async function modeRun() {
   // Graceful shutdown
   const shutdown = (sig) => async () => {
     ledger.append('APP_LOCK', 'INFO', { signal: sig });
+    try { logStream.stop(); } catch {}
+    try { await bannerServer.stop(); } catch {}
     await server.stop();
     process.exit(0);
   };

@@ -48,7 +48,7 @@
       return this.tamperInfo === null;
     }
 
-    async append(type, severity, payload = {}) {
+    async append(type, severity, payload = {}, extra = {}) {
       if (!SEVERITIES.includes(severity)) throw new Error('invalid severity: ' + severity);
       const unhashed = {
         id: window.ShieldCrypto.uuidv4(),
@@ -58,6 +58,11 @@
         severity,
         payload,
         prevHash: this.lastHash,
+        // Bidirectional cross-sealing: every journal entry embeds the
+        // most recent Sentinel ledger last-hash we have seen, so
+        // tampering with the Sentinel ledger is detectable from the
+        // PWA journal alone.
+        ...(extra && extra.sentinelAnchor ? { sentinelAnchor: extra.sentinelAnchor } : {}),
       };
       const hash = await window.ShieldCrypto.sha256Hex(this.lastHash + window.ShieldCrypto.canonicalJSON(unhashed));
       const entry = { ...unhashed, hash };

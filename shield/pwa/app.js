@@ -250,8 +250,6 @@
   function refreshAll() {
     const status = state.sentinelStatus;
     const topSev = status ? status.topSeverity : 'INFO';
-    // "Live" if we have a sync within the last 30s AND we're currently
-    // able to reach the Sentinel (last pollOnce succeeded with no error).
     const lastSyncMs = state.lastSentinelSyncAt ? Date.now() - new Date(state.lastSentinelSyncAt).getTime() : null;
     const isLive = lastSyncMs != null && lastSyncMs < 30_000 && !state.sentinel?.lastError;
     UI.renderStatusCard({
@@ -261,6 +259,42 @@
       lastSyncAt: state.lastSentinelSyncAt,
       isLive,
     });
+    // Auto-response banner: if the Sentinel reports a pending auto-
+    // response, show a prominent acknowledge banner at the top of the
+    // dashboard. Clicking it re-enables Wi-Fi and clears the state.
+    const arBanner = document.getElementById('auto-response-banner');
+    if (arBanner) {
+      const ar = status?.autoResponse;
+      if (ar && ar.pending) {
+        arBanner.classList.remove('hidden');
+        const type = ar.state?.lastEventType || 'CRITICAL event';
+        const firedAt = ar.state?.firedAt ? new Date(ar.state.firedAt).toLocaleString() : 'unknown';
+        arBanner.innerHTML = `
+          <div class="ar-body">
+            <div class="ar-label">AUTO-RESPONSE ACTIVE</div>
+            <div class="ar-title">Wi-Fi disabled on Mac — ${window.ShieldUI.escapeHtml(type)} at ${window.ShieldUI.escapeHtml(firedAt)}</div>
+            <div class="ar-desc">The Mac was screen-locked when a CRITICAL event fired. Wi-Fi was automatically disabled. Acknowledge to re-enable.</div>
+          </div>
+          <button class="btn btn-primary" id="btn-ack-ar">Acknowledge &amp; Restore Wi-Fi</button>`;
+        const btn = document.getElementById('btn-ack-ar');
+        if (btn) btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          btn.textContent = 'Acknowledging…';
+          const result = state.sentinel ? await state.sentinel.acknowledgeAutoResponse() : null;
+          if (result && result.acknowledged) {
+            await state.ledger.append('AUTO_RESPONSE_ACKNOWLEDGED', 'HIGH', { byPwa: true });
+            pollOnce();
+          } else {
+            alert('Acknowledge failed: ' + (result?.reason || state.sentinel?.lastError || 'unknown'));
+            btn.disabled = false;
+            btn.textContent = 'Acknowledge & Restore Wi-Fi';
+          }
+        });
+      } else {
+        arBanner.classList.add('hidden');
+        arBanner.innerHTML = '';
+      }
+    }
     UI.renderPosture(status?.summary);
     // Alerts: merge sentinel alerts with local ledger entries.
     const localAlerts = (state.ledger?.getAll() || []).filter(e => e.severity !== 'INFO');
@@ -322,10 +356,15 @@
     if (photoEl.files && photoEl.files[0]) {
       photoData = await fileToDataUrl(photoEl.files[0]);
     }
-    const entry = await state.ledger.append('JOURNAL_ENTRY', severity, { text, photoData });
+    // Bidirectional cross-sealing: embed the most recent Sentinel
+    // ledger last-hash we have seen as sentinelAnchor in every new
+    // journal entry. This means tampering with the Sentinel ledger
+    // is detectable from the PWA journal on its own.
+    const sentinelAnchor = state.sentinel?.sentinelAnchor || null;
+    const entry = await state.ledger.append('JOURNAL_ENTRY', severity, { text, photoData }, { sentinelAnchor });
     if (state.sentinel) {
       // Push a reference (without the photo) to the Sentinel ledger so
-      // cross-device integrity includes this entry.
+      // the Sentinel can anchor this hash in its own next entry.
       await state.sentinel.pushJournal({ id: entry.id, text, severity, hash: entry.hash, ts: entry.ts });
     }
     document.getElementById('je-text').value = '';
@@ -463,40 +502,185 @@
     if (out.photoData && typeof out.photoData === 'string') out.photoData = '[photo attached — decrypted in PWA only]';
     return out;
   }
+  function buildCaseNumber(genIso) {
+    const d = new Date(genIso);
+    const pad = n => String(n).padStart(2, '0');
+    return `SHIELD-${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}-${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}`;
+  }
+
   function renderPrintableHtml(blob) {
+    const caseNo = buildCaseNumber(blob.generatedAt);
     const row = (e) => `
       <tr class="${e.severity}">
-        <td>${escapeHtml(new Date(e.ts).toLocaleString())}</td>
-        <td>${escapeHtml(e.type)}</td>
-        <td>${escapeHtml(e.severity)}</td>
+        <td class="ts">${escapeHtml(new Date(e.ts).toISOString())}</td>
+        <td class="ty">${escapeHtml(e.type)}</td>
+        <td class="sv">${escapeHtml(e.severity)}</td>
+        <td class="hs">${escapeHtml((e.hash || '').slice(0,16))}…</td>
         <td><pre>${escapeHtml(JSON.stringify(e.payload, null, 2))}</pre></td>
       </tr>`;
     const pwaRows = (blob.pwa?.entries || []).map(row).join('');
     const senRows = (blob.sentinel?.entries || []).map(row).join('');
-    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SHIELD Evidence Report</title>
+
+    // Counts per severity, used in summary panel
+    const countBySev = (entries) => {
+      const o = { INFO: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0 };
+      for (const e of (entries || [])) o[e.severity] = (o[e.severity] || 0) + 1;
+      return o;
+    };
+    const pwaCounts = countBySev(blob.pwa?.entries);
+    const senCounts = countBySev(blob.sentinel?.entries);
+
+    const installedAt = blob.pwa?.entries?.find(e => e.type === 'APP_OPEN')?.ts || 'unknown';
+    const collectors = [
+      'network (ARP, Wi-Fi, gateway, DNS, sockets, VPN, rogue AP, mDNS)',
+      'bluetooth (paired + recent)',
+      'profiles (Configuration Profiles + Managed Preferences)',
+      'launch_agents (hash + diff of LaunchAgents/LaunchDaemons)',
+      'login_items (System Events + Background Items DB)',
+      'integrity (Lockdown Mode, FileVault, SIP, Gatekeeper, Firewall, TCC)',
+      'processes (codesign verification, unsigned flag)',
+      'logins (last, log show, per-sudo structured records)',
+      'sharing (launchctl probe of Screen Sharing, SSH, ARD, SMB, AFP, etc.)',
+      'canaries (honeypot files in LaunchAgents + state dir)',
+      'usb (system_profiler SPUSBDataType)',
+      'wifi_deauth (log show wifid disassoc)',
+      'boot_persistence (/etc/hosts, sudoers, rc.common, synthetic.conf, pam.d, StartupItems)',
+      'clipboard (pbpaste hash + frontmost app cross-ref)',
+      'av_devices (CoreMedia + coreaudiod log subscription + frontmost app)',
+      'egress (lsof + codesign-gated process baseline)',
+      'time_drift (sntp offset + com.apple.timed liveness)',
+      'log_stream (real-time: wifid, cameras, audio, sudo, loginwindow, screensharingd, ARDAgent)',
+    ];
+
+    return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>SHIELD Incident Evidence Report — ${caseNo}</title>
 <style>
-body{font-family:system-ui,sans-serif;max-width:900px;margin:40px auto;padding:0 20px;color:#222}
-h1{border-bottom:2px solid #C23B22;padding-bottom:8px}
-h2{margin-top:32px}
-table{border-collapse:collapse;width:100%;font-size:12px}
-th,td{border:1px solid #ddd;padding:6px;text-align:left;vertical-align:top}
-th{background:#f4f4f4}
-tr.CRITICAL{background:#fbe8e3}
-tr.HIGH{background:#fdebd5}
-tr.MEDIUM{background:#fdf8e0}
-pre{white-space:pre-wrap;word-wrap:break-word;margin:0;font-size:11px}
-.meta{color:#666;font-size:12px}
+@page { size: Letter; margin: 0.75in; }
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #0A0A0C;
+  color: #F0ECE6;
+  font: 13px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  max-width: 960px;
+  padding: 48px 36px;
+  margin: 0 auto;
+}
+header {
+  border-bottom: 2px solid #C23B22;
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+}
+.doctype { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #C23B22; font-weight: 700; margin-bottom: 8px; }
+h1 { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Georgia, serif; font-size: 24px; margin: 0 0 6px; letter-spacing: -0.01em; color: #F0ECE6; font-weight: 600; }
+.case { font-family: "SF Mono", Menlo, monospace; font-size: 12px; color: #908A84; letter-spacing: 0.04em; }
+.meta { color: #908A84; font-size: 11px; margin-top: 14px; line-height: 1.7; }
+.meta strong { color: #F0ECE6; font-weight: 500; }
+h2 { font-size: 14px; margin: 36px 0 12px; color: #F0ECE6; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; border-bottom: 1px solid #24242B; padding-bottom: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
+.cell { border: 1px solid #24242B; border-radius: 6px; padding: 10px 12px; background: #111115; }
+.cell .k { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #605A54; }
+.cell .v { font-size: 16px; font-weight: 600; color: #F0ECE6; margin-top: 4px; }
+.cell.red .v { color: #E25438; }
+.cell.warn .v { color: #D4A017; }
+.cell.ok .v { color: #2E7D32; }
+table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-top: 8px; }
+th { text-align: left; background: #17171C; color: #908A84; font-weight: 500; border-bottom: 1px solid #24242B; padding: 8px 10px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.04em; }
+td { border-bottom: 1px solid #17171C; padding: 8px 10px; vertical-align: top; color: #D4CFC8; }
+td.ts, td.hs { font-family: "SF Mono", Menlo, monospace; font-size: 10px; color: #908A84; white-space: nowrap; }
+td.ty { font-family: "SF Mono", Menlo, monospace; font-size: 10px; color: #F0ECE6; white-space: nowrap; }
+td.sv { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+tr.INFO td.sv     { color: #908A84; }
+tr.LOW td.sv      { color: #558B2F; }
+tr.MEDIUM td.sv   { color: #D4A017; }
+tr.HIGH td.sv     { color: #E57C00; }
+tr.CRITICAL td.sv { color: #E25438; }
+tr.CRITICAL { background: rgba(194, 59, 34, 0.05); }
+pre { font-family: "SF Mono", Menlo, monospace; font-size: 10px; white-space: pre-wrap; word-wrap: break-word; margin: 0; color: #908A84; max-width: 460px; }
+.chain { font-family: "SF Mono", Menlo, monospace; font-size: 11px; background: #111115; border: 1px solid #24242B; border-left: 3px solid #C23B22; padding: 14px 18px; border-radius: 4px; color: #D4CFC8; word-break: break-all; }
+.chain .lbl { color: #908A84; text-transform: uppercase; font-size: 9px; letter-spacing: 0.1em; display: block; margin-bottom: 4px; }
+.stmt { border-left: 3px solid #C23B22; padding: 12px 18px; background: #111115; color: #D4CFC8; margin: 14px 0; font-size: 12px; }
+.stmt strong { color: #F0ECE6; }
+.cfg ul { margin: 8px 0 0; padding-left: 20px; }
+.cfg li { font-family: "SF Mono", Menlo, monospace; font-size: 10px; color: #908A84; line-height: 1.8; }
+footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid #24242B; color: #605A54; font-size: 10px; line-height: 1.7; }
+footer strong { color: #908A84; }
+@media print {
+  body { background: white; color: #222; max-width: none; }
+  .cell { background: #f8f8f8; border-color: #ddd; }
+  .cell .v { color: #000; }
+  th { background: #eee; color: #333; border-color: #ccc; }
+  td { color: #222; border-color: #eee; }
+  td.ts, td.hs, td.ty, pre, .cell .k, .chain .lbl, .cfg li, footer { color: #555; }
+  .chain { background: #f8f8f8; border-color: #ddd; border-left-color: #C23B22; }
+  .stmt { background: #f8f8f8; border-color: #ddd; border-left-color: #C23B22; color: #222; }
+  h1, h2, strong { color: #000; }
+  tr.CRITICAL { background: #fde8e3; }
+}
 </style></head><body>
-<h1>SHIELD Evidence Report</h1>
-<p class="meta">Generated ${escapeHtml(blob.generatedAt)}<br>Device: ${escapeHtml(blob.device)}</p>
+<header>
+  <div class="doctype">Incident Evidence Report</div>
+  <h1>Host-Based Intrusion Detection System — Evidence Export</h1>
+  <div class="case">Case No. ${escapeHtml(caseNo)}</div>
+  <div class="meta">
+    <strong>Generated</strong> ${escapeHtml(blob.generatedAt)} (UTC)<br>
+    <strong>Device of record</strong> ${escapeHtml(blob.device)}<br>
+    <strong>Observation period begins</strong> ${escapeHtml(installedAt)}<br>
+    <strong>Jurisdiction of interest</strong> Ohio, USA — 18 U.S.C. § 1030; Ohio Revised Code § 2913.04
+  </div>
+</header>
 
-<h2>PWA Journal</h2>
-<p class="meta">Entries: ${blob.pwa?.ledgerCount ?? 0} · Last hash: <code>${escapeHtml(blob.pwa?.lastHash || '')}</code> · Tamper: ${blob.pwa?.tamperInfo ? 'DETECTED — ' + escapeHtml(JSON.stringify(blob.pwa.tamperInfo)) : 'not detected'}</p>
-<table><thead><tr><th>Timestamp</th><th>Type</th><th>Sev</th><th>Payload</th></tr></thead><tbody>${pwaRows}</tbody></table>
+<div class="stmt">
+This document is a cryptographically integrity-checked export of events recorded by SHIELD, a host-based intrusion detection system operated by the device owner on equipment owned by the device owner and observing only that equipment and its directly connected network. Records are preserved in a hash-chained, tamper-evident ledger using <strong>PBKDF2-HMAC-SHA256</strong> (600,000 iterations) key derivation, <strong>AES-256-GCM</strong> authenticated encryption, and <strong>SHA-256</strong> hash chaining. Any post-export modification is detectable via the chain verification procedure described at the end of this document.
+</div>
 
-<h2>Mac Sentinel Ledger</h2>
-${blob.sentinel ? `<p class="meta">Entries: ${blob.sentinel.ledgerCount ?? 0} · Last hash: <code>${escapeHtml(blob.sentinel.ledgerLastHash || '')}</code> · Tamper: ${blob.sentinel.ledgerTampered ? 'DETECTED' : 'not detected'}</p>
-<table><thead><tr><th>Timestamp</th><th>Type</th><th>Sev</th><th>Payload</th></tr></thead><tbody>${senRows}</tbody></table>` : '<p class="meta">Sentinel not paired — no data.</p>'}
+<h2>Summary</h2>
+<div class="grid">
+  <div class="cell"><div class="k">Entries (PWA journal)</div><div class="v">${blob.pwa?.ledgerCount ?? 0}</div></div>
+  <div class="cell"><div class="k">Entries (Mac Sentinel)</div><div class="v">${blob.sentinel?.ledgerCount ?? 0}</div></div>
+  <div class="cell ${blob.pwa?.tamperInfo ? 'red' : 'ok'}"><div class="k">PWA Chain</div><div class="v">${blob.pwa?.tamperInfo ? 'TAMPERED' : 'VERIFIED'}</div></div>
+  <div class="cell ${blob.sentinel?.ledgerTampered ? 'red' : 'ok'}"><div class="k">Sentinel Chain</div><div class="v">${blob.sentinel?.ledgerTampered ? 'TAMPERED' : 'VERIFIED'}</div></div>
+  <div class="cell ${(pwaCounts.CRITICAL + senCounts.CRITICAL) > 0 ? 'red' : 'ok'}"><div class="k">Critical events</div><div class="v">${pwaCounts.CRITICAL + senCounts.CRITICAL}</div></div>
+  <div class="cell ${(pwaCounts.HIGH + senCounts.HIGH) > 0 ? 'warn' : 'ok'}"><div class="k">High-severity</div><div class="v">${pwaCounts.HIGH + senCounts.HIGH}</div></div>
+</div>
+
+<h2>Chain of custody</h2>
+<div class="chain">
+<span class="lbl">Observation started</span>${escapeHtml(installedAt)}
+<br><br>
+<span class="lbl">Export generated</span>${escapeHtml(blob.generatedAt)}
+<br><br>
+<span class="lbl">PWA journal — final chain hash</span>${escapeHtml(blob.pwa?.lastHash || 'none')}
+<br><br>
+<span class="lbl">Sentinel ledger — final chain hash</span>${escapeHtml(blob.sentinel?.ledgerLastHash || 'not paired')}
+<br><br>
+<span class="lbl">Integrity verification procedure</span>Walk each ledger from its genesis entry, recompute SHA-256(prevHash || canonicalJSON(entry without hash field)), and verify it matches the entry's hash field. Mismatch at any index indicates tampering. The final chain hashes above are the authoritative commitment for this export.
+</div>
+
+<h2>System configuration at time of export</h2>
+<div class="cfg">
+<p class="meta">Active collectors, scan cadence, and detection surface:</p>
+<ul>
+${collectors.map(c => `<li>${escapeHtml(c)}</li>`).join('\n')}
+</ul>
+<p class="meta">Main scan cadence <strong>30 s</strong> with ±20% jitter. Aggressive cadence <strong>5 s</strong> triggered automatically on any HIGH or CRITICAL event. Time drift check every <strong>10 min</strong> on a separate timer. Real-time log stream subprocess for auth, camera, microphone, and remote-session events. PBKDF2 at <strong>600,000</strong> iterations. Bidirectional ledger cross-sealing between PWA and Sentinel.</p>
+</div>
+
+<h2>PWA Journal Events</h2>
+<p class="meta">Event count: ${blob.pwa?.ledgerCount ?? 0} (INFO ${pwaCounts.INFO}, LOW ${pwaCounts.LOW}, MEDIUM ${pwaCounts.MEDIUM}, HIGH ${pwaCounts.HIGH}, CRITICAL ${pwaCounts.CRITICAL})</p>
+${pwaRows ? `<table><thead><tr><th>Timestamp (UTC)</th><th>Type</th><th>Sev</th><th>Hash</th><th>Payload</th></tr></thead><tbody>${pwaRows}</tbody></table>` : '<p class="meta">No entries.</p>'}
+
+<h2>Mac Sentinel Ledger Events</h2>
+${blob.sentinel ? `<p class="meta">Event count: ${blob.sentinel.ledgerCount ?? 0} (INFO ${senCounts.INFO}, LOW ${senCounts.LOW}, MEDIUM ${senCounts.MEDIUM}, HIGH ${senCounts.HIGH}, CRITICAL ${senCounts.CRITICAL})</p>
+${senRows ? `<table><thead><tr><th>Timestamp (UTC)</th><th>Type</th><th>Sev</th><th>Hash</th><th>Payload</th></tr></thead><tbody>${senRows}</tbody></table>` : '<p class="meta">No entries.</p>'}` : '<p class="meta">Mac Sentinel not paired at time of export. PWA journal is the sole record.</p>'}
+
+<footer>
+<strong>Prepared by</strong> SHIELD host-based intrusion detection system, version 2.0.<br>
+<strong>Cryptographic method</strong> SHA-256 hash chaining. PBKDF2-HMAC-SHA256 at 600,000 iterations for key derivation. AES-256-GCM authenticated encryption for ledger storage. HMAC-SHA256 self-integrity manifest of daemon source files verified on every start.<br>
+<strong>Observation scope</strong> One device and its directly connected network, owned and operated by the device owner. No third-party equipment or traffic was observed or intercepted.<br>
+<strong>Disclaimer</strong> This document is a factual record of events observed on the device of record. It is not legal advice. Interpretation and any subsequent action should be undertaken in consultation with qualified counsel.<br>
+<strong>Case No.</strong> ${escapeHtml(caseNo)}
+</footer>
 </body></html>`;
   }
   function escapeHtml(str) {

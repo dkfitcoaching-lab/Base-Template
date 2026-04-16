@@ -137,10 +137,64 @@ label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-botto
   box-shadow: 0 0 20px rgba(194, 59, 34, 1);
   animation: pulse 1.5s infinite;
 }
+/* Ambient pulse: subtle breathing glow while monitoring is active and safe */
+.top-bar .threat-dot.safe {
+  animation: ambient 3.6s ease-in-out infinite;
+}
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.15); }
 }
+@keyframes ambient {
+  0%, 100% { box-shadow: 0 0 8px rgba(46, 125, 50, 0.35); }
+  50%      { box-shadow: 0 0 16px rgba(46, 125, 50, 0.7); }
+}
+
+/* Auto-response acknowledge banner */
+.ar-banner {
+  background: linear-gradient(180deg, rgba(194,59,34,0.20), rgba(194,59,34,0.08));
+  border: 1px solid var(--accent-hi);
+  border-left: 4px solid var(--accent-hi);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 16px 0 8px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 10px 32px rgba(194, 59, 34, 0.25);
+  animation: ar-pulse 2s ease-in-out infinite alternate;
+}
+@keyframes ar-pulse {
+  from { box-shadow: 0 8px 24px rgba(194, 59, 34, 0.2); }
+  to   { box-shadow: 0 14px 40px rgba(194, 59, 34, 0.5); }
+}
+.ar-banner .ar-body { flex: 1; min-width: 0; }
+.ar-banner .ar-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-hi); font-weight: 700; }
+.ar-banner .ar-title { font-weight: 600; margin: 4px 0 6px; font-size: 1rem; }
+.ar-banner .ar-desc { color: var(--text-dim); font-size: 0.82rem; line-height: 1.5; }
+
+/* About card */
+.about-row { display: flex; gap: 16px; align-items: flex-start; }
+.about-mark { width: 48px; height: 48px; flex-shrink: 0; }
+.about-title { font-family: -apple-system, "SF Pro Display", system-ui, sans-serif; font-weight: 600; letter-spacing: 0.06em; font-size: 1.2rem; color: var(--text); }
+.about-ver { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em; margin-top: 2px; }
+.about-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; margin-top: 10px; }
+
+/* Onboarding wizard */
+.wizard {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 32px;
+  z-index: 999;
+}
+.wizard.hidden { display: none; }
+.wizard-logo { width: 88px; height: 88px; margin-bottom: 20px; }
+.wizard h1 { font-size: 1.75rem; margin-bottom: 8px; letter-spacing: -0.02em; }
+.wizard .wizard-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-hi); font-weight: 700; margin-bottom: 8px; }
+.wizard p { max-width: 420px; text-align: center; color: var(--text-dim); margin: 0 0 14px; font-size: 0.92rem; }
+.wizard .wizard-card { max-width: 440px; width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 24px; }
+.wizard .step-dots { display: flex; gap: 6px; margin-top: 18px; }
+.wizard .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.wizard .step-dot.active { background: var(--accent); }
 .icon-btn { width: 44px; height: 44px; min-width: 0; min-height: 0; padding: 0; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid transparent; border-radius: var(--radius-sm); cursor: pointer; color: var(--text); }
 .icon-btn:hover { background: var(--surface-2); border-color: var(--border); }
 .icon-btn svg { width: 22px; height: 22px; }

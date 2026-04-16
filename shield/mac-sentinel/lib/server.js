@@ -163,7 +163,7 @@ class Server {
         });
       }
 
-      if (path === '/auth' && req.method === 'POST') {
+      if (route === '/auth' && req.method === 'POST') {
         const body = await this._body(req);
         const { pin } = JSON.parse(body || '{}');
         if (typeof pin !== 'string') return this._json(res, 400, { error: 'pin required' });
@@ -175,33 +175,45 @@ class Server {
 
       if (!this._checkToken(req)) return this._json(res, 401, { error: 'unauthorized' });
 
-      if (path === '/status' && req.method === 'GET') {
-        return this._json(res, 200, this.ctx.getStatus());
+      if (route === '/status' && req.method === 'GET') {
+        const status = this.ctx.getStatus() || {};
+        // Bidirectional cross-sealing: include the current Sentinel
+        // ledger last-hash so the PWA can anchor it in its next journal
+        // entry. Also include the auto-response state so the PWA can
+        // render an acknowledge banner when needed.
+        if (this.ctx.getLedgerLastHash) status.ledgerLastHash = this.ctx.getLedgerLastHash();
+        if (this.ctx.getAutoResponseState) status.autoResponse = this.ctx.getAutoResponseState();
+        return this._json(res, 200, status);
       }
-      if (path === '/alerts' && req.method === 'GET') {
+      if (route === '/acknowledge' && req.method === 'POST') {
+        if (!this.ctx.acknowledgeAutoResponse) return this._json(res, 501, { error: 'not-implemented' });
+        const result = await this.ctx.acknowledgeAutoResponse();
+        return this._json(res, 200, result);
+      }
+      if (route === '/alerts' && req.method === 'GET') {
         const since = url.searchParams.get('since') || '1970-01-01T00:00:00Z';
         return this._json(res, 200, this.ctx.getAlerts(since));
       }
-      if (path === '/ledger' && req.method === 'GET') {
+      if (route === '/ledger' && req.method === 'GET') {
         const since = url.searchParams.get('since') || '1970-01-01T00:00:00Z';
         return this._json(res, 200, this.ctx.getLedger(since));
       }
-      if (path === '/export' && req.method === 'GET') {
+      if (route === '/export' && req.method === 'GET') {
         return this._json(res, 200, this.ctx.getExport());
       }
-      if (path === '/whitelist' && req.method === 'POST') {
+      if (route === '/whitelist' && req.method === 'POST') {
         const body = await this._body(req);
         const change = JSON.parse(body || '{}');
         const next = this.ctx.modifyWhitelist(change);
         return this._json(res, 200, { whitelist: next });
       }
-      if (path === '/journal' && req.method === 'POST') {
+      if (route === '/journal' && req.method === 'POST') {
         const body = await this._body(req);
         const entry = JSON.parse(body || '{}');
         const id = this.ctx.recordJournal(entry);
-        return this._json(res, 200, { id });
+        return this._json(res, 200, { id, ledgerLastHash: this.ctx.getLedgerLastHash ? this.ctx.getLedgerLastHash() : null });
       }
-      if (path === '/killswitch' && req.method === 'POST') {
+      if (route === '/killswitch' && req.method === 'POST') {
         const body = await this._body(req);
         const context = JSON.parse(body || '{}');
         const id = this.ctx.recordKillSwitch(context);

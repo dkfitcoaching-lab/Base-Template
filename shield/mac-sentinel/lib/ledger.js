@@ -112,9 +112,11 @@ class Ledger {
    * @param {string} type
    * @param {string} severity
    * @param {object} payload
+   * @param {object} [extra]  optional top-level fields such as pwaAnchor
+   *                           (bidirectional ledger cross-sealing)
    * @returns {object} the written entry
    */
-  append(type, severity, payload = {}) {
+  append(type, severity, payload = {}, extra = {}) {
     if (!SEVERITIES.includes(severity)) {
       throw new Error(`invalid severity: ${severity}`);
     }
@@ -126,6 +128,7 @@ class Ledger {
       severity,
       payload,
       prevHash: this._lastHash,
+      ...(extra && extra.pwaAnchor ? { pwaAnchor: extra.pwaAnchor } : {}),
     };
     const hash = sha256(this._lastHash + canonicalJSON(unhashed));
     const entry = { ...unhashed, hash };

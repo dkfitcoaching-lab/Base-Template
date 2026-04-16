@@ -111,11 +111,24 @@
         const body = await res.json();
         this.lastStatus = body;
         this.lastError = null;
+        // Capture the Sentinel ledger last-hash for bidirectional
+        // cross-sealing. app.js will embed this in the next journal
+        // entry as `sentinelAnchor`.
+        if (body && typeof body.ledgerLastHash === 'string') {
+          this.sentinelAnchor = body.ledgerLastHash;
+        }
         return body;
       } catch (err) {
         this.lastError = err.message;
         return null;
       }
+    }
+
+    async acknowledgeAutoResponse() {
+      try {
+        const res = await this._fetchAuthed('/acknowledge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+        return await res.json();
+      } catch (err) { this.lastError = err.message; return null; }
     }
 
     async getAlerts(sinceIso = '1970-01-01T00:00:00Z') {

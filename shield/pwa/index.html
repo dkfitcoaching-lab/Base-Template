@@ -77,6 +77,9 @@
       </button>
     </div>
 
+    <!-- Auto-response acknowledge banner (shown only when pending) -->
+    <div id="auto-response-banner" class="ar-banner hidden"></div>
+
     <!-- Dashboard view -->
     <section id="view-dashboard" class="view">
       <div class="status-card" id="status-card">
@@ -229,6 +232,18 @@
           </tbody>
         </table>
         <small>Full details in <code>docs/CAPABILITIES.md</code>.</small>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>About</h2></div>
+        <div class="about-row">
+          <svg class="about-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C23B22"/><stop offset="100%" stop-color="#7A1F10"/></linearGradient></defs><path d="M32 6 L54 16 L54 34 Q54 50 32 58 Q10 50 10 34 L10 16 Z" fill="url(#ag)" stroke="#F0ECE6" stroke-width="2"/><path d="M32 6 L32 58" stroke="#F0ECE6" stroke-width="1.5" opacity="0.4"/></svg>
+          <div>
+            <div class="about-title">SHIELD</div>
+            <div class="about-ver">Version 2.0 · Host-based intrusion detection</div>
+            <div class="about-desc">Zero external dependencies. Zero network egress. All persistent state is AES-256-GCM encrypted under a PIN-derived key. Hash-chained, tamper-evident ledger across iPhone and MacBook. Designed and built for private personal use only.</div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
